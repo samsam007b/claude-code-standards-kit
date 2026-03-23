@@ -1,45 +1,45 @@
 #!/bin/bash
 # ═══════════════════════════════════════════════════════════════
-# SQWR Project Kit — Initialisation d'un nouveau projet
+# SQWR Project Kit — New project initialization
 # ═══════════════════════════════════════════════════════════════
 #
-# Rôle : Bootstrap automatique d'un nouveau projet SQWR.
-#        Copie les templates (CLAUDE.md, .env.example, .gitignore),
-#        inclut les contrats selon la stack choisie, et initialise
-#        optionnellement un dépôt git.
+# Role: Automatic bootstrap of a new SQWR project.
+#       Copies templates (CLAUDE.md, .env.example, .gitignore),
+#       includes contracts based on the chosen stack, and optionally
+#       initializes a git repository.
 #
-# Usage :
-#   bash init-project.sh --name <nom> --stack <stack> --path <chemin>
+# Usage:
+#   bash init-project.sh --name <name> --stack <stack> --path <path>
 #
-# Arguments :
-#   --name   Nom du projet (requis — prompt interactif si absent)
-#   --stack  Stack technique (défaut : nextjs-supabase)
-#   --path   Chemin de destination (défaut : ./nom-du-projet)
+# Arguments:
+#   --name   Project name (required — interactive prompt if missing)
+#   --stack  Tech stack (default: nextjs-supabase)
+#   --path   Destination path (default: ./project-name)
 #
-# Stacks disponibles :
+# Available stacks:
 #   nextjs-supabase      → NextJS + Supabase + Vercel + TypeScript + Design + Security + Testing + Performance + Accessibility
 #   nextjs               → NextJS + Vercel + TypeScript + Design + Security + Testing + Performance + Accessibility
 #   nextjs-supabase-ai   → nextjs-supabase + AI-Prompting + Anti-Hallucination
 #   python               → Python + Security + Testing
 #   ios                  → iOS + Accessibility + Security + Testing
 #
-# Exemples :
-#   bash init-project.sh --name "mon-site" --stack "nextjs-supabase"
-#   bash init-project.sh --name "api-python" --stack "python" --path "/Desktop/api"
+# Examples:
+#   bash init-project.sh --name "my-site" --stack "nextjs-supabase"
+#   bash init-project.sh --name "python-api" --stack "python" --path "/Desktop/api"
 #
-# Erreurs fréquentes :
-#   "Argument inconnu"    → vérifier l'orthographe des flags (--name, --stack, --path)
-#   "Stack non reconnue"  → utiliser une des 4 stacks documentées ci-dessus
-#   Permission denied     → lancer avec `bash init-project.sh` (pas besoin de chmod)
+# Common errors:
+#   "Unknown argument"      → check flag spelling (--name, --stack, --path)
+#   "Unrecognized stack"    → use one of the 4 documented stacks above
+#   Permission denied       → run with `bash init-project.sh` (no chmod needed)
 #
-# Prérequis : bash ≥3.2 (macOS défaut), git (optionnel pour init repo)
+# Prerequisites: bash ≥3.2 (macOS default), git (optional for repo init)
 # ═══════════════════════════════════════════════════════════════
 
 set -e
 
 KIT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
-# ─── Couleurs ───────────────────────────────────────────────
+# ─── Colors ─────────────────────────────────────────────────
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 YELLOW='\033[1;33m'
@@ -60,14 +60,14 @@ while [[ "$#" -gt 0 ]]; do
     --name) PROJECT_NAME="$2"; shift ;;
     --stack) PROJECT_STACK="$2"; shift ;;
     --path) PROJECT_PATH="$2"; shift ;;
-    *) echo -e "${RED}Argument inconnu: $1${NC}"; exit 1 ;;
+    *) echo -e "${RED}Unknown argument: $1${NC}"; exit 1 ;;
   esac
   shift
 done
 
 # ─── Validation ─────────────────────────────────────────────
 if [ -z "$PROJECT_NAME" ]; then
-  echo -e "${YELLOW}Nom du projet:${NC} "
+  echo -e "${YELLOW}Project name:${NC} "
   read -r PROJECT_NAME
 fi
 
@@ -76,48 +76,48 @@ if [ -z "$PROJECT_PATH" ]; then
 fi
 
 echo ""
-echo -e "Projet    : ${GREEN}$PROJECT_NAME${NC}"
+echo -e "Project   : ${GREEN}$PROJECT_NAME${NC}"
 echo -e "Stack     : ${GREEN}$PROJECT_STACK${NC}"
-echo -e "Chemin    : ${GREEN}$PROJECT_PATH${NC}"
+echo -e "Path      : ${GREEN}$PROJECT_PATH${NC}"
 echo ""
 
-# ─── Création du dossier ─────────────────────────────────────
+# ─── Create directory ────────────────────────────────────────
 if [ ! -d "$PROJECT_PATH" ]; then
   mkdir -p "$PROJECT_PATH"
-  echo -e "${GREEN}✓${NC} Dossier créé : $PROJECT_PATH"
+  echo -e "${GREEN}✓${NC} Directory created: $PROJECT_PATH"
 fi
 
-# ─── Copie des fichiers de base ──────────────────────────────
+# ─── Copy base files ─────────────────────────────────────────
 
 # .gitignore
 if [ ! -f "$PROJECT_PATH/.gitignore" ]; then
   cp "$KIT_DIR/templates/.gitignore" "$PROJECT_PATH/.gitignore"
-  echo -e "${GREEN}✓${NC} .gitignore copié"
+  echo -e "${GREEN}✓${NC} .gitignore copied"
 fi
 
 # .env.example
 cp "$KIT_DIR/templates/.env.example" "$PROJECT_PATH/.env.example"
-# Remplacer le placeholder du nom
-sed -i '' "s/\[NOM DU PROJET\]/$PROJECT_NAME/" "$PROJECT_PATH/.env.example"
-echo -e "${GREEN}✓${NC} .env.example copié"
+# Replace the name placeholder
+sed -i '' "s/\[PROJECT NAME\]/$PROJECT_NAME/" "$PROJECT_PATH/.env.example"
+echo -e "${GREEN}✓${NC} .env.example copied"
 
 # CLAUDE.md
 cp "$KIT_DIR/templates/CLAUDE.md" "$PROJECT_PATH/CLAUDE.md"
-# Remplacer le placeholder du nom
-sed -i '' "s/\[NOM DU PROJET\]/$PROJECT_NAME/" "$PROJECT_PATH/CLAUDE.md"
-echo -e "${GREEN}✓${NC} CLAUDE.md copié (à compléter !)"
+# Replace the name placeholder
+sed -i '' "s/\[PROJECT NAME\]/$PROJECT_NAME/" "$PROJECT_PATH/CLAUDE.md"
+echo -e "${GREEN}✓${NC} CLAUDE.md copied (fill in the [TO FILL IN] sections!)"
 
 # CHANGELOG.md
 cp "$KIT_DIR/templates/CHANGELOG.md" "$PROJECT_PATH/CHANGELOG.md"
 sed -i '' "s/YYYY-MM-DD/$(date +%Y-%m-%d)/" "$PROJECT_PATH/CHANGELOG.md"
-echo -e "${GREEN}✓${NC} CHANGELOG.md créé (date initialisée : $(date +%Y-%m-%d))"
+echo -e "${GREEN}✓${NC} CHANGELOG.md created (date initialized: $(date +%Y-%m-%d))"
 
 # CONTRIBUTING.md
 cp "$KIT_DIR/templates/CONTRIBUTING.md" "$PROJECT_PATH/CONTRIBUTING.md"
-sed -i '' "s/\[NOM DU PROJET\]/$PROJECT_NAME/" "$PROJECT_PATH/CONTRIBUTING.md"
-echo -e "${GREEN}✓${NC} CONTRIBUTING.md créé"
+sed -i '' "s/\[PROJECT NAME\]/$PROJECT_NAME/" "$PROJECT_PATH/CONTRIBUTING.md"
+echo -e "${GREEN}✓${NC} CONTRIBUTING.md created"
 
-# ─── Contrats par stack ──────────────────────────────────────
+# ─── Contracts by stack ──────────────────────────────────────
 CONTRACTS_TO_INCLUDE=""
 
 case $PROJECT_STACK in
@@ -137,50 +137,50 @@ case $PROJECT_STACK in
     CONTRACTS_TO_INCLUDE="CONTRACT-IOS CONTRACT-ACCESSIBILITY CONTRACT-SECURITY CONTRACT-TESTING"
     ;;
   *)
-    echo -e "${YELLOW}ℹ${NC}  Stack '$PROJECT_STACK' non reconnue. Contrats à ajouter manuellement."
+    echo -e "${YELLOW}ℹ${NC}  Stack '$PROJECT_STACK' not recognized. Contracts must be added manually."
     ;;
 esac
 
-# Créer dossier docs/contracts si contrats à inclure
+# Create docs/contracts directory if contracts need to be included
 if [ -n "$CONTRACTS_TO_INCLUDE" ]; then
   mkdir -p "$PROJECT_PATH/docs/contracts"
   for contract in $CONTRACTS_TO_INCLUDE; do
     if [ -f "$KIT_DIR/contracts/$contract.md" ]; then
       cp "$KIT_DIR/contracts/$contract.md" "$PROJECT_PATH/docs/contracts/"
-      echo -e "${GREEN}✓${NC} $contract.md inclus"
+      echo -e "${GREEN}✓${NC} $contract.md included"
     fi
   done
 fi
 
-# ─── .env.local vierge ──────────────────────────────────────
+# ─── Empty .env.local ────────────────────────────────────────
 if [ ! -f "$PROJECT_PATH/.env.local" ]; then
-  echo "# Copié depuis .env.example — remplir les valeurs" > "$PROJECT_PATH/.env.local"
+  echo "# Copied from .env.example — fill in the values" > "$PROJECT_PATH/.env.local"
   cat "$PROJECT_PATH/.env.example" >> "$PROJECT_PATH/.env.local"
-  echo -e "${GREEN}✓${NC} .env.local créé (à remplir)"
+  echo -e "${GREEN}✓${NC} .env.local created (fill in the values)"
 fi
 
-# ─── Git init ───────────────────────────────────────────────
+# ─── Git init ────────────────────────────────────────────────
 if [ ! -d "$PROJECT_PATH/.git" ]; then
   echo ""
-  echo -e "${YELLOW}Initialiser git dans ce projet ? (o/N)${NC} "
+  echo -e "${YELLOW}Initialize git in this project? (y/N)${NC} "
   read -r INIT_GIT
-  if [[ "$INIT_GIT" =~ ^[Oo]$ ]]; then
+  if [[ "$INIT_GIT" =~ ^[Yy]$ ]]; then
     git -C "$PROJECT_PATH" init
     git -C "$PROJECT_PATH" add .gitignore .env.example CLAUDE.md CHANGELOG.md CONTRIBUTING.md
-    git -C "$PROJECT_PATH" commit -m "chore: init projet $PROJECT_NAME depuis SQWR Project Kit"
-    echo -e "${GREEN}✓${NC} Git initialisé + commit initial"
+    git -C "$PROJECT_PATH" commit -m "chore: init project $PROJECT_NAME from SQWR Project Kit"
+    echo -e "${GREEN}✓${NC} Git initialized + initial commit"
   fi
 fi
 
-# ─── Résumé ─────────────────────────────────────────────────
+# ─── Summary ─────────────────────────────────────────────────
 echo ""
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${GREEN}Projet initialisé avec succès !${NC}"
+echo -e "${GREEN}Project successfully initialized!${NC}"
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
-echo -e "Prochaines étapes :"
-echo -e "  1. Compléter ${YELLOW}$PROJECT_PATH/CLAUDE.md${NC} (sections [À COMPLÉTER])"
-echo -e "  2. Remplir ${YELLOW}$PROJECT_PATH/.env.local${NC} avec les vraies valeurs"
-echo -e "  3. Mettre à jour ${YELLOW}$PROJECT_PATH/CHANGELOG.md${NC} à chaque release"
-echo -e "  4. Ouvrir avec ${YELLOW}cursor $PROJECT_PATH${NC} ou ${YELLOW}code $PROJECT_PATH${NC}"
+echo -e "Next steps:"
+echo -e "  1. Fill in ${YELLOW}$PROJECT_PATH/CLAUDE.md${NC} ([TO FILL IN] sections)"
+echo -e "  2. Fill in ${YELLOW}$PROJECT_PATH/.env.local${NC} with real values"
+echo -e "  3. Update ${YELLOW}$PROJECT_PATH/CHANGELOG.md${NC} with each release"
+echo -e "  4. Open with ${YELLOW}cursor $PROJECT_PATH${NC} or ${YELLOW}code $PROJECT_PATH${NC}"
 echo ""

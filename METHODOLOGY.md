@@ -1,44 +1,44 @@
-# Méthodologie — SQWR Project Kit
+# Methodology — SQWR Project Kit
 
-> Ce document s'adresse simultanément à deux lecteurs :
-> — **Claude Code** : qui l'intègre comme contexte comportemental ("comment je dois travailler")
-> — **Les humains** : qui l'utilisent comme manifeste et guide d'apprentissage
-
----
-
-## L'insight fondamental
-
-**La qualité professionnelle n'est pas dans le code — elle est dans la recherche qui précède le code.**
-
-Les professionnels (cabinets d'audit, grandes tech, agences de conseil) ne partent pas d'opinions. Ils partent de **standards documentés, de recherches publiées, de précédents vérifiables**. Claude Code permet d'accéder à cette base de connaissances et de l'appliquer à n'importe quel projet — y compris des projets solo ou étudiants.
-
-Ce kit existe parce qu'une observation simple s'est avérée vraie sur des dizaines de projets :
-
-> La différence entre un livrable "amateur" et un livrable "professionnel" n'est pas le talent — c'est la connaissance des standards qui existent déjà, et la discipline de les appliquer.
-
-Claude Code sait chercher ces standards plus vite qu'un humain. L'humain sait quoi faire avec ce qu'il trouve. **L'association des deux dépasse ce que chacun peut faire seul.**
+> This document is addressed simultaneously to two readers:
+> — **Claude Code**: which integrates it as behavioural context ("how I should work")
+> — **Humans**: who use it as a manifesto and learning guide
 
 ---
 
-## Pour Claude Code — Règles de comportement
+## The core insight
 
-### Règle 1 : Recherche avant implémentation
+**Professional quality is not in the code — it is in the research that precedes the code.**
 
-Pour toute tâche non-triviale, et **avant d'écrire la première ligne de code**, poser la question :
+Professionals (audit firms, large tech companies, consulting agencies) do not start from opinions. They start from **documented standards, published research, and verifiable precedents**. Claude Code provides access to this knowledge base and allows it to be applied to any project — including solo or student projects.
 
-> "Quel est l'état de l'art professionnel et académique sur ce sujet ?"
+This kit exists because a simple observation proved true across dozens of projects:
 
-Exemple :
-- Tâche : "Ajoute un système d'upload de fichiers"
-- Recherche préalable : quelles sont les vulnérabilités connues (OWASP File Upload), les limites recommandées (NIST), les implémentations de référence (Vercel Blob docs, Supabase Storage docs)
-- Implémentation : fondée sur des sources, pas sur des patterns mémorisés
+> The difference between an "amateur" deliverable and a "professional" deliverable is not talent — it is knowledge of the standards that already exist, and the discipline to apply them.
 
-### Règle 2 : Hiérarchie des sources
+Claude Code can find these standards faster than a human. The human knows what to do with what it finds. **The combination exceeds what either can do alone.**
 
-Respecter cet ordre de priorité :
+---
+
+## For Claude Code — Behavioural rules
+
+### Rule 1: Research before implementation
+
+For any non-trivial task, and **before writing the first line of code**, ask the question:
+
+> "What is the professional and academic state of the art on this topic?"
+
+Example:
+- Task: "Add a file upload system"
+- Prior research: what are the known vulnerabilities (OWASP File Upload), the recommended limits (NIST), the reference implementations (Vercel Blob docs, Supabase Storage docs)
+- Implementation: grounded in sources, not in memorised patterns
+
+### Rule 2: Source hierarchy
+
+Respect this order of priority:
 
 ```
-TIER 1 — Documentation officielle (source de vérité technique)
+TIER 1 — Official documentation (technical source of truth)
   ├── Anthropic docs       → docs.anthropic.com
   ├── Vercel docs          → vercel.com/docs
   ├── GitHub / Actions     → docs.github.com
@@ -46,236 +46,236 @@ TIER 1 — Documentation officielle (source de vérité technique)
   ├── W3C / MDN            → w3.org, developer.mozilla.org
   └── Supabase docs        → supabase.com/docs
 
-TIER 2 — Standards scientifiques et académiques (source de vérité métier)
-  ├── OWASP, NIST, W3C     → Standards de sécurité, accessibilité
+TIER 2 — Scientific and academic standards (business source of truth)
+  ├── OWASP, NIST, W3C     → Security, accessibility standards
   ├── Nielsen Norman Group → UX research (nngroup.com)
   ├── Baymard Institute    → E-commerce UX (baymard.com)
-  ├── Harvard Business Review → Management, stratégie (hbr.org)
-  ├── Google SRE Book      → Fiabilité (sre.google)
-  └── Publications académiques → Nature, arXiv, ACM, CHI, PMC/NIH
+  ├── Harvard Business Review → Management, strategy (hbr.org)
+  ├── Google SRE Book      → Reliability (sre.google)
+  └── Academic publications → Nature, arXiv, ACM, CHI, PMC/NIH
 
-TIER 3 — Rapports professionnels d'industrie
+TIER 3 — Professional industry reports
   ├── Google Core Web Vitals research   → web.dev
   ├── Snyk State of Open Source Security → snyk.io/reports
   ├── Veracode GenAI Security Report    → veracode.com/state-of-software-security
-  └── Publications d'écoles (ESADE, HBS, MIT Sloan)
+  └── School publications (ESADE, HBS, MIT Sloan)
 
-TIER 4 — Communautés et praticiens (source de vérité pratique)
-  ├── GitHub ★★★★★         → Issues, READMEs, discussions des projets les plus étoilés
-  ├── Reddit                → r/webdev, r/ClaudeAI, r/entrepreneur (patterns réels)
-  ├── Hacker News           → news.ycombinator.com (signal/bruit élevé)
+TIER 4 — Communities and practitioners (practical source of truth)
+  ├── GitHub ★★★★★         → Issues, READMEs, discussions from top-starred projects
+  ├── Reddit                → r/webdev, r/ClaudeAI, r/entrepreneur (real-world patterns)
+  ├── Hacker News           → news.ycombinator.com (high signal-to-noise ratio)
   └── Dev.to, Engineering blogs (Stripe, Vercel, Shopify)
 ```
 
-**Règle critique** : les thresholds numériques (ex : contraste 4.5:1, coverage ≥80%, LCP ≤2.5s) ne peuvent venir que de Tier 1 ou Tier 2. Les opinions de Tier 4 sont précieuses pour les patterns pratiques — pas pour les seuils mesurables.
+**Critical rule**: numerical thresholds (e.g. contrast 4.5:1, coverage ≥80%, LCP ≤2.5s) may only come from Tier 1 or Tier 2. Tier 4 opinions are valuable for practical patterns — not for measurable thresholds.
 
-### Règle 3 : Citer les sources dans les contrats
+### Rule 3: Cite sources in contracts
 
-Chaque règle non-triviale ajoutée à un contrat doit avoir une source vérifiable. Format attendu :
+Every non-trivial rule added to a contract must have a verifiable source. Expected format:
 
 ```markdown
-**Seuil : 16px minimum** (Rello & Pielot, CHI 2016 — étude sur la fatigue oculaire)
-**Contraste : ≥4.5:1** (W3C WCAG 2.1 SC 1.4.3)
-**Coverage : ≥80%** (Google Engineering Practices, eng-practices.github.io)
+**Threshold: 16px minimum** (Rello & Pielot, CHI 2016 — study on eye fatigue)
+**Contrast: ≥4.5:1** (W3C WCAG 2.1 SC 1.4.3)
+**Coverage: ≥80%** (Google Engineering Practices, eng-practices.github.io)
 ```
 
-Pas de "il est recommandé de" sans source. Soit la source existe, soit c'est une opinion.
+No "it is recommended to" without a source. Either the source exists, or it is an opinion.
 
-### Règle 4 : Ne jamais inventer des standards
+### Rule 4: Never invent standards
 
-Si un threshold ou une règle n'est pas dans un contrat du kit ou dans une source Tier 1-2 vérifiable : **le dire explicitement**.
+If a threshold or rule is not in a kit contract or in a verifiable Tier 1-2 source: **say so explicitly**.
 
-> "Je n'ai pas de standard documenté pour ce cas précis. Voici ce que j'ai trouvé en Tier 4 (praticiens) — à vérifier avant d'en faire une règle."
+> "I have no documented standard for this specific case. Here is what I found in Tier 4 (practitioners) — to be verified before making it a rule."
 
-L'anti-hallucination s'applique aux standards autant qu'aux données.
+Anti-hallucination applies to standards as much as to data.
 
 ---
 
-## Le workflow de recherche en 5 étapes
+## The research workflow in 5 steps
 
-### Étape 1 — Identifier le domaine et les contrats applicables
+### Step 1 — Identify the domain and applicable contracts
 
-Les contrats du kit définissent les règles pour les domaines couverts. **Vérifier d'abord si un contrat existe.**
+The kit's contracts define the rules for covered domains. **Check first whether a contract exists.**
 
 ```
-Contrats applicables par type de tâche :
-├── Sécurité / RGPD    → CONTRACT-SECURITY.md + DEPENDENCY-MANAGEMENT.md
+Applicable contracts by task type:
+├── Security / GDPR    → CONTRACT-SECURITY.md + DEPENDENCY-MANAGEMENT.md
 ├── Performance        → CONTRACT-PERFORMANCE.md
-├── Accessibilité      → CONTRACT-ACCESSIBILITY.md
-├── Design UI          → CONTRACT-DESIGN.md
+├── Accessibility      → CONTRACT-ACCESSIBILITY.md
+├── UI Design          → CONTRACT-DESIGN.md
 ├── TypeScript / Code  → CONTRACT-TYPESCRIPT.md
-├── Tests              → CONTRACT-TESTING.md
-├── Base de données    → CONTRACT-SUPABASE.md
-├── Déploiement        → CONTRACT-VERCEL.md
-├── Observabilité      → CONTRACT-OBSERVABILITY.md
-├── Résilience         → CONTRACT-RESILIENCE.md
-├── IA / LLM           → CONTRACT-AI-PROMPTING.md + CONTRACT-ANTI-HALLUCINATION.md
+├── Testing            → CONTRACT-TESTING.md
+├── Database           → CONTRACT-SUPABASE.md
+├── Deployment         → CONTRACT-VERCEL.md
+├── Observability      → CONTRACT-OBSERVABILITY.md
+├── Resilience         → CONTRACT-RESILIENCE.md
+├── AI / LLM           → CONTRACT-AI-PROMPTING.md + CONTRACT-ANTI-HALLUCINATION.md
 ├── Mobile iOS         → CONTRACT-IOS.md
 ├── Python / FastAPI   → CONTRACT-PYTHON.md
-├── Génération PDF     → CONTRACT-PDF-GENERATION.md
+├── PDF generation     → CONTRACT-PDF-GENERATION.md
 ├── Green IT           → CONTRACT-GREEN-SOFTWARE.md
-├── SEO technique      → CONTRACT-SEO.md
+├── Technical SEO      → CONTRACT-SEO.md
 ├── Email (SMTP/DKIM)  → CONTRACT-EMAIL.md
 ├── CI/CD              → CONTRACT-CICD.md
-├── Analytics produit  → CONTRACT-ANALYTICS.md
+├── Product analytics  → CONTRACT-ANALYTICS.md
 ├── Internationalisation → CONTRACT-I18N.md
 ├── Pricing / SaaS     → CONTRACT-PRICING.md
 ├── Android            → CONTRACT-ANDROID.md
 ├── Motion / Animation → CONTRACT-MOTION-DESIGN.md
-├── Production vidéo   → CONTRACT-VIDEO-PRODUCTION.md
+├── Video production   → CONTRACT-VIDEO-PRODUCTION.md
 │
-├── Recherche UX       → frameworks/UX-RESEARCH.md  (avant toute feature)
-├── Stratégie contenu  → frameworks/SOCIAL-CONTENT.md  (avant tout lancement social)
+├── UX research        → frameworks/UX-RESEARCH.md  (before any feature)
+├── Content strategy   → frameworks/SOCIAL-CONTENT.md  (before any social launch)
 │
-├── Branding           → frameworks/BRAND-STRATEGY.md  (avant tout design)
-├── Lancement produit  → frameworks/COMPETITIVE-AUDIT.md + frameworks/CAMPAIGN-STRATEGY.md
-├── Conformité EU      → frameworks/COMPLIANCE-EU.md
-├── Nouveau projet     → frameworks/PROJECT-SCOPING.md
-├── Estimation délai   → frameworks/ESTIMATION.md
-├── Livraison client   → frameworks/CLIENT-HANDOFF.md
-├── Incident prod      → frameworks/INCIDENT-RESPONSE.md
-├── Décision archi     → frameworks/ADR-TEMPLATE.md
-└── Objectifs fiabilité→ frameworks/SLO-TEMPLATE.md
+├── Branding           → frameworks/BRAND-STRATEGY.md  (before any design)
+├── Product launch     → frameworks/COMPETITIVE-AUDIT.md + frameworks/CAMPAIGN-STRATEGY.md
+├── EU compliance      → frameworks/COMPLIANCE-EU.md
+├── New project        → frameworks/PROJECT-SCOPING.md
+├── Deadline estimate  → frameworks/ESTIMATION.md
+├── Client delivery    → frameworks/CLIENT-HANDOFF.md
+├── Prod incident      → frameworks/INCIDENT-RESPONSE.md
+├── Arch decision      → frameworks/ADR-TEMPLATE.md
+└── Reliability goals  → frameworks/SLO-TEMPLATE.md
 ```
 
-### Étape 2 — Recherche amont si le contrat ne couvre pas le cas
+### Step 2 — Upstream research if the contract does not cover the case
 
 ```
-Prompt type :
-"Avant d'implémenter [X], recherche :
-1. Quelles sont les meilleures pratiques documentées par des sources Tier 1-2 ?
-2. Quels standards reconnus s'appliquent (OWASP, WCAG, NIST, W3C) ?
-3. Quels auteurs ou organisations font référence dans ce domaine ?"
+Template prompt:
+"Before implementing [X], research:
+1. What are the best practices documented by Tier 1-2 sources?
+2. Which recognised standards apply (OWASP, WCAG, NIST, W3C)?
+3. Which authors or organisations are the reference in this domain?"
 ```
 
-### Étape 3 — Benchmarking communautaire (Tier 4)
+### Step 3 — Community benchmarking (Tier 4)
 
 ```
-Prompt type :
-"Recherche sur GitHub les projets les plus étoilés qui implémentent [X].
-Qu'est-ce qui revient dans les top issues et discussions ?
-Quels patterns ont émergé comme standards de facto ?"
+Template prompt:
+"Search GitHub for the most-starred projects that implement [X].
+What recurs in the top issues and discussions?
+What patterns have emerged as de facto standards?"
 ```
 
-### Étape 4 — Ancrage dans la documentation officielle
+### Step 4 — Grounding in official documentation
 
 ```
-Prompt type :
-"Quelle est l'implémentation recommandée par [Vercel/Anthropic/Apple/W3C]
-dans leur documentation officielle ?
-Existe-t-il des patterns ou exemples officiels à suivre ?"
+Template prompt:
+"What is the recommended implementation by [Vercel/Anthropic/Apple/W3C]
+in their official documentation?
+Are there official patterns or examples to follow?"
 ```
 
-### Étape 5 — Synthèse → Contrat → Implémentation → Audit
+### Step 5 — Synthesis → Contract → Implementation → Audit
 
-La recherche devient un contrat (règles + sources + thresholds). L'implémentation suit le contrat. L'audit vérifie que les thresholds sont atteints.
+Research becomes a contract (rules + sources + thresholds). Implementation follows the contract. The audit verifies that the thresholds are met.
 
 ---
 
-## Ressources communautaires Claude Code de confiance
+## Trusted Claude Code community resources
 
-Ces projets GitHub sont des sources de confiance pour étendre les capacités de Claude Code. Critères de confiance : >500 étoiles, commits récents, maintenu activement.
+These GitHub projects are trusted sources for extending Claude Code's capabilities. Trust criteria: >500 stars, recent commits, actively maintained.
 
-| Ressource | Type | Pourquoi c'est utile |
+| Resource | Type | Why it is useful |
 |-----------|------|---------------------|
-| **awesome-claude-code** | Curated list | Index des meilleurs skills, hooks, configs |
-| **claude-code-hooks** | Exemples | Patterns avancés pour hooks personnalisés |
-| **anthropics/anthropic-cookbook** | Officiel | Patterns officiels Claude API + Agent SDK |
-| **r/ClaudeAI** (Reddit) | Communauté | Retours d'expérience réels, edge cases |
-| **r/webdev** (Reddit) | Communauté | Tendances stack, pratiques actuelles |
-| **Hacker News "Ask HN"** | Communauté | Signal élevé sur les meilleures pratiques |
+| **awesome-claude-code** | Curated list | Index of the best skills, hooks, configs |
+| **claude-code-hooks** | Examples | Advanced patterns for custom hooks |
+| **anthropics/anthropic-cookbook** | Official | Official Claude API + Agent SDK patterns |
+| **r/ClaudeAI** (Reddit) | Community | Real-world feedback, edge cases |
+| **r/webdev** (Reddit) | Community | Stack trends, current practices |
+| **Hacker News "Ask HN"** | Community | High signal on best practices |
 
-**Règle de confiance GitHub :** un projet avec >1000 étoiles, des commits récents, et des issues résolues est généralement fiable. Toujours lire le code avant d'importer un skill externe.
+**GitHub trust rule:** a project with >1000 stars, recent commits, and resolved issues is generally reliable. Always read the code before importing an external skill.
 
 ---
 
-## Pour les humains — Comment utiliser ce kit
+## For humans — How to use this kit
 
-### Si tu découvres Claude Code
+### If you are discovering Claude Code
 
-**La question la plus importante à poser à Claude Code, en permanence :**
+**The most important question to ask Claude Code, consistently:**
 
-> "Avant de faire X, quelles sont les meilleures pratiques professionnelles et les standards reconnus dans ce domaine ? Va chercher sur internet."
+> "Before doing X, what are the professional best practices and recognised standards in this domain? Search the web."
 
-Cette habitude seule fait passer les projets du niveau "personnel" au niveau "professionnel". Claude Code ne mémorise pas des opinions — il sait chercher les standards qui existent. L'enjeu est de lui donner ce réflexe systématiquement.
+This habit alone elevates projects from "personal" to "professional" level. Claude Code does not memorise opinions — it knows how to find the standards that exist. The key is to give it this reflex systematically.
 
-### Le démarrage en 3 commandes
+### Getting started in 3 commands
 
 ```bash
-# 1. Bootstrap un projet avec tout le kit
+# 1. Bootstrap a project with the full kit
 bash scripts/init-project.sh --name "mon-projet" --stack "nextjs-supabase" --path "~/Desktop/mon-projet"
 
-# 2. Valider que le CLAUDE.md est complet
+# 2. Validate that the CLAUDE.md is complete
 bash scripts/validate-claude-md.sh ~/Desktop/mon-projet/CLAUDE.md
 
-# 3. Lancer l'audit initial (scorer l'état de départ)
-# → Ouvrir audits/AUDIT-INDEX.md dans Claude Code et suivre les instructions
+# 3. Run the initial audit (score the starting state)
+# → Open audits/AUDIT-INDEX.md in Claude Code and follow the instructions
 ```
 
-### Les 5 réflexes à développer avec Claude Code
+### The 5 reflexes to develop with Claude Code
 
-| Situation | Réflexe |
+| Situation | Reflex |
 |-----------|---------|
-| Nouvelle fonctionnalité | "Cherche les standards et meilleures pratiques avant d'implémenter" |
-| Décision d'architecture | "Crée un ADR (frameworks/ADR-TEMPLATE.md) pour documenter le choix" |
-| Avant de livrer | "Lance l'audit AUDIT-INDEX.md et traite les points <70%" |
-| Nouvelle marque/projet | "Commence par BRAND-STRATEGY.md avant tout design visuel" |
-| Estimation délai | "Utilise frameworks/ESTIMATION.md — règle ×1.5 obligatoire" |
+| New feature | "Find the standards and best practices before implementing" |
+| Architecture decision | "Create an ADR (frameworks/ADR-TEMPLATE.md) to document the choice" |
+| Before delivery | "Run the AUDIT-INDEX.md audit and address points below 70%" |
+| New brand/project | "Start with BRAND-STRATEGY.md before any visual design" |
+| Deadline estimate | "Use frameworks/ESTIMATION.md — ×1.5 rule is mandatory" |
 
-### Comment ce kit s'améliore
+### How this kit improves
 
-Ce kit est une base, pas une limite. Il est conçu pour grandir.
+This kit is a foundation, not a ceiling. It is designed to grow.
 
-**Principe Open/Closed :** ouvert à l'extension, fermé à la modification non-sourcée.
+**Open/Closed principle:** open to extension, closed to unsourced modification.
 
-Pour ajouter un contrat :
-1. Identifier un domaine non couvert
-2. Rechercher les standards Tier 1-2 du domaine
-3. Créer `contracts/CONTRACT-[NOM].md` avec la structure standard
-4. Ajouter à README.md + verify-kit.sh
-5. Référencer dans AUDIT-INDEX.md si un audit est associé
+To add a contract:
+1. Identify an uncovered domain
+2. Research the domain's Tier 1-2 standards
+3. Create `contracts/CONTRACT-[NAME].md` with the standard structure
+4. Add to README.md + verify-kit.sh
+5. Reference in AUDIT-INDEX.md if an associated audit exists
 
-Pour améliorer un contrat existant :
-1. Identifier un threshold ou règle manquant
-2. Trouver la source Tier 1-2 qui justifie le changement
-3. Mettre à jour le contrat avec la source citée
-
----
-
-## Pourquoi ce kit existe
-
-Ce kit est né d'une observation faite sur plusieurs années de travail avec Claude Code : **les outils ne manquent pas — c'est la méthode qui manque**.
-
-La plupart des tutoriels Claude Code montrent comment faire des tâches techniques. Très peu montrent comment approcher la **qualité professionnelle** — ce niveau où un livrable résiste à la comparaison avec ce que font les professionnels du secteur.
-
-Ce gap existe particulièrement dans deux domaines souvent ignorés :
-1. **Le branding et la stratégie de marque** — absents de pratiquement tous les starter kits
-2. **L'ancrage dans les standards professionnels** — remplacé par des opinions non-sourcées
-
-Ce kit est la réponse à ce gap. Il couvre l'intégralité du cycle de vie d'un projet : du brief stratégique (BRAND-STRATEGY, PROJECT-SCOPING) à la livraison client (CLIENT-HANDOFF), en passant par chaque domaine technique.
-
-La méthode de construction du kit est elle-même le kit :
-1. Identifier un gap
-2. Chercher ce que les professionnels font (Tier 1-4)
-3. Synthétiser en règles actionnables avec sources
-4. Implémenter et mesurer
+To improve an existing contract:
+1. Identify a missing threshold or rule
+2. Find the Tier 1-2 source that justifies the change
+3. Update the contract with the cited source
 
 ---
 
-## Conversion PDF (pour partage humain)
+## Why this kit exists
 
-Ce document et GUIDE-DECOUVERTE.md sont conçus pour être lisibles en markdown et convertibles en PDF propre.
+This kit was born from an observation made over several years of working with Claude Code: **tools are not lacking — method is.**
+
+Most Claude Code tutorials show how to perform technical tasks. Very few show how to approach **professional quality** — the level where a deliverable holds up against what professionals in the field produce.
+
+This gap exists particularly in two domains that are frequently overlooked:
+1. **Branding and brand strategy** — absent from virtually all starter kits
+2. **Grounding in professional standards** — replaced by unsourced opinions
+
+This kit is the answer to that gap. It covers the entire project lifecycle: from the strategic brief (BRAND-STRATEGY, PROJECT-SCOPING) to client delivery (CLIENT-HANDOFF), across every technical domain.
+
+The method used to build the kit is itself the kit:
+1. Identify a gap
+2. Find what professionals do (Tier 1-4)
+3. Synthesise into actionable rules with sources
+4. Implement and measure
+
+---
+
+## PDF conversion (for human sharing)
+
+This document and DISCOVERY-GUIDE.md are designed to be readable in markdown and convertible to a clean PDF.
 
 ```bash
-# Option 1 : md-to-pdf (recommandé, npm)
-npx md-to-pdf GUIDE-DECOUVERTE.md
+# Option 1: md-to-pdf (recommended, npm)
+npx md-to-pdf DISCOVERY-GUIDE.md
 
-# Option 2 : pandoc (universel)
-pandoc GUIDE-DECOUVERTE.md -o GUIDE-DECOUVERTE.pdf \
+# Option 2: pandoc (universal)
+pandoc DISCOVERY-GUIDE.md -o DISCOVERY-GUIDE.pdf \
   --pdf-engine=wkhtmltopdf \
   --variable margin-top=20mm \
   --variable margin-bottom=20mm
 
-# Option 3 : VSCode + extension "Markdown PDF"
+# Option 3: VSCode + "Markdown PDF" extension
 # Cmd+Shift+P → "Markdown PDF: Export (pdf)"
 ```

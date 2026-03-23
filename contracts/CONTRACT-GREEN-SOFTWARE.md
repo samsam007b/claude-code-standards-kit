@@ -1,113 +1,113 @@
-# Contrat — Green Software & Impact Environnemental
+# Contract — Green Software & Environmental Impact
 
-> Module de contrat SQWR Project Kit.
-> Sources : ISO/IEC 21031:2024 (SCI), Green Software Foundation, GHG Protocol.
-> Principe : les logiciels représentent 4% des émissions mondiales — chaque décision technique a un coût carbone.
+> SQWR Project Kit contract module.
+> Sources: ISO/IEC 21031:2024 (SCI), Green Software Foundation, GHG Protocol.
+> Principle: software accounts for 4% of global emissions — every technical decision has a carbon cost.
 
 ---
 
-## Fondements
+## Foundations
 
-**Le Software Carbon Intensity (SCI)** est le standard mondial pour mesurer l'empreinte carbone des logiciels, ratifié par l'ISO en mars 2024.
+**The Software Carbon Intensity (SCI)** is the global standard for measuring the carbon footprint of software, ratified by ISO in March 2024.
 
-**Formule SCI :**
+**SCI Formula:**
 ```
-SCI = (E × I) + M  par unité fonctionnelle
+SCI = (E × I) + M  per functional unit
 
-E = énergie consommée (kWh)
-I = intensité carbone de l'électricité (gCO2e/kWh — variable par région)
-M = carbone embarqué (fabrication des serveurs)
-Unité fonctionnelle = par requête / par utilisateur / par transaction
+E = energy consumed (kWh)
+I = carbon intensity of electricity (gCO2e/kWh — variable by region)
+M = embodied carbon (server manufacturing)
+Functional unit = per request / per user / per transaction
 ```
 
-> Source : *ISO/IEC 21031:2024 — Software Carbon Intensity Specification*
-> Source : *Green Software Foundation — SCI Specification (sci.greensoftware.foundation)*
+> Source: *ISO/IEC 21031:2024 — Software Carbon Intensity Specification*
+> Source: *Green Software Foundation — SCI Specification (sci.greensoftware.foundation)*
 
 ---
 
-## 1. Pourquoi ça compte pour SQWR
+## 1. Why This Matters for SQWR
 
-- **4%** des émissions mondiales de GES proviennent des logiciels et data centers
-- Les clients B2B européens commencent à exiger des preuves d'impact carbone
-- La Commission Européenne travaille sur des obligations de reporting carbone pour les PME
-- Les LLMs ont un coût carbone significatif — **SCI for AI** (Green Software Foundation, 2025)
-- C'est un différenciateur compétitif pour SQWR en 2026-2027
+- **4%** of global greenhouse gas emissions come from software and data centers
+- European B2B clients are beginning to require proof of carbon impact
+- The European Commission is working on carbon reporting obligations for SMEs
+- LLMs have a significant carbon cost — **SCI for AI** (Green Software Foundation, 2025)
+- This is a competitive differentiator for SQWR in 2026-2027
 
 ---
 
-## 2. Décisions d'architecture carbone-conscientes
+## 2. Carbon-Conscious Architecture Decisions
 
-### Sélection des régions — intensité carbone variable
+### Region Selection — Variable Carbon Intensity
 
-L'intensité carbone de l'électricité varie considérablement selon les régions.
+The carbon intensity of electricity varies considerably by region.
 
-| Région | Intensité carbone | Source d'énergie dominante |
-|--------|------------------|---------------------------|
-| `eu-central-1` (Frankfurt) | ~300 gCO2e/kWh | Mix européen |
-| `eu-west-1` (Ireland) | ~200 gCO2e/kWh | Éolien + mix UE |
-| `us-east-1` (N. Virginia) | ~350 gCO2e/kWh | Charbon + gaz |
-| `ap-southeast-1` (Singapore) | ~450 gCO2e/kWh | Gaz naturel |
+| Region | Carbon intensity | Dominant energy source |
+|--------|-----------------|------------------------|
+| `eu-central-1` (Frankfurt) | ~300 gCO2e/kWh | European mix |
+| `eu-west-1` (Ireland) | ~200 gCO2e/kWh | Wind + EU mix |
+| `us-east-1` (N. Virginia) | ~350 gCO2e/kWh | Coal + gas |
+| `ap-southeast-1` (Singapore) | ~450 gCO2e/kWh | Natural gas |
 
-**Outil temps réel :** electricitymap.org — intensité carbone par région/pays
+**Real-time tool:** electricitymap.org — carbon intensity by region/country
 
-**Recommandation SQWR :** Pour Vercel, choisir `eu-central-1` ou `eu-west-1` par défaut pour les projets européens — moins de latence ET moins d'émissions.
+**SQWR Recommendation:** For Vercel, choose `eu-central-1` or `eu-west-1` by default for European projects — lower latency AND lower emissions.
 
 ### Serverless > Always-on
 
-Les fonctions serverless (Vercel Edge Functions, Vercel Serverless) ne consomment de l'énergie que pendant l'exécution. Un serveur always-on consomme en permanence.
+Serverless functions (Vercel Edge Functions, Vercel Serverless) only consume energy during execution. An always-on server consumes continuously.
 
 ```
-// ✅ Serverless (Vercel) — consomme uniquement pendant les requêtes
-// ❌ VPS always-on — consomme 24/7 même sans trafic
+// ✅ Serverless (Vercel) — consumes only during requests
+// ❌ Always-on VPS — consumes 24/7 even without traffic
 ```
 
-**Pour les projets SQWR :** Vercel + Supabase Edge Functions = architecture naturellement carbon-aware.
+**For SQWR projects:** Vercel + Supabase Edge Functions = naturally carbon-aware architecture.
 
-### Caching agressif — moins de compute
+### Aggressive Caching — Less Compute
 
-Chaque compute = énergie. Le caching évite de recalculer ce qui est déjà connu.
+Every compute = energy. Caching avoids recalculating what is already known.
 
 ```typescript
-// ✅ Données statiques — cache agressif
-export const revalidate = 3600  // recalculer max 1 fois/heure
+// ✅ Static data — aggressive caching
+export const revalidate = 3600  // recalculate at most once/hour
 
-// ✅ Pages statiques — zéro compute par visite
+// ✅ Static pages — zero compute per visit
 export const dynamic = 'force-static'
 
-// ⚠️ 'no-store' — compute à chaque requête — justifier si utilisé
-export const dynamic = 'force-dynamic'  // seulement si données vraiment temps réel
+// ⚠️ 'no-store' — compute on every request — justify if used
+export const dynamic = 'force-dynamic'  // only if data is truly real-time
 ```
 
 ---
 
 ## 3. LLM Carbon Cost
 
-Le Green Software Foundation a publié en 2025 le **SCI for AI** — méthode standardisée pour mesurer l'impact carbone des appels LLM.
+The Green Software Foundation published in 2025 the **SCI for AI** — a standardized method for measuring the carbon impact of LLM calls.
 
-**Ordres de grandeur (estimation) :**
+**Order of magnitude (estimates):**
 
-| Opération | Énergie estimée |
-|-----------|----------------|
-| 1 requête GPT-4 | ~0.001-0.01 kWh |
-| 1 requête Claude Sonnet | ~0.0005-0.005 kWh |
-| 1000 appels LLM/jour | ~0.5-10 kWh/jour |
-| Fine-tuning d'un modèle | ~100-1000 kWh |
+| Operation | Estimated energy |
+|-----------|-----------------|
+| 1 GPT-4 request | ~0.001-0.01 kWh |
+| 1 Claude Sonnet request | ~0.0005-0.005 kWh |
+| 1,000 LLM calls/day | ~0.5-10 kWh/day |
+| Fine-tuning a model | ~100-1000 kWh |
 
-**Règles de sobriété LLM :**
+**LLM frugality rules:**
 
 ```typescript
-// ✅ Utiliser le modèle adapté à la complexité de la tâche
+// ✅ Use the model suited to the task complexity
 const MODEL_BY_TASK = {
-  'classification-simple': 'claude-haiku-4-5',    // tâche simple → modèle léger
-  'generation-contenu': 'claude-sonnet-4-5',       // tâche moyenne → modèle moyen
-  'analyse-complexe': 'claude-opus-4-5',           // tâche complexe → modèle puissant
+  'classification-simple': 'claude-haiku-4-5',    // simple task → lightweight model
+  'generation-contenu': 'claude-sonnet-4-5',       // medium task → medium model
+  'analyse-complexe': 'claude-opus-4-5',           // complex task → powerful model
 } as const
 
-// ❌ Ne jamais utiliser claude-opus pour des tâches simples
-// ❌ Ne pas appeler le LLM si le résultat peut être mis en cache
+// ❌ Never use claude-opus for simple tasks
+// ❌ Do not call the LLM if the result can be cached
 ```
 
-**Cache LLM pour réduire les appels :**
+**LLM cache to reduce calls:**
 
 ```typescript
 // lib/ai/cached-call.ts
@@ -116,7 +116,7 @@ import { createClient } from '@supabase/ssr'
 async function cachedAICall(prompt: string, ttl = 3600): Promise<string> {
   const cacheKey = `ai:${hash(prompt)}`
 
-  // Vérifier le cache d'abord
+  // Check the cache first
   const cached = await supabase
     .from('ai_cache')
     .select('response, created_at')
@@ -126,10 +126,10 @@ async function cachedAICall(prompt: string, ttl = 3600): Promise<string> {
 
   if (cached.data) return cached.data.response
 
-  // Appeler le LLM uniquement si pas en cache
+  // Call the LLM only if not cached
   const response = await callAI(prompt)
 
-  // Stocker en cache
+  // Store in cache
   await supabase.from('ai_cache').upsert({ key: cacheKey, response })
 
   return response
@@ -138,69 +138,69 @@ async function cachedAICall(prompt: string, ttl = 3600): Promise<string> {
 
 ---
 
-## 4. Mesurer son SCI
+## 4. Measuring Your SCI
 
-**Pour un projet SQWR typique (Next.js + Supabase) :**
+**For a typical SQWR project (Next.js + Supabase):**
 
 ```
 SCI = (E_vercel × I_region + E_supabase × I_region + E_llm × I_llm_datacenter) + M
-    / nombre de transactions par mois
+    / number of transactions per month
 
-// En pratique, les estimations sont approximatives sans outils spécialisés
-// L'important : suivre la tendance, pas la valeur absolue
+// In practice, estimates are approximate without specialized tools
+// What matters: track the trend, not the absolute value
 ```
 
-**Outils de mesure :**
+**Measurement tools:**
 
-| Outil | Mesure | Usage |
-|-------|--------|-------|
-| Vercel Carbon | Émissions infrastructure Vercel | Tableau de bord Vercel |
-| electricitymap.org | Intensité carbone temps réel par région | Choix de région |
-| Green Software Foundation SCI Guide | Méthodologie SCI complète | Rapport carbone |
-| Cloud Carbon Footprint | AWS/GCP/Azure émissions | Si multi-cloud |
+| Tool | Measures | Usage |
+|------|---------|-------|
+| Vercel Carbon | Vercel infrastructure emissions | Vercel dashboard |
+| electricitymap.org | Real-time carbon intensity by region | Region selection |
+| Green Software Foundation SCI Guide | Full SCI methodology | Carbon report |
+| Cloud Carbon Footprint | AWS/GCP/Azure emissions | If multi-cloud |
 
 ---
 
 ## 5. Green Software Checklist
 
 ### Architecture
-- [ ] Régions Vercel/Supabase sélectionnées sur critère carbone + latence (pas seulement latence)
-- [ ] Caching configuré sur toutes les données semi-statiques
-- [ ] `force-dynamic` justifié (pas utilisé par défaut)
-- [ ] Serverless ou Edge Functions plutôt qu'always-on
+- [ ] Vercel/Supabase regions selected on carbon + latency criteria (not latency alone)
+- [ ] Caching configured on all semi-static data
+- [ ] `force-dynamic` justified (not used by default)
+- [ ] Serverless or Edge Functions rather than always-on
 
-### LLM & IA
-- [ ] Modèle adapté à la complexité de la tâche (Haiku/mini pour tâches simples)
-- [ ] Cache LLM implémenté pour les prompts répétitifs
-- [ ] Hard limit tokens configuré (éviter les appels abusifs)
-- [ ] `revalidate` configuré sur les composants avec appels LLM
+### LLM & AI
+- [ ] Model suited to task complexity (Haiku/mini for simple tasks)
+- [ ] LLM cache implemented for repetitive prompts
+- [ ] Hard token limit configured (prevent abusive calls)
+- [ ] `revalidate` configured on components with LLM calls
 
 ### Assets & Frontend
-- [ ] Images optimisées (WebP, next/image)
-- [ ] Fonts subsettées (next/font, éviter de charger tous les glyphes)
-- [ ] Bundle JS minimal (<200KB First Load)
-- [ ] CSS non utilisé purgé (Tailwind fait ça automatiquement en prod)
+- [ ] Images optimized (WebP, next/image)
+- [ ] Fonts subsetted (next/font, avoid loading all glyphs)
+- [ ] Minimal JS bundle (<200KB First Load)
+- [ ] Unused CSS purged (Tailwind does this automatically in production)
 
 ---
 
-## 6. Règles absolues
+## 6. Absolute Rules
 
-### Ne jamais faire
-- Utiliser `force-dynamic` par défaut (recalcul à chaque requête = gaspillage)
-- Utiliser claude-opus ou gpt-4 pour des tâches qui peuvent être faites par un modèle léger
-- Appeler le LLM sans cache si la même question peut être posée plusieurs fois
-- Choisir une région serveur uniquement sur la latence sans considérer l'intensité carbone
+### Never do
+- Use `force-dynamic` by default (recalculation on every request = waste)
+- Use claude-opus or gpt-4 for tasks that can be handled by a lightweight model
+- Call the LLM without cache if the same question can be asked multiple times
+- Choose a server region based on latency alone without considering carbon intensity
 
-### Toujours faire
-- Préférer le caching à la génération dynamique quand possible
-- Utiliser le modèle IA le plus léger capable d'accomplir la tâche
-- Vérifier electricitymap.org avant de choisir une région pour un nouveau projet
+### Always do
+- Prefer caching over dynamic generation when possible
+- Use the lightest AI model capable of completing the task
+- Check electricitymap.org before choosing a region for a new project
 
 ---
 
 ## 7. Sources
 
-| Référence | Source |
+| Reference | Source |
 |-----------|--------|
 | SCI Specification | sci.greensoftware.foundation |
 | ISO/IEC 21031:2024 | iso.org/standard/86612.html |

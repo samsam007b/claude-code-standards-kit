@@ -1,216 +1,216 @@
-# Framework — Stratégie de Contenu Social
+# Framework — Social Content Strategy
 
-> Framework situationnel SQWR Project Kit.
-> À utiliser : avant de lancer ou de structurer une présence sur les réseaux sociaux.
-> Sources : Nielsen Norman Group — Content Strategy (nngroup.com), Sprout Social Index 2024 (sproutsocial.com/insights/data), Meta Business — Creative Best Practices (business.meta.com), HubSpot State of Marketing 2024 (hubspot.com/state-of-marketing), The Content Marketing Institute (contentmarketinginstitute.com).
-
----
-
-## Quand sortir ce framework ?
-
-- Avant de créer un compte sur une nouvelle plateforme
-- Avant de lancer une campagne de contenu
-- Quand le contenu manque de cohérence ou d'engagement
-- Pour structurer le travail avec des créateurs externes
+> SQWR Project Kit situational framework.
+> When to use: before launching or structuring a social media presence.
+> Sources: Nielsen Norman Group — Content Strategy (nngroup.com), Sprout Social Index 2024 (sproutsocial.com/insights/data), Meta Business — Creative Best Practices (business.meta.com), HubSpot State of Marketing 2024 (hubspot.com/state-of-marketing), The Content Marketing Institute (contentmarketinginstitute.com).
 
 ---
 
-## 1. Les 4 piliers de contenu
+## When to use this framework?
 
-> Source : Content Marketing Institute — "Content Pillars" (contentmarketinginstitute.com)
-> Source : Nielsen NN/G — "Content Strategy Basics" (nngroup.com)
+- Before creating an account on a new platform
+- Before launching a content campaign
+- When content lacks consistency or engagement
+- To structure work with external creators
 
-**Principe : chaque pilier répond à un besoin différent de l'audience.**
+---
 
-| Pilier | Part recommandée | Objectif | Exemples |
+## 1. The 4 Content Pillars
+
+> Source: Content Marketing Institute — "Content Pillars" (contentmarketinginstitute.com)
+> Source: Nielsen NN/G — "Content Strategy Basics" (nngroup.com)
+
+**Principle: each pillar addresses a different audience need.**
+
+| Pillar | Recommended share | Objective | Examples |
 |--------|-----------------|----------|---------|
-| **Éducation** | 35–40% | Créer de la valeur, asseoir l'expertise | Guides, conseils, tutoriels, explications |
-| **Produit / Feature** | 25–30% | Montrer le produit en action | Demos, use cases, before/after |
-| **Communauté** | 20–25% | Créer de la connexion émotionnelle | Témoignages, behind-the-scenes, UGC |
-| **Entertainment** | 10–15% | Viralité, mémorabilité | Memes adaptés, tendances, humour |
+| **Education** | 35–40% | Create value, establish expertise | Guides, tips, tutorials, explanations |
+| **Product / Feature** | 25–30% | Show the product in action | Demos, use cases, before/after |
+| **Community** | 20–25% | Build emotional connection | Testimonials, behind-the-scenes, UGC |
+| **Entertainment** | 10–15% | Virality, memorability | Adapted memes, trends, humor |
 
-**Règle d'or :** si >50% du contenu est promotionnel, l'engagement s'effondre (Sprout Social Index 2024 : 68% des utilisateurs unfollow une marque trop promotionnelle).
-
----
-
-## 2. Calendrier éditorial — Structure hebdomadaire
-
-> Source : Sprout Social — "Social Media Posting Frequency" (sproutsocial.com/insights/social-media-posting-frequency)
-> **Threshold : minimum 4–5 posts/semaine sur Instagram pour maintenir l'algorithme** (Meta Creator Guidance, 2024)
-
-### Template calendrier hebdomadaire
-
-| Jour | Format | Pilier | Heure |
-|------|--------|--------|-------|
-| Lundi | Reel (15–30s) | Éducation | 12h |
-| Mardi | Story (poll/quiz) | Communauté | 9h |
-| Mercredi | Carrousel (5–7 slides) | Éducation | 12h |
-| Jeudi | Reel (15–30s) | Produit | 12h |
-| Vendredi | Post image + Story | Entertainment | 10h |
-| Samedi | Reel (Behind-the-scenes) | Communauté | 11h |
-| Dimanche | Story recap semaine | — | 10h |
-
-**Fréquence minimale viable :**
-- Instagram : 4 posts + 5 Stories/semaine
-- TikTok : 3–5 vidéos/semaine
-- LinkedIn : 3 posts/semaine
-- YouTube : 1 vidéo/semaine (Short ou standard)
+**Golden rule:** if >50% of content is promotional, engagement collapses (Sprout Social Index 2024: 68% of users unfollow a brand that is too promotional).
 
 ---
 
-## 3. Hook copywriting — Les 3 premières secondes
+## 2. Editorial Calendar — Weekly Structure
 
-> Source : Meta for Business — "Video Creative Best Practices" (business.meta.com)
-> Source : Nielsen NN/G — "Scrolling and Attention on Social Media" (nngroup.com, 2023)
-> **Threshold : 73% des décisions de scroll se prennent dans les 3 premières secondes** (NN/G, 2023)
+> Source: Sprout Social — "Social Media Posting Frequency" (sproutsocial.com/insights/social-media-posting-frequency)
+> **Threshold: minimum 4–5 posts/week on Instagram to maintain the algorithm** (Meta Creator Guidance, 2024)
 
-### 6 types de hooks qui fonctionnent
+### Weekly calendar template
+
+| Day | Format | Pillar | Time |
+|-----|--------|--------|------|
+| Monday | Reel (15–30s) | Education | 12pm |
+| Tuesday | Story (poll/quiz) | Community | 9am |
+| Wednesday | Carousel (5–7 slides) | Education | 12pm |
+| Thursday | Reel (15–30s) | Product | 12pm |
+| Friday | Image post + Story | Entertainment | 10am |
+| Saturday | Reel (Behind-the-scenes) | Community | 11am |
+| Sunday | Weekly recap Story | — | 10am |
+
+**Minimum viable frequency:**
+- Instagram: 4 posts + 5 Stories/week
+- TikTok: 3–5 videos/week
+- LinkedIn: 3 posts/week
+- YouTube: 1 video/week (Short or standard)
+
+---
+
+## 3. Hook Copywriting — The First 3 Seconds
+
+> Source: Meta for Business — "Video Creative Best Practices" (business.meta.com)
+> Source: Nielsen NN/G — "Scrolling and Attention on Social Media" (nngroup.com, 2023)
+> **Threshold: 73% of scroll decisions are made within the first 3 seconds** (NN/G, 2023)
+
+### 6 types of hooks that work
 
 ```
-1. QUESTION PROVOCATRICE
-   "Tu fais encore cette erreur avec [sujet] ?"
+1. PROVOCATIVE QUESTION
+   "Are you still making this mistake with [topic]?"
 
-2. STAT CHOC
-   "85% des gens font X — et ils ont tort."
+2. SHOCKING STAT
+   "85% of people do X — and they're wrong."
 
-3. CONTRE-INTUITIF
-   "Arrête de faire X si tu veux Y."
+3. COUNTERINTUITIVE
+   "Stop doing X if you want Y."
 
-4. PROMESSE DIRECTE
-   "En 30 secondes, tu vas savoir [résultat concret]."
+4. DIRECT PROMISE
+   "In 30 seconds, you'll know [concrete result]."
 
 5. STORY HOOK
-   "Il y a 6 mois, j'ai tout perdu à cause de X. Voici ce que j'ai appris."
+   "6 months ago, I lost everything because of X. Here's what I learned."
 
 6. PATTERN INTERRUPT
-   [Image ou son inattendu + texte surprenant]
+   [Unexpected image or sound + surprising text]
 ```
 
-**Règle :** le hook doit qualifier l'audience. Un mauvais hook attire tout le monde et ne convertit personne.
+**Rule:** the hook must qualify the audience. A weak hook attracts everyone and converts no one.
 
 ---
 
-## 4. Tone of Voice — Matrice
+## 4. Tone of Voice — Matrix
 
-> Source : Nielsen NN/G — "Brand Voice in Content" (nngroup.com)
+> Source: Nielsen NN/G — "Brand Voice in Content" (nngroup.com)
 
-### Les 4 dimensions du ton
+### The 4 tone dimensions
 
-| Dimension | Échelle | Définir sa position |
-|-----------|---------|---------------------|
-| **Humour** | Sérieux ←────→ Drôle | Où se situe la marque ? |
-| **Formalité** | Formel ←────→ Familier | Vouvoiement ou tutoiement ? |
-| **Réserve** | Discret ←────→ Expressif | Intensité émotionnelle ? |
-| **Enthousiasme** | Factuel ←────→ Enthousiaste | Énergie des messages ? |
+| Dimension | Scale | Define your position |
+|-----------|-------|---------------------|
+| **Humor** | Serious ←────→ Funny | Where does the brand sit? |
+| **Formality** | Formal ←────→ Casual | Formal or informal register? |
+| **Reserve** | Discreet ←────→ Expressive | Emotional intensity? |
+| **Enthusiasm** | Factual ←────→ Enthusiastic | Energy of messages? |
 
-### Vocabulaire — Construire son lexique de marque
+### Vocabulary — Building your brand lexicon
 
-| Utiliser | Ne pas utiliser | Raison |
-|----------|----------------|--------|
-| [Terme de marque 1] | [Terme générique 1] | [Différenciation] |
-| [Terme de marque 2] | [Terme corporate 2] | [Humanisation] |
-| [Expression signature] | [Jargon à éviter] | [Clarté] |
+| Use | Do not use | Reason |
+|-----|-----------|--------|
+| [Brand term 1] | [Generic term 1] | [Differentiation] |
+| [Brand term 2] | [Corporate term 2] | [Humanization] |
+| [Signature expression] | [Jargon to avoid] | [Clarity] |
 
-**Termes corporate à bannir systématiquement :**
-`leverager · synergie · seamless · révolutionnaire · game-changer · passionné(e) · excité(e) d'annoncer · dans cet espace · à l'ère du numérique`
+**Corporate terms to systematically avoid:**
+`leverage · synergy · seamless · revolutionary · game-changer · passionate · excited to announce · in this space · in the digital age`
 
 ---
 
-## 5. Stratégie hashtags
+## 5. Hashtag Strategy
 
-> Source : HubSpot State of Marketing 2024 (hubspot.com/state-of-marketing)
-> Source : Later — "Instagram Hashtag Strategy" (later.com/blog/instagram-hashtags, 2024)
-> **Threshold : 3–5 hashtags core + 5–10 hashtags niche** (Meta recommande ≤10 depuis 2022)
+> Source: HubSpot State of Marketing 2024 (hubspot.com/state-of-marketing)
+> Source: Later — "Instagram Hashtag Strategy" (later.com/blog/instagram-hashtags, 2024)
+> **Threshold: 3–5 core hashtags + 5–10 niche hashtags** (Meta recommends ≤10 since 2022)
 
-### Structure en 3 niveaux
+### 3-tier structure
 
 ```
-NIVEAU 1 — Identité (2–3) : hashtags propres à la marque
-  #[NomMarque] #[ProduitSignature] #[ConceptPropriétaire]
+TIER 1 — Identity (2–3): brand-owned hashtags
+  #[BrandName] #[SignatureProduct] #[ProprietaryConcept]
 
-NIVEAU 2 — Niche (3–5) : hashtags communauté spécifique
-  #[Domaine] #[UseCase] #[Géographie]
+TIER 2 — Niche (3–5): specific community hashtags
+  #[Domain] #[UseCase] #[Geography]
 
-NIVEAU 3 — Découverte (2–3) : hashtags larges mais pertinents
-  #[Catégorie] #[Tendance] #[Langue]
+TIER 3 — Discovery (2–3): broad but relevant hashtags
+  #[Category] #[Trend] #[Language]
 
-❌ ÉVITER : #love #instagood #happy #followme
-   (trop larges = noyés dans 500M+ posts, 0 découverte)
+❌ AVOID: #love #instagood #happy #followme
+   (too broad = lost in 500M+ posts, 0 discovery)
 ```
 
 ---
 
-## 6. Collaboration créateurs — 3 modèles
+## 6. Creator Collaboration — 3 Models
 
-> Source : Meta Business — "Creator Collaboration Guide" (business.meta.com/creators)
-> Source : Nielsen NN/G — "Influencer Marketing Effectiveness" (nngroup.com, 2022)
+> Source: Meta Business — "Creator Collaboration Guide" (business.meta.com/creators)
+> Source: Nielsen NN/G — "Influencer Marketing Effectiveness" (nngroup.com, 2022)
 
-### Modèle 1 : Acteurs / Créateurs de contenu
+### Model 1: Actors / Content creators
 
-**Usage :** créer du contenu vidéo narratif sur le compte de la marque.
-**Budget :** €100–800/jour selon expérience.
-**Brief :** détaillé (ton, script approximatif, références visuelles).
-**Droits :** cession de droits pour la durée de la campagne sur toutes plateformes.
+**Use:** create narrative video content on the brand account.
+**Budget:** €100–800/day depending on experience.
+**Brief:** detailed (tone, approximate script, visual references).
+**Rights:** rights transfer for the duration of the campaign across all platforms.
 
-**Critères de sélection :**
-- Énergie alignée avec le ton de la marque
-- Réfère à leur travail spécifique dans le premier contact (pas de DM générique)
-- Taille : micro (5K–50K) > macro pour l'authenticité (engagement rate > macro)
+**Selection criteria:**
+- Energy aligned with the brand tone
+- Reference their specific work in the first contact (no generic DM)
+- Size: micro (5K–50K) > macro for authenticity (engagement rate > macro)
 
-### Modèle 2 : Micro-influenceurs
+### Model 2: Micro-influencers
 
-**Usage :** parler du produit sur leur propre compte.
-**Budget :** €50–2000/post + commission d'affiliation.
-**Brief :** léger (3–5 points clés) — liberté totale de format.
-**Seuils :**
-- Followers : **5K–50K** (micro = taux d'engagement 3–8x supérieur aux macro)
-- Engagement rate : **≥3%** minimum (NN/G, 2022)
-- Niche : pertinente avec l'audience cible (pas de profil généraliste)
+**Use:** talk about the product on their own account.
+**Budget:** €50–2,000/post + affiliate commission.
+**Brief:** light (3–5 key points) — full format freedom.
+**Thresholds:**
+- Followers: **5K–50K** (micro = engagement rate 3–8x higher than macro)
+- Engagement rate: **≥3%** minimum (NN/G, 2022)
+- Niche: relevant to the target audience (no generalist profiles)
 
-### Modèle 3 : Partenariats venues / événements
+### Model 3: Venue / Event partnerships
 
-**Usage :** visibilité offline → trafic produit.
-**Budget :** zéro — échange de valeur (visibilité communauté vs accès exclusif).
-**Pitch :** "Partenaire dès maintenant = privilège quand on atteint [X] membres."
-**Livrable partenaire :** code promo exclusif membres + badge "partenaire fondateur".
+**Use:** offline visibility → product traffic.
+**Budget:** zero — value exchange (community visibility vs exclusive access).
+**Pitch:** "Partner now = privilege when we reach [X] members."
+**Partner deliverable:** exclusive member promo code + "founding partner" badge.
 
 ---
 
-## 7. Métriques de succès — Thresholds
+## 7. Success Metrics — Thresholds
 
-> Source : Sprout Social Index 2024
-> Source : HubSpot State of Social Media 2024
-> Source : Later — Instagram Benchmarks 2024
+> Source: Sprout Social Index 2024
+> Source: HubSpot State of Social Media 2024
+> Source: Later — Instagram Benchmarks 2024
 
-| Métrique | Threshold minimal | Threshold excellent |
-|----------|------------------|---------------------|
-| **Taux d'engagement Instagram** | ≥1% | ≥3% |
-| **Taux d'engagement TikTok** | ≥3% | ≥8% |
-| **Reach rate (organique)** | ≥10% des abonnés | ≥25% |
+| Metric | Minimum threshold | Excellent threshold |
+|--------|------------------|---------------------|
+| **Instagram engagement rate** | ≥1% | ≥3% |
+| **TikTok engagement rate** | ≥3% | ≥8% |
+| **Organic reach rate** | ≥10% of followers | ≥25% |
 | **Story completion rate** | ≥60% | ≥80% |
 | **Reel view rate (3s)** | ≥30% | ≥50% |
-| **Lien en bio CTR** | ≥1% | ≥3% |
-| **Croissance followers mensuelle** | ≥2% | ≥5% |
+| **Bio link CTR** | ≥1% | ≥3% |
+| **Monthly follower growth** | ≥2% | ≥5% |
 
-**Règle de suivi :** tracker ces métriques hebdomadairement. Une baisse de >20% sur 3 semaines = signal de reformulation stratégie.
+**Tracking rule:** track these metrics weekly. A drop of >20% over 3 weeks = signal to rethink strategy.
 
 ---
 
-## 8. Checklist avant lancement
+## 8. Pre-launch Checklist
 
-- [ ] Les 4 piliers de contenu définis et équilibrés (section 1)
-- [ ] Calendrier éditorial 4 semaines planifié (section 2)
-- [ ] Tone of voice documenté — au moins 10 exemples "dire/ne pas dire" (section 4)
-- [ ] Hashtags stratégie définie par plateforme (section 5)
-- [ ] Métriques baseline établies avant lancement (section 7)
-- [ ] Premier hook testé en interne avant publication
-- [ ] Sous-titres sur 100% des vidéos
+- [ ] The 4 content pillars defined and balanced (section 1)
+- [ ] 4-week editorial calendar planned (section 2)
+- [ ] Tone of voice documented — at least 10 "say/don't say" examples (section 4)
+- [ ] Hashtag strategy defined per platform (section 5)
+- [ ] Baseline metrics established before launch (section 7)
+- [ ] First hook tested internally before publishing
+- [ ] Subtitles on 100% of videos
 
 ---
 
 ## Sources
 
-| Référence | Lien |
+| Reference | Link |
 |-----------|------|
 | Nielsen NN/G — Content Strategy | nngroup.com/articles/content-strategy |
 | Sprout Social Index 2024 | sproutsocial.com/insights/data |

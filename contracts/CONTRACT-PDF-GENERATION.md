@@ -1,36 +1,36 @@
-# Contrat — Génération de PDF
+# Contract — PDF Generation
 
-> Module de contrat SQWR Project Kit.
-> Sources : W3C CSS Paged Media Module Level 3 (w3.org/TR/css-page-3), MDN Web Docs Print CSS (developer.mozilla.org/en-US/docs/Web/CSS/CSS_paged_media), Puppeteer Documentation (pptr.dev), react-pdf (react-pdf.org).
-
----
-
-## Fondements
-
-La génération de PDF côté serveur est un besoin récurrent : rapports brandés, devis clients, exports de résultats, contrats. Deux approches principales dominent — HTML/CSS → PDF via headless browser, et React-to-PDF via librairies dédiées. **Le choix de l'approche conditionne la fidélité visuelle, la maintenabilité et les performances.**
+> SQWR Project Kit contract module.
+> Sources: W3C CSS Paged Media Module Level 3 (w3.org/TR/css-page-3), MDN Web Docs Print CSS (developer.mozilla.org/en-US/docs/Web/CSS/CSS_paged_media), Puppeteer Documentation (pptr.dev), react-pdf (react-pdf.org).
 
 ---
 
-## 1. Choix de l'Approche
+## Foundations
 
-| Approche | Stack | Cas d'usage | Fidélité visuelle |
-|----------|-------|-------------|-----------------|
-| **HTML/CSS → PDF** (Puppeteer/Playwright) | Node.js + CSS Paged Media | Rapports brandés complexes, mise en page précise | ★★★★★ |
-| **React → PDF** (react-pdf/renderer) | React + PDF primitives | Documents programmatiques, données dynamiques | ★★★★☆ |
-| **PDF-lib** | Node.js pur | Modification de PDFs existants, signatures | ★★★☆☆ |
-
-**Règle de sélection :**
-- Design fidèle au web existant → **Puppeteer/Playwright**
-- Document PDF-natif structuré (pas un clone web) → **react-pdf**
-- Modifier/fusionner des PDFs existants → **pdf-lib**
+Server-side PDF generation is a recurring need: branded reports, client quotes, results exports, contracts. Two main approaches dominate — HTML/CSS → PDF via headless browser, and React-to-PDF via dedicated libraries. **The choice of approach determines visual fidelity, maintainability, and performance.**
 
 ---
 
-## 2. Approche HTML/CSS → PDF (Puppeteer)
+## 1. Choosing an Approach
 
-> Source : Puppeteer — [pptr.dev](https://pptr.dev), W3C CSS Paged Media — [w3.org/TR/css-page-3](https://www.w3.org/TR/css-page-3/)
+| Approach | Stack | Use case | Visual fidelity |
+|----------|-------|----------|----------------|
+| **HTML/CSS → PDF** (Puppeteer/Playwright) | Node.js + CSS Paged Media | Complex branded reports, precise layout | ★★★★★ |
+| **React → PDF** (react-pdf/renderer) | React + PDF primitives | Programmatic documents, dynamic data | ★★★★☆ |
+| **PDF-lib** | Pure Node.js | Modifying existing PDFs, signatures | ★★★☆☆ |
 
-### Setup Next.js (API Route)
+**Selection rule:**
+- Design that must faithfully match the existing web → **Puppeteer/Playwright**
+- Native-structured PDF document (not a web clone) → **react-pdf**
+- Modifying/merging existing PDFs → **pdf-lib**
+
+---
+
+## 2. HTML/CSS → PDF Approach (Puppeteer)
+
+> Source: Puppeteer — [pptr.dev](https://pptr.dev), W3C CSS Paged Media — [w3.org/TR/css-page-3](https://www.w3.org/TR/css-page-3/)
+
+### Next.js Setup (API Route)
 
 ```typescript
 // app/api/generate-pdf/route.ts
@@ -42,19 +42,19 @@ export async function POST(req: NextRequest) {
 
   const browser = await puppeteer.launch({
     headless: 'new',
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],  // Requis sur Vercel/Cloud
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],  // Required on Vercel/Cloud
   })
 
   const page = await browser.newPage()
 
-  // Injecter le HTML du rapport
+  // Inject report HTML
   await page.setContent(generateReportHTML(data), {
-    waitUntil: 'networkidle0',  // Attendre les fonts et images
+    waitUntil: 'networkidle0',  // Wait for fonts and images
   })
 
   const pdf = await page.pdf({
     format: 'A4',
-    printBackground: true,  // CRUCIAL : inclure les couleurs de fond et gradients
+    printBackground: true,  // CRITICAL: include background colors and gradients
     margin: {
       top: '20mm',
       bottom: '20mm',
@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
       <span class="pageNumber"></span> / <span class="totalPages"></span>
     </div>`,
     footerTemplate: `<div style="font-size:9px; width:100%; text-align:center; color:#999;">
-      © ${new Date().getFullYear()} — Rapport confidentiel
+      © ${new Date().getFullYear()} — Confidential report
     </div>`,
   })
 
@@ -75,24 +75,24 @@ export async function POST(req: NextRequest) {
   return new NextResponse(pdf, {
     headers: {
       'Content-Type': 'application/pdf',
-      'Content-Disposition': 'attachment; filename="rapport.pdf"',
+      'Content-Disposition': 'attachment; filename="report.pdf"',
     },
   })
 }
 ```
 
-### CSS Paged Media — Standards W3C
+### CSS Paged Media — W3C Standards
 
-> Source : W3C CSS Paged Media Module Level 3 — [w3.org/TR/css-page-3](https://www.w3.org/TR/css-page-3/)
+> Source: W3C CSS Paged Media Module Level 3 — [w3.org/TR/css-page-3](https://www.w3.org/TR/css-page-3/)
 
 ```css
-/* styles/print.css — Règles d'impression W3C */
+/* styles/print.css — W3C print rules */
 
 @page {
   size: A4;
   margin: 20mm 15mm;
 
-  /* Headers/footers natifs @page */
+  /* Native @page headers/footers */
   @top-right {
     content: counter(page) " / " counter(pages);
     font-size: 9pt;
@@ -101,25 +101,25 @@ export async function POST(req: NextRequest) {
 }
 
 @page :first {
-  margin-top: 0;  /* Pas de margin sur la première page (cover) */
+  margin-top: 0;  /* No margin on the first page (cover) */
 }
 
-/* Contrôle des sauts de page */
+/* Page break control */
 .page-break-before { break-before: page; }
 .page-break-after  { break-after: page; }
-.no-break          { break-inside: avoid; }  /* Évite de couper un bloc en 2 pages */
+.no-break          { break-inside: avoid; }  /* Prevents splitting a block across 2 pages */
 
-/* Sections qui ne doivent pas être coupées */
+/* Sections that must not be split */
 .card, .table-row, .section-header {
   break-inside: avoid;
 }
 
-/* Titres — toujours avec leur contenu */
+/* Headings — always kept with their content */
 h1, h2, h3 {
-  break-after: avoid;  /* Pas de saut de page après un titre */
+  break-after: avoid;  /* No page break after a heading */
 }
 
-/* Masquer les éléments UI non pertinents pour le print */
+/* Hide UI elements not relevant for print */
 @media print {
   .no-print,
   nav,
@@ -133,15 +133,15 @@ h1, h2, h3 {
 
 ---
 
-## 3. Approche React → PDF (react-pdf)
+## 3. React → PDF Approach (react-pdf)
 
-> Source : react-pdf — [react-pdf.org](https://react-pdf.org) — React PDF Renderer v3.x
+> Source: react-pdf — [react-pdf.org](https://react-pdf.org) — React PDF Renderer v3.x
 
 ```tsx
 // components/ReportPDF.tsx
 import { Document, Page, Text, View, StyleSheet, Image, Font } from '@react-pdf/renderer'
 
-// Enregistrer les fonts custom
+// Register custom fonts
 Font.register({
   family: 'Inter',
   fonts: [
@@ -194,7 +194,7 @@ export function ReportPDF({ data }: { data: ReportData }) {
     <Document>
       <Page size="A4" style={styles.page}>
 
-        {/* Header avec logo */}
+        {/* Header with logo */}
         <View style={styles.header}>
           <Image src="/logo.png" style={styles.logo} />
           <Text style={{ fontSize: 10, color: '#999' }}>
@@ -202,8 +202,8 @@ export function ReportPDF({ data }: { data: ReportData }) {
           </Text>
         </View>
 
-        {/* Score global */}
-        <Text style={styles.title}>Score global : {data.score}/100</Text>
+        {/* Overall score */}
+        <Text style={styles.title}>Overall score: {data.score}/100</Text>
         <View style={styles.scoreBar}>
           <View style={[styles.scoreBarFilled, { width: `${data.score}%` }]} />
         </View>
@@ -214,7 +214,7 @@ export function ReportPDF({ data }: { data: ReportData }) {
 }
 ```
 
-### Génération en API Route
+### Generation in API Route
 
 ```typescript
 // app/api/generate-report/route.ts
@@ -229,7 +229,7 @@ export async function POST(req: Request) {
   return new Response(buffer, {
     headers: {
       'Content-Type': 'application/pdf',
-      'Content-Disposition': `attachment; filename="rapport-${Date.now()}.pdf"`,
+      'Content-Disposition': `attachment; filename="report-${Date.now()}.pdf"`,
     },
   })
 }
@@ -237,14 +237,14 @@ export async function POST(req: Request) {
 
 ---
 
-## 4. Design System dans le PDF
+## 4. Design System in the PDF
 
-> Source : W3C CSS Paged Media, Puppeteer printBackground
+> Source: W3C CSS Paged Media, Puppeteer printBackground
 
-**Règle critique : le PDF doit respecter le même design system que l'application.**
+**Critical rule: the PDF must respect the same design system as the application.**
 
 ```css
-/* print.css — Variables CSS répliquées pour le print */
+/* print.css — CSS variables replicated for print */
 :root {
   --brand-primary: #1600FF;
   --brand-secondary: #001489;
@@ -253,22 +253,22 @@ export async function POST(req: Request) {
   --surface: #F8F8FF;
 }
 
-/* Scores avec couleurs sémantiques */
+/* Scores with semantic colours */
 .score-excellent { color: #00AC00; }  /* > 80% */
 .score-good      { color: #FFB639; }  /* 60-80% */
 .score-poor      { color: #FF4D00; }  /* < 60% */
 ```
 
-**Pour Puppeteer : toujours `printBackground: true`** — sinon les backgrounds CSS sont ignorés.
+**For Puppeteer: always `printBackground: true`** — otherwise CSS backgrounds are ignored.
 
 ---
 
-## 5. QR Codes dans les PDFs
+## 5. QR Codes in PDFs
 
-> Source : qrcode (npmjs.com/package/qrcode), node-qrcode
+> Source: qrcode (npmjs.com/package/qrcode), node-qrcode
 
 ```typescript
-// Générer un QR code comme data URL (SVG ou PNG)
+// Generate a QR code as a data URL (SVG or PNG)
 import QRCode from 'qrcode'
 
 const qrDataUrl = await QRCode.toDataURL('https://example.com/report/123', {
@@ -280,30 +280,30 @@ const qrDataUrl = await QRCode.toDataURL('https://example.com/report/123', {
   },
 })
 
-// Injecter dans le HTML Puppeteer
+// Inject into Puppeteer HTML
 const html = `<img src="${qrDataUrl}" width="120" height="120" alt="QR Code" />`
 
-// Ou dans react-pdf
+// Or in react-pdf
 <Image src={qrDataUrl} style={{ width: 80, height: 80 }} />
 ```
 
 ---
 
-## 6. Performance et Déploiement
+## 6. Performance and Deployment
 
-> Source : Vercel Documentation — Serverless Functions (vercel.com/docs/functions)
+> Source: Vercel Documentation — Serverless Functions (vercel.com/docs/functions)
 
-**Attention : Puppeteer est trop lourd pour Vercel Serverless (timeout 10s, taille 250MB).**
+**Warning: Puppeteer is too heavy for Vercel Serverless (10s timeout, 250MB size limit).**
 
-| Environnement | Solution recommandée |
-|---------------|---------------------|
-| Vercel Serverless | react-pdf (léger, pur JS) |
-| Vercel Edge Functions | ❌ Pas de Puppeteer |
-| Vercel avec Chromium | `@sparticuz/chromium` (20MB) |
-| Railway / Render / VPS | Puppeteer standard |
+| Environment | Recommended solution |
+|-------------|---------------------|
+| Vercel Serverless | react-pdf (lightweight, pure JS) |
+| Vercel Edge Functions | ❌ No Puppeteer |
+| Vercel with Chromium | `@sparticuz/chromium` (20MB) |
+| Railway / Render / VPS | Standard Puppeteer |
 
 ```typescript
-// Puppeteer sur Vercel — utiliser @sparticuz/chromium
+// Puppeteer on Vercel — use @sparticuz/chromium
 import chromium from '@sparticuz/chromium'
 import puppeteer from 'puppeteer-core'
 
@@ -315,55 +315,55 @@ const browser = await puppeteer.launch({
 })
 ```
 
-**Thresholds de performance :**
-| Opération | Threshold cible | Action si dépassé |
+**Performance thresholds:**
+| Operation | Target threshold | Action if exceeded |
 |-----------|-----------------|-------------------|
-| Génération PDF simple (react-pdf) | < 2 secondes | Optimiser les fonts custom |
-| Génération PDF complexe (Puppeteer) | < 10 secondes | Utiliser un worker asynchrone |
-| Taille du fichier PDF | < 5 MB | Compresser les images (< 72 DPI pour screen, 150 DPI pour print) |
+| Simple PDF generation (react-pdf) | < 2 seconds | Optimise custom fonts |
+| Complex PDF generation (Puppeteer) | < 10 seconds | Use an async worker |
+| PDF file size | < 5 MB | Compress images (< 72 DPI for screen, 150 DPI for print) |
 
 ---
 
-## 7. Accessibilité des PDFs
+## 7. PDF Accessibility
 
-> Source : PDF/UA standard (ISO 14289-1), Adobe Accessibility (helpx.adobe.com/acrobat/using/create-verify-pdf-accessibility.html)
+> Source: PDF/UA standard (ISO 14289-1), Adobe Accessibility (helpx.adobe.com/acrobat/using/create-verify-pdf-accessibility.html)
 
 ```typescript
-// react-pdf — Toujours ajouter les métadonnées d'accessibilité
+// react-pdf — Always add accessibility metadata
 <Document
-  title="Rapport de conformité — Agoria Scan"
-  author="Votre Organisation"
-  subject="Rapport de diagnostic conformité"
-  language="fr"
+  title="Compliance Report — Agoria Scan"
+  author="Your Organisation"
+  subject="Compliance diagnostic report"
+  language="en"
 >
 ```
 
-**Checklist accessibilité PDF minimum :**
-- [ ] Métadonnées du document renseignées (titre, auteur, langue)
-- [ ] Texte sélectionnable (pas une image scannée)
-- [ ] Ordre de lecture logique (pas des éléments positionnés aléatoirement)
-- [ ] Images décoratives masquées (alt="" ou artifact)
-- [ ] Contraste texte ≥ 4.5:1 (WCAG AA — même règle que le web)
+**Minimum PDF accessibility checklist:**
+- [ ] Document metadata filled in (title, author, language)
+- [ ] Text is selectable (not a scanned image)
+- [ ] Logical reading order (no randomly positioned elements)
+- [ ] Decorative images hidden (alt="" or artifact)
+- [ ] Text contrast ≥ 4.5:1 (WCAG AA — same rule as the web)
 
 ---
 
-## 8. Checklist pré-production
+## 8. Pre-production Checklist
 
-- [ ] `printBackground: true` (Puppeteer) ou fonts enregistrées (react-pdf)
-- [ ] `break-inside: avoid` sur cartes et tableaux (pas de coupure en milieu de bloc)
-- [ ] En-têtes et pieds de page avec numéros de page
-- [ ] Design system cohérent avec l'app (mêmes couleurs/fonts)
-- [ ] Performance < 10 secondes pour génération
-- [ ] Taille du fichier < 5 MB
-- [ ] Headers HTTP corrects (`Content-Type: application/pdf`)
-- [ ] Rate limiting sur l'endpoint de génération (coût serveur élevé)
-- [ ] Métadonnées accessibilité renseignées
+- [ ] `printBackground: true` (Puppeteer) or fonts registered (react-pdf)
+- [ ] `break-inside: avoid` on cards and tables (no mid-block page breaks)
+- [ ] Headers and footers with page numbers
+- [ ] Design system consistent with the app (same colours/fonts)
+- [ ] Performance < 10 seconds for generation
+- [ ] File size < 5 MB
+- [ ] Correct HTTP headers (`Content-Type: application/pdf`)
+- [ ] Rate limiting on the generation endpoint (high server cost)
+- [ ] Accessibility metadata filled in
 
 ---
 
 ## 9. Sources
 
-| Référence | Lien |
+| Reference | Link |
 |-----------|------|
 | W3C CSS Paged Media Module Level 3 | w3.org/TR/css-page-3 |
 | MDN — CSS Paged Media | developer.mozilla.org/en-US/docs/Web/CSS/CSS_paged_media |

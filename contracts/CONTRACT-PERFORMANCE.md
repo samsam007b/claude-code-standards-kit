@@ -1,112 +1,112 @@
-# Contrat — Performance Web
+# Contract — Web Performance
 
-> Module de contrat SQWR Project Kit.
-> Sources : Google Core Web Vitals (web.dev), DebugBear, Google HEART Framework, PageSpeed Insights.
-
----
-
-## Fondements scientifiques
-
-**Impact mesurable de la performance sur les comportements :**
-- 400ms de délai supplémentaire → -0.44% de recherches (Google Search, 2018)
-- 1 visiteur sur 3 abandonne un site lent (Google, 2019)
-- Amélioration de 20% des Core Web Vitals → réduction de 20% des abandons de navigation
-
-> Source : [Google Search Central Blog — Page Speed Impact](https://developers.google.com/search/blog/2019/04/user-experience-improvements-with-page)
-
-La performance est un **signal de ranking SEO** depuis 2021 (Google Page Experience Update).
+> SQWR Project Kit contract module.
+> Sources: Google Core Web Vitals (web.dev), DebugBear, Google HEART Framework, PageSpeed Insights.
 
 ---
 
-## 1. Core Web Vitals — Seuils obligatoires
+## Scientific Foundations
 
-> Mesure au **75e percentile** des visites, mobile + desktop séparément.
+**Measurable impact of performance on user behaviour:**
+- An additional 400ms delay → -0.44% searches (Google Search, 2018)
+- 1 in 3 visitors abandons a slow site (Google, 2019)
+- 20% improvement in Core Web Vitals → 20% reduction in navigation abandonment
 
-| Métrique | Good ✅ | Needs Improvement ⚠️ | Poor ❌ | Ce qu'elle mesure |
-|----------|---------|---------------------|---------|------------------|
-| **LCP** (Largest Contentful Paint) | ≤2.5s | 2.5–4s | >4s | Vitesse chargement perçue |
-| **INP** (Interaction to Next Paint) | ≤200ms | 200–500ms | >500ms | Réactivité interactions |
-| **CLS** (Cumulative Layout Shift) | <0.1 | 0.1–0.25 | >0.25 | Stabilité visuelle |
-| **TTFB** (Time to First Byte) | <600ms | 600ms–1.8s | >1.8s | Réponse serveur |
+> Source: [Google Search Central Blog — Page Speed Impact](https://developers.google.com/search/blog/2019/04/user-experience-improvements-with-page)
 
-> ⚠️ INP remplace FID (First Input Delay) depuis le **12 mars 2024**.
+Performance has been an **SEO ranking signal** since 2021 (Google Page Experience Update).
 
 ---
 
-## 2. Budget performance — cibles SQWR
+## 1. Core Web Vitals — Mandatory Thresholds
 
-| Métrique | Cible | Seuil bloquant |
-|----------|-------|---------------|
-| Lighthouse Performance | >90 | <70 = bloquant |
-| Lighthouse Accessibility | >95 | <90 = bloquant |
-| Lighthouse SEO | >90 | <80 = bloquant |
-| First Load JS (par page) | <200KB | >350KB = critique |
-| Total Page Weight | <1MB | >3MB = critique |
-| LCP | ≤2.0s | >2.5s = bloquant prod |
+> Measured at the **75th percentile** of visits, mobile + desktop separately.
+
+| Metric | Good ✅ | Needs Improvement ⚠️ | Poor ❌ | What it measures |
+|--------|---------|---------------------|---------|-----------------|
+| **LCP** (Largest Contentful Paint) | ≤2.5s | 2.5–4s | >4s | Perceived load speed |
+| **INP** (Interaction to Next Paint) | ≤200ms | 200–500ms | >500ms | Interaction responsiveness |
+| **CLS** (Cumulative Layout Shift) | <0.1 | 0.1–0.25 | >0.25 | Visual stability |
+| **TTFB** (Time to First Byte) | <600ms | 600ms–1.8s | >1.8s | Server response |
+
+> ⚠️ INP replaced FID (First Input Delay) since **March 12, 2024**.
 
 ---
 
-## 3. Images — optimisation obligatoire
+## 2. Performance Budget — SQWR Targets
+
+| Metric | Target | Blocking threshold |
+|--------|--------|--------------------|
+| Lighthouse Performance | >90 | <70 = blocking |
+| Lighthouse Accessibility | >95 | <90 = blocking |
+| Lighthouse SEO | >90 | <80 = blocking |
+| First Load JS (per page) | <200KB | >350KB = critical |
+| Total Page Weight | <1MB | >3MB = critical |
+| LCP | ≤2.0s | >2.5s = blocking in production |
+
+---
+
+## 3. Images — Mandatory Optimisation
 
 ```tsx
-// ✅ Toujours next/image — jamais <img> raw
+// ✅ Always next/image — never raw <img>
 import Image from 'next/image'
 
-// LCP image — priority prop obligatoire
+// LCP image — priority prop is mandatory
 <Image
   src="/hero.jpg"
-  alt="Description précise de l'image"
+  alt="Precise description of the image"
   width={1200}
   height={630}
-  priority                      // Précharge le LCP
+  priority                      // Preloads the LCP
   sizes="(max-width: 768px) 100vw, 50vw"  // Responsive
-  quality={85}                  // WebP auto, qualité optimale
+  quality={85}                  // Auto WebP, optimal quality
 />
 
-// ✅ Images hors viewport — lazy loading
+// ✅ Off-viewport images — lazy loading
 <Image
   src="/portfolio-item.jpg"
   alt="..."
   width={600}
   height={400}
-  // Pas de priority → lazy par défaut
+  // No priority → lazy by default
 />
 ```
 
-**Formats :** Next.js convertit automatiquement en WebP/AVIF. Jamais de PNG pour les photos.
+**Formats:** Next.js automatically converts to WebP/AVIF. Never use PNG for photos.
 
 ---
 
-## 4. Fonts — zéro layout shift
+## 4. Fonts — Zero Layout Shift
 
 ```typescript
-// ✅ next/font — chargement optimisé, zéro layout shift
+// ✅ next/font — optimised loading, zero layout shift
 import { Inter, Geist } from 'next/font/google'
 
 const inter = Inter({
   subsets: ['latin'],
-  display: 'swap',         // Texte visible pendant le chargement
-  variable: '--font-inter', // CSS variable pour Tailwind
+  display: 'swap',         // Text visible during loading
+  variable: '--font-inter', // CSS variable for Tailwind
 })
 
-// ❌ JAMAIS de font via CDN externe dans CSS
-// @import url('https://fonts.googleapis.com/...') — bloque le rendu
+// ❌ NEVER load a font via external CDN in CSS
+// @import url('https://fonts.googleapis.com/...') — blocks rendering
 ```
 
 ---
 
-## 5. Code splitting et lazy loading
+## 5. Code Splitting and Lazy Loading
 
 ```tsx
-// ✅ Composants lourds — lazy load avec SSR activé par défaut
+// ✅ Heavy components — lazy load with SSR enabled by default
 import dynamic from 'next/dynamic'
 
 const HeavyChart = dynamic(() => import('./HeavyChart'), {
   loading: () => <div className="animate-pulse h-64 bg-gray-100 rounded" />,
-  // ssr: true par défaut — ne jamais mettre ssr: false sur pages SEO-critiques
+  // ssr: true by default — never set ssr: false on SEO-critical pages
 })
 
-// ✅ Suspense pour le streaming
+// ✅ Suspense for streaming
 import { Suspense } from 'react'
 <Suspense fallback={<LoadingSkeleton />}>
   <SlowDataComponent />
@@ -115,22 +115,22 @@ import { Suspense } from 'react'
 
 ---
 
-## 6. Stratégies de cache et revalidation
+## 6. Cache and Revalidation Strategies
 
 ```typescript
-// Server Component — cache explicite
+// Server Component — explicit cache
 
-// ISR : revalidation toutes les heures
+// ISR: revalidation every hour
 const data = await fetch('https://api.example.com/data', {
   next: { revalidate: 3600 }
 })
 
-// Static : jamais revalidé (SSG)
+// Static: never revalidated (SSG)
 const data = await fetch('https://api.example.com/data', {
   cache: 'force-cache'
 })
 
-// Dynamic : jamais mis en cache (données user-specific)
+// Dynamic: never cached (user-specific data)
 const data = await fetch('https://api.example.com/user-data', {
   cache: 'no-store'
 })
@@ -138,24 +138,24 @@ const data = await fetch('https://api.example.com/user-data', {
 
 ---
 
-## 7. Optimisations Tailwind CSS
+## 7. Tailwind CSS Optimisations
 
 ```javascript
-// tailwind.config.ts — purge CSS obligatoire (par défaut en prod Next.js)
+// tailwind.config.ts — mandatory CSS purge (default in production Next.js)
 export default {
   content: [
     './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  // Next.js purge automatiquement en production
+  // Next.js automatically purges in production
 }
 ```
 
 ---
 
-## 8. Bundle analysis
+## 8. Bundle Analysis
 
 ```bash
-# Analyser le bundle size avant déploiement
+# Analyse bundle size before deployment
 npm install --save-dev @next/bundle-analyzer
 
 # next.config.js
@@ -164,38 +164,38 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 })
 module.exports = withBundleAnalyzer({})
 
-# Lancer l'analyse
+# Run the analysis
 ANALYZE=true npm run build
 ```
 
-**Seuils d'alerte :**
-- Package >50KB ajouté → justifier ou trouver une alternative
-- First Load JS dépasse 200KB → analyser et découper
+**Alert thresholds:**
+- Package >50KB added → justify or find an alternative
+- First Load JS exceeds 200KB → analyse and split
 
 ---
 
-## 9. Checklist performance pré-déploiement
+## 9. Pre-deployment Performance Checklist
 
-Mesurer avec **PageSpeed Insights** (pagespeed.web.dev) sur les pages critiques :
+Measure with **PageSpeed Insights** (pagespeed.web.dev) on critical pages:
 
 - [ ] LCP ≤2.5s (mobile + desktop)
 - [ ] CLS <0.1 (mobile + desktop)
 - [ ] INP ≤200ms
 - [ ] Lighthouse Performance ≥90
 - [ ] Lighthouse SEO ≥90
-- [ ] `<img>` raw absent (remplacé par `next/image`)
-- [ ] Fonts via `next/font` uniquement
-- [ ] Pas de `ssr: false` sur pages indexées
-- [ ] Bundle analysé (pas de package inattendu >50KB)
+- [ ] No raw `<img>` (replaced by `next/image`)
+- [ ] Fonts via `next/font` only
+- [ ] No `ssr: false` on indexed pages
+- [ ] Bundle analysed (no unexpected package >50KB)
 
 ---
 
 ## 10. Sources
 
-| Référence | Lien |
+| Reference | Link |
 |-----------|------|
 | Core Web Vitals | web.dev/articles/vitals |
-| INP — remplacement FID | web.dev/articles/inp |
+| INP — FID replacement | web.dev/articles/inp |
 | Next.js Production Checklist | nextjs.org/docs/app/guides/production-checklist |
 | PageSpeed Insights | pagespeed.web.dev |
 | DebugBear — Next.js Performance | debugbear.com/blog/nextjs-performance |

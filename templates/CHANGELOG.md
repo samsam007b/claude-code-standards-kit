@@ -1,18 +1,18 @@
 # Changelog
 
-> Format : [Keep a Changelog 1.1.0](https://keepachangelog.com/fr/1.1.0/)
-> Versioning : [Semantic Versioning 2.0.0](https://semver.org/lang/fr/)
+> Format: [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/)
+> Versioning: [Semantic Versioning 2.0.0](https://semver.org/)
 >
-> **Règles SemVer :**
-> - `MAJOR` (x.0.0) : changements incompatibles avec les versions précédentes
-> - `MINOR` (0.x.0) : nouvelles fonctionnalités rétro-compatibles
-> - `PATCH` (0.0.x) : corrections de bugs rétro-compatibles
+> **SemVer rules:**
+> - `MAJOR` (x.0.0): breaking changes incompatible with previous versions
+> - `MINOR` (0.x.0): new backward-compatible features
+> - `PATCH` (0.0.x): backward-compatible bug fixes
 >
-> **Mapping Conventional Commits → SemVer :**
+> **Conventional Commits → SemVer mapping:**
 > - `feat:` → MINOR increment
 > - `fix:` → PATCH increment
-> - `BREAKING CHANGE:` dans le footer → MAJOR increment
-> - `chore:`, `docs:`, `style:`, `refactor:`, `test:` → pas de release automatique
+> - `BREAKING CHANGE:` in footer → MAJOR increment
+> - `chore:`, `docs:`, `style:`, `refactor:`, `test:` → no automatic release
 
 ---
 
@@ -32,50 +32,50 @@
 ## [1.0.0] — YYYY-MM-DD
 
 ### Added
-- Lancement initial du projet
-- [Décrire les fonctionnalités majeures du premier release]
+- Initial project launch
+- [Describe the major features of the first release]
 
 ---
 
 <!-- ═══════════════════════════════════════════════════════════════════
-INSTRUCTIONS POUR MAINTENIR CE FICHIER
+INSTRUCTIONS FOR MAINTAINING THIS FILE
 ═══════════════════════════════════════════════════════════════════
 
-AVANT CHAQUE RELEASE :
-1. Renommer "[Unreleased]" en "[X.Y.Z] — YYYY-MM-DD" (date ISO 8601)
-2. Créer un nouveau "[Unreleased]" vide au-dessus
-3. Tagger le commit : git tag -a vX.Y.Z -m "Release X.Y.Z"
-4. Pousser le tag : git push origin vX.Y.Z
+BEFORE EACH RELEASE:
+1. Rename "[Unreleased]" to "[X.Y.Z] — YYYY-MM-DD" (ISO 8601 date)
+2. Create a new empty "[Unreleased]" section above
+3. Tag the commit: git tag -a vX.Y.Z -m "Release X.Y.Z"
+4. Push the tag: git push origin vX.Y.Z
 
-CATÉGORIES DISPONIBLES (n'utiliser que celles avec du contenu) :
-- Added      : nouvelles fonctionnalités
-- Changed    : changements dans des fonctionnalités existantes
-- Deprecated : fonctionnalités qui seront supprimées dans une future version
-- Removed    : fonctionnalités supprimées (attention : peut être BREAKING CHANGE)
-- Fixed      : corrections de bugs
-- Security   : corrections de vulnérabilités (toujours inclure si applicable)
+AVAILABLE CATEGORIES (only use those with content):
+- Added      : new features
+- Changed    : changes to existing features
+- Deprecated : features that will be removed in a future version
+- Removed    : removed features (note: may be a BREAKING CHANGE)
+- Fixed      : bug fixes
+- Security   : vulnerability fixes (always include if applicable)
 
-FORMAT DATE : toujours ISO 8601 (YYYY-MM-DD) — pas de 18/03/2026 ou March 18, 2026
+DATE FORMAT: always ISO 8601 (YYYY-MM-DD) — not 18/03/2026 or March 18, 2026
 
-EXEMPLE D'ENTRÉE BIEN FORMATÉE :
+EXAMPLE OF A WELL-FORMATTED ENTRY:
 ## [1.2.0] — 2026-03-18
 
 ### Added
-- Tableau de bord propriétaires avec compteur de vues des annonces (#45)
-- Notifications email pour les nouveaux messages (#52)
+- Owner dashboard with listing view counter (#45)
+- Email notifications for new messages (#52)
 
 ### Fixed
-- Correction de l'affichage des images sur mobile Safari (#61)
-- Résolution du bug de session qui déconnectait après 15 min (#58)
+- Fixed image display on mobile Safari (#61)
+- Resolved session bug that logged users out after 15 min (#58)
 
 ### Security
-- Mise à jour next-auth 4.24.5 → 4.24.7 (CVE-2026-XXXX)
+- Updated next-auth 4.24.5 → 4.24.7 (CVE-2026-XXXX)
 
-RÈGLE D'OR : ce fichier est pour les humains, pas les machines.
-Écrire des descriptions que quelqu'un peut comprendre sans regarder le code.
+GOLDEN RULE: this file is for humans, not machines.
+Write descriptions that someone can understand without looking at the code.
 
-SOURCES :
-- Keep a Changelog : keepachangelog.com/fr/1.1.0
-- Semantic Versioning : semver.org
-- Conventional Commits : conventionalcommits.org
+SOURCES:
+- Keep a Changelog: keepachangelog.com/en/1.1.0
+- Semantic Versioning: semver.org
+- Conventional Commits: conventionalcommits.org
 ═══════════════════════════════════════════════════════════════════ -->

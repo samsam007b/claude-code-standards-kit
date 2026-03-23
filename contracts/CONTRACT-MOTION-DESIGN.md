@@ -1,28 +1,28 @@
-# Contrat — Motion Design & Animation
+# Contract — Motion Design & Animation
 
-> Module de contrat SQWR Project Kit.
-> Sources : Material Design 3 Motion (m3.material.io/styles/motion), Apple HIG — Motion (developer.apple.com/design/human-interface-guidelines/motion), W3C WCAG 2.3 — Seizure and Physical Reactions (w3.org/TR/WCAG23), CSS Easing Functions Level 2 (w3.org/TR/css-easing-2), Remotion docs (remotion.dev/docs), Nielsen Norman Group — Animation for Attention and Comprehension (nngroup.com).
+> SQWR Project Kit contract module.
+> Sources: Material Design 3 Motion (m3.material.io/styles/motion), Apple HIG — Motion (developer.apple.com/design/human-interface-guidelines/motion), W3C WCAG 2.3 — Seizure and Physical Reactions (w3.org/TR/WCAG23), CSS Easing Functions Level 2 (w3.org/TR/css-easing-2), Remotion docs (remotion.dev/docs), Nielsen Norman Group — Animation for Attention and Comprehension (nngroup.com).
 
 ---
 
-## Fondements
+## Foundations
 
-**Principe fondamental : Animation = Communication.** Tout mouvement a un but. Une animation sans raison est du bruit visuel.
+**Fundamental principle: Animation = Communication.** Every movement has a purpose. An animation without reason is visual noise.
 
-> « L'animation sert à guider l'attention, à maintenir la continuité entre les états, et à fournir un feedback sur les interactions — pas à décorer. »
+> "Animation serves to guide attention, maintain continuity between states, and provide feedback on interactions — not to decorate."
 > — Nielsen Norman Group, "Animation for Attention and Comprehension"
 
-Ce contrat couvre : animations UI web/app, motion design social (Reels, TikTok), video production avec Remotion, et accessibilité des animations.
+This contract covers: web/app UI animations, social motion design (Reels, TikTok), video production with Remotion, and animation accessibility.
 
 ---
 
-## 1. Règle des 200ms — Feedback utilisateur
+## 1. The 200ms Rule — User Feedback
 
-> Source : Material Design 3 — Motion speed (m3.material.io/styles/motion/applying-motion/motion-parameters)
-> **Threshold : ≤200ms pour toute animation déclenchée par une interaction utilisateur**
+> Source: Material Design 3 — Motion speed (m3.material.io/styles/motion/applying-motion/motion-parameters)
+> **Threshold: ≤200ms for any animation triggered by a user interaction**
 
 ```css
-/* ✅ Micro-interactions — réponse immédiate */
+/* ✅ Micro-interactions — immediate response */
 .button {
   transition: transform 150ms cubic-bezier(0.2, 0, 0, 1),
               box-shadow 150ms cubic-bezier(0.2, 0, 0, 1);
@@ -32,54 +32,54 @@ Ce contrat couvre : animations UI web/app, motion design social (Reels, TikTok),
 .button:active { transform: scale(0.97); }
 ```
 
-Au-delà de 200ms, l'utilisateur perçoit un **lag** — la réponse ne semble plus instantanée (Miller's Law : seuil de "immédiat" = 100-200ms).
+Beyond 200ms, the user perceives **lag** — the response no longer feels instantaneous (Miller's Law: threshold of "immediate" = 100-200ms).
 
 ---
 
-## 2. Durées standard
+## 2. Standard Durations
 
-> Source : Material Design 3 — Duration tokens (m3.material.io/styles/motion/easing-and-duration/tokens-specs)
-> Source : Apple HIG — Animation duration (developer.apple.com/design/human-interface-guidelines/motion)
+> Source: Material Design 3 — Duration tokens (m3.material.io/styles/motion/easing-and-duration/tokens-specs)
+> Source: Apple HIG — Animation duration (developer.apple.com/design/human-interface-guidelines/motion)
 
-| Catégorie | Durée | Usage |
-|-----------|-------|-------|
+| Category | Duration | Usage |
+|----------|----------|-------|
 | **Instant** | 50–100ms | Hover state, focus ring |
-| **Micro** | 150–200ms | Boutons, icônes, toggles |
-| **Petite** | 200–300ms | Tooltips, chips, badges |
-| **Moyenne** | 300–500ms | Cards, modals, drawers |
-| **Grande** | 500–800ms | Page transitions, sidebars |
-| **Héro** | 800–1500ms | Animations d'entrée landing page |
+| **Micro** | 150–200ms | Buttons, icons, toggles |
+| **Small** | 200–300ms | Tooltips, chips, badges |
+| **Medium** | 300–500ms | Cards, modals, drawers |
+| **Large** | 500–800ms | Page transitions, sidebars |
+| **Hero** | 800–1500ms | Landing page entry animations |
 
-**Règle absolue : jamais d'animation UI > 1500ms.** Au-delà, l'utilisateur perd patience (NN/G research, 2019).
+**Absolute rule: never any UI animation > 1500ms.** Beyond this, the user loses patience (NN/G research, 2019).
 
 ---
 
-## 3. Courbes d'easing
+## 3. Easing Curves
 
-> Source : CSS Easing Functions Level 2 — W3C Working Draft (w3.org/TR/css-easing-2)
-> Source : Material Design 3 — Easing (m3.material.io/styles/motion/easing-and-duration/applying-easing)
+> Source: CSS Easing Functions Level 2 — W3C Working Draft (w3.org/TR/css-easing-2)
+> Source: Material Design 3 — Easing (m3.material.io/styles/motion/easing-and-duration/applying-easing)
 
 ```css
 :root {
-  /* Entrer dans l'écran — décélère à l'arrivée */
+  /* Enter the screen — decelerates on arrival */
   --ease-enter:   cubic-bezier(0.0, 0.0, 0.2, 1);   /* Material: Emphasized decelerate */
 
-  /* Quitter l'écran — accélère au départ */
+  /* Exit the screen — accelerates on departure */
   --ease-exit:    cubic-bezier(0.4, 0.0, 1, 1);      /* Material: Emphasized accelerate */
 
-  /* Dans l'écran — transitions d'état */
+  /* On screen — state transitions */
   --ease-smooth:  cubic-bezier(0.4, 0.0, 0.2, 1);   /* Material: Standard */
 
-  /* Réponse rapide — snappy */
+  /* Quick response — snappy */
   --ease-snappy:  cubic-bezier(0.2, 0.0, 0.0, 1);
 
-  /* Éléments ludiques — bounce contrôlé */
+  /* Playful elements — controlled bounce */
   --ease-spring:  cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 ```
 
 ```typescript
-// Remotion / Framer Motion — équivalents
+// Remotion / Framer Motion — equivalents
 const easings = {
   enter:   [0.0, 0.0, 0.2, 1],
   exit:    [0.4, 0.0, 1.0, 1],
@@ -91,11 +91,11 @@ const easings = {
 
 ---
 
-## 4. Patterns de composants — Standards
+## 4. Component Patterns — Standards
 
-> Source : Material Design 3 — Component motion (m3.material.io/styles/motion/transitions/transition-patterns)
+> Source: Material Design 3 — Component motion (m3.material.io/styles/motion/transitions/transition-patterns)
 
-### 4.1 Boutons
+### 4.1 Buttons
 
 ```css
 .btn {
@@ -132,10 +132,10 @@ const easings = {
 }
 ```
 
-### 4.4 Listes et grilles — Stagger
+### 4.4 Lists and Grids — Stagger
 
 ```typescript
-// Framer Motion — entrée en stagger (0.08s entre chaque item)
+// Framer Motion — stagger entry (0.08s between each item)
 const container = {
   hidden: { opacity: 0 },
   show: {
@@ -151,12 +151,12 @@ const item = {
 
 ---
 
-## 5. Remotion — Production video
+## 5. Remotion — Video Production
 
-> Source : Remotion documentation (remotion.dev/docs)
+> Source: Remotion documentation (remotion.dev/docs)
 
 ```typescript
-// Composition standard — Social Media Reel (9:16)
+// Standard composition — Social Media Reel (9:16)
 import { Composition } from 'remotion'
 
 export const RemotionRoot: React.FC = () => (
@@ -164,7 +164,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition
       id="SocialReel"
       component={SocialReelComposition}
-      durationInFrames={450}   // 15s à 30fps
+      durationInFrames={450}   // 15s at 30fps
       fps={30}
       width={1080}
       height={1920}
@@ -172,7 +172,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition
       id="HeroAnimation"
       component={HeroComposition}
-      durationInFrames={180}   // 6s à 30fps
+      durationInFrames={180}   // 6s at 30fps
       fps={30}
       width={1920}
       height={1080}
@@ -182,7 +182,7 @@ export const RemotionRoot: React.FC = () => (
 ```
 
 ```typescript
-// Animation d'entrée avec spring — Remotion
+// Entry animation with spring — Remotion
 import { spring, useCurrentFrame, useVideoConfig } from 'remotion'
 
 export const AnimatedCard: React.FC = () => {
@@ -194,44 +194,44 @@ export const AnimatedCard: React.FC = () => {
 
   return (
     <div style={{ opacity, transform: `translateY(${translateY}px)` }}>
-      {/* contenu */}
+      {/* content */}
     </div>
   )
 }
 ```
 
-**Thresholds Remotion :**
-- `fps` : **30fps minimum** pour le social, 24fps acceptable pour cinématique
-- Résolution : **1080×1920** pour Reels/TikTok, **1920×1080** pour YouTube/web
-- Durée Reel : **15–30s** (15s = optimal engagement, TikTok Creator research 2024)
+**Remotion Thresholds:**
+- `fps`: **30fps minimum** for social, 24fps acceptable for cinematic
+- Resolution: **1080×1920** for Reels/TikTok, **1920×1080** for YouTube/web
+- Reel duration: **15–30s** (15s = optimal engagement, TikTok Creator research 2024)
 
 ---
 
-## 6. Spécifications d'export par plateforme
+## 6. Export Specifications by Platform
 
-> Source : Instagram Creator Guidelines (creators.instagram.com), TikTok Creator Portal (creator.tiktok.com), YouTube Help — upload specs (support.google.com/youtube), Vimeo Compression guidelines (vimeo.com/help/compression)
+> Source: Instagram Creator Guidelines (creators.instagram.com), TikTok Creator Portal (creator.tiktok.com), YouTube Help — upload specs (support.google.com/youtube), Vimeo Compression guidelines (vimeo.com/help/compression)
 
-| Plateforme | Format | Résolution | Codec | Framerate | Bitrate |
-|------------|--------|------------|-------|-----------|---------|
+| Platform | Format | Resolution | Codec | Framerate | Bitrate |
+|----------|--------|------------|-------|-----------|---------|
 | Instagram Reel | MP4 | 1080×1920 | H.264 | 30fps | 8–12 Mbps |
 | TikTok | MP4 | 1080×1920 | H.264 | 30fps | 8–12 Mbps |
 | YouTube Short | MP4 | 1080×1920 | H.264 | 30fps | 8–12 Mbps |
-| YouTube (paysage) | MP4 | 1920×1080 | H.264 | 24/30fps | 10–15 Mbps |
+| YouTube (landscape) | MP4 | 1920×1080 | H.264 | 24/30fps | 10–15 Mbps |
 | Web (hero) | WebM | Variable | VP9 | 24/30fps | 4–8 Mbps |
 | Web (fallback) | MP4 | Variable | H.264 | 24/30fps | 4–8 Mbps |
 
-**Audio :** AAC 44.1kHz, 320kbps pour musique, 128kbps pour voix seule.
+**Audio:** AAC 44.1kHz, 320kbps for music, 128kbps for voice only.
 
 ---
 
-## 7. Accessibilité — prefers-reduced-motion
+## 7. Accessibility — prefers-reduced-motion
 
-> Source : W3C WCAG 2.3 SC 2.3.3 — Animation from Interactions (AAA) (w3.org/TR/WCAG23)
-> Source : MDN — prefers-reduced-motion (developer.mozilla.org/fr/docs/Web/CSS/@media/prefers-reduced-motion)
-> **Threshold : respecter `prefers-reduced-motion` est obligatoire (WCAG 2.3 SC 2.3.3)**
+> Source: W3C WCAG 2.3 SC 2.3.3 — Animation from Interactions (AAA) (w3.org/TR/WCAG23)
+> Source: MDN — prefers-reduced-motion (developer.mozilla.org/fr/docs/Web/CSS/@media/prefers-reduced-motion)
+> **Threshold: respecting `prefers-reduced-motion` is mandatory (WCAG 2.3 SC 2.3.3)**
 
 ```css
-/* ✅ Pattern global — réduire ou supprimer toutes les animations */
+/* ✅ Global pattern — reduce or remove all animations */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration:   0.01ms !important;
@@ -243,7 +243,7 @@ export const AnimatedCard: React.FC = () => {
 ```
 
 ```typescript
-// React — hook utilitaire
+// React — utility hook
 import { useReducedMotion } from 'framer-motion'
 
 export function AnimatedEntry({ children }: { children: React.ReactNode }) {
@@ -261,26 +261,26 @@ export function AnimatedEntry({ children }: { children: React.ReactNode }) {
 }
 ```
 
-**Règles absolues accessibilité :**
-- Jamais de flash > 3 fois/seconde → risque épileptique (WCAG 2.1 SC 2.3.1, seuil légal)
-- Animations infinites : toujours pauseables (bouton ou `prefers-reduced-motion`)
-- Parallax excessif → interdit sans fallback (mal des transports, vestibulaire)
+**Absolute accessibility rules:**
+- Never flash > 3 times/second → epileptic risk (WCAG 2.1 SC 2.3.1, legal threshold)
+- Infinite animations: always pauseable (button or `prefers-reduced-motion`)
+- Excessive parallax → forbidden without fallback (motion sickness, vestibular)
 
 ---
 
-## 8. Motion Branding — Identité visuelle animée
+## 8. Motion Branding — Animated Visual Identity
 
-> Source : Nielsen Norman Group — "Brand Expression Through Animation" (nngroup.com, 2021)
+> Source: Nielsen Norman Group — "Brand Expression Through Animation" (nngroup.com, 2021)
 
-**La signature animée d'une marque se définit par 3 paramètres :**
-1. **Easing signature** — la courbe caractéristique (ex: spring légèrement overshot = jeune/dynamique)
-2. **Durée signature** — rapide ou lente (ex: transitions 300ms = moderne, professionnel)
-3. **Comportement signature** — stagger, reveal, glide, bounce
+**A brand's animated signature is defined by 3 parameters:**
+1. **Signature easing** — the characteristic curve (e.g.: slightly overshot spring = young/dynamic)
+2. **Signature duration** — fast or slow (e.g.: 300ms transitions = modern, professional)
+3. **Signature behavior** — stagger, reveal, glide, bounce
 
 ```typescript
-// Exemple — design system tokens d'animation
+// Example — animation design system tokens
 export const motionTokens = {
-  // Signature de marque
+  // Brand signature
   brand: {
     enter:    { duration: 400, ease: [0.0, 0.0, 0.2, 1] as const },
     exit:     { duration: 250, ease: [0.4, 0.0, 1.0, 1] as const },
@@ -296,33 +296,33 @@ export const motionTokens = {
 
 ---
 
-## 9. Checklist avant livraison
+## 9. Pre-delivery Checklist
 
-### Bloquants
+### Blockers
 
-- [ ] `prefers-reduced-motion` respecté sur toutes les animations
-- [ ] Aucun flash > 3 fois/seconde sur l'ensemble du contenu animé
-- [ ] Durées UI : toutes ≤ 1500ms
-- [ ] Réponse interactions : ≤ 200ms
+- [ ] `prefers-reduced-motion` respected on all animations
+- [ ] No flash > 3 times/second across all animated content
+- [ ] UI durations: all ≤ 1500ms
+- [ ] Interaction response: ≤ 200ms
 
-### Importants
+### Important
 
-- [ ] Exports vidéo : résolution et bitrate conformes par plateforme (section 6)
-- [ ] Animations infinites : pauseables
-- [ ] Stagger : ≤ 0.1s entre items (au-delà = lent perçu)
-- [ ] Remotion : fps et dimensions corrects avant render
+- [ ] Video exports: resolution and bitrate compliant per platform (section 6)
+- [ ] Infinite animations: pauseable
+- [ ] Stagger: ≤ 0.1s between items (beyond = perceived as slow)
+- [ ] Remotion: fps and dimensions correct before render
 
-### Souhaitables
+### Desirable
 
-- [ ] Motion tokens centralisés (section 8) — cohérence cross-composants
-- [ ] Tests sur appareil réel avec `prefers-reduced-motion: reduce` activé
-- [ ] Fichiers WebM générés pour le web (fallback MP4)
+- [ ] Motion tokens centralized (section 8) — cross-component consistency
+- [ ] Tests on real device with `prefers-reduced-motion: reduce` enabled
+- [ ] WebM files generated for the web (MP4 fallback)
 
 ---
 
 ## Sources
 
-| Référence | Lien |
+| Reference | Link |
 |-----------|------|
 | Material Design 3 — Motion | m3.material.io/styles/motion |
 | Apple HIG — Motion | developer.apple.com/design/human-interface-guidelines/motion |

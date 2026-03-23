@@ -1,131 +1,131 @@
 # Audit Index — SQWR Project Kit
 
-> Système d'audit inspiré du Starter Kit SQWR (Writing-Skills/INDEX.md).
-> Principe : chaque règle est vérifiable, chaque score est mesurable.
-> Format : checklist pondérée → score /100 par domaine → score global.
+> Audit system inspired by the SQWR Starter Kit (Writing-Skills/INDEX.md).
+> Principle: every rule is verifiable, every score is measurable.
+> Format: weighted checklist → score /100 per domain → global score.
 
 ---
 
-## Quand utiliser quel audit
+## When to use which audit
 
-| Situation | Audits à lancer |
+| Situation | Audits to run |
 |-----------|----------------|
-| **Avant premier déploiement** | DEPLOYMENT + SECURITY + PERFORMANCE + ACCESSIBILITY + OBSERVABILITY |
-| **Avant merge d'une feature** | CODE-QUALITY + SECURITY (si auth/DB) + DEPLOYMENT |
-| **Revue mensuelle maintenance** | tous les audits |
-| **Urgence sécurité** | SECURITY seul, en priorité absolue |
-| **Incident production** | OBSERVABILITY + RESILIENCE (post-incident) |
-| **Refonte design** | DESIGN + ACCESSIBILITY + PERFORMANCE |
-| **Ajout d'un agent IA** | AI-GOVERNANCE + ANTI-HALLUCINATION (contrat) |
-| **Nouveau projet lancé** | AI-GOVERNANCE + CODE-QUALITY + DESIGN |
-| **Livraison client (UE)** | ACCESSIBILITY (EAA obligatoire) + SECURITY + DEPLOYMENT + RGPD |
-| **Avant livraison client** | CLIENT-HANDOFF (→ frameworks/) + DEPLOYMENT + ACCESSIBILITY + SECURITY + RGPD |
-| **Fin de sprint / release** | DEPLOYMENT (CHANGELOG mis à jour ?) + CODE-QUALITY |
-| **Avant lancement produit/marque** | BRAND-STRATEGY + COMPETITIVE-AUDIT (→ frameworks/) |
-| **Repositionnement ou rebranding** | BRAND-STRATEGY seul |
-| **Grand public EU (données perso)** | RGPD ≥80/100 obligatoire avant mise en production |
+| **Before first deployment** | DEPLOYMENT + SECURITY + PERFORMANCE + ACCESSIBILITY + OBSERVABILITY |
+| **Before merging a feature** | CODE-QUALITY + SECURITY (if auth/DB) + DEPLOYMENT |
+| **Monthly maintenance review** | all audits |
+| **Security emergency** | SECURITY alone, highest priority |
+| **Production incident** | OBSERVABILITY + RESILIENCE (post-incident) |
+| **Design overhaul** | DESIGN + ACCESSIBILITY + PERFORMANCE |
+| **Adding an AI agent** | AI-GOVERNANCE + ANTI-HALLUCINATION (contract) |
+| **New project launched** | AI-GOVERNANCE + CODE-QUALITY + DESIGN |
+| **Client delivery (EU)** | ACCESSIBILITY (EAA mandatory) + SECURITY + DEPLOYMENT + GDPR |
+| **Before client delivery** | CLIENT-HANDOFF (→ frameworks/) + DEPLOYMENT + ACCESSIBILITY + SECURITY + GDPR |
+| **End of sprint / release** | DEPLOYMENT (CHANGELOG updated?) + CODE-QUALITY |
+| **Before product/brand launch** | BRAND-STRATEGY + COMPETITIVE-AUDIT (→ frameworks/) |
+| **Repositioning or rebranding** | BRAND-STRATEGY alone |
+| **EU general public (personal data)** | GDPR ≥80/100 mandatory before production |
 
 ---
 
-## Seuils de blocage
+## Blocking thresholds
 
-| Score | Signification | Action |
-|-------|--------------|--------|
-| <50 | Critique | ❌ Bloquer le déploiement |
-| 50-69 | Insuffisant | ⚠️ Corriger avant merge |
-| 70-84 | Acceptable | Déploiement possible, plan d'amélioration requis |
-| 85-94 | Bon | Déployer |
-| 95-100 | Excellent | Déployer + documenter comme référence |
+| Score | Meaning | Action |
+|-------|---------|--------|
+| <50 | Critical | ❌ Block deployment |
+| 50-69 | Insufficient | ⚠️ Fix before merge |
+| 70-84 | Acceptable | Deployment possible, improvement plan required |
+| 85-94 | Good | Deploy |
+| 95-100 | Excellent | Deploy + document as reference |
 
-**Score SECURITY <70 = blocage absolu — aucune exception.**
-
----
-
-## Scores par domaine (pondération globale — v2)
-
-| Audit | Poids | Fichier | Seuil blocage |
-|-------|-------|---------|--------------|
-| **SECURITY** | 22% | `AUDIT-SECURITY.md` | <70 = BLOQUANT |
-| **PERFORMANCE** | 18% | `AUDIT-PERFORMANCE.md` | <70 recommandé |
-| **CODE-QUALITY** | 18% | `AUDIT-CODE-QUALITY.md` | <75 recommandé |
-| **OBSERVABILITY** | 12% | `AUDIT-OBSERVABILITY.md` | <60 recommandé |
-| **ACCESSIBILITY** | 12% | `AUDIT-ACCESSIBILITY.md` | <80 (légal EU) |
-| **DESIGN** | 8% | `AUDIT-DESIGN.md` | <70 recommandé |
-| **AI-GOVERNANCE** | 5% | `AUDIT-AI-GOVERNANCE.md` | <80 recommandé |
-| **DEPLOYMENT** | 5% | `AUDIT-DEPLOYMENT.md` | Gate pré-prod |
-| **RGPD** | — | `AUDIT-RGPD.md` | ≥80/100 avant prod grand public |
-| **BRAND-STRATEGY** | — | `AUDIT-BRAND-STRATEGY.md` | Avant lancement / repositionnement |
-
-**Score global = somme pondérée des 8 domaines pondérés.**
-**RGPD et BRAND-STRATEGY sont des audits hors-pondération — obligatoires selon le contexte.**
-
-**ACCESSIBILITY <80 = non-conforme European Accessibility Act (juin 2025) — obligation légale.**
-**RGPD <80 = risque CNIL / ICO si traitement de données personnelles de résidents EU.**
+**SECURITY Score <70 = absolute block — no exceptions.**
 
 ---
 
-## Format de score par audit
+## Scores by domain (global weighting — v2)
 
-Chaque audit utilise ce format :
+| Audit | Weight | File | Blocking threshold |
+|-------|--------|------|--------------------|
+| **SECURITY** | 22% | `AUDIT-SECURITY.md` | <70 = BLOCKING |
+| **PERFORMANCE** | 18% | `AUDIT-PERFORMANCE.md` | <70 recommended |
+| **CODE-QUALITY** | 18% | `AUDIT-CODE-QUALITY.md` | <75 recommended |
+| **OBSERVABILITY** | 12% | `AUDIT-OBSERVABILITY.md` | <60 recommended |
+| **ACCESSIBILITY** | 12% | `AUDIT-ACCESSIBILITY.md` | <80 (EU legal) |
+| **DESIGN** | 8% | `AUDIT-DESIGN.md` | <70 recommended |
+| **AI-GOVERNANCE** | 5% | `AUDIT-AI-GOVERNANCE.md` | <80 recommended |
+| **DEPLOYMENT** | 5% | `AUDIT-DEPLOYMENT.md` | Pre-prod gate |
+| **GDPR** | — | `AUDIT-RGPD.md` | ≥80/100 before general public prod |
+| **BRAND-STRATEGY** | — | `AUDIT-BRAND-STRATEGY.md` | Before launch / repositioning |
+
+**Global score = weighted sum of the 8 weighted domains.**
+**GDPR and BRAND-STRATEGY are out-of-weighting audits — mandatory depending on context.**
+
+**ACCESSIBILITY <80 = non-compliant with European Accessibility Act (June 2025) — legal obligation.**
+**GDPR <80 = CNIL / ICO risk if processing personal data of EU residents.**
+
+---
+
+## Score format per audit
+
+Each audit uses this format:
 
 ```
-[ ] Item à vérifier ........................... (points)
-[x] Item validé ................................ ✅ (points)
-[-] Non applicable ............................. N/A
+[ ] Item to check ........................... (points)
+[x] Validated item .......................... ✅ (points)
+[-] Not applicable .......................... N/A
 ```
 
-Score = (points obtenus / points applicables) × 100
+Score = (points obtained / applicable points) × 100
 
 ---
 
-## Séquençage recommandé
+## Recommended sequencing
 
 ```
-Audit SECURITY          → priorité absolue
+Audit SECURITY          → highest priority
        ↓
-Audit OBSERVABILITY     → monitoring en place avant d'aller plus loin
+Audit OBSERVABILITY     → monitoring in place before going further
        ↓
 Audit PERFORMANCE       → Core Web Vitals
        ↓
 Audit CODE-QUALITY      → TypeScript, tests, coverage
        ↓
-Audit ACCESSIBILITY     → WCAG + EAA légal
+Audit ACCESSIBILITY     → WCAG + EAA legal
        ↓
-Audit DESIGN            → couleurs, typo, Gestalt
+Audit DESIGN            → colors, typography, Gestalt
        ↓
-Audit AI-GOVERNANCE     → CLAUDE.md, contrats, hallucinations
+Audit AI-GOVERNANCE     → CLAUDE.md, contracts, hallucinations
        ↓
-Audit DEPLOYMENT        → gate finale avant prod
+Audit DEPLOYMENT        → final gate before prod
 ```
 
 ---
 
-## Audit du Project Kit lui-même
+## Auditing the Project Kit itself
 
-Pour auditer la qualité du kit SQWR :
+To audit the quality of the SQWR kit:
 
-1. `bash scripts/verify-kit.sh --verbose` — intégrité automatique (0 erreur = pré-requis)
-2. `AUDIT-AI-GOVERNANCE.md` — CLAUDE.md templates complets ?
-3. `AUDIT-CODE-QUALITY.md` — Contrats TypeScript/Testing corrects ?
-4. `AUDIT-DESIGN.md` — Contrat design scientifiquement ancré ?
-5. Vérifier que chaque contrat cite ses sources
+1. `bash scripts/verify-kit.sh --verbose` — automatic integrity check (0 errors = prerequisite)
+2. `AUDIT-AI-GOVERNANCE.md` — CLAUDE.md templates complete?
+3. `AUDIT-CODE-QUALITY.md` — TypeScript/Testing contracts correct?
+4. `AUDIT-DESIGN.md` — Design contract scientifically grounded?
+5. Verify that each contract cites its sources
 
-**Score cible du Project Kit (référentiel 2026) : ≥92/100**
+**Target score for the Project Kit (2026 reference): ≥92/100**
 
 ---
 
-## Frameworks disponibles (hors audit — outils complémentaires)
+## Available frameworks (outside audits — complementary tools)
 
-| Framework | Fichier | Usage |
-|-----------|---------|-------|
-| **Incident Response** | `frameworks/INCIDENT-RESPONSE.md` | Quand un service casse en prod |
-| **ADR Template** | `frameworks/ADR-TEMPLATE.md` | Documenter les décisions architecturales |
-| **SLO Template** | `frameworks/SLO-TEMPLATE.md` | Définir les objectifs de fiabilité |
-| **Compliance EU** | `frameworks/COMPLIANCE-EU.md` | EU AI Act, EAA, RGPD, NIS2 |
-| **Project Scoping** | `frameworks/PROJECT-SCOPING.md` | Avant toute nouvelle feature ou projet (Shape Up + Pre-mortem) |
-| **Client Handoff** | `frameworks/CLIENT-HANDOFF.md` | Livraison finale à un client (5 catégories + SLA) |
-| **Estimation** | `frameworks/ESTIMATION.md` | Avant engagement de délai (PERT + RCF + règle ×1.5) |
-| **Dependency Management** | `frameworks/DEPENDENCY-MANAGEMENT.md` | Setup projet + revue mensuelle sécurité dépendances |
-| **Brand Strategy** | `frameworks/BRAND-STRATEGY.md` | Positionnement, Golden Circle, archétypes — avant tout design |
-| **Competitive Audit** | `frameworks/COMPETITIVE-AUDIT.md` | Analyse concurrentielle Blue Ocean + Nielsen avant lancement |
-| **Campaign Strategy** | `frameworks/CAMPAIGN-STRATEGY.md` | SEE-THINK-DO-CARE, funnel, KPIs — pour tout lancement |
+| Framework | File | Usage |
+|-----------|------|-------|
+| **Incident Response** | `frameworks/INCIDENT-RESPONSE.md` | When a service breaks in prod |
+| **ADR Template** | `frameworks/ADR-TEMPLATE.md` | Documenting architectural decisions |
+| **SLO Template** | `frameworks/SLO-TEMPLATE.md` | Defining reliability objectives |
+| **EU Compliance** | `frameworks/COMPLIANCE-EU.md` | EU AI Act, EAA, GDPR, NIS2 |
+| **Project Scoping** | `frameworks/PROJECT-SCOPING.md` | Before any new feature or project (Shape Up + Pre-mortem) |
+| **Client Handoff** | `frameworks/CLIENT-HANDOFF.md` | Final delivery to a client (5 categories + SLA) |
+| **Estimation** | `frameworks/ESTIMATION.md` | Before committing to a deadline (PERT + RCF + ×1.5 rule) |
+| **Dependency Management** | `frameworks/DEPENDENCY-MANAGEMENT.md` | Project setup + monthly security dependency review |
+| **Brand Strategy** | `frameworks/BRAND-STRATEGY.md` | Positioning, Golden Circle, archetypes — before any design |
+| **Competitive Audit** | `frameworks/COMPETITIVE-AUDIT.md` | Blue Ocean + Nielsen competitive analysis before launch |
+| **Campaign Strategy** | `frameworks/CAMPAIGN-STRATEGY.md` | SEE-THINK-DO-CARE, funnel, KPIs — for any launch |

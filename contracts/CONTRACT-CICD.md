@@ -1,52 +1,52 @@
-# Contrat — CI/CD & Automatisation Qualité
+# Contract — CI/CD & Quality Automation
 
-> Module de contrat SQWR Project Kit.
-> Sources : GitHub Actions docs (docs.github.com/actions), DORA Metrics — Google/DORA Research (dora.dev), Trunk Based Development (trunkbaseddevelopment.com), Conventional Commits (conventionalcommits.org), Semantic Versioning 2.0.0 (semver.org).
+> SQWR Project Kit contract module.
+> Sources: GitHub Actions docs (docs.github.com/actions), DORA Metrics — Google/DORA Research (dora.dev), Trunk Based Development (trunkbaseddevelopment.com), Conventional Commits (conventionalcommits.org), Semantic Versioning 2.0.0 (semver.org).
 
 ---
 
-## Fondements scientifiques
+## Scientific Foundations
 
-**Les équipes Elite (Google DORA Research, 2023) déploient plusieurs fois par jour et ont un MTTR <1 heure.** Le CI/CD n'est pas un luxe — c'est la différence mesurable entre une équipe capable de livrer de la valeur rapidement et une équipe bloquée par ses propres processus.
+**Elite teams (Google DORA Research, 2023) deploy multiple times per day and have an MTTR <1 hour.** CI/CD is not a luxury — it is the measurable difference between a team capable of delivering value quickly and a team blocked by its own processes.
 
-**DORA Metrics** (DevOps Research and Assessment, maintenant chez Google Cloud) sont le standard industriel pour mesurer la performance d'une pipeline de livraison :
+**DORA Metrics** (DevOps Research and Assessment, now at Google Cloud) are the industry standard for measuring the performance of a delivery pipeline:
 
-| Métrique | Elite | High | Medium | Low |
+| Metric | Elite | High | Medium | Low |
 |----------|-------|------|--------|-----|
-| **Deployment Frequency** | >1/jour | 1/semaine–1/mois | 1/mois–6 mois | <6 mois |
-| **Lead Time for Changes** | <1h | 1j–1 semaine | 1 semaine–1 mois | >1 mois |
-| **MTTR** (Mean Time to Restore) | <1h | <1j | 1j–1 semaine | >1 semaine |
+| **Deployment Frequency** | >1/day | 1/week–1/month | 1/month–6 months | <6 months |
+| **Lead Time for Changes** | <1h | 1d–1 week | 1 week–1 month | >1 month |
+| **MTTR** (Mean Time to Restore) | <1h | <1d | 1d–1 week | >1 week |
 | **Change Failure Rate** | <5% | <10% | 10-15% | >15% |
 
-> Source : dora.dev/research/2023
+> Source: dora.dev/research/2023
 
 ---
 
-## 1. Stratégie de branches — Trunk-Based Development
+## 1. Branch Strategy — Trunk-Based Development
 
-> Source : trunkbaseddevelopment.com (Paul Hammant, ex-ThoughtWorks)
+> Source: trunkbaseddevelopment.com (Paul Hammant, ex-ThoughtWorks)
 
-**Règle : une seule branche principale (`main`), branches de features courtes (<2 jours).**
+**Rule: a single main branch (`main`), short feature branches (<2 days).**
 
 ```
-main (branch protégée — jamais de push direct)
- ├── feature/add-auth    → merge < 2 jours → delete
- ├── fix/button-focus    → merge < 1 jour  → delete
- └── chore/update-deps   → merge < 1 jour  → delete
+main (protected branch — never push directly)
+ ├── feature/add-auth    → merge < 2 days → delete
+ ├── fix/button-focus    → merge < 1 day  → delete
+ └── chore/update-deps   → merge < 1 day  → delete
 ```
 
-**Règle de nommage des branches :**
+**Branch naming rule:**
 ```
-feature/<description-courte>   → nouvelle fonctionnalité
-fix/<description-courte>       → correction de bug
-chore/<description-courte>     → maintenance (deps, config)
-docs/<description-courte>      → documentation
-refactor/<description-courte>  → refactoring sans changement de comportement
+feature/<short-description>   → new functionality
+fix/<short-description>       → bug fix
+chore/<short-description>     → maintenance (deps, config)
+docs/<short-description>      → documentation
+refactor/<short-description>  → refactoring without behavior change
 ```
 
-**Branch protection rules (GitHub Settings → Branches) :**
+**Branch protection rules (GitHub Settings → Branches):**
 ```yaml
-# À configurer dans GitHub ou via terraform/code
+# TO FILL IN in GitHub or via terraform/code
 Require pull request before merging: true
   Required approvals: 1
   Dismiss stale reviews: true
@@ -55,40 +55,40 @@ Require status checks to pass:
   - ci/typecheck
   - ci/test
 Require branches to be up to date: true
-Restrict pushes to: main (aucun push direct)
+Restrict pushes to: main (no direct push)
 ```
 
 ---
 
 ## 2. Commits — Conventional Commits
 
-> Source : Conventional Commits 1.0.0 (conventionalcommits.org)
-> Utilisé par : Angular, Electron, VS Code, Next.js
+> Source: Conventional Commits 1.0.0 (conventionalcommits.org)
+> Used by: Angular, Electron, VS Code, Next.js
 
 ```
 <type>(<scope>): <description>
 
-[body optionnel]
+[optional body]
 
-[footer optionnel]
+[optional footer]
 ```
 
-**Types autorisés :**
+**Allowed types:**
 
-| Type | Usage | Déclenche |
+| Type | Usage | Triggers |
 |------|-------|-----------|
-| `feat` | Nouvelle fonctionnalité | Minor version bump (SemVer) |
-| `fix` | Correction de bug | Patch version bump |
-| `chore` | Maintenance, deps, config | Aucun bump |
-| `docs` | Documentation seule | Aucun bump |
-| `refactor` | Refactoring sans changement comportement | Aucun bump |
-| `perf` | Amélioration de performance | Patch bump |
-| `test` | Ajout ou correction de tests | Aucun bump |
-| `ci` | Changements CI/CD | Aucun bump |
-| `BREAKING CHANGE` | Rupture de compatibilité | Major version bump |
+| `feat` | New feature | Minor version bump (SemVer) |
+| `fix` | Bug fix | Patch version bump |
+| `chore` | Maintenance, deps, config | No bump |
+| `docs` | Documentation only | No bump |
+| `refactor` | Refactoring without behavior change | No bump |
+| `perf` | Performance improvement | Patch bump |
+| `test` | Adding or fixing tests | No bump |
+| `ci` | CI/CD changes | No bump |
+| `BREAKING CHANGE` | Compatibility break | Major version bump |
 
 ```bash
-# Exemples corrects
+# Correct examples
 feat(auth): add Google OAuth login
 fix(button): restore focus outline on keyboard nav
 chore(deps): update next from 14.1.0 to 14.2.0
@@ -99,9 +99,9 @@ feat(api)!: remove deprecated v1 endpoints  # BREAKING CHANGE
 
 ## 3. GitHub Actions — Workflows
 
-> Source : GitHub Actions docs (docs.github.com/actions)
+> Source: GitHub Actions docs (docs.github.com/actions)
 
-### Workflow PR (qualité avant merge)
+### PR Workflow (quality before merge)
 
 ```yaml
 # .github/workflows/ci.yml
@@ -135,10 +135,10 @@ jobs:
         run: npm run test -- --coverage --passWithNoTests
 
       - name: Build
-        run: npm run build  # vérifie que le build ne casse pas
+        run: npm run build  # verifies the build does not break
 ```
 
-### Workflow déploiement (main → production)
+### Deployment Workflow (main → production)
 
 ```yaml
 # .github/workflows/deploy.yml
@@ -162,8 +162,8 @@ jobs:
       - name: Install & Build
         run: npm ci && npm run build
 
-      # Vercel gère le déploiement via son intégration GitHub native
-      # Ce job peut aussi appeler vercel CLI si besoin de contrôle fin
+      # Vercel handles deployment via its native GitHub integration
+      # This job can also call the vercel CLI if fine-grained control is needed
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v25
         with:
@@ -173,21 +173,21 @@ jobs:
           vercel-args: '--prod'
 ```
 
-### Secrets GitHub requis
+### Required GitHub Secrets
 
 ```
 VERCEL_TOKEN       → Settings → Secrets → Actions
-VERCEL_ORG_ID      → vercel.json ou Vercel dashboard
-VERCEL_PROJECT_ID  → vercel.json ou Vercel dashboard
+VERCEL_ORG_ID      → vercel.json or Vercel dashboard
+VERCEL_PROJECT_ID  → vercel.json or Vercel dashboard
 ```
 
-**Règle absolue : aucun secret dans le code, dans les logs, ou dans les variables d'environnement en clair dans les workflows.**
+**Absolute Rule: no secrets in code, in logs, or in plaintext environment variables in workflows.**
 
 ---
 
-## 4. Pre-commit hooks — Qualité locale avant push
+## 4. Pre-Commit Hooks — Local Quality Before Push
 
-> Source : lint-staged (github.com/lint-staged/lint-staged), Husky (typicode.github.io/husky)
+> Source: lint-staged (github.com/lint-staged/lint-staged), Husky (typicode.github.io/husky)
 
 ```bash
 npm install --save-dev husky lint-staged
@@ -215,15 +215,15 @@ npx husky init
 npx lint-staged
 ```
 
-**Ce que les hooks locaux ne remplacent pas :** la CI reste obligatoire. Les hooks locaux peuvent être skippés avec `--no-verify`. La CI est la source de vérité.
+**What local hooks do not replace:** CI remains mandatory. Local hooks can be skipped with `--no-verify`. CI is the source of truth.
 
 ---
 
 ## 5. Preview Deployments — Vercel
 
-> Source : Vercel docs — Preview Deployments (vercel.com/docs/deployments/preview-deployments)
+> Source: Vercel docs — Preview Deployments (vercel.com/docs/deployments/preview-deployments)
 
-Chaque PR génère automatiquement une URL de preview unique via l'intégration GitHub native de Vercel. Configuration dans `vercel.json` :
+Each PR automatically generates a unique preview URL via Vercel's native GitHub integration. Configuration in `vercel.json`:
 
 ```json
 {
@@ -233,39 +233,39 @@ Chaque PR génère automatiquement une URL de preview unique via l'intégration 
 }
 ```
 
-**Workflow de review avec previews :**
-1. PR ouverte → Vercel génère `https://projet-git-feature-xxx.vercel.app`
-2. Reviewer teste sur l'URL de preview (pas localhost)
-3. Tests passent → merge → déploiement production automatique
+**Review workflow with previews:**
+1. PR opened → Vercel generates `https://project-git-feature-xxx.vercel.app`
+2. Reviewer tests on the preview URL (not localhost)
+3. Tests pass → merge → automatic production deployment
 
 ---
 
 ## 6. Semantic Versioning
 
-> Source : Semantic Versioning 2.0.0 — semver.org
+> Source: Semantic Versioning 2.0.0 — semver.org
 
 ```
 MAJOR.MINOR.PATCH
-  │      │     └── Fix bug, pas de changement API
-  │      └──────── Nouvelle feature, rétrocompatible
-  └─────────────── Breaking change (incompatible avec version précédente)
+  │      │     └── Bug fix, no API change
+  │      └──────── New feature, backward compatible
+  └─────────────── Breaking change (incompatible with previous version)
 
-Exemples :
+Examples:
   1.0.0 → 1.0.1  : bugfix
-  1.0.1 → 1.1.0  : nouvelle fonctionnalité
+  1.0.1 → 1.1.0  : new feature
   1.1.0 → 2.0.0  : breaking change
 ```
 
-**Avec Conventional Commits + semantic-release :**
+**With Conventional Commits + semantic-release:**
 ```bash
 npm install --save-dev semantic-release @semantic-release/changelog @semantic-release/git
 ```
 
-`semantic-release` lit les commits depuis le dernier tag, détermine automatiquement le prochain numéro de version, met à jour `CHANGELOG.md` et crée le tag Git.
+`semantic-release` reads commits since the last tag, automatically determines the next version number, updates `CHANGELOG.md`, and creates the Git tag.
 
 ---
 
-## 7. Variables de scripts package.json
+## 7. package.json Script Variables
 
 ```json
 {
@@ -283,37 +283,37 @@ npm install --save-dev semantic-release @semantic-release/changelog @semantic-re
 }
 ```
 
-**`npm run ci` doit passer à 0 erreur avant tout merge.**
+**`npm run ci` must pass with 0 errors before any merge.**
 
 ---
 
-## Checklist pré-déploiement CI/CD
+## Pre-Deployment CI/CD Checklist
 
-### Bloquants
+### Blockers
 
-- [ ] Branch protection activée sur `main` (PR + CI obligatoire)
-- [ ] Workflow CI configuré (lint + typecheck + test + build)
-- [ ] Aucun secret dans le code (utiliser GitHub Secrets)
-- [ ] `npm run ci` passe à 0 erreur en local
+- [ ] Branch protection enabled on `main` (PR + CI mandatory)
+- [ ] CI workflow configured (lint + typecheck + test + build)
+- [ ] No secrets in code (use GitHub Secrets)
+- [ ] `npm run ci` passes with 0 errors locally
 
-### Importants
+### Important
 
-- [ ] Conventional Commits respectés (vérifier avec `commitlint`)
-- [ ] Pre-commit hooks configurés (lint-staged + husky)
-- [ ] Preview deployments actifs sur chaque PR
-- [ ] Workflow de déploiement automatique sur merge `main`
+- [ ] Conventional Commits followed (verify with `commitlint`)
+- [ ] Pre-commit hooks configured (lint-staged + husky)
+- [ ] Preview deployments active on each PR
+- [ ] Automatic deployment workflow on `main` merge
 
-### Souhaitables
+### Desirable
 
-- [ ] `semantic-release` configuré (versioning automatique)
-- [ ] DORA metrics instrumentées (via GitHub Insights ou LinearB)
-- [ ] Notifications Slack/email sur déploiement échoué
+- [ ] `semantic-release` configured (automatic versioning)
+- [ ] DORA metrics instrumented (via GitHub Insights or LinearB)
+- [ ] Slack/email notifications on failed deployment
 
 ---
 
 ## Sources
 
-| Référence | Lien |
+| Reference | Link |
 |-----------|------|
 | GitHub Actions docs | docs.github.com/actions |
 | DORA Research 2023 | dora.dev/research/2023 |

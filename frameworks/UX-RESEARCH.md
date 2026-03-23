@@ -1,247 +1,247 @@
-# Framework — Recherche Utilisateur (UX Research)
+# Framework — UX Research
 
-> Module de framework SQWR Project Kit. Sortir ce framework avant de designer une nouvelle feature ou un nouveau produit.
-> Sources : Jakob Nielsen — "Why You Only Need to Test with 5 Users" (nngroup.com, 2000), Clayton Christensen — Jobs-to-Be-Done (Harvard Business School), Rob Fitzpatrick — *The Mom Test* (2013), John Brooke — System Usability Scale (1996), Guest et al. — "How Many Interviews Are Enough?" (Field Methods, 2006).
-
----
-
-## Fondements scientifiques
-
-**"85% des problèmes d'utilisabilité sont détectés avec 5 testeurs."** (Jakob Nielsen, 2000 — basé sur la courbe de probabilité de détection de problèmes). Au-delà de 5, les rendements sont décroissants. La recherche n'est pas une activité réservée aux grandes équipes.
-
-**"Les utilisateurs ne savent pas ce qu'ils veulent — ils savent ce qu'ils ont fait."** (Rob Fitzpatrick, *The Mom Test*, 2013). Les entretiens sur des intentions futures sont des données non fiables. Seul le comportement passé est une preuve.
+> SQWR Project Kit framework module. Use this framework before designing a new feature or product.
+> Sources: Jakob Nielsen — "Why You Only Need to Test with 5 Users" (nngroup.com, 2000), Clayton Christensen — Jobs-to-Be-Done (Harvard Business School), Rob Fitzpatrick — *The Mom Test* (2013), John Brooke — System Usability Scale (1996), Guest et al. — "How Many Interviews Are Enough?" (Field Methods, 2006).
 
 ---
 
-## Quand faire de la recherche
+## Scientific Foundations
 
-| Phase | Méthode | Objectif |
-|-------|---------|----------|
-| **Discovery** | JTBD, entretiens (5-8 personnes) | Comprendre les problèmes réels |
-| **Exploration** | Card sorting, guerilla testing | Tester des directions de solution |
-| **Validation** | Test utilisabilité (5 personnes), prototype | Vérifier que la solution fonctionne |
-| **Post-launch** | NPS, CSAT, analytics, session replay | Mesurer et identifier les frictions |
+**"85% of usability problems are detected with 5 testers."** (Jakob Nielsen, 2000 — based on the problem detection probability curve). Beyond 5, returns are diminishing. Research is not an activity reserved for large teams.
 
-**Matrice de décision :**
+**"Users don't know what they want — they know what they did."** (Rob Fitzpatrick, *The Mom Test*, 2013). Interviews about future intentions are unreliable data. Only past behavior is evidence.
+
+---
+
+## When to conduct research
+
+| Phase | Method | Objective |
+|-------|--------|-----------|
+| **Discovery** | JTBD, interviews (5–8 people) | Understand real problems |
+| **Exploration** | Card sorting, guerrilla testing | Test solution directions |
+| **Validation** | Usability test (5 people), prototype | Verify that the solution works |
+| **Post-launch** | NPS, CSAT, analytics, session replay | Measure and identify friction |
+
+**Decision matrix:**
 ```
-Incertitude haute + Impact fort   → Recherche obligatoire avant développement
-Incertitude haute + Impact faible → Recherche légère (5 entretiens rapides)
-Incertitude faible + Impact fort  → Validation par test utilisabilité
-Incertitude faible + Impact faible → Livrer et mesurer
+High uncertainty + High impact   → Research mandatory before development
+High uncertainty + Low impact    → Light research (5 quick interviews)
+Low uncertainty + High impact    → Validation via usability test
+Low uncertainty + Low impact     → Ship and measure
 ```
 
 ---
 
 ## 1. Jobs-to-Be-Done (JTBD)
 
-> Source : Clayton Christensen — *Competing Against Luck* (Harvard Business Review Press, 2016)
-> Source : Tony Ulwick — *Jobs to be Done: Theory to Practice* (Idea Bite Press, 2016)
+> Source: Clayton Christensen — *Competing Against Luck* (Harvard Business Review Press, 2016)
+> Source: Tony Ulwick — *Jobs to be Done: Theory to Practice* (Idea Bite Press, 2016)
 
-**Principe :** les utilisateurs n'"achètent" pas un produit — ils "engagent" un produit pour accomplir un job. Comprendre le job révèle ce qui compte vraiment.
+**Principle:** users don't "buy" a product — they "hire" a product to accomplish a job. Understanding the job reveals what truly matters.
 
-### Les 3 dimensions d'un job
+### The 3 dimensions of a job
 
-| Dimension | Définition | Exemple |
+| Dimension | Definition | Example |
 |-----------|-----------|---------|
-| **Fonctionnel** | La tâche concrète à accomplir | "Envoyer ma déclaration fiscale" |
-| **Émotionnel** | Comment l'utilisateur veut se sentir | "Me sentir compétent, pas stressé" |
-| **Social** | Comment l'utilisateur veut être perçu | "Paraître organisé aux yeux de mon comptable" |
+| **Functional** | The concrete task to accomplish | "Submit my tax return" |
+| **Emotional** | How the user wants to feel | "Feel competent, not stressed" |
+| **Social** | How the user wants to be perceived | "Appear organized to my accountant" |
 
-### Template d'énoncé JTBD
+### JTBD Statement Template
 
 ```
-Quand [SITUATION DÉCLENCHANTE],
-je veux [MOTIVATION / JOB FONCTIONNEL],
-pour que [RÉSULTAT ATTENDU — émotionnel ou social].
+When [TRIGGERING SITUATION],
+I want to [MOTIVATION / FUNCTIONAL JOB],
+so that [EXPECTED OUTCOME — emotional or social].
 ```
 
-**Exemples :**
+**Examples:**
 ```
-Quand je dois envoyer un contrat à un client,
-je veux le faire signer en ligne en moins de 2 minutes,
-pour que je paraisse professionnel et que le client signe sans friction.
+When I need to send a contract to a client,
+I want to get it signed online in less than 2 minutes,
+so that I appear professional and the client signs without friction.
 
-Quand je reçois le bulletin de paie de mon équipe,
-je veux vérifier que les chiffres sont corrects rapidement,
-pour ne pas me sentir incompétent si une erreur passe.
+When I receive the payroll for my team,
+I want to verify that the numbers are correct quickly,
+so that I don't feel incompetent if an error slips through.
 ```
 
-### Comment identifier le vrai JTBD
+### How to identify the real JTBD
 
-Questions à poser en entretien (The Mom Test adapté) :
-1. "La dernière fois que vous avez eu ce problème, qu'avez-vous fait exactement ?"
-2. "Qu'est-ce qui vous a décidé à chercher une solution à ce moment-là ?"
-3. "Qu'est-ce que vous avez essayé avant ? Pourquoi ça ne suffisait pas ?"
-4. "Si vous ne pouviez plus utiliser notre produit demain, que feriez-vous ?"
+Questions to ask in an interview (The Mom Test adapted):
+1. "The last time you had this problem, what did you do exactly?"
+2. "What made you decide to look for a solution at that moment?"
+3. "What did you try before? Why wasn't it enough?"
+4. "If you could no longer use our product tomorrow, what would you do?"
 
 ---
 
-## 2. Protocole d'entretien — The Mom Test
+## 2. Interview Protocol — The Mom Test
 
-> Source : Rob Fitzpatrick — *The Mom Test* (2013)
+> Source: Rob Fitzpatrick — *The Mom Test* (2013)
 
-**Les 3 règles de The Mom Test :**
-1. Parler du passé (comportement réel), jamais du futur (intentions non fiables)
-2. Ne jamais pitcher pendant l'entretien
-3. Chercher des preuves comportementales, pas des opinions
+**The 3 rules of The Mom Test:**
+1. Talk about the past (real behavior), never the future (unreliable intentions)
+2. Never pitch during the interview
+3. Look for behavioral evidence, not opinions
 
-### Nombre de participants
+### Number of participants
 
-**Règle de saturation thématique :** les nouveaux insights s'arrêtent après 5-8 entretiens par segment homogène. (Guest, Bunce & Johnson — "How Many Interviews Are Enough?", Field Methods, 2006)
+**Thematic saturation rule:** new insights stop after 5–8 interviews per homogeneous segment. (Guest, Bunce & Johnson — "How Many Interviews Are Enough?", Field Methods, 2006)
 
-**Ne jamais mélanger les segments** : 5 entretiens avec des PME et 5 avec des startups ≠ 10 entretiens sur "les entreprises".
+**Never mix segments**: 5 interviews with SMEs and 5 with startups ≠ 10 interviews about "companies".
 
-### Script d'entretien (45-60 min)
+### Interview script (45–60 min)
 
 ```markdown
 INTRODUCTION (5 min)
-"Je cherche à comprendre comment vous [domaine] — pas à vous vendre quoi que ce soit.
-Il n'y a pas de bonnes ou mauvaises réponses. Si quelque chose vous semble
-étrange dans mes questions, dites-le moi."
+"I'm trying to understand how you [domain] — not to sell you anything.
+There are no right or wrong answers. If something seems
+strange about my questions, please tell me."
 
-CONTEXTE (10 min)
-1. "Décrivez-moi votre rôle et ce que vous faites typiquement dans une semaine ?"
-2. "Quelle est la partie la plus frustrante de [domaine] pour vous ?"
+CONTEXT (10 min)
+1. "Describe your role and what you typically do in a week."
+2. "What is the most frustrating part of [domain] for you?"
 
-PROBLÈME (20 min)
-3. "La dernière fois que vous avez rencontré [problème], que s'est-il passé exactement ?"
-4. "Qu'est-ce que vous avez fait pour le résoudre ?"
-5. "Combien de temps ça vous a pris ? Combien de fois ça arrive par semaine/mois ?"
-6. "Vous avez essayé d'autres outils ou méthodes ? Pourquoi ça n'a pas suffi ?"
+PROBLEM (20 min)
+3. "The last time you encountered [problem], what happened exactly?"
+4. "What did you do to resolve it?"
+5. "How long did it take? How often does it happen per week/month?"
+6. "Did you try other tools or methods? Why weren't they enough?"
 
-VALEUR (10 min)
-7. "Si ce problème disparaissait demain, quel serait l'impact pour vous ?"
-8. "Est-ce que vous avez déjà payé pour résoudre ce problème ? Combien ?"
+VALUE (10 min)
+7. "If this problem disappeared tomorrow, what would the impact be for you?"
+8. "Have you ever paid to solve this problem? How much?"
 
-CLÔTURE (5 min)
-9. "Y a-t-il quelque chose d'important que je n'ai pas pensé à vous demander ?"
-10. "Connaissez-vous 2-3 personnes dans la même situation à qui je pourrais parler ?"
+CLOSING (5 min)
+9. "Is there anything important I haven't thought to ask you?"
+10. "Do you know 2–3 people in the same situation I could speak with?"
 ```
 
 ---
 
-## 3. Test d'utilisabilité
+## 3. Usability Testing
 
-> Source : Jakob Nielsen — "Why You Only Need to Test with 5 Users" (nngroup.com, 2000)
-> Source : Ericsson & Simon — Protocol Analysis (1980) — méthode think-aloud
+> Source: Jakob Nielsen — "Why You Only Need to Test with 5 Users" (nngroup.com, 2000)
+> Source: Ericsson & Simon — Protocol Analysis (1980) — think-aloud method
 
-### Protocole think-aloud
+### Think-aloud protocol
 
-**Instruction au participant :** "Pendant que vous utilisez l'interface, pensez à voix haute. Dites ce que vous voyez, ce que vous pensez, ce que vous cherchez à faire. Il n'y a pas de jugement."
+**Instruction to participant:** "While you use the interface, think aloud. Say what you see, what you think, what you are trying to do. There is no judgment."
 
-**Règle absolue pour le modérateur : ne jamais aider.** Si le participant est bloqué, noter l'heure et le blocage. Ne pas dire "essayez de cliquer ici".
+**Absolute rule for the moderator: never help.** If the participant is stuck, note the time and the blocker. Do not say "try clicking here".
 
-### Définir les tâches avant la session
+### Define tasks before the session
 
 ```markdown
-TÂCHE 1 : "Vous venez de créer un compte. Completez votre profil."
-Critère de succès : profil 100% complété en < 3 minutes
+TASK 1: "You just created an account. Complete your profile."
+Success criterion: profile 100% completed in < 3 minutes
 
-TÂCHE 2 : "Vous souhaitez inviter un collègue. Faites-le."
-Critère de succès : invitation envoyée sans aide
+TASK 2: "You want to invite a colleague. Do it."
+Success criterion: invitation sent without assistance
 
-TÂCHE 3 : "Trouvez comment exporter vos données."
-Critère de succès : export téléchargé
+TASK 3: "Find out how to export your data."
+Success criterion: export downloaded
 ```
 
-### Grille de sévérité Nielsen (0-4)
+### Nielsen Severity Grid (0–4)
 
-| Score | Signification |
-|-------|--------------|
-| 0 | Pas un problème d'utilisabilité |
-| 1 | Problème cosmétique — corriger seulement si le temps le permet |
-| 2 | Problème mineur — priorité basse |
-| 3 | Problème majeur — priorité haute |
-| 4 | Catastrophe — must fix avant launch |
+| Score | Meaning |
+|-------|--------|
+| 0 | Not a usability problem |
+| 1 | Cosmetic problem — fix only if time allows |
+| 2 | Minor problem — low priority |
+| 3 | Major problem — high priority |
+| 4 | Catastrophe — must fix before launch |
 
 ### System Usability Scale (SUS)
 
-> Source : John Brooke — "SUS: A 'Quick and Dirty' Usability Scale" (1996)
+> Source: John Brooke — "SUS: A 'Quick and Dirty' Usability Scale" (1996)
 
-10 questions sur échelle Likert 1-5. Score /100. **Threshold ≥68 = acceptable** (moyenne industrie).
+10 questions on a Likert scale 1–5. Score /100. **Threshold ≥68 = acceptable** (industry average).
 
 ```
-1. Je pense que j'utiliserais ce système fréquemment.
-2. J'ai trouvé le système inutilement complexe.
-3. J'ai trouvé le système facile à utiliser.
-4. Je pense que j'aurais besoin d'aide pour utiliser ce système.
-5. J'ai trouvé que les différentes fonctions étaient bien intégrées.
-6. J'ai trouvé trop d'incohérences dans ce système.
-7. J'imagine que la plupart des gens apprendraient très rapidement à utiliser ce système.
-8. J'ai trouvé ce système très lourd à utiliser.
-9. Je me suis senti très confiant en utilisant ce système.
-10. J'ai dû apprendre beaucoup de choses avant de pouvoir utiliser ce système.
+1. I think I would like to use this system frequently.
+2. I found the system unnecessarily complex.
+3. I thought the system was easy to use.
+4. I think I would need support to use this system.
+5. I found the various functions in this system were well integrated.
+6. I thought there was too much inconsistency in this system.
+7. I would imagine that most people would learn to use this system quickly.
+8. I found the system very cumbersome to use.
+9. I felt very confident using the system.
+10. I needed to learn a lot of things before I could get going with this system.
 ```
 
-**Calcul :** questions impaires : score - 1. Questions paires : 5 - score. Somme × 2.5.
+**Calculation:** odd questions: score - 1. Even questions: 5 - score. Sum × 2.5.
 
 ---
 
 ## 4. NPS — Net Promoter Score
 
-> Source : Fred Reichheld — "The One Number You Need to Grow" (Harvard Business Review, 2003)
+> Source: Fred Reichheld — "The One Number You Need to Grow" (Harvard Business Review, 2003)
 
-**Une question :** "Sur une échelle de 0 à 10, quelle est la probabilité que vous recommandiez [Produit] à un ami ou collègue ?"
+**One question:** "On a scale of 0 to 10, how likely are you to recommend [Product] to a friend or colleague?"
 
 | Score | Segment | Action |
 |-------|---------|--------|
-| 9-10 | Promoteurs | Demander un témoignage, référral program |
-| 7-8 | Passifs | Comprendre ce qui manque |
-| 0-6 | Détracteurs | Entretien pour comprendre la frustration |
+| 9–10 | Promoters | Request a testimonial, referral program |
+| 7–8 | Passives | Understand what is missing |
+| 0–6 | Detractors | Interview to understand the frustration |
 
-**NPS = % Promoteurs - % Détracteurs**
+**NPS = % Promoters - % Detractors**
 
-| Score NPS | Niveau |
-|-----------|--------|
-| >70 | Excellent (Apple, Tesla niveau) |
-| 40-70 | Bon |
-| 0-40 | À améliorer |
-| <0 | Problème critique |
+| NPS Score | Level |
+|-----------|-------|
+| >70 | Excellent (Apple, Tesla level) |
+| 40–70 | Good |
+| 0–40 | Needs improvement |
+| <0 | Critical problem |
 
-**Quand le lancer :** J7 après activation (utilisateur a eu le temps d'utiliser le produit, assez tôt pour agir sur les détracteurs).
+**When to launch:** Day 7 after activation (the user has had time to use the product, early enough to act on detractors).
 
 ---
 
-## 5. Synthèse — Affinity Mapping
+## 5. Synthesis — Affinity Mapping
 
-> Source : Méthode KJ (Jiro Kawakita, années 1960), adoptée par IDEO et la communauté UX
+> Source: KJ Method (Jiro Kawakita, 1960s), adopted by IDEO and the UX community
 
-**Processus :**
-1. Transcrire chaque insight sur une note (digitale : FigJam, Miro)
-2. Regrouper silencieusement par affinité (sans discussion d'abord)
-3. Nommer chaque groupe par un verbe-action (ex : "Comprendre le statut", "Trouver l'aide")
-4. Prioriser les groupes par fréquence × sévérité
+**Process:**
+1. Transcribe each insight onto a note (digital: FigJam, Miro)
+2. Group silently by affinity (no discussion first)
+3. Name each group with an action verb (e.g., "Understand the status", "Find help")
+4. Prioritize groups by frequency × severity
 
-**Matrice de priorisation :**
+**Prioritization matrix:**
 ```
-Impact utilisateur (1-5) × Fréquence (1-5) = Score de priorité
+User impact (1-5) × Frequency (1-5) = Priority score
 ```
 
 ---
 
 ## Checklist
 
-### Bloquants (avant tout développement d'une nouvelle feature)
+### Blockers (before any development of a new feature)
 
-- [ ] JTBD documenté pour la feature (les 3 dimensions : fonctionnel, émotionnel, social)
-- [ ] Au moins 5 entretiens utilisateurs réalisés sur le segment cible
+- [ ] JTBD documented for the feature (all 3 dimensions: functional, emotional, social)
+- [ ] At least 5 user interviews conducted on the target segment
 
-### Importants (avant launch)
+### Important (before launch)
 
-- [ ] Test utilisabilité (5 participants, tâches définies)
+- [ ] Usability test (5 participants, tasks defined)
 - [ ] SUS score ≥68/100
-- [ ] NPS configuré et déclenché à J7 post-activation
+- [ ] NPS configured and triggered at Day 7 post-activation
 
-### Souhaitables
+### Desirable
 
-- [ ] Session replay activé (PostHog) pour identifier les frictions post-launch
-- [ ] Panel d'utilisateurs récurrents (5-10 personnes disponibles pour tests rapides)
+- [ ] Session replay activated (PostHog) to identify post-launch friction
+- [ ] Recurring user panel (5–10 people available for quick tests)
 
 ---
 
 ## Sources
 
-| Référence | Lien |
+| Reference | Link |
 |-----------|------|
 | Nielsen — "Why You Only Need to Test with 5 Users" (2000) | nngroup.com/articles/why-you-only-need-to-test-with-5-users |
 | Christensen — Jobs-to-Be-Done | hbs.edu/faculty/Pages/item.aspx?num=46

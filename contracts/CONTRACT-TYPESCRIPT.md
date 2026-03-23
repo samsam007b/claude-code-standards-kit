@@ -1,31 +1,31 @@
-# Contrat — TypeScript & Qualité Code
+# Contract — TypeScript & Code Quality
 
-> Module de contrat SQWR Project Kit — enrichi avec références scientifiques.
-> Sources : Robert C. Martin (Clean Code), Google Engineering Practices, Microsoft TypeScript Handbook, SOLID principles.
-
----
-
-## Fondements scientifiques
-
-**Le code est lu 10× plus souvent qu'il est écrit** (Robert C. Martin, *Clean Code*, 2008). La lisibilité est la première vertu d'un code professionnel — pas la performance ni l'élégance.
+> SQWR Project Kit contract module — enriched with scientific references.
+> Sources: Robert C. Martin (Clean Code), Google Engineering Practices, Microsoft TypeScript Handbook, SOLID principles.
 
 ---
 
-## 1. Seuils mesurables — non négociables
+## Scientific Foundations
 
-| Métrique | Seuil | Standard |
+**Code is read 10× more often than it is written** (Robert C. Martin, *Clean Code*, 2008). Readability is the primary virtue of professional code — not performance or elegance.
+
+---
+
+## 1. Measurable Thresholds — Non-Negotiable
+
+| Metric | Threshold | Standard |
 |----------|-------|---------|
-| **Line coverage** | >80% | Industrie (client-facing code) |
-| **Type coverage** | >95% | Professionnel (outils : `type-coverage`) |
-| **Cyclomatic complexity** | Max 10 par fonction (idéal <5) | ISO/IEC 25010 |
-| **ESLint errors en CI** | 0 | Google, Microsoft |
-| **Build time (incremental)** | <5s | Performance moderne |
+| **Line coverage** | >80% | Industry (client-facing code) |
+| **Type coverage** | >95% | Professional (tools: `type-coverage`) |
+| **Cyclomatic complexity** | Max 10 per function (ideal <5) | ISO/IEC 25010 |
+| **ESLint errors in CI** | 0 | Google, Microsoft |
+| **Build time (incremental)** | <5s | Modern performance |
 
 ---
 
-## 2. Mode strict — configuration obligatoire
+## 2. Strict Mode — Mandatory Configuration
 
-`tsconfig.json` doit avoir :
+`tsconfig.json` must include:
 ```json
 {
   "compilerOptions": {
@@ -40,99 +40,99 @@
 
 ---
 
-## 3. Les 5 principes SOLID (Robert C. Martin)
+## 3. The 5 SOLID Principles (Robert C. Martin)
 
-> Piliers du code maintenable, établis dans les années 1990, universellement adoptés par Google, Microsoft, Amazon.
+> Pillars of maintainable code, established in the 1990s, universally adopted by Google, Microsoft, Amazon.
 
 ### S — Single Responsibility Principle
-**Une classe/fonction = une seule raison de changer.**
+**One class/function = one single reason to change.**
 
 ```typescript
-// ❌ Trop de responsabilités
+// ❌ Too many responsibilities
 class UserService {
   getUser(id: string) { /* DB query */ }
   sendWelcomeEmail(user: User) { /* Email logic */ }
   formatUserForDisplay(user: User) { /* UI logic */ }
 }
 
-// ✅ Séparation claire
+// ✅ Clear separation
 class UserRepository { getUser(id: string) { /* DB only */ } }
 class EmailService { sendWelcome(user: User) { /* Email only */ } }
 class UserPresenter { format(user: User) { /* Display only */ } }
 ```
 
 ### O — Open/Closed Principle
-**Ouvert à l'extension, fermé à la modification.**
+**Open for extension, closed for modification.**
 
 ```typescript
-// ✅ Ajouter un type de notification sans modifier le code existant
+// ✅ Add a notification type without modifying existing code
 interface Notifier { send(message: string): void }
 class EmailNotifier implements Notifier { send(msg: string) { /* email */ } }
 class SlackNotifier implements Notifier { send(msg: string) { /* slack */ } }
 ```
 
 ### L — Liskov Substitution Principle
-**Les sous-types doivent être substituables aux types de base sans casser le comportement.**
+**Subtypes must be substitutable for their base types without breaking behavior.**
 
 ### I — Interface Segregation Principle
-**Plusieurs interfaces spécifiques valent mieux qu'une interface générale.**
+**Multiple specific interfaces are better than one general interface.**
 
 ```typescript
-// ❌ Interface trop large
+// ❌ Interface too broad
 interface Worker { work(): void; eat(): void; sleep(): void }
 
-// ✅ Interfaces segregated
+// ✅ Segregated interfaces
 interface Workable { work(): void }
 interface Eatable { eat(): void }
 ```
 
 ### D — Dependency Inversion Principle
-**Le code haut niveau dépend d'abstractions, pas d'implémentations.**
+**High-level code depends on abstractions, not implementations.**
 
 ```typescript
 // ✅ Inversion via interface
 interface Logger { log(message: string): void }
 class UserService {
-  constructor(private logger: Logger) {}  // Injection, pas hardcoded
+  constructor(private logger: Logger) {}  // Injected, not hardcoded
 }
 ```
 
 ---
 
-## 4. Clean Code — principes fondateurs
+## 4. Clean Code — Core Principles
 
-> Robert C. Martin, *Clean Code* (2008) — livre de référence universel en génie logiciel.
+> Robert C. Martin, *Clean Code* (2008) — universal reference in software engineering.
 
-| Principe | Règle |
+| Principle | Rule |
 |----------|-------|
-| **Meaningful Naming** | Les noms expliquent l'intention (`getUserById` > `getUser`) |
-| **Single Responsibility** | Une fonction fait une chose |
-| **DRY** (Don't Repeat Yourself) | Zéro duplication — extraire en fonction/util |
-| **KISS** (Keep It Simple) | La solution la plus simple qui fonctionne |
-| **Boy Scout Rule** | Laisser le code plus propre qu'on ne l'a trouvé |
-| **Error Handling** | Pas d'erreur silencieuse — toujours gérer ou rethrow |
+| **Meaningful Naming** | Names explain intent (`getUserById` > `getUser`) |
+| **Single Responsibility** | A function does one thing |
+| **DRY** (Don't Repeat Yourself) | Zero duplication — extract into a function/util |
+| **KISS** (Keep It Simple) | The simplest solution that works |
+| **Boy Scout Rule** | Leave the code cleaner than you found it |
+| **Error Handling** | No silent errors — always handle or rethrow |
 
 ---
 
-## 5. Règles TypeScript — interdictions
+## 5. TypeScript Rules — Prohibitions
 
-### Ne jamais faire
+### Never do
 
 ```typescript
-// ❌ any — utiliser unknown + narrowing
-function process(data: any) {}  // INTERDIT
+// ❌ any — use unknown + narrowing
+function process(data: any) {}  // FORBIDDEN
 
-// ❌ as casting sans vérification
-const user = data as User  // Dangereux
+// ❌ as casting without verification
+const user = data as User  // Dangerous
 
-// ❌ ! non-null assertion sans justification
-const element = document.getElementById('id')!  // Risqué
+// ❌ ! non-null assertion without justification
+const element = document.getElementById('id')!  // Risky
 
-// ❌ @ts-ignore — utiliser @ts-expect-error + commentaire si absolument nécessaire
+// ❌ @ts-ignore — use @ts-expect-error + comment if absolutely necessary
 // @ts-ignore
 ```
 
-### Toujours faire
+### Always do
 
 ```typescript
 // ✅ unknown + type narrowing
@@ -140,14 +140,14 @@ function process(data: unknown) {
   if (typeof data === 'string') { /* narrowed */ }
 }
 
-// ✅ Union types explicites pour les états
+// ✅ Explicit union types for states
 type RequestState<T> =
   | { status: 'idle' }
   | { status: 'loading' }
   | { status: 'success'; data: T }
   | { status: 'error'; error: string }
 
-// ✅ Discriminated unions pour logique complexe
+// ✅ Discriminated unions for complex logic
 type Shape =
   | { kind: 'circle'; radius: number }
   | { kind: 'rectangle'; width: number; height: number }
@@ -162,7 +162,7 @@ function area(shape: Shape): number {
 
 ---
 
-## 6. Validation avec Zod (données externes)
+## 6. Validation with Zod (External Data)
 
 ```typescript
 import { z } from 'zod'
@@ -175,33 +175,33 @@ const UserSchema = z.object({
 
 type User = z.infer<typeof UserSchema>
 
-// Toujours valider les données externes (API, formulaires, Supabase)
-const user = UserSchema.parse(rawData)           // throws si invalide
+// Always validate external data (API, forms, Supabase)
+const user = UserSchema.parse(rawData)           // throws if invalid
 const result = UserSchema.safeParse(rawData)      // { success, data/error }
 ```
 
 ---
 
-## 7. Google Code Review Standard (6 critères)
+## 7. Google Code Review Standard (6 Criteria)
 
-> Source : [google.github.io/eng-practices/review](https://google.github.io/eng-practices/review)
+> Source: [google.github.io/eng-practices/review](https://google.github.io/eng-practices/review)
 
-Tout PR doit passer ces 6 critères avant merge :
+Every PR must pass these 6 criteria before merge:
 
-| Critère | Question à se poser |
+| Criterion | Question to ask |
 |---------|---------------------|
-| **Design** | Le code est-il bien conçu et approprié pour le système ? |
-| **Functionality** | Fait-il ce qu'il est censé faire ? Est-ce bon pour les utilisateurs ? |
-| **Complexity** | Pourrait-il être plus simple ? Un autre dev le comprendra-t-il facilement ? |
-| **Tests** | Les tests sont-ils corrects, exhaustifs et bien conçus ? |
-| **Naming** | Les noms (variables, classes, méthodes) sont-ils clairs ? |
-| **Documentation** | La documentation est-elle mise à jour et claire ? |
+| **Design** | Is the code well-designed and appropriate for the system? |
+| **Functionality** | Does it do what it's supposed to do? Is it good for users? |
+| **Complexity** | Could it be simpler? Will another developer understand it easily? |
+| **Tests** | Are the tests correct, thorough, and well-designed? |
+| **Naming** | Are the names (variables, classes, methods) clear? |
+| **Documentation** | Is the documentation updated and clear? |
 
-**Principe Google :** approuver si le code améliore la santé globale du codebase, même s'il n'est pas parfait.
+**Google principle:** approve if the code improves the overall health of the codebase, even if it is not perfect.
 
 ---
 
-## 8. Server Actions typées
+## 8. Typed Server Actions
 
 ```typescript
 'use server'
@@ -218,16 +218,16 @@ export async function createProject(
     return { success: false, error: validated.error.message }
   }
 
-  // Logique métier...
+  // Business logic...
   return { success: true, data: result }
 }
 ```
 
 ---
 
-## 9. Types Supabase
+## 9. Supabase Types
 
-Toujours générer les types depuis le schéma :
+Always generate types from the schema:
 
 ```bash
 supabase gen types typescript --project-id [project-id] > src/types/database.types.ts
@@ -237,24 +237,24 @@ supabase gen types typescript --project-id [project-id] > src/types/database.typ
 import type { Database } from '@/types/database.types'
 const supabase = createClient<Database>(url, key)
 
-// Types automatiquement inférés des tables
+// Types automatically inferred from tables
 type Project = Database['public']['Tables']['projects']['Row']
 ```
 
 ---
 
-## 10. Organisation des imports
+## 10. Import Organization
 
 ```typescript
-// 1. Bibliothèques externes (node_modules)
+// 1. External libraries (node_modules)
 import { z } from 'zod'
 import { createClient } from '@supabase/ssr'
 
-// 2. Imports internes absolus (alias @/)
+// 2. Absolute internal imports (@ alias)
 import { Button } from '@/components/ui/Button'
 import { createProject } from '@/lib/actions'
 
-// 3. Imports relatifs locaux (même dossier/parent proche)
+// 3. Relative local imports (same or nearby folder)
 import { formatDate } from './utils'
 ```
 
@@ -262,7 +262,7 @@ import { formatDate } from './utils'
 
 ## 11. Sources
 
-| Référence | Lien |
+| Reference | Link |
 |-----------|------|
 | Robert C. Martin — *Clean Code* (2008) | amazon.com/Clean-Code-Handbook-Software-Craftsmanship |
 | Google Engineering Practices | google.github.io/eng-practices/review |

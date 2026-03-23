@@ -1,90 +1,90 @@
-# Contrat — Next.js App Router
+# Contract — Next.js App Router
 
-> Module de contrat SQWR Project Kit — enrichi avec références scientifiques.
-> Sources : Google Core Web Vitals (web.dev), Next.js Production Checklist, DebugBear, Google HEART Framework.
+> SQWR Project Kit contract module — enriched with scientific references.
+> Sources: Google Core Web Vitals (web.dev), Next.js Production Checklist, DebugBear, Google HEART Framework.
 
 ---
 
-## Fondements scientifiques
+## Foundations
 
-**Un délai de 400ms réduit les recherches des utilisateurs de 0.44%** (Google Search, étude de performance). La performance n'est pas un luxe — c'est un facteur de rétention mesurable.
+**A 400ms delay reduces user searches by 0.44%** (Google Search, performance study). Performance is not a luxury — it is a measurable retention factor.
 
 > "For 1 in 3 visitors, slow page load causes them to abandon a site" (Google, 2019)
 
 ---
 
-## 1. Core Web Vitals — Seuils obligatoires
+## 1. Core Web Vitals — Mandatory Thresholds
 
-> Standard officiel Google (web.dev/vitals). Mesure au **75e percentile** des visites.
-> Ces métriques influencent directement le ranking SEO (Google Search ranking signal depuis 2021).
+> Official Google standard (web.dev/vitals). Measured at the **75th percentile** of visits.
+> These metrics directly influence SEO ranking (Google Search ranking signal since 2021).
 
-| Métrique | Good ✅ | Needs Improvement ⚠️ | Poor ❌ | Ce qu'elle mesure |
-|----------|---------|---------------------|---------|------------------|
-| **LCP** (Largest Contentful Paint) | ≤2.5s | 2.5s–4s | >4s | Vitesse de chargement perçue |
-| **INP** (Interaction to Next Paint) | ≤200ms | 200ms–500ms | >500ms | Réactivité aux interactions |
-| **CLS** (Cumulative Layout Shift) | <0.1 | 0.1–0.25 | >0.25 | Stabilité visuelle |
-| **TTFB** (Time to First Byte) | <600ms | 600ms–1.8s | >1.8s | Réponse serveur |
+| Metric | Good ✅ | Needs Improvement ⚠️ | Poor ❌ | What it measures |
+|--------|---------|---------------------|---------|-----------------|
+| **LCP** (Largest Contentful Paint) | ≤2.5s | 2.5s–4s | >4s | Perceived load speed |
+| **INP** (Interaction to Next Paint) | ≤200ms | 200ms–500ms | >500ms | Interaction responsiveness |
+| **CLS** (Cumulative Layout Shift) | <0.1 | 0.1–0.25 | >0.25 | Visual stability |
+| **TTFB** (Time to First Byte) | <600ms | 600ms–1.8s | >1.8s | Server response |
 
-> ⚠️ **INP a remplacé FID (First Input Delay) le 12 mars 2024.** Toute documentation mentionnant FID comme Core Web Vital est obsolète.
+> ⚠️ **INP replaced FID (First Input Delay) on March 12, 2024.** Any documentation mentioning FID as a Core Web Vital is outdated.
 
-**Budget First Load JS par page : <200KB** (cible professionnelle Vercel/Stripe/Airbnb).
+**First Load JS budget per page: <200KB** (professional target — Vercel/Stripe/Airbnb).
 
-**Lighthouse score targets :**
-- Performance : >90
-- Accessibility : >95
-- Best Practices : >95
-- SEO : >90
+**Lighthouse score targets:**
+- Performance: >90
+- Accessibility: >95
+- Best Practices: >95
+- SEO: >90
 
 ---
 
-## 2. Stratégies de rendu — choisir le bon mode
+## 2. Rendering Strategies — Choosing the Right Mode
 
-| Stratégie | Quand l'utiliser | Next.js implementation |
-|-----------|-----------------|----------------------|
-| **SSR** (Server-Side Rendering) | Données dynamiques par user, SEO critique | `async` Server Component sans `cache` |
-| **SSG** (Static Site Generation) | Contenu rarement modifié, performance max | `generateStaticParams()` + `revalidate: false` |
-| **ISR** (Incremental Static Regeneration) | Contenu semi-statique (blog, catalogue) | `revalidate: 3600` (secondes) |
-| **CSR** (Client-Side Rendering) | Dashboards authentifiés, pas d'SEO requis | `'use client'` + fetch dans useEffect |
+| Strategy | When to use | Next.js implementation |
+|----------|------------|----------------------|
+| **SSR** (Server-Side Rendering) | Per-user dynamic data, critical SEO | `async` Server Component without `cache` |
+| **SSG** (Static Site Generation) | Rarely updated content, maximum performance | `generateStaticParams()` + `revalidate: false` |
+| **ISR** (Incremental Static Regeneration) | Semi-static content (blog, catalogue) | `revalidate: 3600` (seconds) |
+| **CSR** (Client-Side Rendering) | Authenticated dashboards, no SEO required | `'use client'` + fetch in useEffect |
 
-**Règle par défaut : SSR.** Dégradation vers SSG ou ISR si la performance le justifie. CSR uniquement si l'authentification le rend inévitable.
+**Default rule: SSR.** Degrade to SSG or ISR when performance justifies it. CSR only when authentication makes it unavoidable.
 
 ---
 
 ## 3. Server Components vs Client Components
 
-**Server Components d'abord. Client Components seulement si nécessaire.**
+**Server Components first. Client Components only when necessary.**
 
-### `'use client'` autorisé UNIQUEMENT pour
+### `'use client'` permitted ONLY for
 
-- Gestionnaires d'événements utilisateur (`onClick`, `onSubmit`, `onChange`)
-- Hooks React côté client (`useState`, `useEffect`, `useRef`, `useContext`)
-- APIs browser (`window`, `document`, `navigator`, `localStorage`)
-- Bibliothèques qui exigent le contexte client (Framer Motion, certains composants d'UI)
+- User event handlers (`onClick`, `onSubmit`, `onChange`)
+- Client-side React hooks (`useState`, `useEffect`, `useRef`, `useContext`)
+- Browser APIs (`window`, `document`, `navigator`, `localStorage`)
+- Libraries that require client context (Framer Motion, certain UI components)
 
-### Ne jamais faire
+### Never do
 
 ```tsx
-// ❌ INTERDIT — casse le SSR et le SEO
+// ❌ FORBIDDEN — breaks SSR and SEO
 const DynamicPage = dynamic(() => import('./MyPage'), { ssr: false })
 
-// ❌ INTERDIT — composant client inutile (aucun hook, aucun événement)
+// ❌ FORBIDDEN — unnecessary client component (no hooks, no events)
 'use client'
 export default function StaticCard({ title }: { title: string }) {
   return <div>{title}</div>
 }
 ```
 
-### Toujours faire
+### Always do
 
 ```tsx
-// ✅ Server Component par défaut (pas de directive)
+// ✅ Server Component by default (no directive)
 export default async function Page() {
   const data = await fetch('https://api.example.com/data', { next: { revalidate: 3600 } })
   const json = await data.json()
   return <div>{json.title}</div>
 }
 
-// ✅ Client Component justifié
+// ✅ Justified Client Component
 'use client'
 export default function SearchInput() {
   const [query, setQuery] = useState('')
@@ -94,52 +94,52 @@ export default function SearchInput() {
 
 ---
 
-## 4. Structure App Router complète
+## 4. Complete App Router Structure
 
 ```
 src/app/
-├── layout.tsx          → Layout racine (metadata globale, providers)
-├── page.tsx            → Homepage — DOIT être Server Component
-├── loading.tsx         → UI de chargement Suspense automatique
-├── error.tsx           → Gestion erreurs (DOIT être 'use client')
-├── not-found.tsx       → Page 404 personnalisée
-├── global-error.tsx    → Erreurs layout racine
-├── [locale]/           → Internationalisation si applicable
+├── layout.tsx          → Root layout (global metadata, providers)
+├── page.tsx            → Homepage — MUST be a Server Component
+├── loading.tsx         → Automatic Suspense loading UI
+├── error.tsx           → Error handling (MUST be 'use client')
+├── not-found.tsx       → Custom 404 page
+├── global-error.tsx    → Root layout errors
+├── [locale]/           → Internationalisation if applicable
 └── api/
     └── [route]/
         └── route.ts    → Route Handlers (GET, POST, PUT, DELETE)
 ```
 
-**Patterns obligatoires :**
+**Mandatory patterns:**
 ```tsx
-// error.tsx — toujours 'use client'
+// error.tsx — always 'use client'
 'use client'
 export default function Error({ error, reset }: { error: Error; reset: () => void }) {
   return (
     <div>
-      <h2>Une erreur est survenue</h2>
-      <button onClick={reset}>Réessayer</button>
+      <h2>An error occurred</h2>
+      <button onClick={reset}>Try again</button>
     </div>
   )
 }
 
-// loading.tsx — skeleton UI automatique pendant le streaming
+// loading.tsx — automatic skeleton UI during streaming
 export default function Loading() {
-  return <div className="animate-pulse">Chargement...</div>
+  return <div className="animate-pulse">Loading...</div>
 }
 ```
 
 ---
 
-## 5. Metadata et SEO
+## 5. Metadata and SEO
 
-Toujours exporter `metadata` ou `generateMetadata` depuis chaque page :
+Always export `metadata` or `generateMetadata` from each page:
 
 ```tsx
 // ✅ Static metadata
 export const metadata: Metadata = {
   title: 'Page Title | Site Name',
-  description: '150-160 caractères maximum',
+  description: '150-160 characters maximum',
   openGraph: {
     title: '...',
     description: '...',
@@ -150,22 +150,27 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://example.com/page' },
 }
 
-// ✅ Dynamic metadata (pages produit, blog)
+// ✅ Dynamic metadata (product pages, blog)
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const post = await getPost(params.slug)
   return { title: post.title, description: post.excerpt }
 }
 ```
 
-**JSON-LD Schema obligatoire** pour les sites SQWR (LocalBusiness, CreativeWork) :
+**Mandatory JSON-LD Schema** for SQWR sites (LocalBusiness, CreativeWork):
 ```tsx
-// Dans layout.tsx
-<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "SQWR Studio",
-  "url": "https://sqwr.be"
-}) }} />
+// In layout.tsx — structured data injection for SEO
+<script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "SQWR Studio",
+      "url": "https://sqwr.be"
+    })
+  }}
+/>
 ```
 
 ---
@@ -173,7 +178,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 ## 6. Middleware (Edge)
 
 ```typescript
-// middleware.ts — s'exécute à la Edge avant chaque requête
+// middleware.ts — runs at the Edge before each request
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
@@ -187,46 +192,46 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/admin/:path*'],  // Scope minimal
+  matcher: ['/dashboard/:path*', '/admin/:path*'],  // Minimal scope
 }
 ```
 
 ---
 
-## 7. Performance — bonnes pratiques
+## 7. Performance — Best Practices
 
 ```tsx
-// ✅ Images : always next/image
+// ✅ Images: always next/image
 import Image from 'next/image'
 <Image src="/hero.jpg" alt="Hero" width={1200} height={630} priority sizes="100vw" />
 
-// ✅ Fonts : always next/font (zero layout shift)
+// ✅ Fonts: always next/font (zero layout shift)
 import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'], display: 'swap' })
 
-// ✅ Lazy loading avec SSR activé
-const HeavyComponent = dynamic(() => import('./HeavyComponent'))  // ssr: true par défaut
+// ✅ Lazy loading with SSR enabled
+const HeavyComponent = dynamic(() => import('./HeavyComponent'))  // ssr: true by default
 ```
 
 ---
 
-## 8. Conventions fichiers
+## 8. File Conventions
 
-| Convention | Règle |
-|-----------|-------|
-| Pages | `page.tsx` dans le dossier de la route |
+| Convention | Rule |
+|-----------|------|
+| Pages | `page.tsx` in the route folder |
 | Layouts | `layout.tsx` |
-| Composants | `PascalCase.tsx` dans `components/` |
-| Utilitaires | `camelCase.ts` dans `lib/` |
-| Types | `types.ts` ou `types/index.ts` |
-| Server Actions | `actions.ts` dans le dossier concerné |
-| Route groups | `(group)` — grouper sans affecter l'URL |
+| Components | `PascalCase.tsx` in `components/` |
+| Utilities | `camelCase.ts` in `lib/` |
+| Types | `types.ts` or `types/index.ts` |
+| Server Actions | `actions.ts` in the relevant folder |
+| Route groups | `(group)` — group without affecting the URL |
 
 ---
 
 ## 9. Sources
 
-| Référence | Lien |
+| Reference | Link |
 |-----------|------|
 | Google Core Web Vitals | web.dev/articles/vitals |
 | Next.js Production Checklist | nextjs.org/docs/app/guides/production-checklist |

@@ -2,243 +2,244 @@
 
 # Claude Code Standards Kit
 
-**Standards professionnels pour Claude Code — ancrés dans la science, pas dans les opinions.**
+**Professional standards for Claude Code — grounded in science, not opinions.**
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![67 fichiers](https://img.shields.io/badge/67%20fichiers-organisés-green.svg)]()
+[![67 files](https://img.shields.io/badge/67%20files-organised-green.svg)]()
 [![Self-audit](https://img.shields.io/badge/self--audit-91%2F100-brightgreen.svg)]()
 [![Made for Claude Code](https://img.shields.io/badge/made%20for-Claude%20Code-orange.svg)]()
 [![By SQWR Studio](https://img.shields.io/badge/by-SQWR%20Studio-black.svg)](https://sqwr.be)
 
-<sub>Conçu et maintenu par <a href="https://sqwr.be"><strong>SQWR Studio</strong></a> — Branding & Web · <a href="https://sqwr.be">sqwr.be</a> · <a href="mailto:studio@sqwr.be">studio@sqwr.be</a></sub>
+<sub>Designed and maintained by <a href="https://sqwr.be"><strong>SQWR Studio</strong></a> — Branding & Web · <a href="https://sqwr.be">sqwr.be</a> · <a href="mailto:studio@sqwr.be">studio@sqwr.be</a></sub>
 
 </div>
 
 ---
 
-Un développeur solo avec Claude Code peut écrire du code. Mais ce code respecte-t-il OWASP ? WCAG 2.1 ? Les Core Web Vitals ? Les standards AWS Well-Architected ?
+A solo developer with Claude Code can write code. But does that code comply with OWASP? WCAG 2.1? Core Web Vitals? AWS Well-Architected standards?
 
-**La plupart du temps : non.** Pas par manque de talent — par manque de méthode.
+**Most of the time: no.** Not for lack of talent — for lack of method.
 
 ```
-Sans ce kit   ████████████░░░░░░░░  ~51/100
-Avec ce kit   █████████████████░░░  ≥85/100
+Without this kit   ████████████░░░░░░░░  ~51/100
+With this kit      █████████████████░░░  ≥85/100
 ```
 
-> **La qualité professionnelle n'est pas dans le code — elle est dans la recherche qui précède le code.**
+> **Professional quality is not in the code — it is in the research that precedes the code.**
 
 ---
 
 ## Quick start
 
 ```bash
-# 1. Cloner le kit
-git clone https://github.com/sqwr/project-kit ~/Desktop/Project-Kit
+# 1. Clone the kit
+git clone https://github.com/samsam007b/claude-code-standards-kit ~/Desktop/Project-Kit
 
-# 2. Bootstrapper un nouveau projet
+# 2. Bootstrap a new project
 bash ~/Desktop/Project-Kit/scripts/init-project.sh \
   --name "mon-projet" --stack "nextjs-supabase" --path "~/Desktop/mon-projet"
 
-# 3. Vérifier l'intégrité du kit
+# 3. Verify kit integrity
 bash ~/Desktop/Project-Kit/scripts/verify-kit.sh --verbose
 ```
 
-**Stacks disponibles :** `nextjs-supabase` · `nextjs` · `nextjs-supabase-ai` · `python`
+**Available stacks:** `nextjs-supabase` · `nextjs` · `nextjs-supabase-ai` · `python`
 
 ---
 
-## Comment ça marche
+## How it works
 
 ```
-  RECHERCHE  →  CONTRAT  →  CODE  →  AUDIT
+  RESEARCH   →  CONTRACT  →  CODE  →  AUDIT
 
-  "Quels sont    Règles +     Claude Code   Score /100
-  les standards  thresholds   suit le       par domaine
-  pro sur ce     + sources    contrat       (≥85 cible)
-  sujet ?"       citées
+  "What are     Rules +      Claude Code   Score /100
+  the pro       thresholds   follows the   per domain
+  standards     + cited      contract      (≥85 target)
+  on this       sources
+  topic?"
 ```
 
-Claude Code ne part pas d'opinions. Il cherche les standards existants, les synthétise en règles actionnables, puis les applique. Ce kit structure ce workflow sur 15 domaines.
+Claude Code does not start from opinions. It looks up existing standards, synthesises them into actionable rules, then applies them. This kit structures that workflow across 15 domains.
 
-Lire [`METHODOLOGY.md`](METHODOLOGY.md) pour la méthode complète.
+Read [`METHODOLOGY.md`](METHODOLOGY.md) for the full method.
 
 ---
 
-## Ce qui est inclus
+## What is included
 
-| Catégorie | Fichiers | Rôle |
+| Category | Files | Role |
 |-----------|---------|------|
-| **Contrats** | 26 | Règles métier avec thresholds chiffrés — à copier dans `CLAUDE.md` |
-| **Frameworks** | 13 | Outils situationnels (branding, estimation, incident, campagne...) |
-| **Audits** | 11 | Scoring /100 par domaine — à lancer avant chaque livraison |
+| **Contracts** | 26 | Business rules with numerical thresholds — copy into `CLAUDE.md` |
+| **Frameworks** | 13 | Situational tools (branding, estimation, incident, campaign…) |
+| **Audits** | 11 | Scoring /100 per domain — run before each delivery |
 | **Templates** | 5 | `CLAUDE.md`, `.env.example`, `.gitignore`, `CHANGELOG.md`, `CONTRIBUTING.md` |
 | **Scripts** | 3 | `init-project.sh`, `verify-kit.sh`, `validate-claude-md.sh` |
 
 ---
 
-## Les contrats
+## The contracts
 
-> Chaque règle a un threshold chiffré. Chaque threshold a une source vérifiable.
+> Every rule has a numerical threshold. Every threshold has a verifiable source.
 
-| Contrat | Domaine | Standard |
+| Contract | Domain | Standard |
 |---------|---------|----------|
 | [`CONTRACT-NEXTJS.md`](contracts/CONTRACT-NEXTJS.md) | App Router, SSR, CWV | Google Core Web Vitals |
-| [`CONTRACT-SUPABASE.md`](contracts/CONTRACT-SUPABASE.md) | Base de données, RLS, auth | NIST SP 800-63B |
-| [`CONTRACT-VERCEL.md`](contracts/CONTRACT-VERCEL.md) | Déploiement, rollback, canary | Vercel docs + Martin Fowler |
-| [`CONTRACT-DESIGN.md`](contracts/CONTRACT-DESIGN.md) | Gestalt, typographie, couleur | Itten, Bringhurst, WCAG 2.1 |
+| [`CONTRACT-SUPABASE.md`](contracts/CONTRACT-SUPABASE.md) | Database, RLS, auth | NIST SP 800-63B |
+| [`CONTRACT-VERCEL.md`](contracts/CONTRACT-VERCEL.md) | Deployment, rollback, canary | Vercel docs + Martin Fowler |
+| [`CONTRACT-DESIGN.md`](contracts/CONTRACT-DESIGN.md) | Gestalt, typography, colour | Itten, Bringhurst, WCAG 2.1 |
 | [`CONTRACT-TYPESCRIPT.md`](contracts/CONTRACT-TYPESCRIPT.md) | TypeScript strict, SOLID | Robert C. Martin |
-| [`CONTRACT-TESTING.md`](contracts/CONTRACT-TESTING.md) | Pyramide de tests, coverage | Martin Fowler, Agile Alliance |
+| [`CONTRACT-TESTING.md`](contracts/CONTRACT-TESTING.md) | Test pyramid, coverage | Martin Fowler, Agile Alliance |
 | [`CONTRACT-SECURITY.md`](contracts/CONTRACT-SECURITY.md) | OWASP Top 10, secrets, XSS | OWASP, NIST, CWE Top 25 |
 | [`CONTRACT-PERFORMANCE.md`](contracts/CONTRACT-PERFORMANCE.md) | LCP, INP, CLS, Lighthouse | Google, DebugBear |
-| [`CONTRACT-ACCESSIBILITY.md`](contracts/CONTRACT-ACCESSIBILITY.md) | WCAG 2.1 AA + EAA (loi EU) | W3C, Nielsen NN/G |
-| [`CONTRACT-ANTI-HALLUCINATION.md`](contracts/CONTRACT-ANTI-HALLUCINATION.md) | Données réelles, RAG, context poisoning | Nature 2025, OpenAI |
-| [`CONTRACT-AI-PROMPTING.md`](contracts/CONTRACT-AI-PROMPTING.md) | System prompts, few-shot, modèles | Anthropic, Lakera |
-| [`CONTRACT-OBSERVABILITY.md`](contracts/CONTRACT-OBSERVABILITY.md) | Logging structuré, Sentry, RUM | Google SRE Book |
+| [`CONTRACT-ACCESSIBILITY.md`](contracts/CONTRACT-ACCESSIBILITY.md) | WCAG 2.1 AA + EAA (EU law) | W3C, Nielsen NN/G |
+| [`CONTRACT-ANTI-HALLUCINATION.md`](contracts/CONTRACT-ANTI-HALLUCINATION.md) | Real data, RAG, context poisoning | Nature 2025, OpenAI |
+| [`CONTRACT-AI-PROMPTING.md`](contracts/CONTRACT-AI-PROMPTING.md) | System prompts, few-shot, models | Anthropic, Lakera |
+| [`CONTRACT-OBSERVABILITY.md`](contracts/CONTRACT-OBSERVABILITY.md) | Structured logging, Sentry, RUM | Google SRE Book |
 | [`CONTRACT-RESILIENCE.md`](contracts/CONTRACT-RESILIENCE.md) | Retry, circuit breaker, graceful degradation | AWS Well-Architected |
-| [`CONTRACT-GREEN-SOFTWARE.md`](contracts/CONTRACT-GREEN-SOFTWARE.md) | Impact carbone, SCI | ISO/IEC 21031:2024 |
+| [`CONTRACT-GREEN-SOFTWARE.md`](contracts/CONTRACT-GREEN-SOFTWARE.md) | Carbon impact, SCI | ISO/IEC 21031:2024 |
 | [`CONTRACT-PYTHON.md`](contracts/CONTRACT-PYTHON.md) | PEP 8, mypy, FastAPI, packaging | PEP standards, Python.org |
 | [`CONTRACT-IOS.md`](contracts/CONTRACT-IOS.md) | SwiftUI, touch targets, Dark Mode | Apple HIG, WCAG 2.5.5 |
 | [`CONTRACT-PDF-GENERATION.md`](contracts/CONTRACT-PDF-GENERATION.md) | Puppeteer, react-pdf, CSS Paged Media | W3C CSS Paged Media, pptr.dev |
 | [`CONTRACT-SEO.md`](contracts/CONTRACT-SEO.md) | SSR, metadata, JSON-LD, Core Web Vitals | Google Search Central, schema.org |
-| [`CONTRACT-EMAIL.md`](contracts/CONTRACT-EMAIL.md) | SPF/DKIM/DMARC, React Email, deliverabilité | RFC 7489, Google Sender Guidelines 2024 |
+| [`CONTRACT-EMAIL.md`](contracts/CONTRACT-EMAIL.md) | SPF/DKIM/DMARC, React Email, deliverability | RFC 7489, Google Sender Guidelines 2024 |
 | [`CONTRACT-CICD.md`](contracts/CONTRACT-CICD.md) | GitHub Actions, DORA, branches, Conventional Commits | DORA Research, semver.org |
 | [`CONTRACT-ANALYTICS.md`](contracts/CONTRACT-ANALYTICS.md) | HEART, AARRR, GA4, PostHog, event taxonomy | Google CHI 2010, Dave McClure 2007 |
 | [`CONTRACT-I18N.md`](contracts/CONTRACT-I18N.md) | next-intl, ICU, hreflang, RTL, Intl API | Unicode CLDR, W3C i18n |
-| [`CONTRACT-PRICING.md`](contracts/CONTRACT-PRICING.md) | Van Westendorp, EVC, SaaS métriques, tiers | ESOMAR 1976, ProfitWell, SaaStr |
+| [`CONTRACT-PRICING.md`](contracts/CONTRACT-PRICING.md) | Van Westendorp, EVC, SaaS metrics, tiers | ESOMAR 1976, ProfitWell, SaaStr |
 | [`CONTRACT-ANDROID.md`](contracts/CONTRACT-ANDROID.md) | Jetpack Compose, Material 3, TalkBack, Vitals | Android Developers, m3.material.io |
-| [`CONTRACT-MOTION-DESIGN.md`](contracts/CONTRACT-MOTION-DESIGN.md) | Animation UI, Remotion, easing, prefers-reduced-motion | Material Design 3, Apple HIG, W3C WCAG 2.3 |
-| [`CONTRACT-VIDEO-PRODUCTION.md`](contracts/CONTRACT-VIDEO-PRODUCTION.md) | Pipeline vidéo, export plateforme, ElevenLabs, studio IA | Instagram/TikTok/YouTube specs, NN/G |
+| [`CONTRACT-MOTION-DESIGN.md`](contracts/CONTRACT-MOTION-DESIGN.md) | UI animation, Remotion, easing, prefers-reduced-motion | Material Design 3, Apple HIG, W3C WCAG 2.3 |
+| [`CONTRACT-VIDEO-PRODUCTION.md`](contracts/CONTRACT-VIDEO-PRODUCTION.md) | Video pipeline, platform export, ElevenLabs, AI studio | Instagram/TikTok/YouTube specs, NN/G |
 
 ---
 
-## Le système d'audit
+## The audit system
 
-Scorer /100 avant chaque livraison. **Seuil de livraison : ≥85/100 global.**
+Score /100 before each delivery. **Delivery threshold: ≥85/100 overall.**
 
-| Audit | Poids | Blocage |
+| Audit | Weight | Blocking |
 |-------|-------|---------|
-| [`AUDIT-SECURITY.md`](audits/AUDIT-SECURITY.md) | 22% | < 70 = bloquant |
-| [`AUDIT-PERFORMANCE.md`](audits/AUDIT-PERFORMANCE.md) | 18% | < 70 recommandé |
-| [`AUDIT-CODE-QUALITY.md`](audits/AUDIT-CODE-QUALITY.md) | 18% | < 75 recommandé |
-| [`AUDIT-OBSERVABILITY.md`](audits/AUDIT-OBSERVABILITY.md) | 12% | < 70 recommandé |
-| [`AUDIT-ACCESSIBILITY.md`](audits/AUDIT-ACCESSIBILITY.md) | 12% | < 80 + légal EU |
-| [`AUDIT-DESIGN.md`](audits/AUDIT-DESIGN.md) | 8% | < 70 recommandé |
-| [`AUDIT-AI-GOVERNANCE.md`](audits/AUDIT-AI-GOVERNANCE.md) | 5% | < 80 recommandé |
-| [`AUDIT-DEPLOYMENT.md`](audits/AUDIT-DEPLOYMENT.md) | 5% | Gate pré-production |
-| [`AUDIT-RGPD.md`](audits/AUDIT-RGPD.md) | — | ≥80/100 avant prod grand public |
-| [`AUDIT-BRAND-STRATEGY.md`](audits/AUDIT-BRAND-STRATEGY.md) | — | Avant lancement ou repositionnement |
+| [`AUDIT-SECURITY.md`](audits/AUDIT-SECURITY.md) | 22% | < 70 = blocking |
+| [`AUDIT-PERFORMANCE.md`](audits/AUDIT-PERFORMANCE.md) | 18% | < 70 recommended |
+| [`AUDIT-CODE-QUALITY.md`](audits/AUDIT-CODE-QUALITY.md) | 18% | < 75 recommended |
+| [`AUDIT-OBSERVABILITY.md`](audits/AUDIT-OBSERVABILITY.md) | 12% | < 70 recommended |
+| [`AUDIT-ACCESSIBILITY.md`](audits/AUDIT-ACCESSIBILITY.md) | 12% | < 80 + EU legal |
+| [`AUDIT-DESIGN.md`](audits/AUDIT-DESIGN.md) | 8% | < 70 recommended |
+| [`AUDIT-AI-GOVERNANCE.md`](audits/AUDIT-AI-GOVERNANCE.md) | 5% | < 80 recommended |
+| [`AUDIT-DEPLOYMENT.md`](audits/AUDIT-DEPLOYMENT.md) | 5% | Pre-production gate |
+| [`AUDIT-RGPD.md`](audits/AUDIT-RGPD.md) | — | ≥80/100 before public prod |
+| [`AUDIT-BRAND-STRATEGY.md`](audits/AUDIT-BRAND-STRATEGY.md) | — | Before launch or repositioning |
 
-Voir [`audits/AUDIT-INDEX.md`](audits/AUDIT-INDEX.md) pour le séquençage.
-
----
-
-## Pourquoi ce kit ?
-
-**Ce qui le différencie de tous les autres starter kits :**
-
-**1. Thresholds chiffrés, pas d'opinions**
-`"LCP ≤2.5s (p75)"` — pas `"bonne performance"`. Chaque règle est mesurable.
-
-**2. Sources Tier 1/2 obligatoires**
-OWASP, WCAG, Google SRE, NIST, Nielsen NN/G, W3C. Pas de "il est recommandé de".
-
-**3. Stratégie de marque incluse**
-[`frameworks/BRAND-STRATEGY.md`](frameworks/BRAND-STRATEGY.md) couvre Sinek, Jung, StoryBrand, Blue Ocean. **Absent de 99% des starter kits techniques.**
-
-**4. Conformité légale EU intégrée**
-EAA (active depuis juin 2025), EU AI Act, RGPD. Voir [`frameworks/COMPLIANCE-EU.md`](frameworks/COMPLIANCE-EU.md).
-
-**5. Le kit s'applique à lui-même**
-Auto-audit : **91/100**. `bash scripts/verify-kit.sh --verbose` → 0 erreur.
+See [`audits/AUDIT-INDEX.md`](audits/AUDIT-INDEX.md) for the sequencing.
 
 ---
 
-## Frameworks situationnels
+## Why this kit?
 
-| Framework | Sortir quand |
+**What sets it apart from all other starter kits:**
+
+**1. Numerical thresholds, not opinions**
+`"LCP ≤2.5s (p75)"` — not `"good performance"`. Every rule is measurable.
+
+**2. Mandatory Tier 1/2 sources**
+OWASP, WCAG, Google SRE, NIST, Nielsen NN/G, W3C. No "it is recommended to".
+
+**3. Brand strategy included**
+[`frameworks/BRAND-STRATEGY.md`](frameworks/BRAND-STRATEGY.md) covers Sinek, Jung, StoryBrand, Blue Ocean. **Absent from 99% of technical starter kits.**
+
+**4. Built-in EU legal compliance**
+EAA (active since June 2025), EU AI Act, GDPR. See [`frameworks/COMPLIANCE-EU.md`](frameworks/COMPLIANCE-EU.md).
+
+**5. The kit applies itself**
+Self-audit: **91/100**. `bash scripts/verify-kit.sh --verbose` → 0 errors.
+
+---
+
+## Situational frameworks
+
+| Framework | Pull it when |
 |-----------|-------------|
-| [`BRAND-STRATEGY.md`](frameworks/BRAND-STRATEGY.md) | **Avant tout design visuel** — Golden Circle, archétypes, narrative |
-| [`PROJECT-SCOPING.md`](frameworks/PROJECT-SCOPING.md) | Avant de commencer — Shape Up Pitch + Pre-mortem |
-| [`ESTIMATION.md`](frameworks/ESTIMATION.md) | Avant tout engagement de délai — PERT + règle ×1.5 |
-| [`CLIENT-HANDOFF.md`](frameworks/CLIENT-HANDOFF.md) | Livraison finale — accès, docs, SLA |
-| [`INCIDENT-RESPONSE.md`](frameworks/INCIDENT-RESPONSE.md) | Service en panne — postmortem blameless |
-| [`ADR-TEMPLATE.md`](frameworks/ADR-TEMPLATE.md) | Nouvelle décision architecturale |
-| [`SLO-TEMPLATE.md`](frameworks/SLO-TEMPLATE.md) | Définir les objectifs de fiabilité |
-| [`COMPLIANCE-EU.md`](frameworks/COMPLIANCE-EU.md) | Projet livré à des clients européens |
-| [`DEPENDENCY-MANAGEMENT.md`](frameworks/DEPENDENCY-MANAGEMENT.md) | Setup + maintenance mensuelle des dépendances |
-| [`COMPETITIVE-AUDIT.md`](frameworks/COMPETITIVE-AUDIT.md) | **Avant tout lancement** — Blue Ocean, Nielsen Heuristics, Mystery Shopper |
-| [`CAMPAIGN-STRATEGY.md`](frameworks/CAMPAIGN-STRATEGY.md) | Lancement campagne — SEE-THINK-DO-CARE, funnel, KPIs |
-| [`UX-RESEARCH.md`](frameworks/UX-RESEARCH.md) | **Avant toute feature** — JTBD, entretiens, test utilisabilité (Nielsen, Fitzpatrick) |
-| [`SOCIAL-CONTENT.md`](frameworks/SOCIAL-CONTENT.md) | Lancement présence social — piliers, calendrier, tone, créateurs |
+| [`BRAND-STRATEGY.md`](frameworks/BRAND-STRATEGY.md) | **Before any visual design** — Golden Circle, archetypes, narrative |
+| [`PROJECT-SCOPING.md`](frameworks/PROJECT-SCOPING.md) | Before starting — Shape Up Pitch + Pre-mortem |
+| [`ESTIMATION.md`](frameworks/ESTIMATION.md) | Before any deadline commitment — PERT + ×1.5 rule |
+| [`CLIENT-HANDOFF.md`](frameworks/CLIENT-HANDOFF.md) | Final delivery — access, docs, SLA |
+| [`INCIDENT-RESPONSE.md`](frameworks/INCIDENT-RESPONSE.md) | Service outage — blameless postmortem |
+| [`ADR-TEMPLATE.md`](frameworks/ADR-TEMPLATE.md) | New architectural decision |
+| [`SLO-TEMPLATE.md`](frameworks/SLO-TEMPLATE.md) | Define reliability objectives |
+| [`COMPLIANCE-EU.md`](frameworks/COMPLIANCE-EU.md) | Project delivered to European clients |
+| [`DEPENDENCY-MANAGEMENT.md`](frameworks/DEPENDENCY-MANAGEMENT.md) | Setup + monthly dependency maintenance |
+| [`COMPETITIVE-AUDIT.md`](frameworks/COMPETITIVE-AUDIT.md) | **Before any launch** — Blue Ocean, Nielsen Heuristics, Mystery Shopper |
+| [`CAMPAIGN-STRATEGY.md`](frameworks/CAMPAIGN-STRATEGY.md) | Campaign launch — SEE-THINK-DO-CARE, funnel, KPIs |
+| [`UX-RESEARCH.md`](frameworks/UX-RESEARCH.md) | **Before any feature** — JTBD, interviews, usability testing (Nielsen, Fitzpatrick) |
+| [`SOCIAL-CONTENT.md`](frameworks/SOCIAL-CONTENT.md) | Social presence launch — pillars, calendar, tone, creators |
 
 ---
 
-## Sources intégrées (extrait)
+## Integrated sources (excerpt)
 
-| Domaine | Sources |
+| Domain | Sources |
 |---------|--------|
-| Sécurité | OWASP Top 10, NIST SP 800-63B, CWE Top 25 |
+| Security | OWASP Top 10, NIST SP 800-63B, CWE Top 25 |
 | Performance | Google Core Web Vitals, DebugBear |
-| Accessibilité | WCAG 2.1 W3C, EN 301 549, Nielsen Norman Group |
+| Accessibility | WCAG 2.1 W3C, EN 301 549, Nielsen Norman Group |
 | Design | Gestalt (1920), Bringhurst (1992), Baymard Institute |
-| Tests | Martin Fowler pyramid, Agile Alliance DoD |
-| Fiabilité | Google SRE Book, AWS Well-Architected |
-| Résilience | Michael Nygard (Release It! 2018) |
+| Testing | Martin Fowler pyramid, Agile Alliance DoD |
+| Reliability | Google SRE Book, AWS Well-Architected |
+| Resilience | Michael Nygard (Release It! 2018) |
 | Green IT | ISO/IEC 21031:2024 (SCI) |
 | Brand | Sinek (2009), Jung/Mark & Pearson (2001), Donald Miller (2017) |
 | Estimation | PERT (1957), Kahneman & Tversky (Nobel 2002) |
 | AI / LLM | Anthropic docs, Lakera, Nature 2025 |
-| Légal EU | Règlement UE 2024/1689, EAA, ENISA NIS2 |
+| EU Legal | Regulation EU 2024/1689, EAA, ENISA NIS2 |
 
 ---
 
-## Structure complète
+## Full structure
 
 ```
 project-kit/
-├── IDENTITY-TEMPLATE.md    → Fiche identité à personnaliser
-├── METHODOLOGY.md          → Méthode complète (lire en premier)
-├── GUIDE-DECOUVERTE.md     → Tour du kit en 10 min, PDF-ready
-├── contracts/              → 26 contrats (thresholds + sources)
-├── frameworks/             → 13 outils situationnels
+├── IDENTITY-TEMPLATE.md    → Identity sheet to personalise
+├── METHODOLOGY.md          → Full method (read first)
+├── DISCOVERY-GUIDE.md      → 10-Minute kit tour, PDF-ready
+├── contracts/              → 26 contracts (thresholds + sources)
+├── frameworks/             → 13 situational tools
 ├── audits/                 → 11 audits scoring /100
-├── templates/              → CLAUDE.md, .env.example, .gitignore...
+├── templates/              → CLAUDE.md, .env.example, .gitignore…
 └── scripts/                → init-project.sh, verify-kit.sh, validate-claude-md.sh
 ```
 
 ---
 
-## Contribuer
+## Contributing
 
-Voir [`CONTRIBUTING.md`](CONTRIBUTING.md).
+See [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
-**Règle d'or :** toute nouvelle règle = source Tier 1 (docs officielles) ou Tier 2 (académique/industriel). Pas d'opinions sans source. Threshold chiffré obligatoire.
+**Golden rule:** every new rule = a Tier 1 source (official docs) or Tier 2 (academic/industrial). No opinions without a source. Numerical threshold required.
 
 ---
 
-## Vous voulez ce niveau de qualité sans vous en occuper ?
+## Want this level of quality without handling it yourself?
 
-Ce kit est la méthode publique de **[SQWR Studio](https://sqwr.be)** — le studio qui l'a créé, affiné sur des dizaines de projets réels, et l'applique à chaque livraison.
+This kit is the public method of **[SQWR Studio](https://sqwr.be)** — the studio that created it, refined it across dozens of real projects, and applies it to every delivery.
 
-**Ce que SQWR Studio propose :**
-- **Audit de projet** — scorer votre codebase existant selon les standards du kit (/100 par domaine, rapport PDF)
-- **Setup du kit** — intégrer le kit dans votre stack et former votre équipe
-- **Livraison de projet** — développement Next.js / Supabase / iOS au niveau des standards décrits ici
+**What SQWR Studio offers:**
+- **Project audit** — score your existing codebase against the kit's standards (/100 per domain, PDF report)
+- **Kit setup** — integrate the kit into your stack and train your team
+- **Project delivery** — Next.js / Supabase / iOS development at the standards described here
 
-> Un score ≥85/100 n'est pas un objectif — c'est notre baseline de livraison.
+> A score ≥85/100 is not a goal — it is our delivery baseline.
 
-**Contact :** [studio@sqwr.be](mailto:studio@sqwr.be) · [sqwr.be](https://sqwr.be)
+**Contact:** [studio@sqwr.be](mailto:studio@sqwr.be) · [sqwr.be](https://sqwr.be)
 
 ---
 
 ## Licence
 
-MIT — libre d'utilisation, modification, distribution.
+MIT — free to use, modify, and distribute.
 
 ---
 
 <div align="center">
 <sub>
-<a href="METHODOLOGY.md">Méthodologie</a> · <a href="GUIDE-DECOUVERTE.md">Tour en 10 min</a> · <a href="audits/AUDIT-INDEX.md">Lancer un audit</a> · <a href="https://sqwr.be">SQWR Studio</a> · <a href="mailto:studio@sqwr.be">studio@sqwr.be</a>
+<a href="METHODOLOGY.md">Methodology</a> · <a href="DISCOVERY-GUIDE.md">10-Minute Tour</a> · <a href="audits/AUDIT-INDEX.md">Run an audit</a> · <a href="https://sqwr.be">SQWR Studio</a> · <a href="mailto:studio@sqwr.be">studio@sqwr.be</a>
 </sub>
 </div>

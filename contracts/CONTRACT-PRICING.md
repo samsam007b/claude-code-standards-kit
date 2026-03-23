@@ -1,147 +1,147 @@
-# Contrat — Pricing & Monétisation
+# Contract — Pricing & Monetisation
 
-> Module de contrat SQWR Project Kit.
-> Sources : Van Westendorp — Price Sensitivity Meter (ESOMAR, 1976), Price Intelligently / ProfitWell — SaaS Pricing Report (2020), Simon-Kucher & Partners — Pricing Power Research, Kahneman & Tversky — "Judgment under Uncertainty" (Science, 1974), Christoph Janz — "5 Ways to Build a $100M Business" (Point Nine Capital, 2014), SaaStr — SaaS Benchmarks (saastr.com).
+> SQWR Project Kit contract module.
+> Sources: Van Westendorp — Price Sensitivity Meter (ESOMAR, 1976), Price Intelligently / ProfitWell — SaaS Pricing Report (2020), Simon-Kucher & Partners — Pricing Power Research, Kahneman & Tversky — "Judgment under Uncertainty" (Science, 1974), Christoph Janz — "5 Ways to Build a $100M Business" (Point Nine Capital, 2014), SaaStr — SaaS Benchmarks (saastr.com).
 
 ---
 
-## Fondements scientifiques
+## Scientific Foundations
 
-**"Pricing is the most powerful lever in SaaS."** Une amélioration de 1% du pricing génère en moyenne **4x plus d'impact** sur le profit qu'une amélioration de 1% de l'acquisition. (Price Intelligently / ProfitWell, 2016)
+**"Pricing is the most powerful lever in SaaS."** A 1% improvement in pricing generates on average **4x more impact** on profit than a 1% improvement in acquisition. (Price Intelligently / ProfitWell, 2016)
 
-L'erreur classique des startups : fixer le prix sur les coûts (cost-plus pricing) plutôt que sur la valeur perçue. Le prix doit refléter **la valeur créée pour le client**, pas les coûts de production.
+The classic startup mistake: setting prices based on costs (cost-plus pricing) rather than perceived value. The price must reflect **the value created for the customer**, not production costs.
 
-**Biais d'ancrage** (Kahneman & Tversky, Science, 1974) : le premier prix vu ancre irrémédiablement la perception. L'ordre d'affichage des tiers impacte directement les conversions.
+**Anchoring bias** (Kahneman & Tversky, Science, 1974): the first price seen irrevocably anchors perception. The display order of tiers directly impacts conversions.
 
 ---
 
 ## 1. Van Westendorp — Price Sensitivity Meter
 
-> Source : Peter Van Westendorp — "NSS-Price Sensitivity Meter" (ESOMAR, 1976)
-> Norme : 30 répondants minimum pour des résultats statistiquement interprétables
+> Source: Peter Van Westendorp — "NSS-Price Sensitivity Meter" (ESOMAR, 1976)
+> Standard: 30 respondents minimum for statistically interpretable results
 
-**4 questions à poser dans un survey (avant de fixer le prix) :**
+**4 questions to ask in a survey (before setting the price):**
 
 ```
-Q1 — "À quel prix ce produit serait-il trop cher pour que vous l'envisagiez ?"
-     → Rejet par coût élevé
+Q1 — "At what price would this product be too expensive for you to consider?"
+     → Rejection due to high cost
 
-Q2 — "À quel prix commenceriez-vous à trouver ce produit cher, mais l'achèteriez quand même ?"
-     → Cher mais acceptable
+Q2 — "At what price would you start to find this product expensive, but still buy it?"
+     → Expensive but acceptable
 
-Q3 — "À quel prix penseriez-vous que ce produit est une bonne affaire ?"
-     → Bon rapport qualité/prix
+Q3 — "At what price would you think this product is a good deal?"
+     → Good value for money
 
-Q4 — "À quel prix ce produit serait-il si bon marché que vous douteriez de sa qualité ?"
-     → Rejet par prix trop bas (signal de mauvaise qualité)
+Q4 — "At what price would this product be so cheap that you would doubt its quality?"
+     → Rejection due to price being too low (signal of poor quality)
 ```
 
-**Interprétation graphique :**
+**Graphical interpretation:**
 ```
-Tracer les 4 courbes cumulatives.
-Intersection Q1 et Q4 → Point of Marginal Cheapness (PMC)
-Intersection Q2 et Q3 → Point of Marginal Expensiveness (PME)
-Zone entre PMC et PME → Zone de prix acceptable
+Plot the 4 cumulative curves.
+Intersection of Q1 and Q4 → Point of Marginal Cheapness (PMC)
+Intersection of Q2 and Q3 → Point of Marginal Expensiveness (PME)
+Zone between PMC and PME → Acceptable price range
 ```
 
-**Zone optimale :** entre le PMC et le PME. Le prix optimal se situe souvent légèrement au-dessus du PMC (éviter la perception de mauvaise qualité).
+**Optimal zone:** between the PMC and the PME. The optimal price is often slightly above the PMC (to avoid the perception of poor quality).
 
 ---
 
-## 2. Value-Based Pricing — Calculer l'EVC
+## 2. Value-Based Pricing — Calculating EVC
 
-> Source : Thomas Nagle — *The Strategy and Tactics of Pricing* (Routledge, 2016)
-> Source : Simon-Kucher & Partners — Value-Based Pricing Framework
+> Source: Thomas Nagle — *The Strategy and Tactics of Pricing* (Routledge, 2016)
+> Source: Simon-Kucher & Partners — Value-Based Pricing Framework
 
-**Economic Value to Customer (EVC) :**
+**Economic Value to Customer (EVC):**
 ```
-EVC = Référence économique de la meilleure alternative
-    + Valeur de différenciation (positif ou négatif)
+EVC = Economic reference of the best alternative
+    + Differentiation value (positive or negative)
 ```
 
-**Règle d'or : capturer 10-20% de la valeur créée pour le client.** (Simon-Kucher benchmark)
+**Golden rule: capture 10-20% of the value created for the customer.** (Simon-Kucher benchmark)
 
-### Template de calcul EVC
+### EVC Calculation Template
 
 ```
-PRODUIT : [Nom]
-SEGMENT CIBLE : [Description précise]
+PRODUCT: [Name]
+TARGET SEGMENT: [Precise description]
 
-1. Coût de la meilleure alternative actuelle pour le client :
-   Alternative : [ex : faire manuellement, outil concurrent]
-   Coût annuel (temps × taux horaire + abonnement) : [€]
+1. Cost of the customer's best current alternative:
+   Alternative: [e.g. doing it manually, competing tool]
+   Annual cost (time × hourly rate + subscription): [€]
 
-2. Valeur de différenciation apportée :
-   + Gain de temps : [heures/mois × taux horaire = €/an]
-   + Réduction d'erreurs : [€ de risque évité]
-   + Nouvelle valeur créée : [€ de revenus générés]
-   - Coût de migration : [€]
-   - Courbe d'apprentissage : [heures × taux horaire = €]
+2. Differentiation value delivered:
+   + Time saved: [hours/month × hourly rate = €/year]
+   + Error reduction: [€ of risk avoided]
+   + New value created: [€ of revenue generated]
+   - Migration cost: [€]
+   - Learning curve: [hours × hourly rate = €]
 
-3. EVC total = Alternative + Différenciation = [€/an]
+3. Total EVC = Alternative + Differentiation = [€/year]
 
-4. Prix recommandé = EVC × 10-20% = [€/an]
+4. Recommended price = EVC × 10-20% = [€/year]
 ```
 
 ---
 
-## 3. Structure de prix — 3 Tiers (Good/Better/Best)
+## 3. Pricing Structure — 3 Tiers (Good/Better/Best)
 
-> Source : Simon-Kucher & Partners — "Monetize!" (Wiley, 2012)
-> Source : Bain & Company — Pricing Research
+> Source: Simon-Kucher & Partners — "Monetize!" (Wiley, 2012)
+> Source: Bain & Company — Pricing Research
 
-**3 tiers est le format optimal.** 2 tiers = peu de choix, difficile d'ancrer. 4+ tiers = paralysie du choix. (Bain & Company pricing research)
+**3 tiers is the optimal format.** 2 tiers = limited choice, difficult to anchor. 4+ tiers = choice paralysis. (Bain & Company pricing research)
 
-**Ordre d'affichage : toujours du plus cher au moins cher.** L'ancrage cognitif fait que le premier prix vu devient la référence — afficher le prix élevé en premier rend le prix moyen plus attractif.
+**Display order: always from most expensive to least expensive.** Cognitive anchoring means the first price seen becomes the reference — displaying the higher price first makes the middle price more attractive.
 
 ```
 ┌─────────────┬─────────────┬─────────────┐
 │   BUSINESS  │     PRO     │   STARTER   │
 │  "Best"     │  "Better"   │   "Good"    │
-│  149€/mois  │  49€/mois   │  19€/mois   │
-│  [mis en    │  ← POUSSER  │  [point     │
-│   avant]    │   CE TIER   │  d'entrée]  │
+│  149€/month │  49€/month  │  19€/month  │
+│  [featured] │  ← PUSH     │  [entry     │
+│             │   THIS TIER │   point]    │
 └─────────────┴─────────────┴─────────────┘
 ```
 
-**Decoy pricing :** le tier "Pro" (milieu) doit être conçu pour rendre le tier "Business" attractif. Si Business = 3x Pro mais 5x les features → "Pro semble une mauvaise affaire".
+**Decoy pricing:** the "Pro" tier (middle) must be designed to make the "Business" tier attractive. If Business = 3x Pro but 5x the features → "Pro seems like a bad deal".
 
-**Règle :** jamais retirer artificiellement des features du tier bas pour forcer l'upgrade. Différencier par les limites d'usage (volume, utilisateurs, projets), pas par la suppression de fonctionnalités critiques.
-
----
-
-## 4. Modèles SaaS — Freemium vs Trial vs Paid
-
-> Source : Christoph Janz — "5 Ways to Build a $100M Business" (Point Nine Capital, 2014)
-> Source : ProfitWell — "The State of Freemium" (2020)
-
-| Modèle | Conversion rate | Best pour | Éviter si |
-|--------|----------------|-----------|-----------|
-| **Freemium** | 2-5% (ProfitWell 2020) | Viral, usage individuel, CAC très bas | Produit complexe néeding onboarding |
-| **Free Trial (14j)** | 15-25% (ProfitWell) | B2B, demo claire, time-to-value rapide | Produit nécessitant > 14j pour comprendre la valeur |
-| **Demo + Paid** | 20-40% après demo | Enterprise, prix élevé (>500€/mois) | SMB (trop d'efforts pour le client) |
-
-**Time-to-Value (TTV)** : si le TTV > durée du trial → allonger le trial ou passer à freemium.
+**Rule:** never artificially remove features from the lower tier to force upgrades. Differentiate by usage limits (volume, users, projects), not by removing critical functionality.
 
 ---
 
-## 5. Métriques SaaS à piloter
+## 4. SaaS Models — Freemium vs Trial vs Paid
 
-> Source : David Skok — "SaaS Metrics 2.0" (forentrepreneurs.com), SaaStr benchmarks
+> Source: Christoph Janz — "5 Ways to Build a $100M Business" (Point Nine Capital, 2014)
+> Source: ProfitWell — "The State of Freemium" (2020)
 
-| Métrique | Formule | Threshold |
-|----------|---------|-----------|
-| **MRR** | Σ revenus récurrents mensuels | — |
+| Model | Conversion rate | Best for | Avoid if |
+|-------|----------------|----------|----------|
+| **Freemium** | 2-5% (ProfitWell 2020) | Viral, individual usage, very low CAC | Complex product requiring onboarding |
+| **Free Trial (14d)** | 15-25% (ProfitWell) | B2B, clear demo, fast time-to-value | Product requiring > 14d to understand value |
+| **Demo + Paid** | 20-40% after demo | Enterprise, high price (>500€/month) | SMB (too much effort for the customer) |
+
+**Time-to-Value (TTV):** if TTV > trial duration → extend the trial or switch to freemium.
+
+---
+
+## 5. SaaS Metrics to Track
+
+> Source: David Skok — "SaaS Metrics 2.0" (forentrepreneurs.com), SaaStr benchmarks
+
+| Metric | Formula | Threshold |
+|--------|---------|-----------|
+| **MRR** | Σ monthly recurring revenue | — |
 | **ARR** | MRR × 12 | — |
-| **MRR Churn** | MRR perdu / MRR début de période | <2%/mois (ProfitWell) |
-| **NRR** (Net Revenue Retention) | (MRR début + expansion - contraction - churn) / MRR début | >100% = expansion revenue |
-| **LTV** | ARPU / Churn rate mensuel | — |
-| **CAC** | Coût total sales+marketing / nouveaux clients | — |
+| **MRR Churn** | MRR lost / MRR at start of period | <2%/month (ProfitWell) |
+| **NRR** (Net Revenue Retention) | (Starting MRR + expansion - contraction - churn) / Starting MRR | >100% = expansion revenue |
+| **LTV** | ARPU / monthly churn rate | — |
+| **CAC** | Total sales+marketing cost / new customers | — |
 | **LTV/CAC** | LTV ÷ CAC | ≥3x (SaaStr minimum viable) |
-| **CAC Payback** | CAC / ARPU mensuel | <12 mois (recommandé) |
+| **CAC Payback** | CAC / monthly ARPU | <12 months (recommended) |
 
 ```typescript
-// lib/metrics.ts — calculs SaaS
+// lib/metrics.ts — SaaS calculations
 export function calculateLTV(arpu: number, monthlyChurnRate: number): number {
   return arpu / monthlyChurnRate
 }
@@ -151,64 +151,64 @@ export function calculateLTVCACRatio(ltv: number, cac: number): number {
 }
 
 export function calculateCACPayback(cac: number, arpu: number): number {
-  return cac / arpu  // en mois
+  return cac / arpu  // in months
 }
 
-// Exemple
-const ltv = calculateLTV(49, 0.02)  // ARPU 49€, churn 2%/mois → LTV = 2450€
+// Example
+const ltv = calculateLTV(49, 0.02)  // ARPU 49€, churn 2%/month → LTV = 2450€
 const ratio = calculateLTVCACRatio(2450, 300)  // CAC 300€ → ratio = 8.2x (excellent)
 ```
 
 ---
 
-## 6. Discount annuel
+## 6. Annual Discount
 
-**Règle : toujours proposer un abonnement annuel avec -15 à -20% de réduction.** (standard SaaS — David Skok, SaaStr)
+**Rule: always offer an annual subscription with -15 to -20% discount.** (SaaS standard — David Skok, SaaStr)
 
-L'abonnement annuel réduit le churn mécaniquement (engagement sur 12 mois), améliore le cash flow, et augmente l'ARR contractualisé.
+An annual subscription mechanically reduces churn (12-month commitment), improves cash flow, and increases contracted ARR.
 
 ```typescript
-// Configuration Stripe recommandée
-// Utiliser lookup_key plutôt que price_id hardcodé (Stripe recommandation)
+// Recommended Stripe configuration
+// Use lookup_key rather than hardcoded price_id (Stripe recommendation)
 // stripe.com/docs/products-prices/manage-prices#lookup-keys
 
 const prices = {
   starter_monthly: { lookup_key: 'starter_monthly', amount: 1900 },   // 19€
-  starter_annual:  { lookup_key: 'starter_annual',  amount: 19000 },  // 190€/an (-17%)
+  starter_annual:  { lookup_key: 'starter_annual',  amount: 19000 },  // 190€/year (-17%)
   pro_monthly:     { lookup_key: 'pro_monthly',     amount: 4900 },   // 49€
-  pro_annual:      { lookup_key: 'pro_annual',      amount: 49000 },  // 490€/an (-17%)
+  pro_annual:      { lookup_key: 'pro_annual',      amount: 49000 },  // 490€/year (-17%)
 }
 ```
 
 ---
 
-## Checklist pré-lancement pricing
+## Pre-launch Pricing Checklist
 
-### Bloquants
+### Blocking
 
-- [ ] Van Westendorp ou entretiens WTP réalisés sur ≥30 répondants (ou 5 entretiens qualitatifs)
-- [ ] EVC calculé pour le segment principal
-- [ ] LTV/CAC ≥3x vérifié sur projection (sinon le modèle n'est pas viable)
-- [ ] 3 tiers définis avec differentiation claire par usage (pas par features retirées)
+- [ ] Van Westendorp or WTP interviews conducted on ≥30 respondents (or 5 qualitative interviews)
+- [ ] EVC calculated for the primary segment
+- [ ] LTV/CAC ≥3x verified on projection (otherwise the model is not viable)
+- [ ] 3 tiers defined with clear differentiation by usage (not by removed features)
 
-### Importants
+### Important
 
-- [ ] Abonnement annuel avec -15 à -20% disponible
-- [ ] NRR instrumenté dès J1 (premier client payant)
-- [ ] Churn mesuré et analysé mensuellement
-- [ ] Stripe lookup_keys utilisés (pas de price_id hardcodé)
+- [ ] Annual subscription with -15 to -20% available
+- [ ] NRR instrumented from day 1 (first paying customer)
+- [ ] Churn measured and analysed monthly
+- [ ] Stripe lookup_keys used (no hardcoded price_id)
 
-### Souhaitables
+### Desirable
 
-- [ ] Cohort analysis par tier (quel tier churne le plus ?)
-- [ ] NPS par tier (quel tier est le plus satisfait ?)
-- [ ] Test landing page : messaging valeur vs pricing affiché
+- [ ] Cohort analysis by tier (which tier churns the most?)
+- [ ] NPS by tier (which tier is most satisfied?)
+- [ ] Landing page test: value messaging vs displayed pricing
 
 ---
 
 ## Sources
 
-| Référence | Lien |
+| Reference | Link |
 |-----------|------|
 | Van Westendorp PSM (ESOMAR, 1976) | esomar.org |
 | ProfitWell SaaS Pricing Report (2020) | profitwell.com/recur/all |

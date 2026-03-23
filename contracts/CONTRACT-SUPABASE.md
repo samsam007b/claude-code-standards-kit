@@ -1,66 +1,66 @@
-# Contrat — Supabase
+# Contract — Supabase
 
-> Module de contrat SQWR Project Kit — enrichi avec références scientifiques.
-> Sources : Supabase RLS docs, NIST SP 800-63B, JWT Best Practices (Curity), OWASP.
-
----
-
-## 1. Règles de sécurité absolues
-
-### Ne jamais faire
-
-- **Exposer la `service_role` key côté client** — uniquement Server Actions ou API Routes
-- **Désactiver RLS** sur une table contenant des données utilisateurs
-- **Requêter sans vérifier les RLS** — tester toujours avec un utilisateur non-admin
-- **Écrire des données sans validation Zod** — valider en amont systématiquement
-- **Commit de fichiers `.env.local`** — credentials Supabase jamais dans le repo
-- **Stocker des données sensibles dans les JWT** — les tokens traversent le réseau
+> SQWR Project Kit contract module — enriched with scientific references.
+> Sources: Supabase RLS docs, NIST SP 800-63B, JWT Best Practices (Curity), OWASP.
 
 ---
 
-## 2. Standards JWT (NIST SP 800-63B — Curity Research)
+## 1. Absolute Security Rules
 
-> Source : [NIST Special Publication 800-63B](https://pages.nist.gov/800-63-4/sp800-63b.html), [JWT Best Practices — Curity](https://curity.io/resources/learn/jwt-best-practices/)
+### Never do
 
-### Durée de vie des tokens
+- **Expose the `service_role` key on the client side** — use Server Actions or API Routes only
+- **Disable RLS** on a table containing user data
+- **Query without verifying RLS** — always test with a non-admin user
+- **Write data without Zod validation** — validate upstream systematically
+- **Commit `.env.local` files** — Supabase credentials must never be in the repo
+- **Store sensitive data in JWTs** — tokens travel over the network
 
-| Token | Durée recommandée | Raison |
+---
+
+## 2. JWT Standards (NIST SP 800-63B — Curity Research)
+
+> Source: [NIST Special Publication 800-63B](https://pages.nist.gov/800-63-4/sp800-63b.html), [JWT Best Practices — Curity](https://curity.io/resources/learn/jwt-best-practices/)
+
+### Token Lifetimes
+
+| Token | Recommended duration | Reason |
 |-------|------------------|--------|
-| **Access token** | **5-15 minutes** | Exposure window minimal en cas de vol |
-| **Refresh token** | 7-30 jours (avec rotation) | Confort utilisateur avec sécurité |
-| **Session cookie** | ≤24h (configurable) | Équilibre UX/sécurité |
+| **Access token** | **5-15 minutes** | Minimal exposure window in case of theft |
+| **Refresh token** | 7-30 days (with rotation) | User convenience with security |
+| **Session cookie** | ≤24h (configurable) | UX/security balance |
 
-### Algorithme de signature
+### Signing Algorithm
 
-| Algo | Usage | Note |
+| Algorithm | Usage | Note |
 |------|-------|------|
-| **RS256** (RSA + SHA-256) | Recommandé en production | Clé publique/privée — vérifiable sans secret |
-| **HS256** | Simple, petits projets | Clé symétrique — tous les services partagent le secret |
+| **RS256** (RSA + SHA-256) | Recommended in production | Public/private key — verifiable without the secret |
+| **HS256** | Simple, small projects | Symmetric key — all services share the secret |
 
-**Recommandation :** RS256 dès qu'il y a plusieurs services ou une API publique.
+**Recommendation:** RS256 when there are multiple services or a public API.
 
-### Stockage des tokens
+### Token Storage
 
 ```
-✅ Cookies HttpOnly + SameSite=Strict   → CSRF protégé, inaccessible JS
-✅ Cookies HttpOnly + SameSite=Lax     → Compatible OAuth redirects
-❌ localStorage                         → Vulnérable XSS
-❌ sessionStorage                       → Vulnérable XSS
+✅ HttpOnly cookies + SameSite=Strict   → CSRF protected, inaccessible to JS
+✅ HttpOnly cookies + SameSite=Lax     → Compatible with OAuth redirects
+❌ localStorage                         → Vulnerable to XSS
+❌ sessionStorage                       → Vulnerable to XSS
 ```
 
-### Rotation des secrets (NIST SP 800-63B)
+### Secret Rotation (NIST SP 800-63B)
 
-**NIST recommande de NE PAS faire de rotation sur calendrier fixe.** Rotation uniquement si :
-- Compromission confirmée ou suspectée
-- Départ d'un employé ayant accès
-- Audit de sécurité le requiert
+**NIST recommends NOT rotating on a fixed calendar schedule.** Rotate only if:
+- Compromise confirmed or suspected
+- An employee with access leaves
+- A security audit requires it
 
 ---
 
-## 3. Pattern Client correct
+## 3. Correct Client Pattern
 
 ```typescript
-// lib/supabase/server.ts — côté serveur uniquement
+// lib/supabase/server.ts — server-side only
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import type { Database } from '@/types/database.types'
@@ -81,7 +81,7 @@ export async function createClient() {
   )
 }
 
-// lib/supabase/client.ts — côté client uniquement
+// lib/supabase/client.ts — client-side only
 import { createBrowserClient } from '@supabase/ssr'
 import type { Database } from '@/types/database.types'
 
@@ -97,47 +97,47 @@ export function createClient() {
 
 ## 4. Row Level Security (RLS)
 
-**Toutes les tables avec données utilisateurs = RLS obligatoire.**
+**All tables with user data = RLS mandatory.**
 
-### Règle d'indexation critique
+### Critical Indexing Rule
 
-> Source : Supabase RLS Documentation — Performance
+> Source: Supabase RLS Documentation — Performance
 
-**Chaque colonne utilisée dans une politique RLS doit avoir un index.** Sans index, chaque requête scanne toute la table.
+**Every column used in an RLS policy must have an index.** Without an index, each query scans the entire table.
 
 ```sql
--- ✅ Activer RLS
+-- ✅ Enable RLS
 ALTER TABLE projects ENABLE ROW LEVEL SECURITY;
 
--- ✅ Index obligatoire sur les colonnes de politique
-CREATE INDEX ON projects(user_id);    -- filtré dans la politique
-CREATE INDEX ON projects(tenant_id);  -- filtré dans la politique
+-- ✅ Mandatory index on policy columns
+CREATE INDEX ON projects(user_id);    -- filtered in the policy
+CREATE INDEX ON projects(tenant_id);  -- filtered in the policy
 
--- ✅ Politique spécifique par opération (éviter FOR ALL avec USING(true))
+-- ✅ Specific policy per operation (avoid FOR ALL with USING(true))
 CREATE POLICY "select_own" ON projects FOR SELECT USING (auth.uid() = user_id);
 CREATE POLICY "insert_own" ON projects FOR INSERT WITH CHECK (auth.uid() = user_id);
 CREATE POLICY "update_own" ON projects FOR UPDATE USING (auth.uid() = user_id);
 CREATE POLICY "delete_own" ON projects FOR DELETE USING (auth.uid() = user_id);
 ```
 
-### Patterns RLS avancés
+### Advanced RLS Patterns
 
 ```sql
--- Lecture publique, écriture authentifiée
+-- Public read, authenticated write
 CREATE POLICY "public_read" ON posts FOR SELECT USING (true);
 CREATE POLICY "auth_write" ON posts FOR INSERT WITH CHECK (auth.uid() IS NOT NULL);
 
--- Multi-tenant (organisations)
+-- Multi-tenant (organizations)
 CREATE POLICY "tenant_isolation" ON resources
   FOR ALL USING (tenant_id = (auth.jwt() ->> 'tenant_id')::uuid);
 ```
 
 ---
 
-## 5. Gestion des sessions expirées
+## 5. Expired Session Handling
 
 ```typescript
-// middleware.ts — rafraîchir la session automatiquement
+// middleware.ts — automatically refresh the session
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
@@ -151,7 +151,7 @@ export async function middleware(request: NextRequest) {
     { cookies: { /* ... */ } }
   )
 
-  // Rafraîchit automatiquement le token si expiré
+  // Automatically refreshes the token if expired
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user && request.nextUrl.pathname.startsWith('/dashboard')) {
@@ -167,7 +167,7 @@ export async function middleware(request: NextRequest) {
 ## 6. Rate Limiting
 
 ```typescript
-// app/api/contact/route.ts — rate limiting applicatif
+// app/api/contact/route.ts — application-level rate limiting
 import { NextResponse } from 'next/server'
 
 const rateLimitMap = new Map<string, { count: number; timestamp: number }>()
@@ -191,48 +191,48 @@ export async function POST(request: Request) {
   if (!rateLimit(ip)) {
     return NextResponse.json({ error: 'Too many requests' }, { status: 429 })
   }
-  // Logique normale...
+  // Normal logic...
 }
 ```
 
 ---
 
-## 7. Gestion des migrations
+## 7. Migration Management
 
 ```
-Convention de nommage : YYYYMMDDHHMMSS_description.sql
-Exemple : 20260317143000_create_projects_table.sql
+Naming convention: YYYYMMDDHHMMSS_description.sql
+Example: 20260317143000_create_projects_table.sql
 ```
 
-- Utiliser `supabase/migrations/` pour toutes les modifications de schéma
-- Tester les migrations en local avant de pusher sur prod
-- Ne jamais modifier le schéma directement en prod via l'interface Supabase
-- Versionner les migrations dans git (committed, jamais dans .gitignore)
+- Use `supabase/migrations/` for all schema changes
+- Test migrations locally before pushing to production
+- Never modify the schema directly in production via the Supabase interface
+- Version migrations in git (committed, never in .gitignore)
 
 ---
 
-## 8. Variables d'environnement requises
+## 8. Required Environment Variables
 
 ```bash
-NEXT_PUBLIC_SUPABASE_URL=         # URL du projet (https://xxx.supabase.co)
-NEXT_PUBLIC_SUPABASE_ANON_KEY=    # Clé anon — publique, ok côté client
-SUPABASE_SERVICE_ROLE_KEY=        # Clé service — JAMAIS NEXT_PUBLIC_
+NEXT_PUBLIC_SUPABASE_URL=         # Project URL (https://xxx.supabase.co)
+NEXT_PUBLIC_SUPABASE_ANON_KEY=    # Anon key — public, safe client-side
+SUPABASE_SERVICE_ROLE_KEY=        # Service key — NEVER NEXT_PUBLIC_
 ```
 
 ---
 
 ## 9. Storage
 
-- Activer RLS sur les buckets en production
-- Pas d'upload direct depuis client sans vérification MIME et taille
-- URLs signées pour fichiers privés (expiration ≤ 1h pour données sensibles)
-- Buckets publics uniquement pour assets statiques (images produit, logos)
+- Enable RLS on buckets in production
+- No direct client upload without MIME type and size verification
+- Signed URLs for private files (expiry ≤ 1h for sensitive data)
+- Public buckets only for static assets (product images, logos)
 
 ---
 
 ## 10. Sources
 
-| Référence | Lien |
+| Reference | Link |
 |-----------|------|
 | Supabase RLS Documentation | supabase.com/docs/guides/database/postgres/row-level-security |
 | JWT Best Practices — Curity | curity.io/resources/learn/jwt-best-practices |

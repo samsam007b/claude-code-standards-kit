@@ -1,181 +1,181 @@
-# Contrat — AI Prompting & Gouvernance LLM
+# Contract — AI Prompting & LLM Governance
 
-> Module de contrat SQWR Project Kit.
-> Sources : Anthropic docs, OpenAI Prompt Engineering Guide, Nature (2025), Lakera, PMC/NIH, eval.16x.engineer.
-
----
-
-## Fondements scientifiques
-
-**Le context window n'est pas un buffer illimité.** Les LLMs montrent une **dégradation significative des performances au-delà de 80% d'utilisation du contexte** (PMC/NIH, 2025). "Lost in the middle" : les informations au milieu d'un long contexte sont moins bien traitées que celles au début ou à la fin (recherche Stanford, 2023).
-
-**Few-shot prompting :** 2-5 exemples curatés sont optimaux. Au-delà, les rendements sont décroissants — et le contexte consommé inutilement (Lakera, 2025).
+> SQWR Project Kit contract module.
+> Sources: Anthropic docs, OpenAI Prompt Engineering Guide, Nature (2025), Lakera, PMC/NIH, eval.16x.engineer.
 
 ---
 
-## 1. Architecture d'un system prompt fiable
+## Scientific Foundations
 
-### Structure standard (Anthropic + Lakera)
+**The context window is not an unlimited buffer.** LLMs show **significant performance degradation beyond 80% context utilization** (PMC/NIH, 2025). "Lost in the middle": information in the middle of a long context is processed less effectively than information at the beginning or end (Stanford research, 2023).
+
+**Few-shot prompting:** 2-5 curated examples are optimal. Beyond that, returns diminish — and context is consumed needlessly (Lakera, 2025).
+
+---
+
+## 1. Architecture of a Reliable System Prompt
+
+### Standard Structure (Anthropic + Lakera)
 
 ```
-[RÔLE]
-Tu es [rôle précis] pour [contexte spécifique].
+[ROLE]
+You are [precise role] for [specific context].
 
-[CONTRAINTES ABSOLUES]
-Tu ne dois jamais :
-- [liste exhaustive des interdictions]
-- [avec raison pour chaque interdiction]
+[ABSOLUTE CONSTRAINTS]
+You must never:
+- [exhaustive list of prohibitions]
+- [with reason for each prohibition]
 
-[CE QUE TU DOIS TOUJOURS FAIRE]
-- [comportements requis]
+[WHAT YOU MUST ALWAYS DO]
+- [required behaviors]
 
-[FORMAT DE RÉPONSE]
-Tes réponses doivent :
-- [format attendu — longueur, structure, langue]
+[RESPONSE FORMAT]
+Your responses must:
+- [expected format — length, structure, language]
 
-[EXEMPLES — 2-5 maximum]
-Entrée : [exemple 1]
-Sortie : [réponse attendue 1]
+[EXAMPLES — 2-5 maximum]
+Input: [example 1]
+Output: [expected response 1]
 
-[CONTEXTE INJECTÉ PAR RAG]
-{données_pertinentes_uniquement}
+[CONTEXT INJECTED BY RAG]
+{relevant_data_only}
 ```
 
 ---
 
-## 2. Optimisation du context window
+## 2. Context Window Optimization
 
-> Source : LLM Context Management Guide — eval.16x.engineer
+> Source: LLM Context Management Guide — eval.16x.engineer
 
-| Utilisation | Résultat | Action |
+| Usage | Result | Action |
 |-------------|---------|--------|
 | 0-40% | Optimal | ✅ |
-| 40-60% | Bon | ✅ |
-| 60-80% | Début dégradation | ⚠️ Élaguer le contexte |
-| >80% | Dégradation prouvée | ❌ Nouvelle session requise |
+| 40-60% | Good | ✅ |
+| 60-80% | Degradation starting | ⚠️ Prune the context |
+| >80% | Proven degradation | ❌ New session required |
 
-### Règles d'optimisation
+### Optimization Rules
 
-- **Nouvelle session pour nouvelle tâche** — ne pas contaminer le contexte avec des échanges non liés
-- **RAG plutôt que contexte exhaustif** — injecter uniquement les sections pertinentes, pas tout le projet
-- **CLAUDE.md local** — remplace l'injection manuelle du contexte à chaque session
-- **Few-shot limité** : 2-5 exemples curatés, jamais plus
-- **Contrats par module** : charger uniquement les contrats pertinents au projet en cours
+- **New session for new task** — do not contaminate the context with unrelated exchanges
+- **RAG rather than exhaustive context** — inject only the relevant sections, not the entire project
+- **Local CLAUDE.md** — replaces manual context injection at each session
+- **Limited few-shot**: 2-5 curated examples, never more
+- **Contracts per module**: load only the contracts relevant to the current project
 
-### Pattern Backend Selector
+### Backend Selector Pattern
 
 ```
-Au lieu de charger tout le contexte en une fois :
-1. Identifier la tâche (frontend, backend, DB, copy...)
-2. Charger uniquement le(s) contrat(s) pertinent(s)
-3. Injecter les fichiers concernés uniquement
+Instead of loading all context at once:
+1. Identify the task (frontend, backend, DB, copy...)
+2. Load only the relevant contract(s)
+3. Inject only the concerned files
 ```
 
 ---
 
-## 3. Techniques de réduction d'hallucinations
+## 3. Hallucination Reduction Techniques
 
-> Source : Nature (2025), PMC/NIH (2025), Springer Nature
+> Source: Nature (2025), PMC/NIH (2025), Springer Nature
 
-| Technique | Réduction | Application SQWR |
+| Technique | Reduction | SQWR Application |
 |-----------|----------|-----------------|
-| **RAG** | 15-50% | Toujours pour données KB/clients |
-| **Chain-of-thought** | +25% accuracy | Tâches multi-étapes complexes |
-| **Verification step** | variable | Données critiques (prix, contacts) |
-| **Confidence scoring** | 20-40% | Ne pas traiter tous les outputs pareil |
-| **Explicit uncertainty** | variable | Demander "si tu n'es pas sûr, dis-le" |
+| **RAG** | 15-50% | Always for KB/client data |
+| **Chain-of-thought** | +25% accuracy | Complex multi-step tasks |
+| **Verification step** | Variable | Critical data (prices, contacts) |
+| **Confidence scoring** | 20-40% | Do not treat all outputs the same |
+| **Explicit uncertainty** | Variable | Ask "if you're not sure, say so" |
 
-### Chain-of-thought pour tâches complexes
-
-```
-# ✅ Exemple de prompt chain-of-thought
-"Avant de répondre :
-1. Liste les informations dont tu as besoin
-2. Identifie celles que tu as vs celles qui manquent
-3. Pour les manquantes, indique [À CONFIRMER]
-4. Ensuite seulement, produis la réponse"
-```
-
----
-
-## 4. Prompt Engineering — principes clés (2025)
-
-> Source : Lakera Prompt Engineering Guide, Palantir, Google Cloud
-
-### La clarté prime sur l'ingéniosité
+### Chain-of-Thought for Complex Tasks
 
 ```
-❌ "Explique le changement climatique"
-✅ "Rédige un résumé de 3 paragraphes sur le changement climatique pour des lycéens,
-    en style neutre, avec des exemples concrets. Langue : français."
-```
-
-### Role-based prompting
-
-```
-✅ "Tu es un senior engineer Next.js qui review du code pour la sécurité.
-    Analyse ce composant et liste les vulnérabilités OWASP potentielles."
-```
-
-### Scaffolding (sécurité)
-
-```
-✅ Template gardé pour les inputs utilisateur :
-"L'utilisateur dit : [INPUT]
-Réponds uniquement à des questions concernant [DOMAINE].
-Si la question est hors domaine, réponds : 'Je ne couvre que [DOMAINE].'"
+# ✅ Chain-of-thought prompt example
+"Before responding:
+1. List the information you need
+2. Identify what you have vs. what is missing
+3. For missing items, indicate [TO CONFIRM]
+4. Only then, produce the response"
 ```
 
 ---
 
-## 5. Sélection des modèles (coût vs capacité)
+## 4. Prompt Engineering — Key Principles (2025)
 
-| Tâche | Modèle recommandé | Raison |
+> Source: Lakera Prompt Engineering Guide, Palantir, Google Cloud
+
+### Clarity Takes Precedence Over Cleverness
+
+```
+❌ "Explain climate change"
+✅ "Write a 3-paragraph summary of climate change for high school students,
+    in a neutral style, with concrete examples. Language: English."
+```
+
+### Role-Based Prompting
+
+```
+✅ "You are a senior Next.js engineer reviewing code for security.
+    Analyze this component and list potential OWASP vulnerabilities."
+```
+
+### Scaffolding (Security)
+
+```
+✅ Template maintained for user inputs:
+"The user says: [INPUT]
+Only respond to questions about [DOMAIN].
+If the question is outside the domain, respond: 'I only cover [DOMAIN].'"
+```
+
+---
+
+## 5. Model Selection (Cost vs. Capability)
+
+| Task | Recommended Model | Reason |
 |-------|-----------------|--------|
-| Génération de contenu simple | Claude Haiku / GPT-4o-mini | Rapide, peu coûteux |
-| Code review, architecture | Claude Sonnet | Équilibre qualité/coût |
-| Tâches complexes, KBs critiques | Claude Opus / GPT-4o | Qualité maximale |
-| Agents autonomes | Claude Sonnet / Opus | Raisonnement long |
+| Simple content generation | Claude Haiku / GPT-4o-mini | Fast, low cost |
+| Code review, architecture | Claude Sonnet | Quality/cost balance |
+| Complex tasks, critical KBs | Claude Opus / GPT-4o | Maximum quality |
+| Autonomous agents | Claude Sonnet / Opus | Long reasoning |
 
-**Règle :** ne jamais utiliser le modèle le plus puissant par défaut. Utiliser le modèle minimum suffisant pour la tâche.
+**Rule:** never use the most powerful model by default. Use the minimum model sufficient for the task.
 
 ---
 
-## 6. CLAUDE.md — standard de qualité
+## 6. CLAUDE.md — Quality Standard
 
-Chaque projet collaborant avec Claude Code doit avoir un `CLAUDE.md` incluant :
+Every project collaborating with Claude Code must have a `CLAUDE.md` including:
 
-| Section | Obligatoire ? | Contenu |
+| Section | Mandatory? | Content |
 |---------|--------------|--------|
-| Qui travaille avec toi | ✅ | Identité Samuel + contacts |
-| Ce projet | ✅ | Nom, description, stack, statut |
-| Architecture | ✅ | Arborescence + fichiers critiques |
-| Contrats actifs | ✅ | Liste des contrats à lire |
-| Règles absolues | ✅ | Never/Always spécifiques au projet |
-| Historique des erreurs | ✅ | Tableau de tracking |
+| Who works with you | ✅ | Samuel's identity + contacts |
+| This project | ✅ | Name, description, stack, status |
+| Architecture | ✅ | Directory tree + critical files |
+| Active contracts | ✅ | List of contracts to read |
+| Absolute Rules | ✅ | Project-specific Never/Always |
+| Error history | ✅ | Tracking table |
 
-**CLAUDE.md absent = travail non gouverné = risques non maîtrisés.**
+**Absent CLAUDE.md = ungoverned work = uncontrolled risks.**
 
 ---
 
-## 7. Gestion des sessions et continuité
+## 7. Session Management and Continuity
 
 ```
-✅ Une session = une tâche cohérente
-✅ MEMORY.md pour la persistance cross-sessions
-✅ Toujours lire le CLAUDE.md en début de session sur un nouveau projet
-✅ Mettre à jour l'historique des erreurs après chaque correction
+✅ One session = one coherent task
+✅ MEMORY.md for cross-session persistence
+✅ Always read the CLAUDE.md at the start of a session on a new project
+✅ Update the error history after each fix
 
-❌ Continuer une session avec un contexte saturé
-❌ Demander à l'IA de "se souvenir de ce qu'on a fait" sans mémoire persistante
-❌ Travailler sur plusieurs projets non liés dans la même session
+❌ Continuing a session with a saturated context
+❌ Asking the AI to "remember what we did" without persistent memory
+❌ Working on multiple unrelated projects in the same session
 ```
 
 ---
 
 ## 8. Sources
 
-| Référence | Lien |
+| Reference | Link |
 |-----------|------|
 | AI hallucinations — Nature 2025 | nature.com/articles/d41586-025-00068-5 |
 | Why LLMs Hallucinate — OpenAI | openai.com/index/why-language-models-hallucinate |

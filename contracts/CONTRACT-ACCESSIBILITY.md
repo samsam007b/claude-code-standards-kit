@@ -1,84 +1,84 @@
-# Contrat — Accessibilité
+# Contract — Accessibility
 
-> Module de contrat SQWR Project Kit.
-> Sources : W3C WCAG 2.1, Nielsen Norman Group (10 Heuristics), ARIA Authoring Practices Guide.
-
----
-
-## Fondements scientifiques
-
-**15% de la population mondiale vit avec un handicap** (OMS, 2023). L'accessibilité n'est pas une contrainte — c'est une audience. WCAG 2.1 AA est le standard légal dans l'UE (Directive 2016/2102) et dans la majorité des marchés professionnels.
-
-**Nielsen's 10 Usability Heuristics** (Jakob Nielsen, 1994) : inchangées depuis leur publication car elles décrivent des invariants cognitifs humains, pas des tendances technologiques.
+> SQWR Project Kit contract module.
+> Sources: W3C WCAG 2.1, Nielsen Norman Group (10 Heuristics), ARIA Authoring Practices Guide.
 
 ---
 
-## 1. WCAG 2.1 — Les 4 principes POUR
+## Scientific Foundations
 
-| Principe | Signification | Exemples |
+**15% of the world's population lives with a disability** (WHO, 2023). Accessibility is not a constraint — it is an audience. WCAG 2.1 AA is the legal standard in the EU (Directive 2016/2102) and in the majority of professional markets.
+
+**Nielsen's 10 Usability Heuristics** (Jakob Nielsen, 1994): unchanged since their publication because they describe invariant human cognitive patterns, not technological trends.
+
+---
+
+## 1. WCAG 2.1 — The 4 POUR Principles
+
+| Principle | Meaning | Examples |
 |----------|--------------|---------|
-| **P**erceivable | Contenu accessible à tous les sens | Alt text, sous-titres, contraste suffisant |
-| **O**perable | Interface navigable sans souris | Keyboard nav, skip links, timeouts suffisants |
-| **U**nderstandable | Contenu clair et prévisible | Langage simple, erreurs explicites, comportement cohérent |
-| **R**obust | Compatible avec technologies d'assistance | ARIA correct, HTML sémantique, pas de ARIA custom cassé |
+| **P**erceivable | Content accessible to all senses | Alt text, captions, sufficient contrast |
+| **O**perable | Interface navigable without a mouse | Keyboard nav, skip links, sufficient timeouts |
+| **U**nderstandable | Clear and predictable content | Plain language, explicit errors, consistent behavior |
+| **R**obust | Compatible with assistive technologies | Correct ARIA, semantic HTML, no broken custom ARIA |
 
-**Niveau minimum :** WCAG 2.1 **AA** (obligatoire)
-**Cible :** WCAG 2.1 **AAA** pour les éléments critiques (texte principal, navigation)
+**Minimum level:** WCAG 2.1 **AA** (mandatory)
+**Target:** WCAG 2.1 **AAA** for critical elements (main text, navigation)
 
 ---
 
 ## 2. Nielsen's 10 Usability Heuristics
 
-> Source : Nielsen Norman Group — [nngroup.com/articles/ten-usability-heuristics](https://www.nngroup.com/articles/ten-usability-heuristics/)
-> Évaluation heuristique optimale : **3-5 évaluateurs** (au-delà = rendements décroissants).
+> Source: Nielsen Norman Group — [nngroup.com/articles/ten-usability-heuristics](https://www.nngroup.com/articles/ten-usability-heuristics/)
+> Optimal heuristic evaluation: **3-5 evaluators** (beyond that = diminishing returns).
 
-| # | Heuristique | Application web concrète |
+| # | Heuristic | Concrete web application |
 |---|------------|-------------------------|
-| 1 | **Visibilité du statut système** | Loading states, progress bars, confirmations d'action |
-| 2 | **Correspondance système-monde réel** | Vocabulaire utilisateur (pas jargon technique) |
-| 3 | **Contrôle et liberté utilisateur** | Undo/redo, "Annuler", sorties claires des états |
-| 4 | **Cohérence et standards** | Même bouton = même action partout |
-| 5 | **Prévention des erreurs** | Confirmation avant suppression, validation inline |
-| 6 | **Reconnaissance plutôt que rappel** | Icônes avec labels, listes de suggestions |
-| 7 | **Flexibilité et efficacité** | Raccourcis clavier, favoris, historique |
-| 8 | **Design esthétique et minimaliste** | Chaque élément doit justifier sa présence |
-| 9 | **Aider à reconnaître et corriger les erreurs** | Messages d'erreur précis + solution suggérée |
-| 10 | **Aide et documentation** | Recherchable, orientée tâche, étapes concrètes |
+| 1 | **Visibility of system status** | Loading states, progress bars, action confirmations |
+| 2 | **Match between system and real world** | User vocabulary (no technical jargon) |
+| 3 | **User control and freedom** | Undo/redo, "Cancel", clear exits from states |
+| 4 | **Consistency and standards** | Same button = same action everywhere |
+| 5 | **Error prevention** | Confirmation before deletion, inline validation |
+| 6 | **Recognition rather than recall** | Icons with labels, suggestion lists |
+| 7 | **Flexibility and efficiency of use** | Keyboard shortcuts, favorites, history |
+| 8 | **Aesthetic and minimalist design** | Every element must justify its presence |
+| 9 | **Help users recognize, diagnose, and recover from errors** | Precise error messages + suggested solution |
+| 10 | **Help and documentation** | Searchable, task-oriented, concrete steps |
 
 ---
 
-## 3. Contraste — seuils WCAG
+## 3. Contrast — WCAG Thresholds
 
-| Contexte | Niveau AA (minimum) | Niveau AAA (optimal) |
+| Context | Level AA (minimum) | Level AAA (optimal) |
 |----------|---------------------|---------------------|
-| Texte normal (<18pt) | **4.5:1** | 7:1 |
-| Grand texte (≥18pt ou ≥14pt bold) | **3:1** | 4.5:1 |
-| Éléments UI / graphiques | **3:1** | — |
+| Normal text (<18pt) | **4.5:1** | 7:1 |
+| Large text (≥18pt or ≥14pt bold) | **3:1** | 4.5:1 |
+| UI elements / graphics | **3:1** | — |
 
-**Outil :** WebAIM Contrast Checker — [webaim.org/resources/contrastchecker](https://webaim.org/resources/contrastchecker)
+**Tool:** WebAIM Contrast Checker — [webaim.org/resources/contrastchecker](https://webaim.org/resources/contrastchecker)
 
 ---
 
-## 4. HTML sémantique — obligation
+## 4. Semantic HTML — Mandatory
 
 ```tsx
-// ✅ Structure sémantique correcte
+// ✅ Correct semantic structure
 <header>
-  <nav aria-label="Navigation principale">
+  <nav aria-label="Main navigation">
     <ul>
-      <li><a href="/">Accueil</a></li>
+      <li><a href="/">Home</a></li>
     </ul>
   </nav>
 </header>
 
-<main id="main-content">  {/* cible du skip link */}
-  <h1>Titre principal de la page</h1>  {/* Un seul h1 par page */}
+<main id="main-content">  {/* skip link target */}
+  <h1>Main page title</h1>  {/* Only one h1 per page */}
   <article>...</article>
 </main>
 
 <footer>...</footer>
 
-// ❌ Div soup — aucune sémantique
+// ❌ Div soup — no semantics
 <div class="header">
   <div class="nav">
     <div class="nav-item">...</div>
@@ -88,19 +88,19 @@
 
 ---
 
-## 5. Skip Links (navigation rapide)
+## 5. Skip Links (Quick Navigation)
 
 ```tsx
-// layout.tsx — obligatoire pour screen readers
+// layout.tsx — mandatory for screen readers
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      {/* Skip link — invisible sauf au focus */}
+      {/* Skip link — invisible except on focus */}
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 bg-sqwr-black text-sqwr-white px-4 py-2 rounded"
       >
-        Aller au contenu principal
+        Skip to main content
       </a>
       <Header />
       <main id="main-content">{children}</main>
@@ -112,34 +112,34 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
 ---
 
-## 6. Images et médias
+## 6. Images and Media
 
 ```tsx
-// ✅ Image informative — alt descriptif
-<Image src="/hero.jpg" alt="[Prénom] et [Prénom], co-fondateurs de [Marque], à [Ville]" />
+// ✅ Informative image — descriptive alt
+<Image src="/hero.jpg" alt="[First name] and [First name], co-founders of [Brand], in [City]" />
 
-// ✅ Image décorative — alt vide (pas d'alt absent)
+// ✅ Decorative image — empty alt (not absent alt)
 <Image src="/decorative-pattern.svg" alt="" role="presentation" />
 
-// ❌ Alt générique — inutile pour screen reader
+// ❌ Generic alt — useless for screen reader
 <Image src="/hero.jpg" alt="image" />
 <Image src="/hero.jpg" alt="photo" />
 
-// ✅ Icône avec label
-<button aria-label="Fermer le menu">
-  <XIcon aria-hidden="true" />  {/* aria-hidden masque l'icône au SR */}
+// ✅ Icon with label
+<button aria-label="Close menu">
+  <XIcon aria-hidden="true" />  {/* aria-hidden hides the icon from SR */}
 </button>
 ```
 
 ---
 
-## 7. Formulaires accessibles
+## 7. Accessible Forms
 
 ```tsx
-// ✅ Labels explicites + error messages
+// ✅ Explicit labels + error messages
 <div>
   <label htmlFor="email" className="block text-sm font-medium">
-    Adresse email *
+    Email address *
   </label>
   <input
     id="email"
@@ -153,7 +153,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   />
   {error && (
     <p id="email-error" role="alert" className="text-red-600 text-sm mt-1">
-      {error}  {/* Précis et avec solution : "Format invalide. Exemple : nom@exemple.com" */}
+      {error}  {/* Precise with solution: "Invalid format. Example: name@example.com" */}
     </p>
   )}
 </div>
@@ -161,86 +161,86 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
 ---
 
-## 8. Navigation clavier
+## 8. Keyboard Navigation
 
 ```tsx
-// Tous les éléments interactifs doivent être atteignables au clavier
-// et avoir un focus visible
+// All interactive elements must be reachable by keyboard
+// and must have a visible focus indicator
 
-// ✅ Focus visible obligatoire
+// ✅ Visible focus mandatory
 .focus-visible:outline-2
 .focus-visible:outline-offset-2
 .focus-visible:outline-sqwr-black
 
-// ❌ Ne jamais supprimer le focus outline sans alternative
-// outline: none; → INTERDIT sauf si remplacé par un focus style custom
+// ❌ Never remove the focus outline without an alternative
+// outline: none; → FORBIDDEN unless replaced by a custom focus style
 
-// ✅ Ordre de tabulation logique (suit l'ordre visuel)
-// Utiliser tabIndex={-1} uniquement pour les éléments focus programmatiques
-// Ne jamais utiliser tabIndex > 0 (casse l'ordre naturel)
+// ✅ Logical tab order (follows visual order)
+// Use tabIndex={-1} only for programmatically focused elements
+// Never use tabIndex > 0 (breaks the natural order)
 ```
 
 ---
 
-## 9. ARIA — utilisation correcte
+## 9. ARIA — Correct Usage
 
 ```tsx
-// ✅ Landmarks ARIA
-<nav aria-label="Navigation principale">
-<nav aria-label="Navigation pied de page">
+// ✅ ARIA Landmarks
+<nav aria-label="Main navigation">
+<nav aria-label="Footer navigation">
 <main>
-<aside aria-label="Informations complémentaires">
+<aside aria-label="Additional information">
 
-// ✅ Live regions pour les mises à jour dynamiques
+// ✅ Live regions for dynamic updates
 <div role="status" aria-live="polite">
-  {statusMessage}  {/* Annoncé par SR quand le contenu change */}
+  {statusMessage}  {/* Announced by SR when content changes */}
 </div>
 
 <div role="alert" aria-live="assertive">
-  {errorMessage}  {/* Annoncé immédiatement */}
+  {errorMessage}  {/* Announced immediately */}
 </div>
 
-// ⚠️ Règle d'or : ne pas recréer des composants natifs avec ARIA
-// Un <button> sémantique > un <div role="button">
+// ⚠️ Golden rule: do not recreate native components with ARIA
+// A semantic <button> > a <div role="button">
 ```
 
 ---
 
-## 10. Touch Targets — Accessibilité Mobile
+## 10. Touch Targets — Mobile Accessibility
 
-> Source : Apple Human Interface Guidelines — Buttons (developer.apple.com/design/human-interface-guidelines/buttons)
-> Source : W3C WCAG 2.5.5 — Target Size (w3.org/WAI/WCAG22/Understanding/target-size-enhanced.html)
-> Source : W3C WCAG 2.5.8 — Target Size Minimum WCAG 2.2 (w3.org/WAI/WCAG22/Understanding/target-size-minimum.html)
+> Source: Apple Human Interface Guidelines — Buttons (developer.apple.com/design/human-interface-guidelines/buttons)
+> Source: W3C WCAG 2.5.5 — Target Size (w3.org/WAI/WCAG22/Understanding/target-size-enhanced.html)
+> Source: W3C WCAG 2.5.8 — Target Size Minimum WCAG 2.2 (w3.org/WAI/WCAG22/Understanding/target-size-minimum.html)
 
-**Threshold : 44×44 px minimum pour tout élément interactif sur mobile.** C'est le seuil Apple HIG (44pt) et la recommandation W3C WCAG 2.5.5 (44×44 CSS pixels).
+**Threshold: 44×44 px minimum for any interactive element on mobile.** This is the Apple HIG threshold (44pt) and the W3C WCAG 2.5.5 recommendation (44×44 CSS pixels).
 
 ### Web — Touch targets
 
 ```tsx
-// ✅ Bouton icône — agrandir la zone de tap sans agrandir l'icône
+// ✅ Icon button — enlarge the tap zone without enlarging the icon
 <button
-  aria-label="Fermer"
-  className="p-3"  // padding 12px × 2 = zone 40px+ (+ icône 16px = ~44px)
+  aria-label="Close"
+  className="p-3"  // padding 12px × 2 = zone 40px+ (+ icon 16px = ~44px)
 >
   <XIcon className="w-4 h-4" aria-hidden="true" />
 </button>
 
-// ✅ Lien texte — espacement suffisant entre liens adjacents
-<nav className="flex gap-4">  {/* gap-4 = 16px minimum entre les zones */}
-  <a href="/about" className="py-3 px-2">À propos</a>
+// ✅ Text link — sufficient spacing between adjacent links
+<nav className="flex gap-4">  {/* gap-4 = 16px minimum between zones */}
+  <a href="/about" className="py-3 px-2">About</a>
   <a href="/contact" className="py-3 px-2">Contact</a>
 </nav>
 
-// ❌ Icône sans padding — touch target < 44px
+// ❌ Icon without padding — touch target < 44px
 <button>
-  <XIcon className="w-4 h-4" />  {/* Zone de tap = 16px × 16px */}
+  <XIcon className="w-4 h-4" />  {/* Tap zone = 16px × 16px */}
 </button>
 ```
 
 ### Mobile (Capacitor/React Native) — Touch targets
 
 ```tsx
-// ✅ Minimum 44px de zone interactive (même si l'élément visuel est plus petit)
+// ✅ Minimum 44px interactive zone (even if the visual element is smaller)
 <TouchableOpacity
   style={{ minWidth: 44, minHeight: 44, justifyContent: 'center', alignItems: 'center' }}
   onPress={handlePress}
@@ -249,31 +249,31 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 </TouchableOpacity>
 ```
 
-### Espacements entre éléments interactifs
+### Spacing Between Interactive Elements
 
-**Règle : ≥ 8px d'espace entre deux éléments interactifs adjacents** (W3C WCAG 2.5.8).
+**Rule: ≥ 8px of space between two adjacent interactive elements** (W3C WCAG 2.5.8).
 
 ```css
-/* ✅ Liste de boutons — espacement minimum */
+/* ✅ Button list — minimum spacing */
 .action-list {
   display: flex;
-  gap: 8px;  /* Minimum 8px entre les zones interactives */
+  gap: 8px;  /* Minimum 8px between interactive zones */
 }
 ```
 
 ---
 
-## 11. ARIA Patterns — Composants Interactifs
+## 11. ARIA Patterns — Interactive Components
 
-> Source : W3C WAI-ARIA Authoring Practices Guide 1.2 — [w3.org/WAI/ARIA/apg/patterns](https://www.w3.org/WAI/ARIA/apg/patterns/)
+> Source: W3C WAI-ARIA Authoring Practices Guide 1.2 — [w3.org/WAI/ARIA/apg/patterns](https://www.w3.org/WAI/ARIA/apg/patterns/)
 
-**Règle d'or : Toujours préférer les éléments HTML natifs à des reconstructions ARIA.**
-Un `<button>` natif gère automatiquement : role, focus, keydown (Enter/Space), disabled. Une `<div role="button">` nécessite tout recoder manuellement.
+**Golden rule: Always prefer native HTML elements over ARIA reconstructions.**
+A native `<button>` automatically handles: role, focus, keydown (Enter/Space), disabled. A `<div role="button">` requires all of that to be coded manually.
 
 ### Accordion
 
 ```tsx
-// ✅ Accordion accessible
+// ✅ Accessible accordion
 <div>
   <h3>
     <button
@@ -299,29 +299,29 @@ Un `<button>` natif gère automatiquement : role, focus, keydown (Enter/Space), 
 ### Dialog / Modal
 
 ```tsx
-// ✅ Modal accessible — focus trap obligatoire
+// ✅ Accessible modal — focus trap mandatory
 <dialog
   ref={dialogRef}
   aria-labelledby="dialog-title"
   aria-describedby="dialog-description"
   onClose={() => setOpen(false)}
 >
-  <h2 id="dialog-title">Titre de la modal</h2>
+  <h2 id="dialog-title">Modal title</h2>
   <p id="dialog-description">Description...</p>
   <button onClick={() => dialogRef.current?.close()}>
-    Fermer
+    Close
   </button>
 </dialog>
 
-// Ouvrir la dialog native (gère focus trap automatiquement)
+// Open the native dialog (handles focus trap automatically)
 dialogRef.current?.showModal()
 ```
 
 ### Tabs
 
 ```tsx
-// ✅ Tabs avec navigation clavier (flèches ← →)
-<div role="tablist" aria-label="Sections du profil">
+// ✅ Tabs with keyboard navigation (arrow keys ← →)
+<div role="tablist" aria-label="Profile sections">
   <button
     role="tab"
     id="tab-infos"
@@ -329,7 +329,7 @@ dialogRef.current?.showModal()
     aria-controls="panel-infos"
     tabIndex={activeTab === 'infos' ? 0 : -1}
   >
-    Informations
+    Information
   </button>
   <button
     role="tab"
@@ -338,7 +338,7 @@ dialogRef.current?.showModal()
     aria-controls="panel-securite"
     tabIndex={activeTab === 'securite' ? 0 : -1}
   >
-    Sécurité
+    Security
   </button>
 </div>
 
@@ -348,14 +348,14 @@ dialogRef.current?.showModal()
   aria-labelledby="tab-infos"
   hidden={activeTab !== 'infos'}
 >
-  Contenu...
+  Content...
 </div>
 ```
 
 ### Combobox / Autocomplete
 
 ```tsx
-// ✅ Autocomplete accessible
+// ✅ Accessible autocomplete
 <div role="combobox" aria-expanded={isOpen} aria-haspopup="listbox">
   <input
     type="text"
@@ -382,11 +382,11 @@ dialogRef.current?.showModal()
 
 ---
 
-## 12. Testing accessibilité
+## 12. Accessibility Testing
 
 ```typescript
-// Outils automatisés (détectent ~30% des problèmes)
-// axe-core (intégré dans Playwright et Testing Library)
+// Automated tools (detect ~30% of issues)
+// axe-core (integrated in Playwright and Testing Library)
 import { axe } from 'jest-axe'
 
 test('page is accessible', async () => {
@@ -395,20 +395,20 @@ test('page is accessible', async () => {
   expect(results).toHaveNoViolations()
 })
 
-// Outils manuels obligatoires
-// VoiceOver (macOS) : Cmd+F5 pour activer
-// NVDA (Windows) : gratuit, screen reader standard
-// Lighthouse Accessibility (DevTools) : score rapide
-// Xcode Accessibility Inspector : pour iOS
+// Mandatory manual tools
+// VoiceOver (macOS): Cmd+F5 to activate
+// NVDA (Windows): free, standard screen reader
+// Lighthouse Accessibility (DevTools): quick score
+// Xcode Accessibility Inspector: for iOS
 ```
 
-**Évaluation heuristique :** appliquer les 10 Nielsen heuristics avec 3-5 évaluateurs distincts. Chaque heuristique scorée de 0 (pas de problème) à 4 (catastrophe).
+**Heuristic evaluation:** apply the 10 Nielsen heuristics with 3-5 distinct evaluators. Each heuristic scored from 0 (no problem) to 4 (catastrophic).
 
 ---
 
 ## 13. Sources
 
-| Référence | Lien |
+| Reference | Link |
 |-----------|------|
 | W3C WCAG 2.1 | w3.org/TR/WCAG21 |
 | Nielsen's 10 Heuristics | nngroup.com/articles/ten-usability-heuristics |

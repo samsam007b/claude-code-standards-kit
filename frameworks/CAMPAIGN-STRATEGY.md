@@ -1,174 +1,174 @@
-# Framework — Stratégie de Campagne
+# Framework — Campaign Strategy
 
-> Module de framework SQWR Project Kit.
-> Sources : Google — See-Think-Do-Care framework (think.storage.googleapis.com), Forrester Research — Owned/Earned/Paid Media, Philip Kotler — *Marketing Management* (Pearson, 14e éd.), Baymard Institute — Conversion Funnel Research, Google Analytics 4 documentation (analytics.google.com/analytics/academy).
-
----
-
-## Quand utiliser ce framework
-
-Pour tout lancement de produit, campagne de génération de leads, ou événement nécessitant d'amener une audience vers une action mesurable. Ce framework structure le travail **avant de dépenser le premier euro en publicité**.
+> SQWR Project Kit framework module.
+> Sources: Google — See-Think-Do-Care framework (think.storage.googleapis.com), Forrester Research — Owned/Earned/Paid Media, Philip Kotler — *Marketing Management* (Pearson, 14th ed.), Baymard Institute — Conversion Funnel Research, Google Analytics 4 documentation (analytics.google.com/analytics/academy).
 
 ---
 
-## 1. Le Modèle SEE–THINK–DO–CARE
+## When to use this framework
 
-> Source : Google — Think with Google — See-Think-Do-Care Framework
+For any product launch, lead generation campaign, or event requiring an audience to take a measurable action. This framework structures the work **before spending the first euro on advertising**.
+
+---
+
+## 1. The SEE–THINK–DO–CARE Model
+
+> Source: Google — Think with Google — See-Think-Do-Care Framework
 > [think.storage.googleapis.com/docs/see-think-do-care.pdf](https://think.storage.googleapis.com/docs/see-think-do-care.pdf)
 
-### Les 4 phases
+### The 4 phases
 
-| Phase | Audience | Intention | Objectif |
-|-------|----------|-----------|----------|
-| **SEE** | La plus large audience possible | Passive — pas de comportement d'achat | Notoriété, découverte |
-| **THINK** | Audience avec l'intention de chercher | Active — considération | Éduquer, comparer |
-| **DO** | Audience avec intention d'acheter/agir | Forte — conversion | Convertir |
-| **CARE** | Clients existants | Fidélisation | Retenir, upgrader |
+| Phase | Audience | Intent | Objective |
+|-------|----------|--------|-----------|
+| **SEE** | The broadest possible audience | Passive — no purchase behavior | Awareness, discovery |
+| **THINK** | Audience with research intent | Active — consideration | Educate, compare |
+| **DO** | Audience with intent to buy/act | Strong — conversion | Convert |
+| **CARE** | Existing customers | Loyalty | Retain, upgrade |
 
-### Application concrète par phase
+### Concrete application per phase
 
 ```
-SEE — Qui ne me connaît pas encore mais pourrait avoir besoin de moi ?
-→ Canaux : Facebook/Instagram (reach), YouTube pre-roll, display
-→ Contenu : brand awareness, valeurs, problème reconnaissable
-→ KPI : impressions, reach, brand recall
+SEE — Who doesn't know me yet but might need me?
+→ Channels: Facebook/Instagram (reach), YouTube pre-roll, display
+→ Content: brand awareness, values, recognizable problem
+→ KPIs: impressions, reach, brand recall
 
-THINK — Qui cherche une solution à mon problème ?
-→ Canaux : Google Search, LinkedIn (B2B), SEO content
-→ Contenu : guides comparatifs, études de cas, FAQ
-→ KPI : CTR, temps sur page, abonnés newsletter
+THINK — Who is looking for a solution to my problem?
+→ Channels: Google Search, LinkedIn (B2B), SEO content
+→ Content: comparison guides, case studies, FAQ
+→ KPIs: CTR, time on page, newsletter subscribers
 
-DO — Qui est prêt à agir ?
-→ Canaux : Google Search (branded), email, retargeting
-→ Contenu : offre claire, témoignages, démo/essai gratuit
-→ KPI : conversions, leads, inscriptions, ventes
+DO — Who is ready to act?
+→ Channels: Google Search (branded), email, retargeting
+→ Content: clear offer, testimonials, free demo/trial
+→ KPIs: conversions, leads, sign-ups, sales
 
-CARE — Comment garder et développer mes clients ?
-→ Canaux : email CRM, notifications app, programme fidélité
-→ Contenu : tips avancés, nouvelles features, contenus exclusifs
-→ KPI : rétention, LTV, NPS, upsell rate
+CARE — How do I retain and grow my customers?
+→ Channels: CRM email, app notifications, loyalty program
+→ Content: advanced tips, new features, exclusive content
+→ KPIs: retention, LTV, NPS, upsell rate
 ```
 
 ---
 
-## 2. Architecture Paid–Owned–Earned
+## 2. Paid–Owned–Earned Architecture
 
-> Source : Forrester Research — "Defining Earned, Owned And Paid Media" (forrester.com)
-> Source : Philip Kotler, *Marketing Management*, 14e éd. (Pearson, 2012)
+> Source: Forrester Research — "Defining Earned, Owned And Paid Media" (forrester.com)
+> Source: Philip Kotler, *Marketing Management*, 14th ed. (Pearson, 2012)
 
-| Type | Définition | Exemples | Avantage |
-|------|------------|---------|---------|
-| **PAID** | Médias achetés | Google Ads, LinkedIn Ads, Meta Ads, influenceurs | Rapidité, scalabilité, ciblage précis |
-| **OWNED** | Médias possédés | Site web, newsletter, app, blog, SEO | Contrôle total, coût marginal faible, durabilité |
-| **EARNED** | Médias méritées | Presse, partages sociaux, avis, bouche-à-oreille | Crédibilité maximale, coût nul |
+| Type | Definition | Examples | Advantage |
+|------|------------|---------|-----------|
+| **PAID** | Purchased media | Google Ads, LinkedIn Ads, Meta Ads, influencers | Speed, scalability, precise targeting |
+| **OWNED** | Owned media | Website, newsletter, app, blog, SEO | Full control, low marginal cost, durability |
+| **EARNED** | Earned media | Press, social shares, reviews, word-of-mouth | Maximum credibility, zero cost |
 
-**Règle de budget :** Un ratio déséquilibré crée une dépendance. Cible : **40% Paid / 40% Owned / 20% Earned** pour un lancement. Évoluer vers **20% Paid / 60% Owned / 20% Earned** en régime de croisière.
+**Budget rule:** an unbalanced ratio creates dependency. Target: **40% Paid / 40% Owned / 20% Earned** for a launch. Evolve toward **20% Paid / 60% Owned / 20% Earned** at cruising speed.
 
 ---
 
-## 3. Funnel de Conversion — Template
+## 3. Conversion Funnel — Template
 
-### Modélisation du funnel
+### Funnel modeling
 
 ```
 PAID MEDIA (acquisition)
         ↓
     LANDING PAGE (owned)
         ↓
-    ACTION PRIMAIRE (gate — email / inscription / téléchargement)
+    PRIMARY ACTION (gate — email / sign-up / download)
         ↓
-    ACTIVATION (premier usage significatif)
+    ACTIVATION (first meaningful use)
         ↓
-    CTA SECONDAIRE (upsell / inscription événement / achat)
+    SECONDARY CTA (upsell / event sign-up / purchase)
         ↓
     EMAIL NURTURING (owned)
         ↓
-    CONVERSION FINALE ✅
+    FINAL CONVERSION ✅
         ↓
-    FIDÉLISATION (CARE) → Référents → EARNED
+    LOYALTY (CARE) → Referrers → EARNED
 ```
 
-### Template de calcul
+### Calculation template
 
 ```
-Étape 1 — Visiteurs uniques           : [objectif]  → 100%
-Étape 2 — Action primaire (gate)      : [objectif]  → [% objectif]
-Étape 3 — Activation                  : [objectif]  → [% objectif]
-Étape 4 — CTA secondaire cliqué       : [objectif]  → [% objectif]
-Étape 5 — Conversion finale           : [objectif]  → [% objectif]
+Step 1 — Unique visitors          : [target]  → 100%
+Step 2 — Primary action (gate)    : [target]  → [target %]
+Step 3 — Activation               : [target]  → [target %]
+Step 4 — Secondary CTA clicked    : [target]  → [target %]
+Step 5 — Final conversion         : [target]  → [target %]
 
-Pour atteindre [N] conversions :
-Visiteurs nécessaires = N / (taux étape 2 × taux étape 3 × taux étape 4 × taux étape 5)
+To reach [N] conversions:
+Visitors needed = N / (step 2 rate × step 3 rate × step 4 rate × step 5 rate)
 ```
 
-**Benchmarks sectoriels (B2B SaaS — Baymard / HubSpot Research) :**
+**Industry benchmarks (B2B SaaS — Baymard / HubSpot Research):**
 
-| Étape | Benchmark B2B | Benchmark B2C |
-|-------|---------------|---------------|
-| Visiteur → Lead (gate) | 2–5% | 1–3% |
+| Step | B2B Benchmark | B2C Benchmark |
+|------|---------------|---------------|
+| Visitor → Lead (gate) | 2–5% | 1–3% |
 | Lead → Activation | 20–40% | 30–60% |
-| Activation → Conversion finale | 5–15% | 2–8% |
-| Taux d'ouverture email nurturing | 25–35% | 20–25% |
+| Activation → Final conversion | 5–15% | 2–8% |
+| Nurturing email open rate | 25–35% | 20–25% |
 
 ---
 
-## 4. KPIs par Phase
+## 4. KPIs by Phase
 
-> Source : Google Analytics 4 Academy (analytics.google.com/analytics/academy)
+> Source: Google Analytics 4 Academy (analytics.google.com/analytics/academy)
 
-### Template KPI complet
+### Complete KPI Template
 
 ```
-CAMPAGNE : [Nom]
-Période : [dates]
-Objectif principal : [ex: 200 inscriptions à l'événement]
+CAMPAIGN: [Name]
+Period: [dates]
+Main objective: [e.g., 200 event registrations]
 
 ─────────────────────────────────────────────
-PHASE SEE (Notoriété)
+PHASE SEE (Awareness)
 ─────────────────────────────────────────────
-Impressions totales         : objectif [N]  →  réel [N]
-Reach unique                : objectif [N]  →  réel [N]
-CPM (coût pour 1000 impr.)  : objectif <[€] →  réel [€]
-Taux de mémorisation (brand recall) : +[%]
+Total impressions               : target [N]  →  actual [N]
+Unique reach                    : target [N]  →  actual [N]
+CPM (cost per 1,000 impressions): target <[€] →  actual [€]
+Brand recall rate               : +[%]
 
 ─────────────────────────────────────────────
-PHASE THINK (Considération)
+PHASE THINK (Consideration)
 ─────────────────────────────────────────────
-CTR (Click-Through Rate)    : objectif >[%] →  réel [%]
-Visiteurs uniques landing   : objectif [N]  →  réel [N]
-Temps moyen sur page        : objectif >[s] →  réel [s]
-Taux de rebond              : objectif <[%] →  réel [%]
-Abonnés newsletter gagnés   : objectif [N]  →  réel [N]
+CTR (Click-Through Rate)        : target >[%] →  actual [%]
+Unique landing page visitors    : target [N]  →  actual [N]
+Average time on page            : target >[s] →  actual [s]
+Bounce rate                     : target <[%] →  actual [%]
+Newsletter subscribers gained   : target [N]  →  actual [N]
 
 ─────────────────────────────────────────────
 PHASE DO (Conversion)
 ─────────────────────────────────────────────
-Taux de démarrage (action primaire)   : objectif [%]  →  réel [%]
-Taux de complétion (action complète)  : objectif [%]  →  réel [%]
-Emails capturés / Leads               : objectif [N]  →  réel [N]
-Coût par lead (CPL)                   : objectif <[€] →  réel [€]
-Conversions finales                   : objectif [N]  →  réel [N]
-Coût par conversion (CPA)             : objectif <[€] →  réel [€]
+Start rate (primary action)     : target [%]  →  actual [%]
+Completion rate (full action)   : target [%]  →  actual [%]
+Emails captured / Leads         : target [N]  →  actual [N]
+Cost per lead (CPL)             : target <[€] →  actual [€]
+Final conversions               : target [N]  →  actual [N]
+Cost per conversion (CPA)       : target <[€] →  actual [€]
 
 ─────────────────────────────────────────────
-PHASE CARE (Fidélisation)
+PHASE CARE (Loyalty)
 ─────────────────────────────────────────────
-Taux de rétention M+1                 : objectif >[%]
-NPS (Net Promoter Score)              : objectif >[score]
-Taux d'ouverture emails post-conv.    : objectif >[%]
-Taux d'upsell / renouvellement        : objectif >[%]
+M+1 retention rate              : target >[%]
+NPS (Net Promoter Score)        : target >[score]
+Post-conversion email open rate : target >[%]
+Upsell / renewal rate           : target >[%]
 ```
 
 ---
 
-## 5. Tracking Plan GA4
+## 5. GA4 Tracking Plan
 
-> Source : Google Analytics 4 Documentation — Events (developers.google.com/analytics/devguides/collection/ga4/events)
+> Source: Google Analytics 4 Documentation — Events (developers.google.com/analytics/devguides/collection/ga4/events)
 
-### Events obligatoires à configurer avant lancement
+### Mandatory events to configure before launch
 
 ```typescript
-// gtag.ts — Helper de tracking
+// gtag.ts — Tracking helper
 export function trackEvent(
   eventName: string,
   params: Record<string, string | number | boolean> = {}
@@ -178,7 +178,7 @@ export function trackEvent(
   }
 }
 
-// Funnel events — à adapter au projet
+// Funnel events — adapt to the project
 trackEvent('page_view')
 
 trackEvent('cta_clicked', {
@@ -215,122 +215,122 @@ trackEvent('event_signup', {
 })
 ```
 
-### Funnel de conversion GA4
+### GA4 conversion funnel
 
 ```
-Explorer → Funnel exploration → Créer un funnel avec les étapes :
+Explore → Funnel exploration → Create a funnel with the steps:
   1. page_view (landing)
   2. cta_clicked
   3. form_completed
-  4. [action principale complétée]
-  5. [conversion finale]
+  4. [primary action completed]
+  5. [final conversion]
 ```
 
 ---
 
-## 6. Email Nurturing — Séquence Type
+## 6. Email Nurturing — Standard Sequence
 
-> Source : HubSpot — Email Marketing Benchmarks (hubspot.com/marketing-statistics)
+> Source: HubSpot — Email Marketing Benchmarks (hubspot.com/marketing-statistics)
 
-**Règle : déclencher la séquence dès la capture email (action primaire).**
+**Rule: trigger the sequence immediately upon email capture (primary action).**
 
 ```
-J+0  → Email 1 : Bienvenue + livrable immédiat (rapport, guide, accès)
-       Objet : "[Prénom], votre [livrable] est prêt"
-       CTA : Télécharger / Accéder
+D+0  → Email 1: Welcome + immediate deliverable (report, guide, access)
+       Subject: "[First name], your [deliverable] is ready"
+       CTA: Download / Access
 
-J+2  → Email 2 : Éducation sur le problème
-       Objet : "3 choses que [cible] ignorent souvent sur [problème]"
-       CTA : Lire l'article / Voir la vidéo
+D+2  → Email 2: Education on the problem
+       Subject: "3 things [target] often don't know about [problem]"
+       CTA: Read the article / Watch the video
 
-J+5  → Email 3 : Preuve sociale + bénéfice
-       Objet : "Comment [client type] a [résultat en chiffres]"
-       CTA : Lire le case study
+D+5  → Email 3: Social proof + benefit
+       Subject: "How [typical client] achieved [result in numbers]"
+       CTA: Read the case study
 
-J+8  → Email 4 : CTA conversion
-       Objet : "[Prénom], une place vous attend le [date événement]"
-       CTA : S'inscrire / Réserver / Acheter
+D+8  → Email 4: Conversion CTA
+       Subject: "[First name], a spot is waiting for you on [event date]"
+       CTA: Sign up / Book / Buy
 
-J+12 → Email 5 : Urgence / Deadline (si applicable)
-       Objet : "Plus que [N] places disponibles"
-       CTA : Agir maintenant
+D+12 → Email 5: Urgency / Deadline (if applicable)
+       Subject: "Only [N] spots remaining"
+       CTA: Act now
 
-J+15 → Email 6 : Last chance
-       Objet : "Dernière chance — [bénéfice]"
-       CTA : [action finale]
+D+15 → Email 6: Last chance
+       Subject: "Last chance — [benefit]"
+       CTA: [final action]
 ```
 
-**Benchmarks emails B2B (HubSpot Research, 2025) :**
-- Taux d'ouverture moyen : 28–35%
-- Taux de clic moyen : 3–5%
-- Meilleur jour d'envoi : mardi–jeudi
-- Meilleure heure : 10h–11h ou 14h–15h (heure locale destinataire)
+**B2B email benchmarks (HubSpot Research, 2025):**
+- Average open rate: 28–35%
+- Average click rate: 3–5%
+- Best day to send: Tuesday–Thursday
+- Best time: 10am–11am or 2pm–3pm (recipient's local time)
 
 ---
 
-## 7. Checklist pré-lancement de campagne
+## 7. Pre-launch Campaign Checklist
 
-### Technique (owned)
-- [ ] Landing page en Server Component (SSR) pour le SEO
-- [ ] Temps de chargement < 2.5s LCP (Google Core Web Vitals)
-- [ ] GA4 configuré + Funnel exploration prêt
-- [ ] Gate email (étape 0) fonctionnel et connecté au CRM/newsletter
-- [ ] Email de confirmation automatique configuré
+### Technical (owned)
+- [ ] Landing page in Server Component (SSR) for SEO
+- [ ] Load time < 2.5s LCP (Google Core Web Vitals)
+- [ ] GA4 configured + Funnel exploration ready
+- [ ] Email gate (step 0) functional and connected to CRM/newsletter
+- [ ] Automatic confirmation email configured
 
-### Contenu (owned + earned)
-- [ ] Message principal testé (5 secondes test — quelqu'un comprend l'offre en < 5s)
-- [ ] Preuve sociale visible (témoignages, logos, chiffres)
-- [ ] CTA clair et unique sur la landing (pas 3 CTAs en compétition)
-- [ ] FAQ répondant aux 5 objections principales
+### Content (owned + earned)
+- [ ] Main message tested (5-second test — someone understands the offer in < 5s)
+- [ ] Social proof visible (testimonials, logos, numbers)
+- [ ] Clear and unique CTA on the landing page (not 3 competing CTAs)
+- [ ] FAQ addressing the 5 main objections
 
 ### Paid
-- [ ] Budget défini par phase (SEE / THINK / DO)
-- [ ] Tracking pixels installés (Meta Pixel, LinkedIn Insight Tag, Google Ads)
-- [ ] Audiences personnalisées configurées (visiteurs site, liste emails)
-- [ ] Campagnes de retargeting prêtes pour les abandonneurs
+- [ ] Budget defined by phase (SEE / THINK / DO)
+- [ ] Tracking pixels installed (Meta Pixel, LinkedIn Insight Tag, Google Ads)
+- [ ] Custom audiences configured (site visitors, email list)
+- [ ] Retargeting campaigns ready for drop-offs
 
-### Légal
-- [ ] Consentement marketing opt-in (RGPD Art. 7)
-- [ ] Lien désabonnement dans chaque email (obligatoire)
-- [ ] Données collectées documentées dans Privacy Policy
+### Legal
+- [ ] Marketing opt-in consent (GDPR Art. 7)
+- [ ] Unsubscribe link in every email (mandatory)
+- [ ] Data collected documented in Privacy Policy
 
 ---
 
-## 8. Rétrospective Post-Campagne
+## 8. Post-Campaign Retrospective
 
 ```
-RÉTROSPECTIVE CAMPAGNE — [Nom]
-Date : [fin de campagne]
+CAMPAIGN RETROSPECTIVE — [Name]
+Date: [end of campaign]
 
-OBJECTIFS vs RÉSULTATS
-Objectif principal   : [N]  →  Résultat : [N]  →  Écart : [+/- %]
-CPL (coût par lead)  : [€]  →  Résultat : [€]  →  Écart : [+/- %]
-CPA (coût converti)  : [€]  →  Résultat : [€]  →  Écart : [+/- %]
+OBJECTIVES vs RESULTS
+Main objective     : [N]  →  Result: [N]  →  Gap: [+/- %]
+CPL (cost per lead): [€]  →  Result: [€]  →  Gap: [+/- %]
+CPA (cost converted): [€] →  Result: [€]  →  Gap: [+/- %]
 
-CE QUI A FONCTIONNÉ :
-→ [Canal / message / timing le plus performant]
-→ [Segment d'audience le plus réactif]
+WHAT WORKED:
+→ [Best-performing channel / message / timing]
+→ [Most responsive audience segment]
 
-CE QUI N'A PAS FONCTIONNÉ :
-→ [Canal décevant + hypothèse]
-→ [Message qui a sous-performé + hypothèse]
+WHAT DID NOT WORK:
+→ [Underperforming channel + hypothesis]
+→ [Message that underperformed + hypothesis]
 
-APPRENTISSAGES POUR LA PROCHAINE CAMPAGNE :
-→ [Changement concret à apporter]
-→ [Test A/B à lancer]
+LEARNINGS FOR THE NEXT CAMPAIGN:
+→ [Concrete change to make]
+→ [A/B test to run]
 
-SCORE GLOBAL CAMPAGNE : ___/10
+OVERALL CAMPAIGN SCORE: ___/10
 ```
 
 ---
 
 ## Sources
 
-| Référence | Lien |
+| Reference | Link |
 |-----------|------|
 | Google — See-Think-Do-Care Framework | think.storage.googleapis.com/docs/see-think-do-care.pdf |
 | Forrester — Owned/Earned/Paid Media | forrester.com |
-| Philip Kotler — *Marketing Management* (Pearson, 14e éd.) | — |
+| Philip Kotler — *Marketing Management* (Pearson, 14th ed.) | — |
 | Baymard Institute — Conversion Research | baymard.com/research |
 | HubSpot — Email Marketing Benchmarks | hubspot.com/marketing-statistics |
 | Google Analytics 4 Academy | analytics.google.com/analytics/academy |
