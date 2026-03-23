@@ -121,8 +121,11 @@ Contrats applicables par type de tâche :
 ├── Internationalisation → CONTRACT-I18N.md
 ├── Pricing / SaaS     → CONTRACT-PRICING.md
 ├── Android            → CONTRACT-ANDROID.md
+├── Motion / Animation → CONTRACT-MOTION-DESIGN.md
+├── Production vidéo   → CONTRACT-VIDEO-PRODUCTION.md
 │
 ├── Recherche UX       → frameworks/UX-RESEARCH.md  (avant toute feature)
+├── Stratégie contenu  → frameworks/SOCIAL-CONTENT.md  (avant tout lancement social)
 │
 ├── Branding           → frameworks/BRAND-STRATEGY.md  (avant tout design)
 ├── Lancement produit  → frameworks/COMPETITIVE-AUDIT.md + frameworks/CAMPAIGN-STRATEGY.md

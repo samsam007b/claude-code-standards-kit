@@ -27,7 +27,7 @@ La méthode qui a produit ce kit est elle-même documentée dans `METHODOLOGY.md
 
 ## Ce que vous trouverez dans ce kit
 
-### 24 Contrats — Les règles à suivre pendant la construction
+### 26 Contrats — Les règles à suivre pendant la construction
 
 Les contrats sont des fichiers markdown que vous copiez dans votre projet (ou que vous référencez dans votre `CLAUDE.md`). Chaque contrat couvre un domaine et définit les règles avec thresholds mesurables et sources citées.
 
@@ -57,8 +57,10 @@ Les contrats sont des fichiers markdown que vous copiez dans votre projet (ou qu
 | `CONTRACT-I18N.md` | next-intl, ICU, hreflang, RTL, Intl API | Unicode CLDR, W3C i18n |
 | `CONTRACT-PRICING.md` | Van Westendorp, EVC, SaaS métriques, tiers | ESOMAR 1976, ProfitWell, SaaStr |
 | `CONTRACT-ANDROID.md` | Jetpack Compose, Material 3, TalkBack, Vitals | Android Developers, m3.material.io |
+| `CONTRACT-MOTION-DESIGN.md` | Animation UI, Remotion, easing, prefers-reduced-motion | Material Design 3, Apple HIG, W3C WCAG 2.3 |
+| `CONTRACT-VIDEO-PRODUCTION.md` | Pipeline vidéo, export plateforme, ElevenLabs, studio IA | Instagram/TikTok/YouTube specs, NN/G |
 
-### 12 Frameworks — Les outils situationnels
+### 13 Frameworks — Les outils situationnels
 
 Les frameworks ne sont pas des règles permanentes — ce sont des outils à sortir au bon moment.
 
@@ -76,6 +78,7 @@ Les frameworks ne sont pas des règles permanentes — ce sont des outils à sor
 | `COMPETITIVE-AUDIT.md` | **Avant tout lancement** — Blue Ocean, Nielsen Heuristics, Mystery Shopper |
 | `CAMPAIGN-STRATEGY.md` | Lancement campagne — SEE-THINK-DO-CARE, funnel, KPIs |
 | `UX-RESEARCH.md` | **Avant toute feature** — JTBD, entretiens, test utilisabilité |
+| `SOCIAL-CONTENT.md` | Lancement présence social — piliers, calendrier, tone, créateurs |
 
 ### 11 Audits — Les outils de mesure
 

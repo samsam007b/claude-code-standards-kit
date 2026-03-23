@@ -5,7 +5,7 @@
 **Standards professionnels pour Claude Code — ancrés dans la science, pas dans les opinions.**
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![64 fichiers](https://img.shields.io/badge/64%20fichiers-organisés-green.svg)]()
+[![67 fichiers](https://img.shields.io/badge/67%20fichiers-organisés-green.svg)]()
 [![Self-audit](https://img.shields.io/badge/self--audit-91%2F100-brightgreen.svg)]()
 [![Made for Claude Code](https://img.shields.io/badge/made%20for-Claude%20Code-orange.svg)]()
 [![By SQWR Studio](https://img.shields.io/badge/by-SQWR%20Studio-black.svg)](https://sqwr.be)
@@ -68,15 +68,15 @@ Lire [`METHODOLOGY.md`](METHODOLOGY.md) pour la méthode complète.
 
 | Catégorie | Fichiers | Rôle |
 |-----------|---------|------|
-| **Contrats** | 24 | Règles métier avec thresholds chiffrés — à copier dans `CLAUDE.md` |
-| **Frameworks** | 12 | Outils situationnels (branding, estimation, incident, campagne...) |
+| **Contrats** | 26 | Règles métier avec thresholds chiffrés — à copier dans `CLAUDE.md` |
+| **Frameworks** | 13 | Outils situationnels (branding, estimation, incident, campagne...) |
 | **Audits** | 11 | Scoring /100 par domaine — à lancer avant chaque livraison |
 | **Templates** | 5 | `CLAUDE.md`, `.env.example`, `.gitignore`, `CHANGELOG.md`, `CONTRIBUTING.md` |
 | **Scripts** | 3 | `init-project.sh`, `verify-kit.sh`, `validate-claude-md.sh` |
 
 ---
 
-## Les 15 contrats
+## Les contrats
 
 > Chaque règle a un threshold chiffré. Chaque threshold a une source vérifiable.
 
@@ -106,6 +106,8 @@ Lire [`METHODOLOGY.md`](METHODOLOGY.md) pour la méthode complète.
 | [`CONTRACT-I18N.md`](contracts/CONTRACT-I18N.md) | next-intl, ICU, hreflang, RTL, Intl API | Unicode CLDR, W3C i18n |
 | [`CONTRACT-PRICING.md`](contracts/CONTRACT-PRICING.md) | Van Westendorp, EVC, SaaS métriques, tiers | ESOMAR 1976, ProfitWell, SaaStr |
 | [`CONTRACT-ANDROID.md`](contracts/CONTRACT-ANDROID.md) | Jetpack Compose, Material 3, TalkBack, Vitals | Android Developers, m3.material.io |
+| [`CONTRACT-MOTION-DESIGN.md`](contracts/CONTRACT-MOTION-DESIGN.md) | Animation UI, Remotion, easing, prefers-reduced-motion | Material Design 3, Apple HIG, W3C WCAG 2.3 |
+| [`CONTRACT-VIDEO-PRODUCTION.md`](contracts/CONTRACT-VIDEO-PRODUCTION.md) | Pipeline vidéo, export plateforme, ElevenLabs, studio IA | Instagram/TikTok/YouTube specs, NN/G |
 
 ---
 
@@ -167,6 +169,7 @@ Auto-audit : **91/100**. `bash scripts/verify-kit.sh --verbose` → 0 erreur.
 | [`COMPETITIVE-AUDIT.md`](frameworks/COMPETITIVE-AUDIT.md) | **Avant tout lancement** — Blue Ocean, Nielsen Heuristics, Mystery Shopper |
 | [`CAMPAIGN-STRATEGY.md`](frameworks/CAMPAIGN-STRATEGY.md) | Lancement campagne — SEE-THINK-DO-CARE, funnel, KPIs |
 | [`UX-RESEARCH.md`](frameworks/UX-RESEARCH.md) | **Avant toute feature** — JTBD, entretiens, test utilisabilité (Nielsen, Fitzpatrick) |
+| [`SOCIAL-CONTENT.md`](frameworks/SOCIAL-CONTENT.md) | Lancement présence social — piliers, calendrier, tone, créateurs |
 
 ---
 
@@ -196,8 +199,8 @@ project-kit/
 ├── IDENTITY-TEMPLATE.md    → Fiche identité à personnaliser
 ├── METHODOLOGY.md          → Méthode complète (lire en premier)
 ├── GUIDE-DECOUVERTE.md     → Tour du kit en 10 min, PDF-ready
-├── contracts/              → 24 contrats (thresholds + sources)
-├── frameworks/             → 12 outils situationnels
+├── contracts/              → 26 contrats (thresholds + sources)
+├── frameworks/             → 13 outils situationnels
 ├── audits/                 → 11 audits scoring /100
 ├── templates/              → CLAUDE.md, .env.example, .gitignore...
 └── scripts/                → init-project.sh, verify-kit.sh, validate-claude-md.sh
