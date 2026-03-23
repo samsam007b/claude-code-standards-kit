@@ -1,38 +1,38 @@
-# Contrat — Internationalisation (i18n)
+# Contract — Internationalisation (i18n)
 
-> Module de contrat SQWR Project Kit.
-> Sources : Unicode CLDR (cldr.unicode.org), next-intl (next-intl.dev/docs), Google Search Central — hreflang (developers.google.com/search/docs/specialty/international), W3C Internationalization (w3.org/International), Common Sense Advisory — "Can't Read, Won't Buy" (2014), RGPD Article 7 (consentement dans la langue de l'utilisateur).
-
----
-
-## Fondements scientifiques
-
-**72% des consommateurs préfèrent acheter dans leur langue maternelle**, et 56% déclarent que la langue de l'interface est plus importante que le prix. (Common Sense Advisory, "Can't Read, Won't Buy", 2014 — étude sur 3000 consommateurs dans 10 pays)
-
-**Obligation légale EU :** le consentement RGPD doit être présenté dans la langue de l'utilisateur (Article 7 + Considérant 32 du RGPD). Un cookie banner en anglais sur un site ciblant des francophones peut invalider le consentement.
+> SQWR Project Kit contract module.
+> Sources: Unicode CLDR (cldr.unicode.org), next-intl (next-intl.dev/docs), Google Search Central — hreflang (developers.google.com/search/docs/specialty/international), W3C Internationalization (w3.org/International), Common Sense Advisory — "Can't Read, Won't Buy" (2014), GDPR Article 7 (consent in the user's language).
 
 ---
 
-## 1. Setup — next-intl (recommandé)
+## Scientific Foundations
 
-> Source : next-intl docs (next-intl.dev/docs/getting-started/app-router)
+**72% of consumers prefer to buy in their native language**, and 56% state that the interface language matters more than price. (Common Sense Advisory, "Can't Read, Won't Buy", 2014 — study on 3,000 consumers in 10 countries)
+
+**EU legal obligation:** GDPR consent must be presented in the user's language (Article 7 + Recital 32 of the GDPR). A cookie banner in English on a site targeting French speakers can invalidate consent.
+
+---
+
+## 1. Setup — next-intl (recommended)
+
+> Source: next-intl docs (next-intl.dev/docs/getting-started/app-router)
 
 ```bash
 npm install next-intl
 ```
 
-**Structure de fichiers :**
+**File structure:**
 ```
 app/
   [locale]/
-    layout.tsx        ← Provider i18n
+    layout.tsx        ← i18n Provider
     page.tsx
   layout.tsx          ← root layout (lang attribute)
 messages/
   fr.json
   en.json
   nl.json
-middleware.ts         ← détection de locale
+middleware.ts         ← locale detection
 i18n.ts               ← configuration
 ```
 
@@ -96,9 +96,9 @@ export default async function LocaleLayout({
 
 ---
 
-## 2. Fichiers de traduction — Structure
+## 2. Translation Files — Structure
 
-**Règle : jamais de texte en dur dans les composants.** Même pour 1 seule langue : la préparer dès le départ coûte moins cher que de refactoriser après.
+**Rule: never hardcode text in components.** Even for a single language: preparing it from the start costs less than refactoring afterwards.
 
 ```json
 // messages/fr.json
@@ -128,7 +128,7 @@ export default async function LocaleLayout({
 ```
 
 ```tsx
-// Utilisation dans un Server Component
+// Usage in a Server Component
 import { useTranslations } from 'next-intl'
 
 export default function DashboardPage() {
@@ -145,12 +145,12 @@ export default function DashboardPage() {
 
 ---
 
-## 3. ICU Message Format — Pluriels et genre
+## 3. ICU Message Format — Plurals and Gender
 
-> Source : Unicode CLDR — ICU Message Format (unicode-org.github.io/icu/userguide/format_parse/messages)
-> Source : Unicode Plural Rules (unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html)
+> Source: Unicode CLDR — ICU Message Format (unicode-org.github.io/icu/userguide/format_parse/messages)
+> Source: Unicode Plural Rules (unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html)
 
-**Pourquoi ICU > interpolation simple :** les règles de pluriel varient par langue. En russe, 1 = "файл", 2-4 = "файла", 5+ = "файлов". L'interpolation simple `{count} items` ne gère pas ces cas.
+**Why ICU > simple interpolation:** plural rules vary by language. In Russian, 1 = "файл", 2-4 = "файла", 5+ = "файлов". Simple interpolation `{count} items` does not handle these cases.
 
 ```json
 {
@@ -160,16 +160,16 @@ export default function DashboardPage() {
 }
 ```
 
-**Règle :** toujours utiliser ICU pour les chaînes avec des variables numériques ou de genre.
+**Rule:** always use ICU for strings with numeric or gender variables.
 
 ---
 
-## 4. Formatage — Dates, nombres, monnaies
+## 4. Formatting — Dates, Numbers, Currencies
 
-> Source : MDN — Intl API (developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Intl)
-> Source : Unicode CLDR Locale Data (cldr.unicode.org)
+> Source: MDN — Intl API (developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Intl)
+> Source: Unicode CLDR Locale Data (cldr.unicode.org)
 
-**Ne jamais formatter les dates/nombres manuellement.** Utiliser `Intl` (natif, Unicode CLDR).
+**Never format dates/numbers manually.** Use `Intl` (native, Unicode CLDR).
 
 ```typescript
 // Dates
@@ -179,25 +179,25 @@ new Intl.DateTimeFormat('fr-FR').format(date)  // "23/03/2026"
 new Intl.DateTimeFormat('en-US').format(date)  // "3/23/2026"
 new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long' }).format(date)  // "23 mars 2026"
 
-// Nombres
+// Numbers
 new Intl.NumberFormat('fr-FR').format(1234567.89)   // "1 234 567,89"
 new Intl.NumberFormat('en-US').format(1234567.89)   // "1,234,567.89"
 
-// Monnaies
+// Currencies
 new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(49.99)
 // "49,99 €"
 
 new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(49.99)
 // "$49.99"
 
-// Dates relatives
+// Relative dates
 const rtf = new Intl.RelativeTimeFormat('fr', { numeric: 'auto' })
 rtf.format(-1, 'day')   // "hier"
 rtf.format(-3, 'day')   // "il y a 3 jours"
 ```
 
 ```tsx
-// Composant utilitaire avec next-intl
+// Utility component with next-intl
 import { useFormatter } from 'next-intl'
 
 export function Price({ amount, currency }: { amount: number; currency: string }) {
@@ -210,88 +210,88 @@ export function Price({ amount, currency }: { amount: number; currency: string }
 
 ## 5. SEO i18n — hreflang
 
-> Source : Google Search Central — "Tell Google about localized versions of your page" (developers.google.com/search/docs/specialty/international/localized-versions)
+> Source: Google Search Central — "Tell Google about localized versions of your page" (developers.google.com/search/docs/specialty/international/localized-versions)
 
-**hreflang est obligatoire pour les sites multilingues.** Sans lui, Google peut indexer la mauvaise version de langue et créer du duplicate content.
+**hreflang is mandatory for multilingual sites.** Without it, Google may index the wrong language version and create duplicate content.
 
 ```tsx
-// app/[locale]/page.tsx — metadata avec alternates
+// app/[locale]/page.tsx — metadata with alternates
 import { locales } from '@/i18n'
 
 export async function generateMetadata({ params }: { params: { locale: string } }) {
   return {
     alternates: {
-      canonical: `https://www.exemple.com/${params.locale}`,
+      canonical: `https://www.example.com/${params.locale}`,
       languages: Object.fromEntries(
-        locales.map((locale) => [locale, `https://www.exemple.com/${locale}`])
+        locales.map((locale) => [locale, `https://www.example.com/${locale}`])
       ),
     },
   }
 }
-// Génère : <link rel="alternate" hreflang="fr" href="https://www.exemple.com/fr" />
-//          <link rel="alternate" hreflang="en" href="https://www.exemple.com/en" />
+// Generates: <link rel="alternate" hreflang="fr" href="https://www.example.com/fr" />
+//            <link rel="alternate" hreflang="en" href="https://www.example.com/en" />
 ```
 
-**Règle :** toujours inclure `x-default` pointant vers la locale par défaut.
+**Rule:** always include `x-default` pointing to the default locale.
 
 ---
 
-## 6. Support RTL (Right-to-Left)
+## 6. RTL (Right-to-Left) Support
 
-> Source : W3C Internationalization — "Styling HTML: the basics" (w3.org/International/tutorials/bidi-xhtml)
+> Source: W3C Internationalization — "Styling HTML: the basics" (w3.org/International/tutorials/bidi-xhtml)
 
-Langues RTL : arabe (ar), hébreu (he), persan (fa), ourdou (ur).
+RTL languages: Arabic (ar), Hebrew (he), Persian (fa), Urdu (ur).
 
 ```tsx
-// app/[locale]/layout.tsx — direction automatique
+// app/[locale]/layout.tsx — automatic direction
 const rtlLocales = ['ar', 'he', 'fa', 'ur']
 
 <html lang={locale} dir={rtlLocales.includes(locale) ? 'rtl' : 'ltr'}>
 ```
 
 ```css
-/* Tailwind CSS — utiliser les variantes logiques, jamais left/right */
+/* Tailwind CSS — use logical variants, never left/right */
 
-/* ❌ Hardcodé — cassé en RTL */
+/* ❌ Hardcoded — broken in RTL */
 .card { margin-left: 16px; padding-right: 12px; }
 
-/* ✅ Propriétés logiques — s'adapte automatiquement au dir */
+/* ✅ Logical properties — automatically adapts to dir */
 .card { margin-inline-start: 16px; padding-inline-end: 12px; }
 
-/* Tailwind : utiliser ms-* (margin-start) et me-* (margin-end) */
+/* Tailwind: use ms-* (margin-start) and me-* (margin-end) */
 /* ❌ */ <div className="ml-4 pr-3">
 /* ✅ */ <div className="ms-4 pe-3">
 ```
 
 ---
 
-## Checklist pré-lancement i18n
+## Pre-launch i18n Checklist
 
-### Bloquants
+### Blockers
 
-- [ ] 0 texte en dur dans les composants (`grep -r '"[A-Z]' app/` doit retourner 0 résultat)
-- [ ] hreflang configuré sur toutes les pages publiques
-- [ ] Formatage dates/nombres via `Intl` — jamais `toLocaleDateString()` sans locale explicite
-- [ ] Cookie banner RGPD dans la langue de l'utilisateur
+- [ ] 0 hardcoded text in components (`grep -r '"[A-Z]' app/` must return 0 results)
+- [ ] hreflang configured on all public pages
+- [ ] Date/number formatting via `Intl` — never `toLocaleDateString()` without explicit locale
+- [ ] GDPR cookie banner in the user's language
 
-### Importants
+### Important
 
-- [ ] ICU pluriels pour toutes les chaînes avec variable numérique
-- [ ] `lang` attribute correct sur `<html>` (ne pas laisser en `en` par défaut)
-- [ ] Sitemap multilingue (une URL par locale)
-- [ ] Test avec une locale différente de la locale de développement
+- [ ] ICU plurals for all strings with numeric variables
+- [ ] Correct `lang` attribute on `<html>` (do not leave as `en` by default)
+- [ ] Multilingual sitemap (one URL per locale)
+- [ ] Test with a locale different from the development locale
 
-### Souhaitables
+### Desirable
 
-- [ ] RTL supporté si des langues RTL sont prévues
-- [ ] Deepl API configuré pour les traductions draft automatiques
-- [ ] Pseudo-localisation pour détecter les strings non-traduits en staging
+- [ ] RTL supported if RTL languages are planned
+- [ ] Deepl API configured for automatic draft translations
+- [ ] Pseudo-localization to detect untranslated strings in staging
 
 ---
 
 ## Sources
 
-| Référence | Lien |
+| Reference | Link |
 |-----------|------|
 | Unicode CLDR | cldr.unicode.org |
 | ICU Message Format | unicode-org.github.io/icu/userguide/format_parse/messages |
@@ -300,4 +300,4 @@ const rtlLocales = ['ar', 'he', 'fa', 'ur']
 | W3C Internationalization | w3.org/International |
 | MDN — Intl API | developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Intl |
 | Common Sense Advisory 2014 | csa-research.com |
-| RGPD Art. 7 — Consentement | eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32016R0679 |
+| GDPR Art. 7 — Consent | eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32016R0679 |

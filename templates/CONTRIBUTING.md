@@ -1,43 +1,43 @@
-# Contributing — [NOM DU PROJET]
+# Contributing — [PROJECT NAME]
 
-> Standards : Conventional Commits 1.0.0, SemVer 2.0.0, Branch naming SQWR.
-> Ce guide s'applique aux contributions humaines ET aux contributions assistées par IA (Claude Code).
+> Standards: Conventional Commits 1.0.0, SemVer 2.0.0, SQWR branch naming.
+> This guide applies to both human contributions AND AI-assisted contributions (Claude Code).
 
 ---
 
-## Mise en place locale
+## Local setup
 
 ```bash
-# Cloner le repo
-git clone [URL_REPO]
-cd [nom-du-projet]
+# Clone the repo
+git clone [REPO_URL]
+cd [project-name]
 
-# Installer les dépendances
+# Install dependencies
 npm install
 
-# Copier les variables d'environnement
+# Copy environment variables
 cp .env.example .env.local
-# Remplir .env.local avec les valeurs de développement
+# Fill in .env.local with development values
 
-# Lancer en développement
+# Start in development mode
 npm run dev
 
-# Vérifier que tout fonctionne
+# Verify everything works
 npm run build
 npm run lint
-npm run test   # si des tests existent
+npm run test   # if tests exist
 ```
 
-**Prérequis :**
+**Prerequisites:**
 - Node.js ≥ 20
 - npm ≥ 10
-- Accès aux services (Supabase, etc.) — demander à [NOM_CONTACT]
+- Access to services (Supabase, etc.) — ask [CONTACT_NAME]
 
 ---
 
-## Conventions de branches
+## Branch naming conventions
 
-Format : `[type]/[scope]-[description-courte]`
+Format: `[type]/[scope]-[short-description]`
 
 ```bash
 # Features
@@ -62,180 +62,180 @@ docs/deployment-guide
 release/v1.2.0
 ```
 
-**Règles :**
-- Tirets uniquement (pas d'underscores, pas de majuscules)
-- Description courte : 2-4 mots
-- Scope = le module ou domaine concerné
+**Rules:**
+- Hyphens only (no underscores, no uppercase)
+- Short description: 2-4 words
+- Scope = the module or domain involved
 
 ---
 
 ## Conventional Commits
 
-Tous les commits doivent suivre [Conventional Commits 1.0.0](https://conventionalcommits.org).
+All commits must follow [Conventional Commits 1.0.0](https://conventionalcommits.org).
 
 ### Format
 
 ```
-<type>[scope optionnel]: <description>
+<type>[optional scope]: <description>
 
-[corps optionnel]
+[optional body]
 
-[footer(s) optionnel(s)]
+[optional footer(s)]
 ```
 
-### Types et impact SemVer
+### Types and SemVer impact
 
-| Type | Usage | Impact SemVer | Exemple |
+| Type | Usage | SemVer impact | Example |
 |------|-------|--------------|---------|
-| `feat` | Nouvelle fonctionnalité | **MINOR** | `feat(auth): ajouter connexion Google OAuth` |
-| `fix` | Correction de bug | **PATCH** | `fix(button): corriger hover sur mobile` |
-| `docs` | Documentation uniquement | — | `docs: mettre à jour le README` |
-| `style` | Formatting, espaces, semicolons (pas de logique) | — | `style: reformater les imports` |
-| `refactor` | Refactoring (ni feat ni fix) | — | `refactor(auth): extraire helper validateToken` |
-| `perf` | Amélioration de performance | **PATCH** | `perf(images): implémenter lazy loading` |
-| `test` | Ajout ou correction de tests | — | `test(auth): ajouter tests edge cases logout` |
-| `chore` | Maintenance, dépendances, config | — | `chore(deps): mettre à jour Next.js 15.1→15.2` |
-| `ci` | Configuration CI/CD | — | `ci: ajouter npm audit dans la pipeline` |
+| `feat` | New feature | **MINOR** | `feat(auth): add Google OAuth login` |
+| `fix` | Bug fix | **PATCH** | `fix(button): fix hover state on mobile` |
+| `docs` | Documentation only | — | `docs: update README` |
+| `style` | Formatting, whitespace, semicolons (no logic) | — | `style: reformat imports` |
+| `refactor` | Refactoring (neither feat nor fix) | — | `refactor(auth): extract validateToken helper` |
+| `perf` | Performance improvement | **PATCH** | `perf(images): implement lazy loading` |
+| `test` | Adding or fixing tests | — | `test(auth): add edge case tests for logout` |
+| `chore` | Maintenance, dependencies, config | — | `chore(deps): update Next.js 15.1→15.2` |
+| `ci` | CI/CD configuration | — | `ci: add npm audit to pipeline` |
 
-### BREAKING CHANGE — deux syntaxes
+### BREAKING CHANGE — two syntaxes
 
-**Méthode 1 — `!` avant le `:` :**
+**Method 1 — `!` before the `:`:**
 ```
-feat!: refonte complète du système d'authentification
-```
-
-**Méthode 2 — footer `BREAKING CHANGE:` :**
-```
-feat(auth): migrer vers la nouvelle API Supabase Auth
-
-BREAKING CHANGE: La structure des tokens JWT a changé.
-Les sessions existantes seront invalidées après déploiement.
-Migration requise pour les utilisateurs connectés.
+feat!: complete overhaul of the authentication system
 ```
 
-Les deux méthodes déclenchent un increment **MAJOR** en SemVer.
+**Method 2 — `BREAKING CHANGE:` footer:**
+```
+feat(auth): migrate to the new Supabase Auth API
 
-### Exemples concrets SQWR
+BREAKING CHANGE: The JWT token structure has changed.
+Existing sessions will be invalidated after deployment.
+Migration required for logged-in users.
+```
+
+Both methods trigger a **MAJOR** SemVer increment.
+
+### Concrete SQWR examples
 
 ```bash
 # Feature
-feat(auth): ajouter la connexion Google OAuth2
-feat(dashboard): afficher le compteur de vues des annonces izzico
-feat(agents): intégrer GPT-4 Turbo pour CozyGrowth agent planning
+feat(auth): add Google OAuth2 login
+feat(dashboard): display listing view counter for izzico
+feat(agents): integrate GPT-4 Turbo for CozyGrowth agent planning
 
 # Fix
-fix(button): corriger l'état hover sur Safari mobile
-fix(auth): résoudre la déconnexion automatique après 15 min
-fix(images): corriger le ratio d'aspect sur les photos de profil
+fix(button): fix hover state on Safari mobile
+fix(auth): resolve automatic logout after 15 min
+fix(images): fix aspect ratio on profile photos
 
 # Chores
-chore(deps): mettre à jour next-auth 4.24.5 → 4.24.7 (CVE-2026-XXXX)
-chore(config): ajouter .github/dependabot.yml
+chore(deps): update next-auth 4.24.5 → 4.24.7 (CVE-2026-XXXX)
+chore(config): add .github/dependabot.yml
 
 # CI
-ci: ajouter npm audit --audit-level=critical dans la pipeline
+ci: add npm audit --audit-level=critical to pipeline
 
 # Breaking
-feat!: migrer de Pages Router vers App Router
+feat!: migrate from Pages Router to App Router
 ```
 
 ---
 
-## Workflow Pull Request
+## Pull Request workflow
 
-### Checklist avant d'ouvrir une PR
+### Checklist before opening a PR
 
-- [ ] `npm run build` passe sans erreur
-- [ ] `npm run lint` passe avec 0 erreur ESLint
-- [ ] `npm run test` passe (si des tests existent)
-- [ ] Coverage ne régresse pas par rapport à `main`
-- [ ] Aucun `console.log` de debug oublié (`/clean-commit`)
-- [ ] `npm audit --audit-level=critical` passe
-- [ ] CHANGELOG.md mis à jour si la PR introduit une feature ou un fix notable
-- [ ] Si breaking change : documenter la migration dans le corps de la PR
+- [ ] `npm run build` passes without errors
+- [ ] `npm run lint` passes with 0 ESLint errors
+- [ ] `npm run test` passes (if tests exist)
+- [ ] Coverage does not regress compared to `main`
+- [ ] No forgotten `console.log` debug statements (`/clean-commit`)
+- [ ] `npm audit --audit-level=critical` passes
+- [ ] CHANGELOG.md updated if the PR introduces a notable feature or fix
+- [ ] If breaking change: document the migration in the PR body
 
-### Titre de la PR
+### PR title
 
-Le titre doit suivre le format Conventional Commits :
+The title must follow the Conventional Commits format:
 
 ```
-feat(scope): description courte de la feature
-fix(scope): description courte du fix
-chore: description de la maintenance
+feat(scope): short description of the feature
+fix(scope): short description of the fix
+chore: description of the maintenance
 ```
 
-### Template de description PR
+### PR description template
 
 ```markdown
-## Ce que fait cette PR
+## What this PR does
 
-[Description en 1-2 phrases — qu'est-ce que ça change pour l'utilisateur ?]
+[Description in 1-2 sentences — what does it change for the user?]
 
-## Type de changement
+## Type of change
 
 - [ ] Bug fix (`fix:`)
-- [ ] Nouvelle feature (`feat:`)
-- [ ] Breaking change (`feat!:` ou `BREAKING CHANGE:`)
+- [ ] New feature (`feat:`)
+- [ ] Breaking change (`feat!:` or `BREAKING CHANGE:`)
 - [ ] Documentation (`docs:`)
 - [ ] Maintenance (`chore:`)
 
-## Tests effectués
+## Tests performed
 
-- [ ] Test manuel en local (navigateur)
-- [ ] Tests automatiques passent (`npm run test`)
-- [ ] Testé sur mobile (DevTools responsive OU device physique)
-- [ ] `npm run build` passe
+- [ ] Manual local test (browser)
+- [ ] Automated tests pass (`npm run test`)
+- [ ] Tested on mobile (DevTools responsive OR physical device)
+- [ ] `npm run build` passes
 
-## Screenshots (si changement UI)
+## Screenshots (if UI change)
 
-[Avant / Après si applicable]
+[Before / After if applicable]
 
-## Notes pour le reviewer
+## Notes for the reviewer
 
-[Contexte supplémentaire, trade-offs, points d'attention]
+[Additional context, trade-offs, points of attention]
 ```
 
 ---
 
-## IA-Assisted Contributions
+## AI-Assisted Contributions
 
-Ce projet utilise Claude Code pour l'assistance au développement. Les contributions
-générées ou assistées par IA sont les bienvenues mais doivent respecter ces règles.
+This project uses Claude Code for development assistance. Contributions
+generated or assisted by AI are welcome but must comply with these rules.
 
-### Règles obligatoires pour les contributions IA
+### Mandatory rules for AI contributions
 
-**1. Revue ligne par ligne obligatoire**
-Ne pas merger du code IA sans l'avoir lu intégralement. Le code peut fonctionner au
-premier test tout en contenant des patterns sous-optimaux, des failles de sécurité,
-ou des edge cases non gérés.
+**1. Line-by-line review required**
+Do not merge AI-generated code without reading it in full. Code may pass on the
+first test while containing suboptimal patterns, security vulnerabilities,
+or unhandled edge cases.
 
-**2. Checklist sécurité appliquée**
-Vérifier le code IA contre `contracts/CONTRACT-SECURITY.md`, section
-"AI-Generated Code Review Checklist". Veracode 2025 : 45% du code IA généré contient
-des failles de sécurité non visibles au premier run.
+**2. Security checklist applied**
+Review AI-generated code against `contracts/CONTRACT-SECURITY.md`, section
+"AI-Generated Code Review Checklist". Veracode 2025: 45% of AI-generated code contains
+security vulnerabilities not visible on the first run.
 
-**3. Packages vérifiés avant installation**
-Tout package NPM suggéré par Claude doit être vérifié sur npmjs.com avant `npm install` :
-- Le package existe réellement
-- Il a été mis à jour récemment
-- Le nombre de téléchargements est cohérent avec sa réputation
-- (risque slopsquatting : les LLMs hallucinent des noms de packages inexistants)
+**3. Packages verified before installation**
+Any NPM package suggested by Claude must be verified on npmjs.com before `npm install`:
+- The package actually exists
+- It has been recently updated
+- The download count is consistent with its reputation
+- (slopsquatting risk: LLMs hallucinate non-existent package names)
 
-**4. Co-author tag dans les commits**
-Les commits significativement assistés par IA doivent inclure :
+**4. Co-author tag in commits**
+Commits significantly assisted by AI must include:
 ```
 Co-Authored-By: Claude Sonnet <noreply@anthropic.com>
 ```
 
-**5. Le développeur qui merge est responsable**
-La mention "généré par IA" ne dispense pas de la revue. Le développeur qui approuve
-et merge un PR reste entièrement responsable du code fusionné.
+**5. The developer who merges is responsible**
+The mention "AI-generated" does not exempt from review. The developer who approves
+and merges a PR remains fully responsible for the merged code.
 
 ---
 
-## Sources
+## References
 
-| Référence | Lien |
+| Reference | Link |
 |-----------|------|
 | Conventional Commits 1.0.0 | conventionalcommits.org/en/v1.0.0 |
 | Semantic Versioning 2.0.0 | semver.org |

@@ -1,80 +1,80 @@
-# Audit Design
+# Design Audit
 
-> Basé sur WCAG 2.1, Itten/Munsell (couleur), Bringhurst (typographie), Wertheimer (Gestalt), Baymard Institute.
-> Score : /100 | Seuil recommandé : ≥80
-
----
-
-## Section 1 — Couleurs et contrastes (30 points)
-
-- [ ] Texte normal : contraste ≥4.5:1 vérifié sur toutes les combinaisons .... (10)
-- [ ] Grand texte et éléments UI : contraste ≥3:1 ........................... (8)
-- [ ] Palette cohérente : rôles définis (dominant/secondaire/accent) ......... (7)
-- [ ] Système d'harmonie couleur respecté (complémentaire/analogique/triadique) (5)
-
-**Outil :** WebAIM Contrast Checker
-
-**Sous-total : /30**
+> Based on WCAG 2.1, Itten/Munsell (color), Bringhurst (typography), Wertheimer (Gestalt), Baymard Institute.
+> Score: /100 | Recommended threshold: ≥80
 
 ---
 
-## Section 2 — Typographie (25 points)
+## Section 1 — Colors and Contrast (30 points)
 
-| Critère | Valeur mesurée | Seuil | OK ? | Points |
-|---------|----------------|-------|------|--------|
-| Taille corps minimum | ___px | ≥16px | | /8 |
-| Longueur de ligne | ___ CPL | 50-75 | | /8 |
-| Interligne | ___ | ≥1.5 | | /5 |
-| Échelle typographique | ratio: ___ | modular scale | | /4 |
+- [ ] Normal text: contrast ≥4.5:1 verified on all combinations ............. (10)
+- [ ] Large text and UI elements: contrast ≥3:1 ............................. (8)
+- [ ] Consistent palette: defined roles (dominant/secondary/accent) .......... (7)
+- [ ] Color harmony system respected (complementary/analogous/triadic) ....... (5)
 
-**Sous-total : /25**
+**Tool:** WebAIM Contrast Checker
+
+**Subtotal: /30**
 
 ---
 
-## Section 3 — Gestalt et hiérarchie visuelle (25 points)
+## Section 2 — Typography (25 points)
 
-Application des 7 lois — noter les violations conscientes ou non justifiées :
+| Criterion | Measured value | Threshold | OK? | Points |
+|-----------|----------------|-----------|-----|--------|
+| Minimum body size | ___px | ≥16px | | /8 |
+| Line length | ___ CPL | 50-75 | | /8 |
+| Line height | ___ | ≥1.5 | | /5 |
+| Typographic scale | ratio: ___ | modular scale | | /4 |
 
-| Loi | Appliquée ? | Violations | Points |
-|-----|------------|-----------|--------|
-| Proximité (éléments liés groupés) | | | /4 |
-| Similarité (même style = même fonction) | | | /4 |
-| Continuité (flux visuel cohérent) | | | /4 |
-| Figure-fond (contraste fond/contenu) | | | /4 |
-| Symétrie (layouts équilibrés) | | | /4 |
-| Fermeture (icônes lisibles) | | | /3 |
-| Destin commun (animations groupées) | | | /2 |
+**Subtotal: /25**
 
-**Sous-total : /25**
+---
+
+## Section 3 — Gestalt and Visual Hierarchy (25 points)
+
+Application of the 7 laws — note conscious or unjustified violations:
+
+| Law | Applied? | Violations | Points |
+|-----|----------|-----------|--------|
+| Proximity (related elements grouped) | | | /4 |
+| Similarity (same style = same function) | | | /4 |
+| Continuity (coherent visual flow) | | | /4 |
+| Figure-ground (background/content contrast) | | | /4 |
+| Symmetry (balanced layouts) | | | /4 |
+| Closure (readable icons) | | | /3 |
+| Common fate (grouped animations) | | | /2 |
+
+**Subtotal: /25**
 
 ---
 
 ## Section 4 — Design System (20 points)
 
-- [ ] Design tokens centralisés (`tailwind.config.ts` ou `design-system.ts`) .. (8)
-- [ ] Espacement systématique (base 8px ou 4px, pas de valeurs arbitraires) .. (6)
-- [ ] `prefers-reduced-motion` respecté sur toutes les animations ............ (6)
+- [ ] Centralized design tokens (`tailwind.config.ts` or `design-system.ts`) .. (8)
+- [ ] Systematic spacing (8px or 4px base, no arbitrary values) .............. (6)
+- [ ] `prefers-reduced-motion` respected on all animations ................... (6)
 
-**Sous-total : /20**
+**Subtotal: /20**
 
 ---
 
-## Score total : /100
+## Total Score: /100
 
 | Section | Score | /Total |
 |---------|-------|--------|
-| Couleurs & contrastes | | /30 |
-| Typographie | | /25 |
-| Gestalt & hiérarchie | | /25 |
+| Colors & contrast | | /30 |
+| Typography | | /25 |
+| Gestalt & hierarchy | | /25 |
 | Design System | | /20 |
 | **TOTAL** | | **/100** |
 
 ---
 
-## Sources de référence
+## Reference sources
 
-- Johannes Itten — Systèmes d'harmonie couleur
-- WCAG 2.1 SC 1.4.3 — Contrastes
+- Johannes Itten — Color harmony systems
+- WCAG 2.1 SC 1.4.3 — Contrast
 - Baymard Institute — CPL 50-75
 - Bringhurst — Modular scale
-- Wertheimer, Koffka, Köhler — 7 lois Gestalt
+- Wertheimer, Koffka, Köhler — 7 Gestalt laws

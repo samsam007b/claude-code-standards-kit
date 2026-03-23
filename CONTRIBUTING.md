@@ -1,77 +1,77 @@
 # Contributing to SQWR Project Kit
 
-Merci de contribuer à ce kit. Quelques règles pour garder le niveau de qualité.
+Thank you for contributing to this kit. A few rules to maintain the quality level.
 
 ---
 
-## Principe fondamental
+## Core principle
 
-**Toute règle ajoutée au kit doit avoir une source vérifiable.**
+**Every rule added to the kit must have a verifiable source.**
 
-Ce kit vaut parce que ses règles sont ancrées dans des standards réels (OWASP, W3C, NIST, Google SRE Book, etc.) — pas dans des opinions. Avant d'ajouter ou de modifier un contrat, trouver la source Tier 1 ou Tier 2 qui justifie la règle.
+This kit has value because its rules are grounded in real standards (OWASP, W3C, NIST, Google SRE Book, etc.) — not in opinions. Before adding or modifying a contract, find the Tier 1 or Tier 2 source that justifies the rule.
 
-Voir `METHODOLOGY.md` pour la hiérarchie des sources (Tier 1 = documentation officielle, Tier 2 = standards académiques/industriels).
+See `METHODOLOGY.md` for the source hierarchy (Tier 1 = official documentation, Tier 2 = academic/industrial standards).
 
 ---
 
-## Types de contributions bienvenues
+## Welcome types of contribution
 
 | Type | Description |
 |------|-------------|
-| **Nouveau contrat** | Domaine non couvert (ex : i18n, animations, mobile natif) |
-| **Amélioration contrat** | Threshold manquant, source plus récente, règle incomplète |
-| **Nouveau framework** | Outil situationnel (ex : templates pour nouveaux cas d'usage) |
-| **Correction** | Erreur factuelle, lien brisé, threshold obsolète |
-| **Traduction** | Adapter un contrat pour une autre langue (EN, NL, DE...) |
+| **New contract** | Uncovered domain (e.g. i18n, animations, native mobile) |
+| **Contract improvement** | Missing threshold, more recent source, incomplete rule |
+| **New framework** | Situational tool (e.g. templates for new use cases) |
+| **Correction** | Factual error, broken link, outdated threshold |
+| **Translation** | Adapt a contract for another language (EN, NL, DE…) |
 
 ---
 
-## Structure d'un contrat
+## Contract structure
 
-Chaque contrat doit suivre cette structure :
+Every contract must follow this structure:
 
 ```markdown
-# Contrat — [Domaine]
+# Contract — [Domain]
 
-> Sources : [Auteur/Org (année)], [Auteur/Org (année)]
-> Score : /100 | Seuil recommandé : ≥XX
+> Sources: [Author/Org (year)], [Author/Org (year)]
+> Score: /100 | Recommended threshold: ≥XX
 
-## Section 1 — [Nom] (XX points)
+## Section 1 — [Name] (XX points)
 
-- [ ] Critère mesurable avec threshold chiffré .............. (X)
-- [ ] Critère avec source citée ............................. (X)
+- [ ] Measurable criterion with numerical threshold .............. (X)
+- [ ] Criterion with cited source ............................. (X)
 
-**Sous-total : /XX**
+**Subtotal: /XX**
 
 ## Sources
 
-| Référence | Apport |
+| Reference | Contribution |
 |-----------|--------|
-| Auteur — *Titre* (Éditeur, année) | Ce que ça apporte |
+| Author — *Title* (Publisher, year) | What it contributes |
 ```
 
 ---
 
-## Comment contribuer
+## How to contribute
 
-1. **Fork** le repo
-2. **Créer une branche** : `feat/contract-i18n` ou `fix/wcag-threshold`
-3. **Ajouter la source** dans la section `## Sources` du fichier modifié
-4. **Mettre à jour** `README.md` + `scripts/verify-kit.sh` si vous ajoutez un fichier
-5. **Tester** : `bash scripts/verify-kit.sh --verbose` doit retourner exit 0
-6. **Pull Request** avec description du changement et lien vers la source
+1. **Fork** the repo
+2. **Create a branch**: `feat/contract-i18n` or `fix/wcag-threshold`
+3. **Add the source** in the `## Sources` section of the modified file
+4. **Update** `README.md` + `scripts/verify-kit.sh` if you add a file
+5. **Test**: `bash scripts/verify-kit.sh --verbose` must return exit 0
+6. **Pull Request** with a description of the change and a link to the source
 
 ---
 
-## Ce qui ne sera pas mergé
+## What will not be merged
 
-- Règles sans source vérifiable
-- Opinions personnelles présentées comme des standards
-- Suppression de sources existantes sans remplacement plus récent
-- Code de debug, chemins hardcodés privés, données personnelles
+- Rules without a verifiable source
+- Personal opinions presented as standards
+- Removal of existing sources without a more recent replacement
+- Debug code, private hardcoded paths, personal data
 
 ---
 
 ## Questions
 
-Ouvrir une Issue GitHub avec le label `question`.
+Open a GitHub Issue with the `question` label.

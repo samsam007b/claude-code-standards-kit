@@ -1,220 +1,220 @@
-# Contrat — Production Vidéo & Studio IA
+# Contract — Video Production & AI Studio
 
-> Module de contrat SQWR Project Kit.
-> Sources : Instagram Creator Guidelines (creators.instagram.com), TikTok Creator Portal (creator.tiktok.com), YouTube Technical Specs (support.google.com/youtube), Remotion docs (remotion.dev), 11ElevenLabs docs (elevenlabs.io/docs), Nielsen NN/G — Video Usability (nngroup.com), Meta Business — Video Best Practices (business.meta.com).
+> SQWR Project Kit contract module.
+> Sources: Instagram Creator Guidelines (creators.instagram.com), TikTok Creator Portal (creator.tiktok.com), YouTube Technical Specs (support.google.com/youtube), Remotion docs (remotion.dev), ElevenLabs docs (elevenlabs.io/docs), Nielsen NN/G — Video Usability (nngroup.com), Meta Business — Video Best Practices (business.meta.com).
 
 ---
 
-## Fondements
+## Foundations
 
-**Le studio de production vidéo moderne est virtuel** — piloté par des outils IA et des workflows Claude Code structurés. Il remplace une équipe de 5-10 personnes par une stack d'outils pilotée par 1-2 personnes avec la méthode correcte.
+**The modern video production studio is virtual** — driven by AI tools and structured Claude Code workflows. It replaces a team of 5–10 people with a tool stack operated by 1–2 people using the right method.
 
-**Stack de référence :**
-| Outil | Rôle | Coût mensuel |
+**Reference stack:**
+| Tool | Role | Monthly cost |
 |-------|------|-------------|
-| **Remotion** | Composition vidéo programmatique (React) | Gratuit + ~$0.05/render |
-| **Veo / Gemini** | B-roll IA, footage lifestyle | Pay-per-use |
-| **ElevenLabs** | Voiceover IA | $0–22/mois |
-| **Canva** | Stories, templates rapides | Inclus plan existant |
-| **Higgsfield** | Motion graphics premium | $75/mois (Phase 4) |
+| **Remotion** | Programmatic video composition (React) | Free + ~$0.05/render |
+| **Veo / Gemini** | AI b-roll, lifestyle footage | Pay-per-use |
+| **ElevenLabs** | AI voiceover | $0–22/month |
+| **Canva** | Stories, quick templates | Included in existing plan |
+| **Higgsfield** | Premium motion graphics | $75/month (Phase 4) |
 
-**Budget par phase :**
-- Phase 1 (fondations) : ~$5–10/mois
-- Phase 2 (social régulier) : ~$30–50/mois
-- Phase 3 (démos produit) : ~$75–100/mois
-- Phase 4 (campagnes) : ~$150–200/mois
+**Budget per phase:**
+- Phase 1 (foundations): ~$5–10/month
+- Phase 2 (regular social): ~$30–50/month
+- Phase 3 (product demos): ~$75–100/month
+- Phase 4 (campaigns): ~$150–200/month
 
 ---
 
-## 1. Arbre de décision — Quel outil pour quel contenu ?
+## 1. Decision Tree — Which Tool for Which Content?
 
-> Source : Remotion docs — Use cases (remotion.dev/docs/use-cases)
+> Source: Remotion docs — Use cases (remotion.dev/docs/use-cases)
 
 ```
-Contenu à produire
+Content to produce
 │
-├── Demo UI / app en mouvement ?
-│   └── → Remotion (réutilise les composants React du projet)
+├── UI / app demo in motion?
+│   └── → Remotion (reuses the project's React components)
 │
-├── Footage lifestyle / scènes humaines / b-roll ?
-│   └── → Veo / Gemini (génération IA)
+├── Lifestyle footage / human scenes / b-roll?
+│   └── → Veo / Gemini (AI generation)
 │
-├── Data visualization / motion graphics complexes ?
-│   ├── Budget Phase 4 → Higgsfield
-│   └── Sinon → Remotion custom composition
+├── Data visualization / complex motion graphics?
+│   ├── Phase 4 budget → Higgsfield
+│   └── Otherwise → Remotion custom composition
 │
-├── Story ou animation simple rapide ?
-│   └── → Canva (itération rapide)
+├── Quick story or simple animation?
+│   └── → Canva (fast iteration)
 │
 └── Default → Remotion
 ```
 
 ---
 
-## 2. Pipeline de production — 5 phases
+## 2. Production Pipeline — 5 Phases
 
-> Source : Meta Business — Creative Production Process (business.meta.com/creative-guidance)
+> Source: Meta Business — Creative Production Process (business.meta.com/creative-guidance)
 
-### Phase 1 : Brief
+### Phase 1: Brief
 
-Template obligatoire pour toute production :
+Mandatory template for every production:
 
 ```markdown
-## Brief vidéo
+## Video Brief
 
-**Objectif :** [Notoriété / Conversion / Rétention / Éducation]
-**Audience cible :** [Persona + âge + contexte]
-**Durée :** [Xs]
-**Format :** [Reel 9:16 / YouTube 16:9 / Story 9:16 / Hero web]
-**Plateforme(s) :** [Instagram / TikTok / YouTube / Web]
-**Voiceover :** [Oui (ElevenLabs) / Non / Humain]
-**Musique :** [Style + émotion cible]
-**CTA :** [Action souhaitée à la fin]
-**Assets disponibles :** [Logo, photos produit, screenshots app...]
-**Deadline :** [Date]
+**Objective:** [Awareness / Conversion / Retention / Education]
+**Target audience:** [Persona + age + context]
+**Duration:** [Xs]
+**Format:** [Reel 9:16 / YouTube 16:9 / Story 9:16 / Web hero]
+**Platform(s):** [Instagram / TikTok / YouTube / Web]
+**Voiceover:** [Yes (ElevenLabs) / No / Human]
+**Music:** [Style + target emotion]
+**CTA:** [Desired action at the end]
+**Available assets:** [Logo, product photos, app screenshots...]
+**Deadline:** [Date]
 ```
 
-### Phase 2 : Création
+### Phase 2: Creation
 
-Suivre l'arbre de décision (section 1). Ouvrir le brief dans Claude Code avant toute génération.
+Follow the decision tree (section 1). Open the brief in Claude Code before any generation.
 
-### Phase 3 : Review — Checklist qualité
+### Phase 3: Review — Quality Checklist
 
 ```
 BRANDING
-  [ ] Couleurs conformes au design system
-  [ ] Logo visible et correctement placé
-  [ ] Typographie de la marque utilisée
-  [ ] Ton conforme à la brand voice
+  [ ] Colors conform to the design system
+  [ ] Logo visible and correctly placed
+  [ ] Brand typography used
+  [ ] Tone consistent with brand voice
 
-TECHNIQUE
-  [ ] Résolution correcte pour la plateforme (section 4)
-  [ ] Audio clair, pas de saturation (-14 LUFS target)
-  [ ] Durée dans les limites plateforme
-  [ ] Pas d'éléments coupés aux bords
+TECHNICAL
+  [ ] Correct resolution for the platform (section 4)
+  [ ] Clear audio, no saturation (-14 LUFS target)
+  [ ] Duration within platform limits
+  [ ] No elements cut off at the edges
 
 UX & ENGAGEMENT
-  [ ] Message lisible en 3 secondes (hook visuel)
-  [ ] Sous-titres présents (85% regardent sans son — Meta, 2023)
-  [ ] CTA visible et lisible
-  [ ] Première frame accrochante (scroll-stop)
+  [ ] Message readable in 3 seconds (visual hook)
+  [ ] Subtitles present (85% watch without sound — Meta, 2023)
+  [ ] CTA visible and readable
+  [ ] Attention-grabbing first frame (scroll-stop)
 ```
 
-### Phase 4 : Export
+### Phase 4: Export
 
-Voir section 4 — Spécifications par plateforme.
+See section 4 — Platform specifications.
 
-### Phase 5 : Publication
+### Phase 5: Publication
 
 ```markdown
-## Métadonnées publication
+## Publication Metadata
 
-- **Titre :** [60 caractères max pour YouTube]
-- **Caption :** [Hook + contenu + CTA + hashtags]
-- **Hashtags :** [3–5 core + 5–10 niche — éviter les hashtags génériques]
-- **Thumbnail :** [Personnalisée — jamais la frame auto]
-- **UTM link :** [Traçabilité analytics]
-- **Publication :** [Horaire optimal — voir section 5]
+- **Title:** [60 characters max for YouTube]
+- **Caption:** [Hook + content + CTA + hashtags]
+- **Hashtags:** [3–5 core + 5–10 niche — avoid generic hashtags]
+- **Thumbnail:** [Custom — never the auto frame]
+- **UTM link:** [Analytics tracking]
+- **Publication:** [Optimal time — see section 5]
 ```
 
 ---
 
-## 3. Règles de contenu vidéo
+## 3. Video Content Rules
 
-> Source : Nielsen NN/G — "Video Usability" (nngroup.com, 2023)
-> Source : Meta Business — "Video Best Practices" (business.meta.com)
+> Source: Nielsen NN/G — "Video Usability" (nngroup.com, 2023)
+> Source: Meta Business — "Video Best Practices" (business.meta.com)
 
-### Hook — les 3 premières secondes
+### Hook — The First 3 Seconds
 
-**Threshold : le message principal doit être compris en ≤3 secondes** (NN/G, 2023 — 73% des décisions de scroll se font dans les 3 premières secondes).
+**Threshold: the main message must be understood in ≤3 seconds** (NN/G, 2023 — 73% of scroll decisions happen in the first 3 seconds).
 
 ```
-❌ Mauvais hook : Intro avec logo + musique (2s perdues)
-✅ Bon hook   : Texte + image impactante dès la frame 1
-✅ Bon hook   : Question provocatrice en overlay
-✅ Bon hook   : Stat choc en texte large
+❌ Bad hook: Intro with logo + music (2s wasted)
+✅ Good hook: Impactful text + image from frame 1
+✅ Good hook: Provocative question in overlay
+✅ Good hook: Shocking stat in large text
 ```
 
-### Sous-titres — obligatoires
+### Subtitles — Mandatory
 
-> Source : Meta for Business — "85% of video is watched without sound" (business.meta.com, 2016, confirmé 2023)
-> **Threshold : sous-titres sur 100% des vidéos sociales**
+> Source: Meta for Business — "85% of video is watched without sound" (business.meta.com, 2016, confirmed 2023)
+> **Threshold: subtitles on 100% of social videos**
 
 ```typescript
-// Remotion — sous-titres auto via Whisper + @remotion/captions
+// Remotion — automatic subtitles via Whisper + @remotion/captions
 import { Transcript } from '@remotion/captions'
 
-// Générer avec Whisper (openai) ou AssemblyAI, puis intégrer dans la composition
+// Generate with Whisper (openai) or AssemblyAI, then integrate into the composition
 ```
 
-### Durées optimales par plateforme
+### Optimal Durations by Platform
 
-> Source : TikTok Creator Portal — Optimal video length (creator.tiktok.com)
-> Source : Instagram Creator — Reels best practices (creators.instagram.com)
-> Source : YouTube Creator Academy — Optimal video length (creatoracademy.youtube.com)
+> Source: TikTok Creator Portal — Optimal video length (creator.tiktok.com)
+> Source: Instagram Creator — Reels best practices (creators.instagram.com)
+> Source: YouTube Creator Academy — Optimal video length (creatoracademy.youtube.com)
 
-| Plateforme | Optimal | Maximum |
+| Platform | Optimal | Maximum |
 |------------|---------|---------|
 | Instagram Reel | **15–30s** | 90s |
 | TikTok | **15–60s** | 10min |
 | YouTube Short | **30–60s** | 60s |
-| YouTube standard | **7–15 min** | illimité |
+| YouTube standard | **7–15 min** | unlimited |
 | Web hero loop | **6–15s** | 30s |
 | Story | **7–15s** | 60s |
 
 ---
 
-## 4. Spécifications d'export par plateforme
+## 4. Export Specifications by Platform
 
-> Source : Instagram Technical Specs (creators.instagram.com/tools-and-resources/formats-and-specs)
-> Source : TikTok Video Specs (creator.tiktok.com/creator-portal/en-us/getting-started/video-specs)
-> Source : YouTube Upload Specs (support.google.com/youtube/answer/1722171)
+> Source: Instagram Technical Specs (creators.instagram.com/tools-and-resources/formats-and-specs)
+> Source: TikTok Video Specs (creator.tiktok.com/creator-portal/en-us/getting-started/video-specs)
+> Source: YouTube Upload Specs (support.google.com/youtube/answer/1722171)
 
-| Plateforme | Format | Résolution | Codec | FPS | Bitrate vidéo | Audio |
+| Platform | Format | Resolution | Codec | FPS | Video bitrate | Audio |
 |------------|--------|------------|-------|-----|---------------|-------|
 | Instagram Reel | MP4 | **1080×1920** | H.264 | 30 | 8–12 Mbps | AAC 128kbps |
 | TikTok | MP4 | **1080×1920** | H.264 | 30 | 8–12 Mbps | AAC 128kbps |
 | YouTube Short | MP4 | **1080×1920** | H.264 | 30 | 8–12 Mbps | AAC 128kbps |
-| YouTube paysage | MP4 | **1920×1080** | H.264 | 24/30 | 10–15 Mbps | AAC 320kbps |
-| Web hero | WebM | Variable | VP9 | 24/30 | 4–8 Mbps | N/A (muet) |
-| Web fallback | MP4 | Variable | H.264 | 24/30 | 4–8 Mbps | N/A (muet) |
+| YouTube landscape | MP4 | **1920×1080** | H.264 | 24/30 | 10–15 Mbps | AAC 320kbps |
+| Web hero | WebM | Variable | VP9 | 24/30 | 4–8 Mbps | N/A (muted) |
+| Web fallback | MP4 | Variable | H.264 | 24/30 | 4–8 Mbps | N/A (muted) |
 
-**Remotion export — commande standard :**
+**Remotion export — standard command:**
 ```bash
-# Reel Instagram / TikTok
+# Instagram Reel / TikTok
 npx remotion render src/index.ts SocialReel out/reel.mp4 \
   --codec=h264 --crf=18 --scale=1
 
-# Hero web (WebM + fallback MP4)
+# Web hero (WebM + fallback MP4)
 npx remotion render src/index.ts HeroLoop out/hero.webm --codec=vp8
 npx remotion render src/index.ts HeroLoop out/hero.mp4 --codec=h264
 ```
 
 ---
 
-## 5. Horaires de publication optimaux
+## 5. Optimal Publishing Times
 
-> Source : Sprout Social — "Best Times to Post on Social Media" (sproutsocial.com/insights/best-times-to-post-on-social-media, 2024)
-> Source : Later — "Best Time to Post on Instagram" (later.com/blog/best-time-to-post-on-instagram, 2024)
+> Source: Sprout Social — "Best Times to Post on Social Media" (sproutsocial.com/insights/best-times-to-post-on-social-media, 2024)
+> Source: Later — "Best Time to Post on Instagram" (later.com/blog/best-time-to-post-on-instagram, 2024)
 
-| Plateforme | Jours optimaux | Heures optimales |
+| Platform | Optimal days | Optimal times |
 |------------|---------------|-----------------|
-| Instagram | Lundi, mardi, vendredi | **11h–13h** et **17h–19h** |
-| TikTok | Mardi, jeudi, vendredi | **6h–10h** et **19h–23h** |
-| YouTube | Jeudi, vendredi | **15h–17h** |
-| LinkedIn | Mardi, mercredi | **8h–10h** et **17h–18h** |
+| Instagram | Monday, Tuesday, Friday | **11am–1pm** and **5pm–7pm** |
+| TikTok | Tuesday, Thursday, Friday | **6am–10am** and **7pm–11pm** |
+| YouTube | Thursday, Friday | **3pm–5pm** |
+| LinkedIn | Tuesday, Wednesday | **8am–10am** and **5pm–6pm** |
 
-**Règle : toujours publier en horaires locaux de l'audience principale.** Pour une audience EU : heure de Bruxelles (CET/CEST).
+**Rule: always publish in the local time of the primary audience.** For an EU audience: Brussels time (CET/CEST).
 
 ---
 
-## 6. Voiceover IA — ElevenLabs
+## 6. AI Voiceover — ElevenLabs
 
-> Source : ElevenLabs documentation (elevenlabs.io/docs)
-> **Threshold : qualité LUFS cible = -14 LUFS** (standard streaming, conforme Spotify/YouTube Loudness Normalization)
+> Source: ElevenLabs documentation (elevenlabs.io/docs)
+> **Threshold: target LUFS quality = -14 LUFS** (streaming standard, compliant with Spotify/YouTube Loudness Normalization)
 
 ```typescript
-// Génération voiceover ElevenLabs via API
+// ElevenLabs voiceover generation via API
 const response = await fetch('https://api.elevenlabs.io/v1/text-to-speech/{voice_id}', {
   method: 'POST',
   headers: {
@@ -223,9 +223,9 @@ const response = await fetch('https://api.elevenlabs.io/v1/text-to-speech/{voice
   },
   body: JSON.stringify({
     text: script,
-    model_id: 'eleven_multilingual_v2',   // Meilleur modèle FR/EN
+    model_id: 'eleven_multilingual_v2',   // Best FR/EN model
     voice_settings: {
-      stability: 0.75,                    // 0.75 = naturel sans trop de variation
+      stability: 0.75,                    // 0.75 = natural without too much variation
       similarity_boost: 0.85,
       style: 0.2,
       use_speaker_boost: true,
@@ -234,62 +234,62 @@ const response = await fetch('https://api.elevenlabs.io/v1/text-to-speech/{voice
 })
 
 const audioBuffer = await response.arrayBuffer()
-// Écrire en MP3 puis intégrer dans Remotion via staticFile()
+// Write as MP3 then integrate into Remotion via staticFile()
 ```
 
-**Checklist voiceover :**
-- [ ] Modèle multilingual v2 (qualité supérieure FR/EN)
-- [ ] Normalisation audio à -14 LUFS après génération
-- [ ] Sync frame-par-frame avec les animations dans Remotion
-- [ ] Écouter l'ensemble avant export final
+**Voiceover checklist:**
+- [ ] Multilingual v2 model (superior FR/EN quality)
+- [ ] Audio normalization to -14 LUFS after generation
+- [ ] Frame-by-frame sync with animations in Remotion
+- [ ] Listen to the full output before final export
 
 ---
 
-## 7. Agents Claude Code — Studio virtuel
+## 7. Claude Code Agents — Virtual Studio
 
-Ce pattern permet à un seul développeur de piloter une production multi-disciplinaire avec Claude Code :
+This pattern allows a single developer to manage a multi-disciplinary production with Claude Code:
 
 ```
 .claude/
 ├── agents/
 │   ├── creative-strategist.md   → Brief, concept, storytelling
 │   ├── motion-designer.md       → Animation, timing, Remotion
-│   ├── sound-designer.md        → Musique, SFX, voiceover
-│   ├── assembly.md              → Montage final, sync audio/vidéo
+│   ├── sound-designer.md        → Music, SFX, voiceover
+│   ├── assembly.md              → Final edit, audio/video sync
 │   └── quality-control.md      → Review checklist, export
 ├── commands/
-│   ├── creative-brief.md        → /creative-brief [format] [objectif]
+│   ├── creative-brief.md        → /creative-brief [format] [objective]
 │   ├── generate-content.md      → /generate-content [type]
-│   └── sound-design.md          → /sound-design [émotion] [durée]
+│   └── sound-design.md          → /sound-design [emotion] [duration]
 └── skills/
     ├── motion-design-mastery.md
     ├── cinema-editing-masterclass.md
     └── neuromarketing-visual-persuasion.md
 ```
 
-**Principe :** chaque agent a une spécialité unique et peut être invoqué en parallèle sur une même production.
+**Principle:** each agent has a unique specialty and can be invoked in parallel on the same production.
 
 ---
 
-## 8. Règles absolues production
+## 8. Absolute Rules — Production
 
 ```
-❌ JAMAIS publier sans sous-titres sur les vidéos sociales
-❌ JAMAIS exporter en mauvaise résolution (vérifier section 4)
-❌ JAMAIS publier sans avoir vérifié les 3 premières secondes (hook)
-❌ JAMAIS dépasser le bitrate max — le codec écrase la qualité
+❌ NEVER publish social videos without subtitles
+❌ NEVER export at the wrong resolution (check section 4)
+❌ NEVER publish without reviewing the first 3 seconds (hook)
+❌ NEVER exceed the maximum bitrate — the codec degrades quality
 
-✅ TOUJOURS normaliser l'audio à -14 LUFS avant export final
-✅ TOUJOURS avoir un fallback MP4 pour le web (WebM non supporté partout)
-✅ TOUJOURS créer une thumbnail personnalisée (YouTube/LinkedIn)
-✅ TOUJOURS suivre le brief avant de générer (évite les itérations inutiles)
+✅ ALWAYS normalize audio to -14 LUFS before final export
+✅ ALWAYS have an MP4 fallback for the web (WebM not supported everywhere)
+✅ ALWAYS create a custom thumbnail (YouTube/LinkedIn)
+✅ ALWAYS follow the brief before generating (avoids unnecessary iterations)
 ```
 
 ---
 
 ## Sources
 
-| Référence | Lien |
+| Reference | Link |
 |-----------|------|
 | Instagram Creator — Specs | creators.instagram.com/tools-and-resources/formats-and-specs |
 | TikTok Creator Portal — Specs | creator.tiktok.com/creator-portal/en-us/getting-started/video-specs |

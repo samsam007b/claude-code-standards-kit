@@ -1,62 +1,62 @@
-# Audit Déploiement — Gate Pré-Production
+# Deployment Audit — Pre-Production Gate
 
-> Checklist exhaustive à compléter avant tout déploiement en production.
-> Toutes les cases doivent être cochées avant de merger sur `main`.
-
----
-
-## 🔴 Bloquants — zéro exception
-
-- [ ] `npm run build` passe sans erreur
-- [ ] `npm run lint` passe avec 0 erreur ESLint
-- [ ] `npm audit --audit-level=critical` passe
-- [ ] Aucun `console.log` de debug (`grep -r "console.log" src/`)
-- [ ] Aucune clé secrète dans le diff (`git diff main...HEAD`)
-- [ ] Variables d'environnement configurées dans Vercel dashboard
-- [ ] `.env.local` NOT commité (vérifier `.gitignore`)
+> Exhaustive checklist to complete before any production deployment.
+> All boxes must be checked before merging to `main`.
 
 ---
 
-## 🟡 Qualité — fortement recommandé
+## 🔴 Blocking — zero exceptions
 
-**Performance :**
-- [ ] LCP ≤2.5s sur les pages critiques (PageSpeed Insights)
-- [ ] CLS <0.1 sur les pages critiques
+- [ ] `npm run build` passes without errors
+- [ ] `npm run lint` passes with 0 ESLint errors
+- [ ] `npm audit --audit-level=critical` passes
+- [ ] No debug `console.log` (`grep -r "console.log" src/`)
+- [ ] No secret keys in the diff (`git diff main...HEAD`)
+- [ ] Environment variables configured in Vercel dashboard
+- [ ] `.env.local` NOT committed (check `.gitignore`)
+
+---
+
+## 🟡 Quality — strongly recommended
+
+**Performance:**
+- [ ] LCP ≤2.5s on critical pages (PageSpeed Insights)
+- [ ] CLS <0.1 on critical pages
 - [ ] Lighthouse Performance ≥85
 - [ ] Lighthouse SEO ≥90
 
-**Code :**
-- [ ] Tests passent (`npm run test`)
-- [ ] Coverage ne régresse pas
-- [ ] TypeScript strict — aucune erreur `any` introduite
+**Code:**
+- [ ] Tests pass (`npm run test`)
+- [ ] Coverage does not regress
+- [ ] TypeScript strict — no `any` error introduced
 
-**Accessibilité :**
+**Accessibility:**
 - [ ] Lighthouse Accessibility ≥90
-- [ ] Contrastes vérifiés sur les nouvelles UI
+- [ ] Contrasts verified on new UI
 
-**SEO :**
-- [ ] Metadata (title + description) sur toutes les nouvelles pages
-- [ ] Aucun `ssr: false` ajouté sur pages indexées
-- [ ] JSON-LD schema à jour si structure du site modifiée
+**SEO:**
+- [ ] Metadata (title + description) on all new pages
+- [ ] No `ssr: false` added on indexed pages
+- [ ] JSON-LD schema updated if site structure was modified
 
-**Release & Dépendances :**
-- [ ] CHANGELOG.md mis à jour avec les changements de cette release
-- [ ] `npm audit` complet — aucune vulnérabilité High ou Critical ouverte
-- [ ] Dependabot PRs reviewées (aucune vulnérabilité P0/P1 en attente)
-
----
-
-## 🟢 Vérifications post-déploiement (dans les 30 min)
-
-- [ ] Page d'accueil charge correctement
-- [ ] Formulaire de contact fonctionne (test réel)
-- [ ] Auth flow fonctionne (connexion + déconnexion)
-- [ ] Logs Vercel sans erreur 500
-- [ ] Google Search Console : pas d'erreurs critiques nouvelles
+**Release & Dependencies:**
+- [ ] CHANGELOG.md updated with changes from this release
+- [ ] Full `npm audit` — no open High or Critical vulnerabilities
+- [ ] Dependabot PRs reviewed (no pending P0/P1 vulnerabilities)
 
 ---
 
-## Commandes de vérification rapide
+## 🟢 Post-deployment checks (within 30 minutes)
+
+- [ ] Homepage loads correctly
+- [ ] Contact form works (real test)
+- [ ] Auth flow works (login + logout)
+- [ ] Vercel logs without 500 errors
+- [ ] Google Search Console: no new critical errors
+
+---
+
+## Quick verification commands
 
 ```bash
 # Build
@@ -65,22 +65,22 @@ npm run build
 # Lint + tests
 npm run lint && npm run test
 
-# Secrets dans diff
+# Secrets in diff
 git diff main...HEAD | grep -E "(KEY|SECRET|PASSWORD|TOKEN)"
 
-# console.log oubliés
+# Forgotten console.log
 grep -r "console\.log" src/ --include="*.ts" --include="*.tsx"
 
-# Vérifier .env.local non commité
+# Verify .env.local not committed
 git status | grep ".env"
 ```
 
 ---
 
-## Si un bloquant est levé sans résolution
+## If a blocker is overridden without resolution
 
-Documenter ici avec date, raison, et plan de correction :
+Document here with date, reason, and remediation plan:
 
-| Date | Bloquant levé | Raison | Plan |
-|------|--------------|--------|------|
-| [JJ/MM] | [item] | [raison] | [correction prévue pour] |
+| Date | Blocker overridden | Reason | Plan |
+|------|--------------------|--------|------|
+| [DD/MM] | [item] | [reason] | [correction planned for] |

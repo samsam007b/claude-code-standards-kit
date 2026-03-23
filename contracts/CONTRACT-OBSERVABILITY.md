@@ -1,73 +1,73 @@
-# Contrat — Observabilité & Monitoring
+# Contract — Observability & Monitoring
 
-> Module de contrat SQWR Project Kit.
-> Sources : Google SRE Book, OpenTelemetry, Sentry docs, Supabase Backup docs.
-> Principe : "Vercel logs" ≠ observabilité. La production sans monitoring est aveugle.
-
----
-
-## Fondements
-
-**Sans observabilité, le système échoue en silence.** Google SRE distingue trois pilliers :
-- **Logs** : événements discrets (ce qui s'est passé)
-- **Metrics** : agrégats numériques dans le temps (dans quel état)
-- **Traces** : chemin d'une requête à travers les composants (pourquoi c'est lent)
-
-> Source : *Google SRE Book, Chapter 6 — Monitoring Distributed Systems*
+> SQWR Project Kit contract module.
+> Sources: Google SRE Book, OpenTelemetry, Sentry docs, Supabase Backup docs.
+> Principle: "Vercel logs" ≠ observability. Production without monitoring is blind.
 
 ---
 
-## 1. Logging structuré
+## Foundations
 
-### Ne jamais faire
+**Without observability, the system fails silently.** Google SRE distinguishes three pillars:
+- **Logs**: discrete events (what happened)
+- **Metrics**: numerical aggregates over time (what state the system is in)
+- **Traces**: the path of a request through components (why it is slow)
+
+> Source: *Google SRE Book, Chapter 6 — Monitoring Distributed Systems*
+
+---
+
+## 1. Structured Logging
+
+### Never do
 
 ```typescript
-// ❌ console.log non structuré — impossible à filtrer ou alerter
-console.log("Erreur paiement", err)
+// ❌ Unstructured console.log — impossible to filter or alert on
+console.log("Payment error", err)
 console.log("User " + userId + " logged in")
 ```
 
-### Toujours faire
+### Always do
 
 ```typescript
-// ✅ Logging structuré — JSON parseable, filtrable, alertable
+// ✅ Structured logging — JSON parseable, filterable, alertable
 const log = {
   level: 'error',          // debug | info | warn | error | fatal
   message: 'payment_failed',
-  userId: userId,          // identifiant, jamais email/password
+  userId: userId,          // identifier, never email/password
   orderId: orderId,
   errorCode: err.code,
   timestamp: new Date().toISOString(),
-  traceId: generateTraceId(),  // pour corréler les logs d'une même requête
+  traceId: generateTraceId(),  // to correlate logs from the same request
 }
 console.error(JSON.stringify(log))
 ```
 
-**Règles PII (RGPD) :**
+**PII Rules (GDPR):**
 
-| Ne jamais logger | Logger à la place |
-|-----------------|------------------|
-| Email | userId (hash anonyme) |
-| Mot de passe | — (jamais) |
-| Numéro de carte | last4 digits uniquement |
-| Adresse complète | city uniquement |
-| Token de session | — (jamais) |
+| Never log | Log instead |
+|-----------|-------------|
+| Email | userId (anonymous hash) |
+| Password | — (never) |
+| Card number | last 4 digits only |
+| Full address | city only |
+| Session token | — (never) |
 
-**Niveaux de log :**
+**Log levels:**
 
-| Niveau | Quand l'utiliser |
-|--------|-----------------|
-| `debug` | Dev only — désactivé en prod |
-| `info` | Actions métier normales (user created, payment succeeded) |
-| `warn` | Situation anormale mais récupérable (retry, deprecated API) |
-| `error` | Erreur qui affecte un utilisateur |
-| `fatal` | Service indisponible |
+| Level | When to use |
+|-------|------------|
+| `debug` | Dev only — disabled in production |
+| `info` | Normal business actions (user created, payment succeeded) |
+| `warn` | Abnormal but recoverable situation (retry, deprecated API) |
+| `error` | Error that affects a user |
+| `fatal` | Service unavailable |
 
 ---
 
 ## 2. Error Tracking — Sentry
 
-**Règle : `console.error` seul est insuffisant en production.** Sentry agrège, déduplique, alerte, et relie les erreurs aux releases.
+**Rule: `console.error` alone is insufficient in production.** Sentry aggregates, deduplicates, alerts, and links errors to releases.
 
 ```bash
 npm install @sentry/nextjs
@@ -81,15 +81,15 @@ import * as Sentry from "@sentry/nextjs"
 Sentry.init({
   dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
   environment: process.env.NODE_ENV,
-  tracesSampleRate: 0.1,      // 10% des transactions — ajuster selon volume
+  tracesSampleRate: 0.1,      // 10% of transactions — adjust based on volume
   profilesSampleRate: 0.1,
-  // Ne pas envoyer les erreurs de dev local
+  // Do not send errors from local dev
   enabled: process.env.NODE_ENV === 'production',
 })
 ```
 
 ```typescript
-// Dans les Server Actions ou API routes
+// In Server Actions or API routes
 import * as Sentry from "@sentry/nextjs"
 
 export async function createPayment(data: unknown) {
@@ -106,19 +106,19 @@ export async function createPayment(data: unknown) {
 }
 ```
 
-**Alertes Sentry à configurer :**
-- Error rate > 1% sur une page → notification Slack/email immédiate
-- Nouvelle erreur non vue → notification immédiate
-- Erreur qui affecte > 10 utilisateurs → notification critique
+**Sentry alerts to configure:**
+- Error rate > 1% on a page → immediate Slack/email notification
+- New unseen error → immediate notification
+- Error affecting > 10 users → critical notification
 
 ---
 
 ## 3. Performance Monitoring — Real User Monitoring (RUM)
 
-**Lighthouse DevTools ≠ expérience utilisateur réelle.** Lighthouse mesure dans des conditions idéales. Le RUM mesure ce que les vrais utilisateurs vivent.
+**Lighthouse DevTools ≠ real user experience.** Lighthouse measures under ideal conditions. RUM measures what real users actually experience.
 
 ```typescript
-// app/layout.tsx — Vercel Speed Insights (RUM gratuit sur Vercel)
+// app/layout.tsx — Vercel Speed Insights (free RUM on Vercel)
 import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export default function RootLayout({ children }) {
@@ -126,21 +126,21 @@ export default function RootLayout({ children }) {
     <html>
       <body>
         {children}
-        <SpeedInsights />  {/* Mesure LCP, INP, CLS réels par utilisateur */}
+        <SpeedInsights />  {/* Measures real LCP, INP, CLS per user */}
       </body>
     </html>
   )
 }
 ```
 
-**Métriques RUM à surveiller :**
+**RUM metrics to monitor:**
 
-| Métrique | Seuil alerte | Outil |
-|----------|-------------|-------|
-| LCP | >3s au 75e percentile | Vercel Speed Insights |
+| Metric | Alert Threshold | Tool |
+|--------|----------------|------|
+| LCP | >3s at 75th percentile | Vercel Speed Insights |
 | INP | >300ms | Vercel Speed Insights |
 | CLS | >0.15 | Vercel Speed Insights |
-| Error rate | >1% des sessions | Sentry |
+| Error rate | >1% of sessions | Sentry |
 
 ---
 
@@ -149,67 +149,67 @@ export default function RootLayout({ children }) {
 ### Supabase
 
 ```bash
-# Vérifier que le PITR (Point-in-Time Recovery) est activé
+# Verify that PITR (Point-in-Time Recovery) is enabled
 # Supabase Dashboard → Settings → Database → PITR
-# Pro plan : PITR jusqu'à 7 jours
-# Team plan : PITR jusqu'à 28 jours
+# Pro plan: PITR up to 7 days
+# Team plan: PITR up to 28 days
 ```
 
-**Procédure de restauration :**
-1. Supabase Dashboard → Backups → sélectionner le point de restauration
-2. Restauration dans un projet séparé d'abord (ne pas écraser la prod directement)
-3. Vérifier l'intégrité des données restaurées
-4. Switch de connexion une fois validé
+**Restoration procedure:**
+1. Supabase Dashboard → Backups → select the restore point
+2. Restore to a separate project first (do not overwrite production directly)
+3. Verify the integrity of the restored data
+4. Switch the connection once validated
 
-**Export manuel régulier (pour les plans sans PITR) :**
+**Manual regular export (for plans without PITR):**
 ```bash
-# Export complet de la base
+# Full database export
 pg_dump "postgresql://postgres:[password]@[host]:5432/postgres" \
   --format=custom \
   --file="backup-$(date +%Y%m%d).dump"
 ```
 
-### Checklist Disaster Recovery
+### Disaster Recovery Checklist
 
-- [ ] PITR activé sur Supabase (ou export automatique configuré)
-- [ ] Dernière restauration testée (jamais uniquement assumée fonctionnelle)
-- [ ] Procédure documentée et accessible sans accès au système compromis
-- [ ] Contacts d'urgence définis (Supabase support, Vercel support)
+- [ ] PITR enabled on Supabase (or automated export configured)
+- [ ] Last restoration tested (never merely assumed to work)
+- [ ] Procedure documented and accessible without access to the compromised system
+- [ ] Emergency contacts defined (Supabase support, Vercel support)
 
 ---
 
-## 5. Alerting — Seuils recommandés
+## 5. Alerting — Recommended Thresholds
 
-| Événement | Seuil | Action |
-|-----------|-------|--------|
-| Error rate | >1% | Notification Slack immédiate |
-| p95 latency | >2s | Notification Slack |
+| Event | Threshold | Action |
+|-------|-----------|--------|
+| Error rate | >1% | Immediate Slack notification |
+| p95 latency | >2s | Slack notification |
 | p99 latency | >5s | Page (on-call) |
 | Supabase connection pool | >80% | Warning |
-| Build failure | Toute | Notification immédiate |
-| npm audit critical | Toute | Bloquer le déploiement |
+| Build failure | Any | Immediate notification |
+| npm audit critical | Any | Block deployment |
 
 ---
 
-## 6. Règles absolues
+## 6. Absolute Rules
 
-### Ne jamais faire
-- Logger des données sensibles (email, password, tokens, cartes)
-- Désactiver les alertes Sentry "parce que c'est du bruit" sans investiguer
-- Partir en production sans error tracking configuré
-- Utiliser `console.log` comme seul mécanisme de monitoring
+### Never do
+- Log sensitive data (email, password, tokens, card numbers)
+- Disable Sentry alerts "because of noise" without investigating
+- Go to production without error tracking configured
+- Use `console.log` as the sole monitoring mechanism
 
-### Toujours faire
-- Avoir un `traceId` dans chaque log pour corréler les événements
-- Configurer les alertes Sentry avant le premier déploiement prod
-- Tester la procédure de restauration Supabase sur un projet clone
-- Vérifier les logs Vercel + Sentry dans les 30 min suivant un déploiement
+### Always do
+- Include a `traceId` in every log to correlate events
+- Configure Sentry alerts before the first production deployment
+- Test the Supabase restoration procedure on a clone project
+- Check Vercel logs + Sentry within the 30 minutes following a deployment
 
 ---
 
 ## 7. Sources
 
-| Référence | Source |
+| Reference | Source |
 |-----------|--------|
 | Google SRE Book — Monitoring | sre.google/sre-book/monitoring-distributed-systems |
 | OpenTelemetry | opentelemetry.io |

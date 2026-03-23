@@ -1,52 +1,52 @@
-# Contrat — Sécurité
+# Contract — Security
 
-> Module de contrat SQWR Project Kit.
-> Sources : OWASP Top 10, NIST SP 800-63B, CWE Top 25, Cloudflare.
-
----
-
-## Fondements scientifiques
-
-**Broken Access Control** est la vulnérabilité #1 de l'OWASP Top 10 (données 2021, mise à jour 2024). 94% des applications testées présentent une forme de contrôle d'accès défaillant. La sécurité ne s'ajoute pas après coup — elle se conçoit dès l'architecture.
-
-> Source : [OWASP Top 10 — owasp.org/www-project-top-ten](https://owasp.org/www-project-top-ten/)
+> SQWR Project Kit contract module.
+> Sources: OWASP Top 10, NIST SP 800-63B, CWE Top 25, Cloudflare.
 
 ---
 
-## 1. OWASP Top 10 — Mitigations pour Next.js + Supabase
+## Scientific Foundations
 
-| # | Vulnérabilité | Mitigation SQWR |
+**Broken Access Control** is the #1 vulnerability in the OWASP Top 10 (2021 data, updated 2024). 94% of tested applications exhibit some form of broken access control. Security is not added as an afterthought — it is designed into the architecture from the start.
+
+> Source: [OWASP Top 10 — owasp.org/www-project-top-ten](https://owasp.org/www-project-top-ten/)
+
+---
+
+## 1. OWASP Top 10 — Mitigations for Next.js + Supabase
+
+| # | Vulnerability | SQWR Mitigation |
 |---|--------------|----------------|
-| **A01** | Broken Access Control | RLS Supabase activé + middleware auth sur toutes routes protégées |
-| **A02** | Cryptographic Failures | Pas de données sensibles en clair, HTTPS obligatoire, cookies HttpOnly |
-| **A03** | Injection | Zod validation sur toutes entrées + Supabase parameterized queries |
-| **A04** | Insecure Design | Threat modeling avant implémentation features auth |
-| **A05** | Security Misconfiguration | Headers sécurité, RLS enabled, env vars jamais exposées |
-| **A06** | Vulnerable Components | `npm audit` en CI, SLA <48h pour critical |
-| **A07** | Auth Failures | Sessions courtes, refresh token rotation, pas de localStorage |
-| **A09** | Logging Failures | Erreurs loggées (sans données sensibles), alertes sur events suspects |
+| **A01** | Broken Access Control | Supabase RLS enabled + auth middleware on all protected routes |
+| **A02** | Cryptographic Failures | No sensitive data in plaintext, HTTPS mandatory, HttpOnly cookies |
+| **A03** | Injection | Zod validation on all inputs + Supabase parameterized queries |
+| **A04** | Insecure Design | Threat modeling before implementing auth features |
+| **A05** | Security Misconfiguration | Security headers, RLS enabled, env vars never exposed |
+| **A06** | Vulnerable Components | `npm audit` in CI, SLA <48h for critical |
+| **A07** | Auth Failures | Short sessions, refresh token rotation, no localStorage |
+| **A09** | Logging Failures | Errors logged (without sensitive data), alerts on suspicious events |
 
 ---
 
 ## 2. Cross-Site Scripting (XSS)
 
-### Ne jamais faire
+### Never do
 
 ```tsx
-// ❌ Injection directe de HTML utilisateur — vulnérabilité critique
+// ❌ Direct injection of user HTML — critical vulnerability
 <div dangerouslySetInnerHTML={{ __html: userInput }} />
 
-// ❌ Interpolation non échappée dans href
+// ❌ Unescaped interpolation in href
 <a href={userProvidedUrl}>Link</a>  // Possible javascript: protocol injection
 ```
 
-### Toujours faire
+### Always do
 
 ```tsx
-// ✅ React échappe automatiquement — pas de dangerouslySetInnerHTML
+// ✅ React escapes automatically — no dangerouslySetInnerHTML
 <div>{userInput}</div>
 
-// ✅ Valider les URLs utilisateur
+// ✅ Validate user URLs
 function sanitizeUrl(url: string): string {
   try {
     const parsed = new URL(url)
@@ -70,16 +70,16 @@ const ContentSecurityPolicy = `
 
 ## 3. Cross-Site Request Forgery (CSRF)
 
-Next.js App Router + Supabase avec cookies `SameSite=Lax` protège contre la majorité des CSRF.
+Next.js App Router + Supabase with `SameSite=Lax` cookies protects against the majority of CSRF attacks.
 
 ```typescript
-// Vérification supplémentaire pour Server Actions sensibles
+// Additional check for sensitive Server Actions
 export async function sensitiveAction(formData: FormData) {
   const origin = headers().get('origin')
   if (origin !== process.env.NEXT_PUBLIC_APP_URL) {
     throw new Error('CSRF check failed')
   }
-  // Logique...
+  // Logic...
 }
 ```
 
@@ -87,17 +87,17 @@ export async function sensitiveAction(formData: FormData) {
 
 ## 4. Injection (SQL, LDAP, OS)
 
-**Supabase utilise automatiquement des prepared statements via PostgREST.** Risque principal = construire du SQL manuellement.
+**Supabase automatically uses prepared statements via PostgREST.** The main risk is building SQL manually.
 
 ```typescript
-// ❌ JAMAIS de SQL construit avec des inputs utilisateur
+// ❌ NEVER build SQL with user inputs
 const { data } = await supabase.rpc(`SELECT * FROM projects WHERE name = '${name}'`)
 
-// ✅ API Supabase native = parameterized par défaut
+// ✅ Native Supabase API = parameterized by default
 const { data } = await supabase.from('projects').select('*').eq('name', name)
 
-// ✅ Validation Zod avant toute opération DB
-const validated = ProjectSchema.parse(input)  // throw si invalide
+// ✅ Zod validation before any DB operation
+const validated = ProjectSchema.parse(input)  // throws if invalid
 ```
 
 ---
@@ -133,99 +133,99 @@ const nextConfig = {
 ## 6. Dependency Scanning
 
 ```bash
-# En CI/CD (GitHub Actions) — bloquer sur vulnerabilities critiques
+# In CI/CD (GitHub Actions) — block on critical vulnerabilities
 npm audit --audit-level=critical
 
-# Localement — rapport complet
+# Locally — full report
 npm audit
 
-# Fix automatique (attention aux breaking changes)
+# Automatic fix (watch for breaking changes)
 npm audit fix
 ```
 
-**SLA de correction :**
-| Sévérité | SLA |
+**Remediation SLA:**
+| Severity | SLA |
 |----------|-----|
 | **Critical** | <48h |
-| **High** | <1 semaine |
-| **Medium** | Sprint suivant |
+| **High** | <1 week |
+| **Medium** | Next sprint |
 | **Low** | Backlog |
 
 ---
 
-## 7. Gestion des secrets
+## 7. Secrets Management
 
 ```bash
-# ✅ Rotation des clés Supabase si compromises
-# Aller dans Supabase Dashboard → Settings → API → Rotate keys
+# ✅ Rotate Supabase keys if compromised
+# Go to Supabase Dashboard → Settings → API → Rotate keys
 
-# ✅ Vérifier qu'aucun secret n'est dans git
-git log -S "SUPABASE_SERVICE" --all  # Recherche dans l'historique git
+# ✅ Verify no secrets are in git
+git log -S "SUPABASE_SERVICE" --all  # Search through git history
 ```
 
-**Règle NIST SP 800-63B :** ne pas faire de rotation sur calendrier fixe. Rotation uniquement si compromission suspectée.
+**NIST SP 800-63B rule:** do not rotate on a fixed calendar schedule. Rotate only if compromise is suspected.
 
 ---
 
-## 8. Incident Response (3 étapes)
+## 8. Incident Response (3 steps)
 
-**En cas de compromission détectée :**
+**If a compromise is detected:**
 
-1. **Contenir** (0-1h)
-   - Invalider toutes les sessions actives (Supabase Auth → Invalidate all tokens)
-   - Rotationner les clés API exposées
-   - Révoquer les accès suspects
+1. **Contain** (0-1h)
+   - Invalidate all active sessions (Supabase Auth → Invalidate all tokens)
+   - Rotate exposed API keys
+   - Revoke suspicious access
 
-2. **Analyser** (1-24h)
-   - Identifier le vecteur d'attaque
-   - Évaluer les données compromises
-   - Documenter la timeline
+2. **Analyze** (1-24h)
+   - Identify the attack vector
+   - Assess compromised data
+   - Document the timeline
 
-3. **Communiquer** (selon RGPD)
-   - Notification CNIL si données personnelles compromises (< 72h)
-   - Communication aux utilisateurs affectés si nécessaire
+3. **Communicate** (per GDPR)
+   - Notify CNIL if personal data is compromised (< 72h)
+   - Notify affected users if necessary
 
 ---
 
-## 9. Conformité RGPD — Obligations techniques
+## 9. GDPR Compliance — Technical Obligations
 
-> Sources : Règlement UE 2016/679 (RGPD), CNIL (cnil.fr), European Data Protection Board (edpb.europa.eu)
+> Sources: EU Regulation 2016/679 (GDPR), CNIL (cnil.fr), European Data Protection Board (edpb.europa.eu)
 
-**Applicable à tout projet traitant des données personnelles de résidents EU.**
+**Applicable to any project processing personal data of EU residents.**
 
-### 9.1 Article 8 — Vérification d'âge
+### 9.1 Article 8 — Age Verification
 
-**Seuil légal : 16 ans minimum sans consentement parental (implémentation recommandée : 18 ans).**
+**Legal threshold: minimum 16 years without parental consent (recommended implementation: 18 years).**
 
 ```typescript
-// ✅ Vérification âge à l'inscription (Article 8 RGPD)
+// ✅ Age check at registration (GDPR Article 8)
 const birthDate = new Date(input.birthDate)
 const age = differenceInYears(new Date(), birthDate)
 if (age < 18) {
   return NextResponse.json(
-    { error: 'Vous devez avoir 18 ans ou plus pour vous inscrire.' },
+    { error: 'You must be 18 years or older to register.' },
     { status: 400 }
   )
 }
 ```
 
-**Règles :**
-- Champ `birthDate` obligatoire au signup
-- Vérification `age >= 18` côté serveur (pas uniquement client)
-- Documenter dans CGU : condition d'âge minimum
+**Rules:**
+- `birthDate` field required at signup
+- `age >= 18` check server-side (not client-side only)
+- Document in Terms of Service: minimum age requirement
 
-### 9.2 Article 34 — Notification de violation de données
+### 9.2 Article 34 — Data Breach Notification
 
-**Seuil : 72 heures maximum pour notifier l'autorité de contrôle (CNIL/APD).**
+**Threshold: maximum 72 hours to notify the supervisory authority (CNIL/DPA).**
 
 ```sql
--- Table obligatoire pour traçabilité des incidents
+-- Mandatory table for incident traceability
 CREATE TABLE security_breaches (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   detected_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   severity TEXT CHECK (severity IN ('low', 'medium', 'high', 'critical')),
   affected_records INTEGER,
-  data_types TEXT[],      -- ex: ['email', 'phone', 'bank_info']
+  data_types TEXT[],      -- e.g.: ['email', 'phone', 'bank_info']
   description TEXT,
   containment_actions TEXT,
   notified_authority BOOLEAN DEFAULT false,
@@ -235,47 +235,46 @@ CREATE TABLE security_breaches (
 );
 ```
 
-**Process :**
-1. Incident détecté → log dans `security_breaches` immédiatement
-2. Évaluer si données personnelles affectées
-3. Si OUI → notifier autorité nationale (CNIL/APD) **< 72h** après détection
-4. Si risque élevé pour individus → notifier les utilisateurs affectés sans délai
+**Process:**
+1. Incident detected → log to `security_breaches` immediately
+2. Assess whether personal data is affected
+3. If YES → notify national authority (CNIL/DPA) **< 72h** after detection
+4. If high risk to individuals → notify affected users without delay
 
-### 9.3 Articles 44-49 — Transferts internationaux (Schrems II)
+### 9.3 Articles 44-49 — International Transfers (Schrems II)
 
-**Applicable lorsque des sous-traitants US traitent des données EU.**
+**Applicable when US sub-processors handle EU data.**
 
-| Sous-traitant | Pays | Mécanisme légal requis |
+| Sub-processor | Country | Required legal mechanism |
 |---------------|------|----------------------|
 | Stripe Inc. | USA | Standard Contractual Clauses (SCC) |
 | Sentry (Functional Software) | USA | Standard Contractual Clauses (SCC) |
-| Vercel Inc. | USA | SCC ou DPA EU |
-| Supabase Inc. | USA | DPA disponible sur supabase.com/dpa |
+| Vercel Inc. | USA | SCC or EU DPA |
+| Supabase Inc. | USA | DPA available at supabase.com/dpa |
 
-**Obligations dans la Privacy Policy :**
+**Privacy Policy obligations:**
 ```markdown
-Nos sous-traitants situés aux États-Unis traitent vos données
-sur la base des Clauses Contractuelles Types (CCT/SCC)
-approuvées par la Commission européenne (Décision 2021/914).
+Our sub-processors located in the United States process your data
+on the basis of Standard Contractual Clauses (SCC)
+approved by the European Commission (Decision 2021/914).
 ```
 
-**Ne jamais :** nommer des sous-traitants US sans mentionner le mécanisme légal de transfert.
+**Never:** name US sub-processors without mentioning the legal transfer mechanism.
 
-### 9.4 Circuit Breaker pour Rate Limiter
+### 9.4 Circuit Breaker for Rate Limiting
 
-**Problème :** Un rate limiter "fail-open" (laisse passer si Redis tombe) expose à des attaques DoS en cas de panne Redis.
+**Problem:** A "fail-open" rate limiter (lets requests through when Redis is down) exposes the system to DoS attacks during a Redis outage.
 
 ```typescript
-// ✅ Pattern circuit breaker avec fallback mémoire
+// ✅ Circuit breaker pattern with memory fallback
 import { Ratelimit } from '@upstash/ratelimit'
 import { Redis } from '@upstash/redis'
 
-// Fallback en mémoire si Redis indisponible
+// In-memory fallback if Redis is unavailable
 const MEMORY_STORE = new Map<string, { count: number; reset: number }>()
 
 async function checkRateLimit(ip: string, limit: number, windowMs: number): Promise<boolean> {
   try {
-    // Tentative Redis
     const ratelimit = new Ratelimit({
       redis: Redis.fromEnv(),
       limiter: Ratelimit.slidingWindow(limit, `${windowMs}ms`),
@@ -283,14 +282,14 @@ async function checkRateLimit(ip: string, limit: number, windowMs: number): Prom
     const { success } = await ratelimit.limit(ip)
     return success
   } catch {
-    // Fallback mémoire si Redis indisponible (fail-closed)
+    // Memory fallback if Redis is unavailable (fail-closed)
     const now = Date.now()
     const entry = MEMORY_STORE.get(ip)
     if (!entry || entry.reset < now) {
       MEMORY_STORE.set(ip, { count: 1, reset: now + windowMs })
       return true
     }
-    if (entry.count >= limit) return false  // Bloquer (fail-closed)
+    if (entry.count >= limit) return false  // Block (fail-closed)
     entry.count++
     return true
   }
@@ -299,156 +298,154 @@ async function checkRateLimit(ip: string, limit: number, windowMs: number): Prom
 
 ### 9.5 Data Retention Policies
 
-**RGPD Article 5(1)(e) — Limitation de la conservation.**
+**GDPR Article 5(1)(e) — Storage limitation.**
 
-| Type de donnée | Durée de rétention | Justification |
+| Data type | Retention period | Justification |
 |----------------|-------------------|---------------|
-| Données financières (paiements) | 6 ans | Obligation légale comptable |
-| Logs d'audit sécurité | 12 mois | Détection incidents |
-| Messages utilisateurs | Durée du compte + 30 jours | Continuité service |
-| Analytics (GA) | 13 mois | Standard Google Analytics |
-| Tokens de session expirés | 24 heures | Nettoyage automatique |
-| Données compte supprimé | Anonymisation immédiate | Art. 17 droit à l'oubli |
+| Financial data (payments) | 6 years | Legal accounting obligation |
+| Security audit logs | 12 months | Incident detection |
+| User messages | Account duration + 30 days | Service continuity |
+| Analytics (GA) | 13 months | Google Analytics standard |
+| Expired session tokens | 24 hours | Automatic cleanup |
+| Deleted account data | Immediate anonymization | Art. 17 right to erasure |
 
 ```sql
--- Cleanup automatique recommandé (cron Supabase)
+-- Recommended automatic cleanup (Supabase cron)
 DELETE FROM audit_logs WHERE created_at < NOW() - INTERVAL '12 months';
 DELETE FROM analytics_events WHERE created_at < NOW() - INTERVAL '13 months';
 ```
 
-### 9.6 Protection contre l'énumération d'emails
+### 9.6 Protection Against Email Enumeration
 
-**Principe :** ne jamais révéler si un email existe ou non — prévient les attaques de reconnaissance.
+**Principle:** never reveal whether an email exists or not — prevents reconnaissance attacks.
 
 ```typescript
-// ✅ Réponse générique indépendante du résultat
+// ✅ Generic response regardless of outcome
 export async function POST(req: Request) {
   const { email } = await req.json()
 
-  // Toujours le même délai (prévient timing attacks)
+  // Always the same delay (prevents timing attacks)
   await new Promise(resolve => setTimeout(resolve, 300))
 
   try {
-    await createUser(email) // peut échouer silencieusement
+    await createUser(email) // may fail silently
   } catch {
-    // Ne jamais exposer "cet email est déjà utilisé"
+    // Never expose "this email is already in use"
   }
 
-  // Même réponse, succès ou échec
+  // Same response, success or failure
   return NextResponse.json({
-    message: 'Si cet email est valide, vous recevrez un lien de confirmation.'
+    message: 'If this email is valid, you will receive a confirmation link.'
   })
 }
 ```
 
 ---
 
-## 10. Checklist sécurité pré-déploiement
+## 10. Pre-Deployment Security Checklist
 
-- [ ] `npm audit --audit-level=critical` passe
-- [ ] RLS activé sur toutes les tables avec données utilisateurs
-- [ ] Aucune clé secrète dans le code ou `.env.example`
-- [ ] Security headers configurés dans `next.config.js`
-- [ ] `dangerouslySetInnerHTML` absent (ou justifié)
-- [ ] Validation Zod sur tous les inputs externes
-- [ ] Auth middleware sur toutes les routes protégées
-- [ ] HTTPS configuré (Vercel par défaut)
-- [ ] Vérification d'âge implémentée si données personnelles mineurs possibles (RGPD Art. 8)
-- [ ] Table `security_breaches` créée pour traçabilité incidents (RGPD Art. 34)
-- [ ] Sous-traitants US documentés avec mécanisme SCC dans Privacy Policy (RGPD Art. 44-49)
-- [ ] Rate limiter avec circuit breaker (pas de fail-open)
-- [ ] Data retention policies documentées par type de donnée (RGPD Art. 5)
-- [ ] Réponses auth génériques (pas d'email enumeration)
+- [ ] `npm audit --audit-level=critical` passes
+- [ ] RLS enabled on all tables with user data
+- [ ] No secret keys in the code or `.env.example`
+- [ ] Security headers configured in `next.config.js`
+- [ ] No unsafe HTML injection (or justified with sanitization)
+- [ ] Zod validation on all external inputs
+- [ ] Auth middleware on all protected routes
+- [ ] HTTPS configured (Vercel default)
+- [ ] Age verification implemented if minors' personal data is possible (GDPR Art. 8)
+- [ ] `security_breaches` table created for incident traceability (GDPR Art. 34)
+- [ ] US sub-processors documented with SCC mechanism in Privacy Policy (GDPR Art. 44-49)
+- [ ] Rate limiter with circuit breaker (no fail-open)
+- [ ] Data retention policies documented per data type (GDPR Art. 5)
+- [ ] Generic auth responses (no email enumeration)
 
 ---
 
-## 12. Risques IA & Supply Chain (2025-2026)
+## 12. AI & Supply Chain Risks (2025-2026)
 
-> Sources : OWASP LLM Top 10 2025, The Register (avril 2025), Trend Micro, Anthropic Research, Veracode 2025.
+> Sources: OWASP LLM Top 10 2025, The Register (April 2025), Trend Micro, Anthropic Research, Veracode 2025.
 
-### Slopsquatting — menace active sur les projets IA-assistés
+### Slopsquatting — Active Threat on AI-Assisted Projects
 
-**Les LLMs hallucinent des packages NPM/PyPI inexistants dans 19.7% des cas** (testé sur 576,000 échantillons, 16 modèles — The Register, avril 2025). Des attaquants enregistrent ces noms avec du code malveillant. Un `npm install` sur une suggestion IA sans vérification peut installer un malware.
+**LLMs hallucinate non-existent NPM/PyPI packages in 19.7% of cases** (tested on 576,000 samples, 16 models — The Register, April 2025). Attackers register these names with malicious code. An `npm install` on an AI suggestion without verification can install malware.
 
-**Seth Larson (Python Software Foundation security lead) a nommé ce vecteur "slopsquatting".**
+**Seth Larson (Python Software Foundation security lead) named this vector "slopsquatting".**
 
-**Protocole de vérification obligatoire (tout package suggéré par IA) :**
+**Mandatory verification protocol (any package suggested by AI):**
 
 ```bash
-# Avant tout npm install suggéré par Claude/ChatGPT/Copilot :
+# Before any npm install suggested by Claude/ChatGPT/Copilot:
 
-# 1. Vérifier que le package existe sur npmjs.com
+# 1. Verify the package exists on npmjs.com
 npm info <package-name>
 
-# 2. Vérifier le nombre de téléchargements (packages légitimes = millions/semaine)
-npm info <package-name> downloads-per-week 2>/dev/null || echo "Vérifier sur npmjs.com"
+# 2. Check download count (legitimate packages = millions/week)
+npm info <package-name> downloads-per-week 2>/dev/null || echo "Check on npmjs.com"
 
-# 3. Vérifier la date de création (package créé récemment = suspect)
+# 3. Check creation date (recently created package = suspicious)
 npm info <package-name> time.created
 
-# 4. Vérifier le repo GitHub lié
+# 4. Check the linked GitHub repo
 npm info <package-name> repository
 
-# 5. Scanner après installation
+# 5. Scan after installation
 npm audit
 ```
 
-**Règles :**
-- Tout package NPM/PyPI suggéré par une IA doit être vérifié manuellement avant installation
-- Packages avec <1000 téléchargements/semaine → vérification renforcée du code source
-- Ne jamais copier-coller un `npm install` depuis un output IA sans vérifier l'existence du package
+**Rules:**
+- Every NPM/PyPI package suggested by an AI must be verified manually before installation
+- Packages with <1000 downloads/week → enhanced source code review
+- Never copy-paste an `npm install` from AI output without verifying the package exists
 
 ### AI-Generated Code Review Checklist
 
-**Veracode 2025 GenAI Code Security Report : 45% du code généré par IA contient des failles de sécurité.** Les 5 patterns les plus fréquents à vérifier systématiquement :
+**Veracode 2025 GenAI Code Security Report: 45% of AI-generated code contains security vulnerabilities.** The 5 most frequent patterns to systematically verify:
 
-| Pattern | Vérification |
+| Pattern | Check |
 |---------|-------------|
-| **Broken Authentication** | Tokens exposés ? Pas de auth sur routes protégées ? |
-| **Injection** | Inputs validés avec Zod ? Pas de SQL construit manuellement ? |
-| **Exposition de données sensibles** | Variables d'env pas dans le code ? Pas de NEXT_PUBLIC_ sur secrets ? |
-| **Missing Access Control** | RLS actif ? Auth middleware sur toutes les routes ? |
-| **Insecure Direct Object References** | URLs avec IDs → vérification propriété en DB ? |
+| **Broken Authentication** | Tokens exposed? No auth on protected routes? |
+| **Injection** | Inputs validated with Zod? No manually built SQL? |
+| **Sensitive Data Exposure** | Env vars not in code? No NEXT_PUBLIC_ on secrets? |
+| **Missing Access Control** | RLS active? Auth middleware on all routes? |
+| **Insecure Direct Object References** | URLs with IDs → ownership check in DB? |
 
-**Process de review du code IA :**
-1. Lire le code généré ligne par ligne (ne pas juste "tester si ça marche")
-2. Appliquer la checklist ci-dessus avant tout commit
-3. Faire tourner `npm audit` après installation de nouveaux packages
-4. Utiliser `grep -r "dangerouslySetInnerHTML\|eval(\|innerHTML" src/` pour détecter les injections HTML
+**AI code review process:**
+1. Read the generated code line by line (don't just "test if it works")
+2. Apply the checklist above before any commit
+3. Run `npm audit` after installing new packages
+4. Scan `src/` for dangerous patterns (unsafe HTML injection, direct innerHTML assignments)
 
-### RAG Poisoning — menace pour les KBs CozyGrowth/izzico
+### RAG Poisoning — Threat for CozyGrowth/izzico Knowledge Bases
 
-**Anthropic Research (2025) : 5 documents soigneusement craftés suffisent à manipuler les réponses IA 90% du temps** dans un système RAG. Source : CSA 2025 "AI Security Threats".
+**Anthropic Research (2025): 5 carefully crafted documents are enough to manipulate AI responses 90% of the time** in a RAG system. Source: CSA 2025 "AI Security Threats".
 
-**Mitigations :**
+**Mitigations:**
 
 ```typescript
-// Validation des documents avant injection en KB
+// Validation of documents before injection into KB
 function validateKBDocument(doc: string): boolean {
-  // Détecter les tentatives d'injection de prompts dans les documents
+  // Detect prompt injection attempts in documents
   const injectionPatterns = [
     /ignore (all |previous |above )?instructions/i,
     /you are now/i,
     /system prompt/i,
-    /\[INST\]/i,
-    /<\|im_start\|>/i,
   ]
 
   return !injectionPatterns.some(pattern => pattern.test(doc))
 }
 
-// Pour CozyGrowth : valider chaque document KB avant insertion
+// For CozyGrowth: validate each KB document before insertion
 function addToKnowledgeBase(doc: string, metadata: KBMetadata) {
   if (!validateKBDocument(doc)) {
-    throw new Error('Document KB rejeté : tentative d\'injection détectée')
+    throw new Error('KB document rejected: injection attempt detected')
   }
-  // Insertion normale...
+  // Normal insertion...
 }
 ```
 
-**Sources :**
+**Sources:**
 
-| Référence | Source |
+| Reference | Source |
 |-----------|--------|
 | OWASP LLM Top 10 2025 | genai.owasp.org/llmrisk |
 | Slopsquatting — The Register | theregister.com/2025/04/12/ai_code_suggestions_sabotage_supply_chain |
@@ -461,7 +458,7 @@ function addToKnowledgeBase(doc: string, metadata: KBMetadata) {
 
 ## 13. Sources
 
-| Référence | Lien |
+| Reference | Link |
 |-----------|------|
 | OWASP Top 10 | owasp.org/www-project-top-ten |
 | OWASP Top 10:2025 | owasptopten.org |
@@ -469,7 +466,7 @@ function addToKnowledgeBase(doc: string, metadata: KBMetadata) {
 | CWE Top 25 | cwe.mitre.org/top25 |
 | OWASP Cheat Sheets | cheatsheetseries.owasp.org |
 | Cloudflare — OWASP Top 10 | cloudflare.com/learning/security/threats/owasp-top-10 |
-| RGPD — Règlement UE 2016/679 | eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32016R0679 |
-| CNIL — Guide RGPD développeur | cnil.fr/fr/la-securite-des-donnees-personnelles |
-| EDPB — Guidelines transferts internationaux | edpb.europa.eu/our-work-tools/our-documents/guidelines |
-| SCC — Décision Commission 2021/914 | eur-lex.europa.eu/eli/dec_impl/2021/914/oj |
+| GDPR — EU Regulation 2016/679 | eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32016R0679 |
+| CNIL — GDPR Developer Guide | cnil.fr/fr/la-securite-des-donnees-personnelles |
+| EDPB — International Transfer Guidelines | edpb.europa.eu/our-work-tools/our-documents/guidelines |
+| SCC — Commission Decision 2021/914 | eur-lex.europa.eu/eli/dec_impl/2021/914/oj |

@@ -1,146 +1,146 @@
-# [NOM DU PROJET] — Contrat IA
+# [PROJECT NAME] — AI Contract
 
-> Template universel — [Claude Code Standards Kit](https://github.com/samsam007b/claude-code-standards-kit) par [SQWR Studio](https://sqwr.be).
-> Instructions : remplacer tous les `[À COMPLÉTER]` et supprimer les sections non pertinentes.
-
----
-
-## Qui travaille avec toi
-
-**[VOTRE NOM]** — [votre rôle, ex : fondateur / développeur / étudiant]
-
-| Contact | Valeur |
-|---------|--------|
-| Email | [votre@email.com] |
-| Email pro | [pro@votrestudio.com] |
-
-**Ce projet appartient à :** [Votre studio / votre entreprise / personnel]
-
-Contexte complet :
-- Identité : `[CHEMIN_KIT]/IDENTITY-TEMPLATE.md` (à remplir avec vos informations)
+> Universal template — [Claude Code Standards Kit](https://github.com/samsam007b/claude-code-standards-kit) by [SQWR Studio](https://sqwr.be).
+> Instructions: replace all `[TO FILL IN]` placeholders and remove irrelevant sections.
 
 ---
 
-## Ce projet
+## Who you are
 
-**Nom :** [À COMPLÉTER]
-**Description :** [À COMPLÉTER — 1-2 phrases max]
-**URL prod :** [À COMPLÉTER ou N/A]
-**Statut :** [En développement / En production / Archivé]
+**[YOUR NAME]** — [your role, e.g.: founder / developer / student]
 
-**Stack :**
-- [À COMPLÉTER — ex: Next.js 16 + TypeScript + Tailwind CSS + Supabase]
+| Contact | Value |
+|---------|-------|
+| Email | [your@email.com] |
+| Work email | [pro@yourstudio.com] |
 
-**Déploiement :**
-- [À COMPLÉTER — ex: Vercel (auto depuis main)]
+**This project belongs to:** [Your studio / your company / personal]
+
+Full context:
+- Identity: `[KIT_PATH]/IDENTITY-TEMPLATE.md` (fill in with your information)
+
+---
+
+## This project
+
+**Name:** [TO FILL IN]
+**Description:** [TO FILL IN — 1-2 sentences max]
+**Production URL:** [TO FILL IN or N/A]
+**Status:** [In development / In production / Archived]
+
+**Stack:**
+- [TO FILL IN — e.g.: Next.js 16 + TypeScript + Tailwind CSS + Supabase]
+
+**Deployment:**
+- [TO FILL IN — e.g.: Vercel (auto from main)]
 
 ---
 
 ## Architecture
 
 ```
-[À COMPLÉTER — arborescence des dossiers clés]
+[TO FILL IN — key folder structure]
 src/
-├── app/          → Routes Next.js App Router
-├── components/   → Composants réutilisables
-├── lib/          → Utilitaires, config, helpers
-└── types/        → Types TypeScript partagés
+├── app/          → Next.js App Router routes
+├── components/   → Reusable components
+├── lib/          → Utilities, config, helpers
+└── types/        → Shared TypeScript types
 ```
 
-**Fichiers critiques :**
+**Critical files:**
 
-| Fichier | Rôle |
-|---------|------|
-| [À COMPLÉTER] | [rôle] |
-| [À COMPLÉTER] | [rôle] |
+| File | Role |
+|------|------|
+| [TO FILL IN] | [role] |
+| [TO FILL IN] | [role] |
 
 ---
 
-## Contrats actifs
+## Active contracts
 
-> Inclure ici les contrats pertinents pour ce projet.
-> Fichiers source : `[CHEMIN_KIT]/contracts/`
+> Include here the contracts relevant to this project.
+> Source files: `[KIT_PATH]/contracts/`
 
 - [ ] `CONTRACT-NEXTJS.md` — App Router, SSR, Server Components
 - [ ] `CONTRACT-SUPABASE.md` — RLS, auth, migrations
-- [ ] `CONTRACT-VERCEL.md` — Déploiement, env vars
+- [ ] `CONTRACT-VERCEL.md` — Deployment, env vars
 - [ ] `CONTRACT-DESIGN.md` — Tailwind, design system, tokens
-- [ ] `CONTRACT-TYPESCRIPT.md` — Typage strict
-- [ ] `CONTRACT-ANTI-HALLUCINATION.md` — Données réelles uniquement
+- [ ] `CONTRACT-TYPESCRIPT.md` — Strict typing
+- [ ] `CONTRACT-ANTI-HALLUCINATION.md` — Real data only
 
-> Copier le contenu des contrats sélectionnés directement ici OU les lire via Read avant toute intervention sur ce projet.
-> Chemin kit : `[CHEMIN_KIT]/contracts/`
-
----
-
-## Règles absolues
-
-> Ce que l'IA ne doit JAMAIS faire sur ce projet, spécifique à ce contexte.
-
-### Ne jamais faire
-
-- [À COMPLÉTER — ex: Modifier le schéma Supabase sans vérifier les RLS]
-- [À COMPLÉTER — ex: Passer une page en `'use client'` sans justification]
-- [À COMPLÉTER]
-
-### Toujours faire
-
-- [À COMPLÉTER — ex: Lancer `npm run build` avant tout commit]
-- [À COMPLÉTER — ex: Vérifier le rendu SSR sur les pages SEO-critiques]
-- [À COMPLÉTER]
+> Copy the content of selected contracts directly here OR read them via Read before any work on this project.
+> Kit path: `[KIT_PATH]/contracts/`
 
 ---
 
-## Historique des erreurs
+## Absolute rules
 
-> Tracker ici les erreurs détectées pour éviter leur répétition.
-> Format : date | erreur | statut
+> What the AI must NEVER do on this project, specific to this context.
 
-| Date | Erreur | Statut |
-|------|--------|--------|
-| [JJ/MM/AAAA] | [description] | Corrigé / À corriger |
+### Never do
+
+- [TO FILL IN — e.g.: Modify the Supabase schema without checking RLS]
+- [TO FILL IN — e.g.: Switch a page to `'use client'` without justification]
+- [TO FILL IN]
+
+### Always do
+
+- [TO FILL IN — e.g.: Run `npm run build` before any commit]
+- [TO FILL IN — e.g.: Check SSR rendering on SEO-critical pages]
+- [TO FILL IN]
 
 ---
 
-## ADR actifs
+## Error history
 
-> Architecture Decision Records — les décisions techniques structurantes de ce projet.
-> Template complet : `[CHEMIN_KIT]/frameworks/ADR-TEMPLATE.md`
-> Fichiers ADR : `./docs/adr/`
+> Track detected errors here to prevent recurrence.
+> Format: date | error | status
 
-| ADR | Décision | Statut |
+| Date | Error | Status |
+|------|-------|--------|
+| [DD/MM/YYYY] | [description] | Fixed / To fix |
+
+---
+
+## Active ADRs
+
+> Architecture Decision Records — the key technical decisions structuring this project.
+> Full template: `[KIT_PATH]/frameworks/ADR-TEMPLATE.md`
+> ADR files: `./docs/adr/`
+
+| ADR | Decision | Status |
 |-----|----------|--------|
-| ADR-001 | [À COMPLÉTER — ex: Choix Supabase] | Accepted |
-| ADR-002 | [À COMPLÉTER — ex: Choix Vercel vs Railway] | Accepted |
+| ADR-001 | [TO FILL IN — e.g.: Supabase choice] | Accepted |
+| ADR-002 | [TO FILL IN — e.g.: Vercel vs Railway choice] | Accepted |
 
-*Créer un ADR dans `./docs/adr/` pour toute nouvelle décision architecturale significative.*
+*Create an ADR in `./docs/adr/` for every significant new architectural decision.*
 
 ---
 
 ## SLO (Service Level Objectives)
 
-> Définition de fiabilité cible. Template : `[CHEMIN_KIT]/frameworks/SLO-TEMPLATE.md`
+> Target reliability definition. Template: `[KIT_PATH]/frameworks/SLO-TEMPLATE.md`
 
-| SLI | SLO cible | Mesure | Outil |
-|-----|-----------|--------|-------|
-| Uptime | [À COMPLÉTER — ex: 99.5%] | [actuel] | UptimeRobot |
-| LCP p75 | ≤2.5s | [actuel] | Vercel Speed Insights |
-| Error rate | ≤0.5% | [actuel] | Sentry |
+| SLI | Target SLO | Current | Tool |
+|-----|-----------|---------|------|
+| Uptime | [TO FILL IN — e.g.: 99.5%] | [current] | UptimeRobot |
+| LCP p75 | ≤2.5s | [current] | Vercel Speed Insights |
+| Error rate | ≤0.5% | [current] | Sentry |
 
-*Error budget : [% SLO] × 30j = [X]h de downtime autorisé par mois*
+*Error budget: [% SLO] × 30d = [X]h of allowed downtime per month*
 
 ---
 
 ## Tech Debt Tracker
 
-> Dettes techniques connues, à traiter selon priorité.
+> Known technical debt, to be addressed by priority.
 
-| Dette | Impact | Priorité | Date détectée |
-|-------|--------|---------|--------------|
-| [À COMPLÉTER] | [ex: Performance] | P1/P2/P3 | [JJ/MM] |
+| Debt | Impact | Priority | Date detected |
+|------|--------|----------|---------------|
+| [TO FILL IN] | [e.g.: Performance] | P1/P2/P3 | [DD/MM] |
 
 ---
 
-## Notes de contexte
+## Context notes
 
-[À COMPLÉTER — informations importantes sur le projet que l'IA doit toujours avoir en tête]
+[TO FILL IN — important project information that the AI should always keep in mind]

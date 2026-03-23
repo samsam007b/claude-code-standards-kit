@@ -1,29 +1,29 @@
 #!/bin/bash
 # ═══════════════════════════════════════════════════════════════
-# SQWR Project Kit — Validateur CLAUDE.md
+# SQWR Project Kit — CLAUDE.md Validator
 # ═══════════════════════════════════════════════════════════════
 #
-# Rôle : Vérifie qu'un CLAUDE.md de projet est complet.
-#        Bloque si des [À COMPLÉTER] restent ou si des sections
-#        obligatoires sont absentes.
+# Role: Verifies that a project CLAUDE.md is complete.
+#       Blocks if any [TO FILL IN] placeholders remain or if
+#       required sections are missing.
 #
-# Usage : bash validate-claude-md.sh [chemin/vers/CLAUDE.md]
-#         Par défaut : ./CLAUDE.md (depuis la racine du projet)
+# Usage: bash validate-claude-md.sh [path/to/CLAUDE.md]
+#        Default: ./CLAUDE.md (from the project root)
 #
-# Exemples :
+# Examples:
 #   bash ~/.../Project-Kit/scripts/validate-claude-md.sh
 #   bash ~/.../Project-Kit/scripts/validate-claude-md.sh /path/to/project/CLAUDE.md
 #
-# Sorties :
-#   Exit 0 = CLAUDE.md valide
-#   Exit 1 = CLAUDE.md incomplet
+# Exit codes:
+#   Exit 0 = CLAUDE.md is valid
+#   Exit 1 = CLAUDE.md is incomplete
 #
-# Prérequis : bash ≥3.2, grep
+# Prerequisites: bash ≥3.2, grep
 # ═══════════════════════════════════════════════════════════════
 
 set -euo pipefail
 
-# ─── Couleurs ───────────────────────────────────────────────────
+# ─── Colors ─────────────────────────────────────────────────────
 GREEN='\033[0;32m'
 RED='\033[0;31m'
 YELLOW='\033[1;33m'
@@ -37,135 +37,135 @@ pass() { echo -e "  ${GREEN}✓${NC} $1"; }
 fail() { echo -e "  ${RED}✗${NC} $1"; ((ERRORS++)); }
 warn() { echo -e "  ${YELLOW}⚠${NC} $1"; ((WARNINGS++)); }
 
-# ─── Localiser le fichier ───────────────────────────────────────
+# ─── Locate the file ─────────────────────────────────────────────
 CLAUDE_FILE="${1:-$(pwd)/CLAUDE.md}"
 
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${BLUE}  SQWR — Validation CLAUDE.md${NC}"
+echo -e "${BLUE}  SQWR — CLAUDE.md Validation${NC}"
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "  Fichier : $CLAUDE_FILE"
+echo -e "  File: $CLAUDE_FILE"
 echo ""
 
 if [ ! -f "$CLAUDE_FILE" ]; then
-  echo -e "${RED}❌ CLAUDE.md introuvable : $CLAUDE_FILE${NC}"
-  echo -e "   Créer un CLAUDE.md depuis le template :"
+  echo -e "${RED}❌ CLAUDE.md not found: $CLAUDE_FILE${NC}"
+  echo -e "   Create a CLAUDE.md from the template:"
   echo -e "   cp ~/.../Project-Kit/templates/CLAUDE.md ./CLAUDE.md"
   exit 1
 fi
 
 # ═══════════════════════════════════════════════════════════════
-# TEST 1 — Sections obligatoires présentes
+# TEST 1 — Required sections present
 # ═══════════════════════════════════════════════════════════════
-echo -e "${BLUE}▸ Sections obligatoires${NC}"
+echo -e "${BLUE}▸ Required sections${NC}"
 
 REQUIRED_SECTIONS=(
-  "Qui travaille avec toi"
-  "Ce projet"
+  "Who you are"
+  "This project"
   "Architecture"
-  "Contrats actifs"
-  "Règles absolues"
-  "Historique des erreurs"
+  "Active contracts"
+  "Absolute rules"
+  "Error history"
 )
 
 for section in "${REQUIRED_SECTIONS[@]}"; do
   if grep -q "$section" "$CLAUDE_FILE"; then
-    pass "Section présente : $section"
+    pass "Section present: $section"
   else
-    fail "Section MANQUANTE : $section"
+    fail "MISSING section: $section"
   fi
 done
 
 # ═══════════════════════════════════════════════════════════════
-# TEST 2 — Aucun [À COMPLÉTER] restant
+# TEST 2 — No remaining [TO FILL IN] placeholders
 # ═══════════════════════════════════════════════════════════════
 echo ""
-echo -e "${BLUE}▸ Placeholders non remplis${NC}"
+echo -e "${BLUE}▸ Unfilled placeholders${NC}"
 
-PLACEHOLDER_COUNT=$(grep -c "\[À COMPLÉTER\]" "$CLAUDE_FILE" 2>/dev/null || echo "0")
+PLACEHOLDER_COUNT=$(grep -c "\[TO FILL IN\]" "$CLAUDE_FILE" 2>/dev/null || echo "0")
 if [ "$PLACEHOLDER_COUNT" -eq 0 ]; then
-  pass "Aucun placeholder [À COMPLÉTER] restant"
+  pass "No remaining [TO FILL IN] placeholders"
 else
-  fail "$PLACEHOLDER_COUNT placeholder(s) [À COMPLÉTER] non rempli(s) :"
-  grep -n "\[À COMPLÉTER\]" "$CLAUDE_FILE" | while read -r line; do
-    echo -e "     Ligne $line"
+  fail "$PLACEHOLDER_COUNT [TO FILL IN] placeholder(s) not filled in:"
+  grep -n "\[TO FILL IN\]" "$CLAUDE_FILE" | while read -r line; do
+    echo -e "     Line $line"
   done
 fi
 
 # ═══════════════════════════════════════════════════════════════
-# TEST 3 — Identité utilisateur présente
+# TEST 3 — User identity present
 # ═══════════════════════════════════════════════════════════════
 echo ""
-echo -e "${BLUE}▸ Identité utilisateur${NC}"
+echo -e "${BLUE}▸ User identity${NC}"
 
-# Vérifie que le CLAUDE.md a été personnalisé (pas de placeholder générique)
-if grep -q "\[VOTRE NOM\]" "$CLAUDE_FILE"; then
-  warn "Section identité non remplie — remplacer [VOTRE NOM] par votre nom"
+# Check that the CLAUDE.md has been personalized (no generic placeholder)
+if grep -q "\[YOUR NAME\]" "$CLAUDE_FILE"; then
+  warn "Identity section not filled in — replace [YOUR NAME] with your name"
 else
-  pass "Identité personnalisée (pas de placeholder [VOTRE NOM])"
+  pass "Identity personalized (no [YOUR NAME] placeholder)"
 fi
 
 if grep -qE "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" "$CLAUDE_FILE"; then
-  pass "Email présent dans le CLAUDE.md"
+  pass "Email present in CLAUDE.md"
 else
-  warn "Aucun email trouvé — ajouter vos coordonnées depuis IDENTITY-TEMPLATE.md"
+  warn "No email found — add your contact details from IDENTITY-TEMPLATE.md"
 fi
 
 # ═══════════════════════════════════════════════════════════════
-# TEST 4 — Au moins une règle "Ne jamais faire"
+# TEST 4 — At least one "Never do" rule
 # ═══════════════════════════════════════════════════════════════
 echo ""
-echo -e "${BLUE}▸ Règles absolues${NC}"
+echo -e "${BLUE}▸ Absolute rules${NC}"
 
-if grep -qiE "(ne jamais|never|jamais faire|JAMAIS)" "$CLAUDE_FILE"; then
-  pass "Règles 'Ne jamais faire' présentes"
+if grep -qiE "(never do|never|NEVER)" "$CLAUDE_FILE"; then
+  pass "'Never do' rules present"
 else
-  fail "Aucune règle 'Ne jamais faire' — section Règles absolues vide"
+  fail "No 'Never do' rules — Absolute rules section is empty"
 fi
 
-if grep -qiE "(toujours faire|always|TOUJOURS)" "$CLAUDE_FILE"; then
-  pass "Règles 'Toujours faire' présentes"
+if grep -qiE "(always do|always|ALWAYS)" "$CLAUDE_FILE"; then
+  pass "'Always do' rules present"
 else
-  warn "Aucune règle 'Toujours faire' (optionnel mais recommandé)"
+  warn "No 'Always do' rules (optional but recommended)"
 fi
 
 # ═══════════════════════════════════════════════════════════════
-# TEST 5 — Tableau historique des erreurs présent
+# TEST 5 — Error history table present
 # ═══════════════════════════════════════════════════════════════
 echo ""
-echo -e "${BLUE}▸ Historique des erreurs${NC}"
+echo -e "${BLUE}▸ Error history${NC}"
 
 if grep -qE "\|.*Date.*\|" "$CLAUDE_FILE"; then
-  pass "Tableau historique des erreurs présent"
+  pass "Error history table present"
 else
-  fail "Tableau historique des erreurs MANQUANT"
+  fail "Error history table MISSING"
 fi
 
 # ═══════════════════════════════════════════════════════════════
-# TEST 6 — Stack documentée
+# TEST 6 — Stack documented
 # ═══════════════════════════════════════════════════════════════
 echo ""
-echo -e "${BLUE}▸ Stack technique${NC}"
+echo -e "${BLUE}▸ Tech stack${NC}"
 
 if grep -qiE "(next\.js|python|react|supabase|vercel|swift)" "$CLAUDE_FILE"; then
-  pass "Stack technique documentée"
+  pass "Tech stack documented"
 else
-  warn "Stack technique non détectée — section 'Ce projet' peut être incomplète"
+  warn "Tech stack not detected — 'This project' section may be incomplete"
 fi
 
 # ═══════════════════════════════════════════════════════════════
-# RÉSUMÉ
+# SUMMARY
 # ═══════════════════════════════════════════════════════════════
 echo ""
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 
 if [ "$ERRORS" -eq 0 ] && [ "$WARNINGS" -eq 0 ]; then
-  echo -e "${GREEN}✅ CLAUDE.md valide — prêt pour le travail IA${NC}"
+  echo -e "${GREEN}✅ CLAUDE.md valid — ready for AI work${NC}"
   exit 0
 elif [ "$ERRORS" -eq 0 ]; then
-  echo -e "${YELLOW}⚠️  CLAUDE.md acceptable — $WARNINGS avertissement(s) à corriger${NC}"
+  echo -e "${YELLOW}⚠️  CLAUDE.md acceptable — $WARNINGS warning(s) to address${NC}"
   exit 0
 else
-  echo -e "${RED}❌ CLAUDE.md incomplet — $ERRORS erreur(s) bloquante(s)${NC}"
-  echo -e "   Compléter le fichier avant de démarrer une session IA."
+  echo -e "${RED}❌ CLAUDE.md incomplete — $ERRORS blocking error(s)${NC}"
+  echo -e "   Complete the file before starting an AI session."
   exit 1
 fi

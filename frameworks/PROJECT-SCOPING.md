@@ -1,194 +1,194 @@
 # Framework — Project Scoping
 
-> Sources : Ryan Singer (Shape Up, Basecamp 2019), Jake Knapp (Sprint, Google Ventures 2016),
+> Sources: Ryan Singer (Shape Up, Basecamp 2019), Jake Knapp (Sprint, Google Ventures 2016),
 > Gary Klein (HBR 2007 — pre-mortem), PMI PMBOK 6th Edition, Standish Group CHAOS Report 2020.
-> À utiliser : avant de commencer tout nouveau projet ou feature significative (>1 jour de travail).
+> When to use: before starting any new project or significant feature (>1 day of work).
 
 ---
 
-## Pourquoi scoper avant de coder
+## Why scope before coding
 
-**70% des projets IT dépassent leur budget ou délai initial** (Standish CHAOS Report 2020).
-La cause principale n'est pas le code — c'est l'absence de définition claire du problème,
-du périmètre, et des risques *avant* de toucher l'éditeur.
+**70% of IT projects exceed their initial budget or timeline** (Standish CHAOS Report 2020).
+The root cause is not the code — it is the absence of a clear problem definition,
+scope, and risk assessment *before* touching the editor.
 
-Pour un studio solo+IA comme SQWR, le risque est amplifié : Claude Code peut générer
-du code rapidement, ce qui donne l'illusion que tout avance — même dans la mauvaise direction.
-**Scoper en amont coûte 1 heure. Un pivot après 2 semaines de développement coûte 2 semaines.**
+For a solo+AI studio like SQWR, the risk is amplified: Claude Code can generate
+code quickly, which creates the illusion that things are progressing — even in the wrong direction.
+**Scoping upfront costs 1 hour. A pivot after 2 weeks of development costs 2 weeks.**
 
 ---
 
-## Partie 1 — Shape Up Pitch (Ryan Singer, Basecamp 2019)
+## Part 1 — Shape Up Pitch (Ryan Singer, Basecamp 2019)
 
-### Principe
+### Principle
 
-Shape Up remplace les PRDs et user stories par un document court (le "Pitch") qui capture
-l'essentiel d'une feature avant que le développement ne commence. L'objectif n'est pas
-de spec chaque pixel — c'est de définir le problème et les limites du possible.
+Shape Up replaces PRDs and user stories with a short document (the "Pitch") that captures
+the essence of a feature before development begins. The goal is not to
+spec every pixel — it is to define the problem and the boundaries of the possible.
 
 > *"We don't want to waste the team's time. We shape the work in advance by formulating
 > a precise problem and a rough solution."* — Ryan Singer
 
-### Les 5 composants du Pitch
+### The 5 Components of the Pitch
 
-| Composant | Question clé | Exemple SQWR |
+| Component | Key Question | SQWR Example |
 |-----------|-------------|--------------|
-| **Problem** | Quel problème réel l'utilisateur a-t-il ? | "Les propriétaires ne peuvent pas voir qui a consulté leur annonce izzico sans naviguer dans 3 écrans" |
-| **Appetite** | Combien de temps est-on prêt à y consacrer ? | "2 jours max — si plus, on réduit le scope" |
-| **Solution** | Esquisse fat-marker (pas un wireframe précis) | Dashboard propriétaire avec compteur de vues + liste des 5 derniers profils consultants |
-| **Rabbit Holes** | Quelles complexités pourraient exploser le scope ? | "Ne pas essayer d'afficher les analytics historiques — juste les 30 derniers jours" |
-| **No-Gos** | Qu'est-ce qu'on ne fait **pas** dans cette version ? | "Pas de comparaison entre annonces, pas de graphiques, pas de filtre par date" |
+| **Problem** | What real problem does the user have? | "Property owners can't see who has viewed their izzico listing without navigating through 3 screens" |
+| **Appetite** | How much time are we willing to spend on it? | "2 days max — if more, we reduce the scope" |
+| **Solution** | Fat-marker sketch (not a precise wireframe) | Owner dashboard with a view counter + list of the 5 most recent viewer profiles |
+| **Rabbit Holes** | What complexities could blow up the scope? | "Do not try to display historical analytics — just the last 30 days" |
+| **No-Gos** | What are we **not** doing in this version? | "No comparison between listings, no charts, no date filter" |
 
-### Appetites recommandés pour SQWR (solo+IA)
+### Recommended Appetites for SQWR (solo+AI)
 
-| Taille | Durée | Quand l'utiliser |
-|--------|-------|-----------------|
-| **Small** | 1-3 jours | Amélioration visible, périmètre clair, peu de dépendances |
-| **Medium** | 4-7 jours (1 semaine) | Feature complète, quelques dépendances, ≥1 inconnu |
-| **Large** | 2-3 semaines | Nouveau module ou refonte, plusieurs inconnus |
-| **Hors-scope** | >3 semaines | Décomposer en plusieurs Pitches. Ne pas pitcher une montagne. |
+| Size | Duration | When to use |
+|------|----------|-------------|
+| **Small** | 1–3 days | Visible improvement, clear scope, few dependencies |
+| **Medium** | 4–7 days (1 week) | Full feature, a few dependencies, ≥1 unknown |
+| **Large** | 2–3 weeks | New module or redesign, multiple unknowns |
+| **Out of scope** | >3 weeks | Break down into multiple Pitches. Do not pitch a mountain. |
 
-**Règle absolue :** si le Pitch ne rentre pas dans une taille connue, c'est que le problème
-n'est pas assez bien défini. Revenir à l'étape Problem avant de continuer.
+**Absolute rule:** if the Pitch does not fit within a known size, the problem
+is not defined well enough. Return to the Problem step before continuing.
 
-### Template Pitch SQWR
+### SQWR Pitch Template
 
 ```markdown
-# Pitch — [Titre court]
+# Pitch — [Short Title]
 
-**Projet :** [izzico / SQWR Studio / CozyGrowth / Client X]
-**Date :** [JJ/MM/AAAA]
-**Appetite :** [Small 1-3j / Medium 1 semaine / Large 2-3 semaines]
+**Project:** [izzico / SQWR Studio / CozyGrowth / Client X]
+**Date:** [DD/MM/YYYY]
+**Appetite:** [Small 1-3d / Medium 1 week / Large 2-3 weeks]
 
 ## Problem
 
-[Histoire concrète d'un utilisateur face au problème. Une seule histoire, pas une liste.]
+[Concrete story of a user facing the problem. One story only, not a list.]
 
 ## Solution
 
-[Esquisse textuelle ou dessin scan — pas de wireframe précis. Le COMMENT sans le pixel-perfect.]
+[Textual sketch or scanned drawing — not a precise wireframe. The HOW without the pixel-perfect.]
 
 ## Rabbit Holes
 
-- [Complexité cachée 1 — à éviter ou à traiter séparément]
-- [Complexité cachée 2]
+- [Hidden complexity 1 — to avoid or handle separately]
+- [Hidden complexity 2]
 
-## No-Gos (ce qu'on ne fait PAS dans cette version)
+## No-Gos (what we do NOT do in this version)
 
-- [Feature exclue 1]
-- [Feature exclue 2]
+- [Excluded feature 1]
+- [Excluded feature 2]
 
-## Betting Table (auto-validation solo)
+## Betting Table (solo self-validation)
 
-- [ ] Le problème mérite-t-il l'investissement défini par l'Appetite ?
-- [ ] La solution est-elle réaliste dans l'Appetite ?
-- [ ] Les Rabbit Holes identifiés sont-ils gérables ?
-- [ ] Les No-Gos sont-ils acceptables pour le client/utilisateur ?
+- [ ] Does the problem merit the investment defined by the Appetite?
+- [ ] Is the solution realistic within the Appetite?
+- [ ] Are the identified Rabbit Holes manageable?
+- [ ] Are the No-Gos acceptable for the client/user?
 ```
 
 ---
 
-## Partie 2 — Design Sprint condensé 2 jours (Jake Knapp, GV 2016)
+## Part 2 — Condensed 2-Day Design Sprint (Jake Knapp, GV 2016)
 
-### Pourquoi 2 jours pour SQWR
+### Why 2 days for SQWR
 
-Le Design Sprint original de Google Ventures dure 5 jours pour une équipe de 5-7 personnes.
-Jake Knapp lui-même recommande des formats compressés pour les petites équipes. Avec Claude Code,
-un solo peut couvrir en 2 jours ce qu'une équipe fait en 5 — la génération est plus rapide,
-les décisions sont plus directes.
+The original Google Ventures Design Sprint runs 5 days for a team of 5–7 people.
+Jake Knapp himself recommends compressed formats for small teams. With Claude Code,
+a solo practitioner can cover in 2 days what a team does in 5 — generation is faster,
+decisions are more direct.
 
-### Jour 1 — Comprendre & Décider (≈4-5h)
+### Day 1 — Understand & Decide (≈4–5h)
 
-**Matin : Cartographier le problème**
-1. **Long-term Goal** — "Dans 2 ans, si ce projet réussit, qu'est-ce qui est vrai ?" (1 phrase)
-2. **Sprint Questions** — "Qu'est-ce qu'on doit apprendre/tester cette semaine ?" (3-5 questions)
-3. **User Map** — Dessiner le parcours utilisateur de A (entrée) à Z (objectif atteint)
-4. **Target** — Choisir 1 moment/étape du parcours sur lequel se concentrer
+**Morning: Map the problem**
+1. **Long-term Goal** — "In 2 years, if this project succeeds, what is true?" (1 sentence)
+2. **Sprint Questions** — "What do we need to learn/test this week?" (3–5 questions)
+3. **User Map** — Draw the user journey from A (entry) to Z (goal achieved)
+4. **Target** — Choose 1 moment/step of the journey to focus on
 
-**Après-midi : Explorer & Décider**
-5. **Lightning Demos** — Passer 20 min sur des solutions similaires existantes (concurrents, inspiration)
-6. **Crazy 8s** — 8 idées de solution en 8 minutes (quantité > qualité)
-7. **Solution Sketch** — La meilleure idée développée en détail (3 cases : avant/pendant/après)
-8. **Vote** — Si solo : dormir dessus, décider le lendemain matin
+**Afternoon: Explore & Decide**
+5. **Lightning Demos** — Spend 20 min on similar existing solutions (competitors, inspiration)
+6. **Crazy 8s** — 8 solution ideas in 8 minutes (quantity > quality)
+7. **Solution Sketch** — Best idea developed in detail (3 frames: before/during/after)
+8. **Vote** — If solo: sleep on it, decide the next morning
 
-**Livrable Jour 1 :** Document `SPRINT-DAY1.md` avec Long-term Goal + Questions + Target + Solution retenue.
+**Day 1 Deliverable:** `SPRINT-DAY1.md` document with Long-term Goal + Questions + Target + chosen Solution.
 
-### Jour 2 — Prototyper & Tester (≈4-5h)
+### Day 2 — Prototype & Test (≈4–5h)
 
-**Matin : Storyboard & Prototype**
-1. **Storyboard** — Séquence de 6-8 cases décrivant l'expérience complète
-2. **Prototype** — Le plus rapide possible : Figma pour UI, markdown pour flows, Next.js stub pour technique
+**Morning: Storyboard & Prototype**
+1. **Storyboard** — Sequence of 6–8 frames describing the complete experience
+2. **Prototype** — As fast as possible: Figma for UI, markdown for flows, Next.js stub for technical
 
-**Après-midi : Tester avec 1-3 utilisateurs**
-3. **Script de test** — 5 questions maximum, pas de guidage
-4. **Test sessions** — 20-30 min chacune, observer sans expliquer
-5. **Patterns** — Qu'est-ce que 2 utilisateurs sur 3 ont eu du mal à faire ?
+**Afternoon: Test with 1–3 users**
+3. **Test script** — 5 questions maximum, no guiding
+4. **Test sessions** — 20–30 min each, observe without explaining
+5. **Patterns** — What did 2 out of 3 users struggle to do?
 
-**Livrable Jour 2 :** Prototype + `SPRINT-INSIGHTS.md` avec 3-5 insights actionnables.
+**Day 2 Deliverable:** Prototype + `SPRINT-INSIGHTS.md` with 3–5 actionable insights.
 
 ---
 
-## Partie 3 — Pre-mortem (Gary Klein, HBR 2007)
+## Part 3 — Pre-mortem (Gary Klein, HBR 2007)
 
-### Pourquoi ça fonctionne
+### Why it works
 
-Gary Klein (HBR 2007) a démontré que le pre-mortem augmente la **précision d'identification
-des risques de 30%**. Le mécanisme : la "prospective hindsight" — imaginer l'échec comme
-*déjà arrivé* désinhibe les gens à exprimer des doutes qu'ils auraient tu autrement.
+Gary Klein (HBR 2007) demonstrated that the pre-mortem increases the **precision of risk
+identification by 30%**. The mechanism: "prospective hindsight" — imagining failure as
+*already having occurred* removes inhibitions and allows people to voice doubts they would otherwise suppress.
 
 > *"The technique breaks with the conventional positive-thinking approach that
 > can cause teams to ignore warning signs."* — Gary Klein, HBR 2007
 
-**Différence fondamentale :**
-- Analyse de risques classique : "Qu'est-ce qui *pourrait* mal tourner ?" → réponses vagues
-- Pre-mortem : "Le projet *a* échoué. Expliquez pourquoi." → réponses précises et actionnables
+**Fundamental difference:**
+- Classic risk analysis: "What *could* go wrong?" → vague answers
+- Pre-mortem: "The project *has* failed. Explain why." → precise and actionable answers
 
-### Exécution (30 minutes)
+### Execution (30 minutes)
 
 ```
-1. Briefer (5 min)
-   Présenter le projet, l'Appetite, la solution retenue.
+1. Brief (5 min)
+   Present the project, the Appetite, the chosen solution.
 
-2. Framer le scénario (1 min)
-   "Imaginons que nous sommes [date de livraison + 3 mois].
-   Ce projet a échoué — pas à cause de malchance, mais parce que
-   quelque chose s'est mal passé dans notre exécution.
-   Listez toutes les raisons possibles."
+2. Frame the scenario (1 min)
+   "Let's imagine we are [delivery date + 3 months].
+   This project has failed — not due to bad luck, but because
+   something went wrong in our execution.
+   List all possible reasons."
 
-3. Brainstorming silencieux (5 min)
-   Chacun écrit sa liste. Pas de discussion encore.
+3. Silent brainstorming (5 min)
+   Everyone writes their list. No discussion yet.
 
-4. Tour de table (10 min)
-   Chaque personne partage UN item à la fois.
-   Continuer jusqu'à épuisement des listes.
+4. Round table (10 min)
+   Each person shares ONE item at a time.
+   Continue until all lists are exhausted.
 
-5. Consolider & Mitiguer (10 min)
-   Pour chaque risque : peut-on le prévenir ? Comment ?
-   Convertir en actions concrètes → Risk Register.
+5. Consolidate & Mitigate (10 min)
+   For each risk: can we prevent it? How?
+   Convert into concrete actions → Risk Register.
 ```
 
-**Pour SQWR solo :** Faire l'exercice seul, puis le répéter avec Joakim (pour les projets
-SQWR Studio) ou Alexandre (pour CozyGrowth). Même solo, l'exercice force à externaliser
-des inquiétudes restées implicites.
+**For SQWR solo:** Do the exercise alone, then repeat with Joakim (for SQWR Studio projects)
+or Alexandre (for CozyGrowth). Even solo, the exercise forces the externalization
+of concerns that remained implicit.
 
-### Template Pre-mortem SQWR
+### SQWR Pre-mortem Template
 
 ```markdown
-# Pre-mortem — [Nom du projet]
+# Pre-mortem — [Project Name]
 
-**Date :** [JJ/MM/AAAA]
-**Projet :** [description courte]
-**Livraison prévue :** [JJ/MM/AAAA]
-**Participants :** [Samuel / Samuel + Joakim / Samuel + Alexandre]
+**Date:** [DD/MM/YYYY]
+**Project:** [short description]
+**Expected delivery:** [DD/MM/YYYY]
+**Participants:** [Samuel / Samuel + Joakim / Samuel + Alexandre]
 
-## Scénario
+## Scenario
 
-"Nous sommes [3 mois après la livraison prévue].
-[Nom du projet] a échoué. Qu'est-ce qui s'est passé ?"
+"We are [3 months after the expected delivery date].
+[Project name] has failed. What happened?"
 
-## Causes identifiées
+## Identified Causes
 
-### Techniques
+### Technical
 -
 -
 
@@ -196,83 +196,83 @@ des inquiétudes restées implicites.
 -
 -
 
-### Personnel / Tempo
+### Personal / Pace
 -
 -
 
-### Dépendances externes
+### External Dependencies
 -
 ```
 
 ---
 
-## Partie 4 — Risk Register (PMI PMBOK)
+## Part 4 — Risk Register (PMI PMBOK)
 
-### Matrice Probabilité × Impact
+### Probability × Impact Matrix
 
-| Probabilité ↓ \ Impact → | 1 — Négligeable | 2 — Mineur | 3 — Modéré | 4 — Majeur | 5 — Critique |
-|--------------------------|-----------------|-----------|-----------|-----------|-------------|
-| **5 — Quasi certain**    | 5               | 10        | **15**    | **20**    | **25**      |
-| **4 — Probable**         | 4               | 8         | **12**    | **16**    | **20**      |
-| **3 — Possible**         | 3               | 6         | 9         | **12**    | **15**      |
-| **2 — Improbable**       | 2               | 4         | 6         | 8         | 10          |
-| **1 — Rare**             | 1               | 2         | 3         | 4         | 5           |
+| Probability ↓ \ Impact → | 1 — Negligible | 2 — Minor | 3 — Moderate | 4 — Major | 5 — Critical |
+|--------------------------|----------------|-----------|--------------|-----------|-------------|
+| **5 — Almost certain**   | 5              | 10        | **15**       | **20**    | **25**      |
+| **4 — Likely**           | 4              | 8         | **12**       | **16**    | **20**      |
+| **3 — Possible**         | 3              | 6         | 9            | **12**    | **15**      |
+| **2 — Unlikely**         | 2              | 4         | 6            | 8         | 10          |
+| **1 — Rare**             | 1              | 2         | 3            | 4         | 5           |
 
-**Seuils d'action :**
-- Score ≥ 15 → **Action requise avant de commencer**
-- Score 8-14 → Mitigation planifiée
-- Score < 8 → Surveiller, accepter
+**Action thresholds:**
+- Score ≥ 15 → **Action required before starting**
+- Score 8–14 → Planned mitigation
+- Score < 8 → Monitor, accept
 
-### Template Risk Register SQWR
+### SQWR Risk Register Template
 
 ```markdown
-# Risk Register — [Nom du projet]
+# Risk Register — [Project Name]
 
-**Date :** [JJ/MM/AAAA]
-**Issu du pre-mortem du :** [JJ/MM/AAAA]
+**Date:** [DD/MM/YYYY]
+**From pre-mortem dated:** [DD/MM/YYYY]
 
-| ID | Risque | P (1-5) | I (1-5) | Score P×I | Mitigation | Responsable | Statut |
-|----|--------|---------|---------|-----------|-----------|-------------|--------|
-| R1 | Scope creep client | 4 | 4 | **16** | Pitch validé par écrit avant démarrage | Samuel | Open |
-| R2 | Disponibilité Joakim (créatif) | 3 | 3 | 9 | Confirmer les disponibilités en Partie 1 | Samuel | Open |
-| R3 | API tierce indisponible | 2 | 4 | 8 | Mock local + fallback prévu | Samuel | Open |
+| ID | Risk | P (1-5) | I (1-5) | Score P×I | Mitigation | Owner | Status |
+|----|------|---------|---------|-----------|-----------|-------|--------|
+| R1 | Client scope creep | 4 | 4 | **16** | Pitch validated in writing before start | Samuel | Open |
+| R2 | Joakim availability (creative) | 3 | 3 | 9 | Confirm availability in Part 1 | Samuel | Open |
+| R3 | Third-party API unavailable | 2 | 4 | 8 | Local mock + fallback planned | Samuel | Open |
 | R4 | | | | | | | |
 
-**Règle SQWR :** Tout risque avec score ≥ 15 doit avoir une action de mitigation définie
-ET un owner avant que le Pitch ne soit validé.
+**SQWR Rule:** Any risk with a score ≥ 15 must have a defined mitigation action
+AND an owner before the Pitch is validated.
 ```
 
 ---
 
-## Checklist de Scoping
+## Scoping Checklist
 
-À compléter avant de créer la première branche de développement.
+To be completed before creating the first development branch.
 
-- [ ] Pitch Shape Up complété (5 composants — Problem, Appetite, Solution, Rabbit Holes, No-Gos)
-- [ ] Appetite défini et accepté par toutes les parties
-- [ ] No-Gos listés et validés (par le client si applicable)
-- [ ] Pre-mortem réalisé (minimum 5 risques identifiés)
-- [ ] Risk Register créé — tous les risques ≥ 15 ont une mitigation + responsable
-- [ ] Estimation calculée (→ voir `frameworks/ESTIMATION.md`)
-- [ ] ADR créé si décision architecturale significative (→ voir `frameworks/ADR-TEMPLATE.md`)
+- [ ] Shape Up Pitch completed (5 components — Problem, Appetite, Solution, Rabbit Holes, No-Gos)
+- [ ] Appetite defined and accepted by all parties
+- [ ] No-Gos listed and validated (by the client if applicable)
+- [ ] Pre-mortem completed (minimum 5 risks identified)
+- [ ] Risk Register created — all risks ≥ 15 have a mitigation + owner
+- [ ] Estimation calculated (→ see `frameworks/ESTIMATION.md`)
+- [ ] ADR created if significant architectural decision (→ see `frameworks/ADR-TEMPLATE.md`)
 
 ---
 
-## Quand utiliser quel outil
+## When to use which tool
 
-| Situation | Outil recommandé | Durée |
-|-----------|-----------------|-------|
-| Feature < 1 jour, bien connue | Checklist de Scoping seulement | 15 min |
-| Feature 1-5 jours, scope modéré | Pitch Shape Up + Pre-mortem | 1h |
-| Nouveau projet ou refonte | Pitch + Design Sprint 2j + Pre-mortem | 2-3 jours |
-| Projet client avec budget défini | Pitch + Pre-mortem + Risk Register complet | 2h |
-| Incertitude technique élevée | Design Sprint complet (2j prototype + test) | 2 jours |
+| Situation | Recommended Tool | Duration |
+|-----------|-----------------|----------|
+| Feature < 1 day, well understood | Scoping Checklist only | 15 min |
+| Feature 1–5 days, moderate scope | Shape Up Pitch + Pre-mortem | 1h |
+| New project or redesign | Pitch + 2-day Design Sprint + Pre-mortem | 2–3 days |
+| Client project with defined budget | Pitch + Pre-mortem + full Risk Register | 2h |
+| High technical uncertainty | Full Design Sprint (2d prototype + test) | 2 days |
 
 ---
 
 ## Sources
 
-| Référence | Lien |
+| Reference | Link |
 |-----------|------|
 | Shape Up — Ryan Singer (Basecamp 2019) | basecamp.com/shapeup |
 | Google Ventures Design Sprint | sprint.google.com |

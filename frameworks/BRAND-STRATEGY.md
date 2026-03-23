@@ -1,327 +1,327 @@
-# Framework — Stratégie de Marque
+# Framework — Brand Strategy
 
-> Module SQWR Project Kit — en amont du design visuel.
-> Sources : Sinek (2009), Jung/Mark & Pearson (2001), Ries & Trout (1981), Donald Miller (2017), Kim & Mauborgne (2004), Neumeier (2005), Kapferer (2008).
-
----
-
-## Principe fondamental
-
-> "Un logo n'est pas une marque. Une marque est un sentiment viscéral dans l'esprit d'une personne." — Marty Neumeier, *The Brand Gap* (2005)
-
-Le design visuel est la **dernière étape**, pas la première. La séquence correcte :
-
-```
-1. WHY (raison d'être)
-       ↓
-2. Positionnement (territoire mental)
-       ↓
-3. Archétype (personnalité psychologique)
-       ↓
-4. Narrative (histoire client-héros)
-       ↓
-5. Voix & Ton (expression verbale)
-       ↓
-6. Identité visuelle (traduction graphique)
-```
-
-Inverser cet ordre produit des marques "jolies mais creuses" — techniquement correctes et inexistantes dans l'esprit du marché.
+> SQWR Project Kit Module — upstream of visual design.
+> Sources: Sinek (2009), Jung/Mark & Pearson (2001), Ries & Trout (1981), Donald Miller (2017), Kim & Mauborgne (2004), Neumeier (2005), Kapferer (2008).
 
 ---
 
-## Étape 1 — Le Cercle d'Or (Simon Sinek)
+## Core Principle
 
-> Source : Simon Sinek, *Start With Why* (Portfolio/Penguin, 2009).
-> TEDx Puget Sound 2009 — 60M+ vues, l'un des TED Talks les plus regardés de l'histoire.
+> "A logo is not a brand. A brand is a gut feeling in the mind of a person." — Marty Neumeier, *The Brand Gap* (2005)
 
-**L'insight fondamental :** les gens n'achètent pas ce que vous faites — ils achètent pourquoi vous le faites. Les grandes marques communiquent de l'intérieur vers l'extérieur.
+Visual design is the **last step**, not the first. The correct sequence:
+
+```
+1. WHY (reason for being)
+       ↓
+2. Positioning (mental territory)
+       ↓
+3. Archetype (psychological personality)
+       ↓
+4. Narrative (hero-client story)
+       ↓
+5. Voice & Tone (verbal expression)
+       ↓
+6. Visual Identity (graphic translation)
+```
+
+Reversing this order produces brands that are "pretty but hollow" — technically correct and nonexistent in the market's mind.
+
+---
+
+## Step 1 — The Golden Circle (Simon Sinek)
+
+> Source: Simon Sinek, *Start With Why* (Portfolio/Penguin, 2009).
+> TEDx Puget Sound 2009 — 60M+ views, one of the most-watched TED Talks in history.
+
+**The core insight:** people don't buy what you do — they buy why you do it. Great brands communicate from the inside out.
 
 ```
          ┌─────────────────────────────┐
-         │         WHY                 │  ← Raison d'être, croyance, cause
+         │         WHY                 │  ← Reason for being, belief, cause
          │    ┌───────────────┐        │
-         │    │     HOW       │        │  ← Processus, différenciation
+         │    │     HOW       │        │  ← Process, differentiation
          │    │  ┌───────┐   │        │
-         │    │  │ WHAT  │   │        │  ← Produit/service livrable
+         │    │  │ WHAT  │   │        │  ← Product/service deliverable
          │    │  └───────┘   │        │
          │    └───────────────┘        │
          └─────────────────────────────┘
 ```
 
-**La majorité des entreprises communiquent à l'envers :**
-> "Nous faisons des sites web (WHAT). Nous utilisons React et Supabase (HOW). Contactez-nous si besoin."
+**Most companies communicate in reverse:**
+> "We build websites (WHAT). We use React and Supabase (HOW). Contact us if needed."
 
-→ Personne ne retient ça. C'est fonctionnel mais pas mémorable.
+→ Nobody remembers this. It is functional but not memorable.
 
-**Les marques qui marquent l'esprit :**
-> "Nous croyons que chaque business mérite une présence digitale qui correspond à son ambition (WHY). Nous y arrivons via une recherche rigoureuse ancrée dans des standards professionnels, sans compromis sur la qualité (HOW). Nous créons des identités de marque et des sites web (WHAT)."
+**Brands that leave a lasting impression:**
+> "We believe every business deserves a digital presence that matches its ambition (WHY). We achieve this through rigorous research grounded in professional standards, without compromising on quality (HOW). We create brand identities and websites (WHAT)."
 
-→ Le WHY crée l'appartenance. Les clients qui partagent la croyance deviennent des ambassadeurs.
+→ The WHY creates belonging. Clients who share the belief become brand ambassadors.
 
-### Template Cercle d'Or
+### Golden Circle Template
 
-| Niveau | Question | Réponse |
-|--------|----------|---------|
-| **WHY** | Pourquoi cette marque/ce projet existe-t-il, au-delà du profit ? Quelle croyance défend-il ? | [À COMPLÉTER] |
-| **HOW** | Qu'est-ce qui différencie notre façon de faire ? Quels principes guident notre méthode ? | [À COMPLÉTER] |
-| **WHAT** | Qu'est-ce qu'on livre, concrètement ? Services, produits, résultats mesurables ? | [À COMPLÉTER] |
-
----
-
-## Étape 2 — Archétype de Marque (Carl Jung / Mark & Pearson)
-
-> Source primaire : Carl Jung — théorie des archétypes (*Archetypes and the Collective Unconscious*, 1919).
-> Application au branding : Margaret Mark & Carol Pearson, *The Hero and the Outlaw* (HarperCollins, 2001).
-> Pourquoi ça marche : les archétypes activent des structures psychologiques universelles dans le subconscient. Ils créent une reconnaissance instinctive.
-
-### Les 12 Archétypes de Marque
-
-| Archétype | Désir profond | Peur principale | Promesse | Marques connues |
-|-----------|--------------|----------------|---------|----------------|
-| **L'Innocent** | Bonheur, pureté | Faire le mal | Être bon et heureux | Dove, Nintendo, Coca-Cola classique |
-| **Le Sage** | Vérité, compréhension | L'ignorance, la tromperie | La connaissance libère | Google, TED, The Economist |
-| **L'Explorateur** | Liberté, découverte | Être piégé, convention | Découvrir sa propre voie | Patagonia, Red Bull, Levi's |
-| **Le Hors-la-loi** | Révolution, rupture | Être banal ou impuissant | Briser les règles | Harley-Davidson, Diesel, Virgin |
-| **Le Magicien** | Transformation, magie | Conséquences imprévues | Rendre les rêves réels | Disney, Apple, Dyson |
-| **Le Héros** | Prouver sa valeur | Faiblesse, échec | Surmonter les obstacles | Nike, FedEx, Duracell |
-| **L'Amoureux** | Intimité, relation | Être rejeté, seul | Relation intense, beauté | Chanel, Victoria's Secret, Häagen-Dazs |
-| **Le Farceur** | Joie, présent | Ennui, sérieux excessif | Légèreté, fun, permission | M&M's, Old Spice, Skittles |
-| **L'Homme du commun** | Connexion, appartenance | Exclusion, élitisme | Égalité, accessibilité | IKEA, eBay, Gap |
-| **Le Soignant** | Protéger, aider les autres | Ingratitude, échec à protéger | Prendre soin | Pampers, WWF, Volvo |
-| **Le Souverain** | Contrôle, leadership | Chaos, perte de pouvoir | Ordre, responsabilité | Rolex, Mercedes, American Express |
-| **Le Créateur** | Créer quelque chose de durable | Vision médiocre, inachèvement | Innovation, expression | Lego, Adobe, Canva |
-
-### Comment choisir l'archétype
-
-**Clé** : l'archétype n'est pas ce que la marque pense être — c'est le désir profond du **client cible** auquel la marque répond.
-
-1. Identifier le désir le plus profond du client (pas le problème fonctionnel, l'aspiration)
-2. Trouver l'archétype qui répond à ce désir
-3. Vérifier la cohérence avec le WHY (Cercle d'Or)
-
-**Template :**
-- Archétype principal : ____________
-- Archétype secondaire (optionnel, ≤30% de l'expression) : ____________
-- Désir client adressé : ____________
-- Justification de cohérence avec le WHY : ____________
+| Level | Question | Answer |
+|-------|----------|--------|
+| **WHY** | Why does this brand/project exist, beyond profit? What belief does it stand for? | [TO FILL] |
+| **HOW** | What differentiates our approach? What principles guide our method? | [TO FILL] |
+| **WHAT** | What do we deliver, concretely? Services, products, measurable outcomes? | [TO FILL] |
 
 ---
 
-## Étape 3 — Positionnement (Ries & Trout)
+## Step 2 — Brand Archetype (Carl Jung / Mark & Pearson)
 
-> Source : Al Ries & Jack Trout, *Positioning: The Battle for Your Mind* (McGraw-Hill, 1981, réédité 2001).
-> Concept central : **le positionnement n'est pas ce que vous faites à un produit — c'est ce que vous faites dans l'esprit du prospect**.
+> Primary source: Carl Jung — archetype theory (*Archetypes and the Collective Unconscious*, 1919).
+> Application to branding: Margaret Mark & Carol Pearson, *The Hero and the Outlaw* (HarperCollins, 2001).
+> Why it works: archetypes activate universal psychological structures in the subconscious. They create instinctive recognition.
 
-### La loi du positionnement
+### The 12 Brand Archetypes
 
-La marque qui **définit une catégorie en première la possède**. Être deuxième dans une catégorie existante est une guerre d'attrition. La vraie victoire : créer sa propre catégorie.
+| Archetype | Deep Desire | Core Fear | Promise | Known Brands |
+|-----------|-------------|-----------|---------|--------------|
+| **The Innocent** | Happiness, purity | Doing wrong | To be good and happy | Dove, Nintendo, classic Coca-Cola |
+| **The Sage** | Truth, understanding | Ignorance, deception | Knowledge sets you free | Google, TED, The Economist |
+| **The Explorer** | Freedom, discovery | Being trapped, convention | Find your own path | Patagonia, Red Bull, Levi's |
+| **The Outlaw** | Revolution, disruption | Being ordinary or powerless | Break the rules | Harley-Davidson, Diesel, Virgin |
+| **The Magician** | Transformation, magic | Unforeseen consequences | Make dreams real | Disney, Apple, Dyson |
+| **The Hero** | Proving one's worth | Weakness, failure | Overcome obstacles | Nike, FedEx, Duracell |
+| **The Lover** | Intimacy, relationship | Being rejected, alone | Intense relationship, beauty | Chanel, Victoria's Secret, Häagen-Dazs |
+| **The Jester** | Joy, the present | Boredom, excessive seriousness | Lightness, fun, permission | M&M's, Old Spice, Skittles |
+| **The Everyman** | Connection, belonging | Exclusion, elitism | Equality, accessibility | IKEA, eBay, Gap |
+| **The Caregiver** | Protect, help others | Ingratitude, failure to protect | Take care | Pampers, WWF, Volvo |
+| **The Ruler** | Control, leadership | Chaos, loss of power | Order, responsibility | Rolex, Mercedes, American Express |
+| **The Creator** | Create something lasting | Mediocre vision, incompletion | Innovation, expression | Lego, Adobe, Canva |
 
-| Stratégie | Exemple | Résultat |
-|-----------|---------|---------|
-| "Nous sommes meilleurs que X" | "Mieux qu'Airbnb pour la colocation" | Comparaison → on pense à Airbnb |
-| "Nous sommes le seul X qui fait Y" | "L'unique solution qui unifie coloc + short-term en temps réel" | Catégorie propre → on pense à vous |
+### How to choose the archetype
 
-### Template de positionnement (Geoffrey Moore, *Crossing the Chasm*, 1991)
+**Key**: the archetype is not what the brand thinks it is — it is the deep desire of the **target client** that the brand addresses.
+
+1. Identify the client's deepest desire (not the functional problem, the aspiration)
+2. Find the archetype that addresses this desire
+3. Verify consistency with the WHY (Golden Circle)
+
+**Template:**
+- Primary archetype: ____________
+- Secondary archetype (optional, ≤30% of expression): ____________
+- Client desire addressed: ____________
+- Justification of consistency with WHY: ____________
+
+---
+
+## Step 3 — Positioning (Ries & Trout)
+
+> Source: Al Ries & Jack Trout, *Positioning: The Battle for Your Mind* (McGraw-Hill, 1981, reissued 2001).
+> Core concept: **positioning is not what you do to a product — it is what you do in the mind of the prospect**.
+
+### The Law of Positioning
+
+The brand that **defines a category first owns it**. Being second in an existing category is a war of attrition. The real victory: create your own category.
+
+| Strategy | Example | Outcome |
+|----------|---------|---------|
+| "We are better than X" | "Better than Airbnb for co-living" | Comparison → they think of Airbnb |
+| "We are the only X that does Y" | "The only solution that unifies co-living + short-term in real time" | Own category → they think of you |
+
+### Positioning Template (Geoffrey Moore, *Crossing the Chasm*, 1991)
 
 ```
-Pour [cible client principale]
-qui [problème/besoin non résolu]
-[Nom du produit/service] est un(e) [catégorie]
-qui [bénéfice principal différenciant].
-Contrairement à [alternative principale du marché],
-notre produit [différenciation clé et crédible].
+For [primary target client]
+who [unresolved problem/need]
+[Product/service name] is a [category]
+that [key differentiating benefit].
+Unlike [primary market alternative],
+our product [key and credible differentiation].
 ```
 
-**Exemple SQWR Studio :**
+**Example SQWR Studio:**
 ```
-Pour les entrepreneurs et créateurs ambitieux
-qui ont besoin d'une identité de marque et d'une présence web cohérentes, sans choisir entre qualité et vélocité,
-SQWR Studio est une agence créative full-stack
-qui livre branding + développement dans un workflow IA-first documenté publiquement.
-Contrairement aux agences traditionnelles qui séparent créatif et tech en silos,
-notre processus intègre les deux dès le premier brief.
+For ambitious entrepreneurs and creators
+who need a coherent brand identity and web presence, without choosing between quality and speed,
+SQWR Studio is a full-stack creative agency
+that delivers branding + development in a publicly documented AI-first workflow.
+Unlike traditional agencies that separate creative and tech into silos,
+our process integrates both from the very first brief.
 ```
 
 ---
 
-## Étape 4 — Narrative de Marque (Donald Miller / StoryBrand)
+## Step 4 — Brand Narrative (Donald Miller / StoryBrand)
 
-> Source : Donald Miller, *Building a StoryBrand* (HarperCollins Leadership, 2017).
-> Insight fondamental : **le client est le Héros. La marque est le Guide.** Confondre les deux est la plus grande erreur en communication de marque.
+> Source: Donald Miller, *Building a StoryBrand* (HarperCollins Leadership, 2017).
+> Core insight: **the client is the Hero. The brand is the Guide.** Confusing the two is the biggest mistake in brand communication.
 
-### Le Framework SB7 (7 blocs narratifs)
+### The SB7 Framework (7 Narrative Blocks)
 
 ```
-[1] PERSONNAGE ──── Le client veut quelque chose de précis
+[1] CHARACTER ──── The client wants something specific
         ↓
-[2] PROBLÈME ────── Externe (fonctionnel) + Interne (frustration) + Philosophique (injustice)
+[2] PROBLEM ────── External (functional) + Internal (frustration) + Philosophical (injustice)
         ↓
-[3] GUIDE ──────── La marque = mentor empathique ET crédible (pas le héros)
-        │           ├── Empathy : "Je comprends ta frustration"
-        │           └── Authority : preuve de légitimité (clients, résultats, expertise)
+[3] GUIDE ──────── The brand = empathetic AND credible mentor (not the hero)
+        │           ├── Empathy: "I understand your frustration"
+        │           └── Authority: proof of legitimacy (clients, results, expertise)
         ↓
-[4] PLAN ───────── 3 étapes concrètes (max 6) qui réduisent l'anxiété d'achat
+[4] PLAN ───────── 3 concrete steps (max 6) that reduce purchase anxiety
         ↓
-[5] APPEL ACTION ── Direct ("Demander un devis") ou Transitionnel ("Voir nos réalisations")
+[5] CALL TO ACTION ── Direct ("Request a quote") or Transitional ("See our work")
         ↓
-[6] SUCCÈS ─────── La vie du client APRÈS (vision concrète, émotionnelle)
-[7] ÉCHEC ──────── Ce qu'il risque de perdre s'il n'agit pas (stakes)
+[6] SUCCESS ─────── The client's life AFTER (concrete, emotional vision)
+[7] FAILURE ──────── What they risk losing if they don't act (stakes)
 ```
 
-**L'erreur la plus commune :**
-> "Nous sommes l'agence créative la plus primée de Bruxelles." → La marque se met en héros. Le client se demande ce que ça lui rapporte.
+**The most common mistake:**
+> "We are the most award-winning creative agency in Brussels." → The brand puts itself as the hero. The client wonders what's in it for them.
 
-**La correction :**
-> "Votre business mérite une identité à la hauteur de votre ambition. Nous guidons les créateurs et entrepreneurs pour construire une présence qui leur ressemble." → Client = Héros. Marque = Guide.
+**The correction:**
+> "Your business deserves an identity worthy of your ambition. We guide creators and entrepreneurs in building a presence that reflects who they are." → Client = Hero. Brand = Guide.
 
-### Template SB7
+### SB7 Template
 
-| Bloc | Votre réponse |
-|------|--------------|
-| **Personnage** : votre client veut... | |
-| **Problème externe** (fonctionnel, concret) | |
-| **Problème interne** (frustration, émotion) | |
-| **Problème philosophique** ("c'est injuste que...") | |
-| **Empathy** (vous comprenez parce que...) | |
-| **Authority** (preuve de légitimité) | |
-| **Plan étape 1** | |
-| **Plan étape 2** | |
-| **Plan étape 3** | |
-| **Appel à l'action direct** | |
-| **Succès** (vie du client après) | |
-| **Échec** (risque si inaction) | |
+| Block | Your Answer |
+|-------|------------|
+| **Character**: your client wants... | |
+| **External problem** (functional, concrete) | |
+| **Internal problem** (frustration, emotion) | |
+| **Philosophical problem** ("it's unfair that...") | |
+| **Empathy** (you understand because...) | |
+| **Authority** (proof of legitimacy) | |
+| **Plan step 1** | |
+| **Plan step 2** | |
+| **Plan step 3** | |
+| **Direct call to action** | |
+| **Success** (client's life after) | |
+| **Failure** (risk if no action) | |
 
 ---
 
-## Étape 5 — Différenciation (Blue Ocean Strategy)
+## Step 5 — Differentiation (Blue Ocean Strategy)
 
-> Source : W. Chan Kim & Renée Mauborgne, *Blue Ocean Strategy* (Harvard Business School Press, 2004, révisé 2015).
-> Insight : créer un espace de marché non-contesté plutôt que de se battre dans un océan rouge de concurrence.
+> Source: W. Chan Kim & Renée Mauborgne, *Blue Ocean Strategy* (Harvard Business School Press, 2004, revised 2015).
+> Insight: create an uncontested market space rather than fighting in a red ocean of competition.
 
-### Le Framework ERRC
+### The ERRC Framework
 
-| Action | Question | Exemple concret |
-|--------|----------|----------------|
-| **Éliminer** | Quelles pratiques standards du secteur ne créent pas de valeur pour le client ? | RDV physiques obligatoires, révisions infinies sans cadre |
-| **Réduire** | Qu'est-ce qu'on peut diminuer sous les standards du secteur sans nuire ? | Nombre de livrables intermédiaires, réunions de suivi |
-| **Augmenter** | Qu'est-ce qu'on peut pousser bien au-delà des standards ? | Transparence du process, ancrage scientifique, documentation publique |
-| **Créer** | Qu'est-ce qui n'existe pas dans l'industrie et que les clients valoriseraient ? | Workflow IA-first documenté, audit qualité livré avec le projet |
+| Action | Question | Concrete Example |
+|--------|----------|-----------------|
+| **Eliminate** | What industry-standard practices create no value for the client? | Mandatory in-person meetings, endless revisions without a framework |
+| **Reduce** | What can be brought below industry standards without causing harm? | Number of intermediate deliverables, status meetings |
+| **Raise** | What can be pushed well beyond industry standards? | Process transparency, scientific grounding, public documentation |
+| **Create** | What doesn't exist in the industry that clients would value? | Publicly documented AI-first workflow, quality audit delivered with the project |
 
-**Objectif :** identifier 1-2 facteurs dans la case "Créer" qui permettent d'inventer une catégorie propre.
+**Objective:** identify 1–2 factors in the "Create" box that enable the invention of an own category.
 
-### Prism d'Identité de Marque (Kapferer)
+### Brand Identity Prism (Kapferer)
 
-> Source : Jean-Noël Kapferer, *The New Strategic Brand Management* (Kogan Page, 1992, 4e éd. 2008).
-> Six facettes qui définissent l'identité complète d'une marque.
+> Source: Jean-Noël Kapferer, *The New Strategic Brand Management* (Kogan Page, 1992, 4th ed. 2008).
+> Six facets that define the complete identity of a brand.
 
 ```
-        ÉMETTEUR
+        SENDER
    ┌────────────────────────┐
-   │    Physique    │  Personnalité  │  ← Ce que la marque projette
+   │    Physique    │  Personality  │  ← What the brand projects
    │────────────────────────│
-   │    Culture    │  Relation    │  ← Valeurs et liens
+   │    Culture    │  Relationship    │  ← Values and bonds
    │────────────────────────│
-   │    Reflet    │  Self-image   │  ← Ce que le client ressent
+   │    Reflection    │  Self-image   │  ← What the client feels
    └────────────────────────┘
-        RÉCEPTEUR
+        RECEIVER
 ```
 
-| Facette | Définition | Exemple SQWR Studio |
-|---------|-----------|-------------------|
-| **Physique** | Caractéristiques tangibles (logo, couleurs, forme) | Noir #0A0A0A, blanc #F5F5F0, typographie géométrique |
-| **Personnalité** | Traits de caractère (si la marque était une personne) | Rigoureux, curieux, direct, ambitieux sans arrogance |
-| **Culture** | Valeurs et principes profonds | Standards > opinions, recherche amont, IA-first |
-| **Relation** | Type de relation avec le client | Partenaire de confiance, pas prestataire |
-| **Reflet** | Image que le client projette en utilisant la marque | "Je travaille avec les meilleurs" |
-| **Self-image** | Ce que le client ressent intérieurement | "J'ai fait le bon choix, j'avance" |
+| Facet | Definition | Example SQWR Studio |
+|-------|-----------|-------------------|
+| **Physique** | Tangible characteristics (logo, colors, shape) | Black #0A0A0A, white #F5F5F0, geometric typography |
+| **Personality** | Character traits (if the brand were a person) | Rigorous, curious, direct, ambitious without arrogance |
+| **Culture** | Deep values and principles | Standards > opinions, upstream research, AI-first |
+| **Relationship** | Type of relationship with the client | Trusted partner, not a vendor |
+| **Reflection** | Image the client projects by using the brand | "I work with the best" |
+| **Self-image** | What the client feels internally | "I made the right choice, I'm moving forward" |
 
 ---
 
-## Étape 6 — Voix et Ton de Marque
+## Step 6 — Brand Voice and Tone
 
-> Source : Ann Handley, *Everybody Writes* (Wiley, 2014).
-> Distinction Voice/Tone : Nielsen Norman Group, *The Four Dimensions of Tone of Voice* (Kate Moran, 2016).
+> Source: Ann Handley, *Everybody Writes* (Wiley, 2014).
+> Voice/Tone distinction: Nielsen Norman Group, *The Four Dimensions of Tone of Voice* (Kate Moran, 2016).
 
-**Voice** = personnalité constante de la marque (ne change **jamais**).
-**Tone** = adaptation contextuelle (change selon la situation).
+**Voice** = consistent brand personality (never changes).
+**Tone** = contextual adaptation (changes with the situation).
 
-### Template Voice (4 attributs)
+### Voice Template (4 Attributes)
 
-| Attribut | Ce que nous sommes | Ce que nous ne sommes PAS |
-|----------|-------------------|--------------------------|
-| Registre | Professionnel mais accessible | Corporatif froid ou condescendant |
-| Style | Direct, concis, sans jargon inutile | Verbeux, scolaire, sur-explicatif |
-| Personnalité | Expert passionné par son travail | Donneur de leçons, suffisant |
-| Ton émotionnel | Enthousiasmé par le travail bien fait | Neutre/robotique ou trop promotionnel |
+| Attribute | What we are | What we are NOT |
+|-----------|-------------|-----------------|
+| Register | Professional but accessible | Cold corporate or condescending |
+| Style | Direct, concise, without unnecessary jargon | Verbose, academic, over-explanatory |
+| Personality | Expert passionate about their work | Preachy, self-important |
+| Emotional tone | Enthusiastic about work well done | Neutral/robotic or overly promotional |
 
-### Variations de Tone
+### Tone Variations
 
-| Contexte | Ton approprié |
-|---------|--------------|
-| Premier contact / devis | Chaleureux, curieux, rassurant |
-| Livraison de projet | Confiant, précis, fier du travail |
-| Situation de crise / retard | Calme, transparent, orienté solutions |
-| Réseaux sociaux | Direct, humain, léger — pas corporate |
-| Documentation technique | Précis, structuré, zéro ambiguïté |
-
----
-
-## Étape 7 — Traduction en Identité Visuelle
-
-Seulement ici, après les 6 étapes précédentes, les décisions visuelles deviennent **guidées** et non arbitraires.
-
-| Décision stratégique | → Décision visuelle |
-|---------------------|-------------------|
-| Archétype Créateur + Hors-la-loi | → Palette forte, typographie atypique, design "signature" |
-| Positionnement premium | → Espace blanc généreux, finesse des traits, moins = plus |
-| Tone direct et humain | → Photos réelles (pas stock), langage visuel authentique |
-| Narrative Guide (pas Héros) | → Client mis en avant visuellement, marque en retrait |
-| Culture standards + rigueur | → Grid system strict, cohérence systématique |
-
-**Artefacts à créer dans l'ordre :**
-- [ ] Palette couleur (3-5 tokens, rôles définis : dominant/secondaire/accent)
-- [ ] 2 familles typographiques max (titres + corps — jamais plus sans raison)
-- [ ] Logo principal + variations (dark/light/icon/monochrome)
-- [ ] Brand guidelines 1 page (règles d'usage + exemples do/don't)
-- [ ] 10 phrases de copywriting do/don't (voice en action)
+| Context | Appropriate Tone |
+|---------|-----------------|
+| First contact / quoting | Warm, curious, reassuring |
+| Project delivery | Confident, precise, proud of the work |
+| Crisis / delay | Calm, transparent, solution-oriented |
+| Social media | Direct, human, light — not corporate |
+| Technical documentation | Precise, structured, zero ambiguity |
 
 ---
 
-## Audit de Marque SQWR
+## Step 7 — Translation into Visual Identity
 
-Utiliser avant tout projet de création ou refonte de marque.
-**Score cible : ≥70/100 avant de commencer le design visuel.**
+Only here, after the 6 preceding steps, do visual decisions become **guided** rather than arbitrary.
 
-| Section | Critères | Score | /Total |
+| Strategic Decision | → Visual Decision |
+|--------------------|------------------|
+| Creator + Outlaw archetype | → Strong palette, atypical typography, "signature" design |
+| Premium positioning | → Generous white space, fine strokes, less is more |
+| Direct and human tone | → Real photos (not stock), authentic visual language |
+| Guide Narrative (not Hero) | → Client foregrounded visually, brand in the background |
+| Standards + rigor culture | → Strict grid system, systematic consistency |
+
+**Artifacts to create in order:**
+- [ ] Color palette (3–5 tokens, defined roles: dominant/secondary/accent)
+- [ ] Max 2 type families (headings + body — never more without good reason)
+- [ ] Primary logo + variations (dark/light/icon/monochrome)
+- [ ] 1-page brand guidelines (usage rules + do/don't examples)
+- [ ] 10 copywriting do/don't phrases (voice in action)
+
+---
+
+## SQWR Brand Audit
+
+Use before any brand creation or rebrand project.
+**Target score: ≥70/100 before starting visual design.**
+
+| Section | Criteria | Score | /Total |
 |---------|---------|-------|--------|
-| **WHY articulé** | Le WHY est distinct, crédible, non générique | | /20 |
-| **Archétype cohérent** | Archétype identifié + cohérent avec désir client | | /15 |
-| **Positionnement distinct** | Catégorie propre ou différenciation crédible | | /20 |
-| **Narrative SB7** | 7 blocs complétés, client = héros | | /20 |
-| **Différenciation ERRC** | ≥1 facteur "Créer" identifié | | /15 |
-| **Voix définie** | 4 attributs remplis + variations contextuelles | | /10 |
+| **Articulated WHY** | The WHY is distinct, credible, non-generic | | /20 |
+| **Consistent archetype** | Archetype identified + consistent with client desire | | /15 |
+| **Distinct positioning** | Own category or credible differentiation | | /20 |
+| **SB7 Narrative** | 7 blocks completed, client = hero | | /20 |
+| **ERRC Differentiation** | ≥1 "Create" factor identified | | /15 |
+| **Defined Voice** | 4 attributes filled in + contextual variations | | /10 |
 | **TOTAL** | | | **/100** |
 
-**Interprétation :**
-- < 50 : Danger — le design visuel créé ici sera décoratif, pas stratégique
-- 50-69 : Base insuffisante — poursuivre la réflexion avant de passer au visuel
-- 70-84 : Base solide — commencer l'identité visuelle avec ce cadre
-- ≥ 85 : Base excellente — différenciation probable sur le marché
+**Interpretation:**
+- < 50: Danger — visual design created here will be decorative, not strategic
+- 50–69: Insufficient foundation — continue strategic work before moving to visual
+- 70–84: Solid foundation — begin visual identity with this framework
+- ≥ 85: Excellent foundation — differentiation on the market is likely
 
 ---
 
 ## Sources
 
-| Référence | Apport |
-|-----------|--------|
-| Simon Sinek — *Start With Why* (Portfolio/Penguin, 2009) | Cercle d'Or, communication inside-out |
-| Carl Jung — *Archetypes and the Collective Unconscious* (1919) | Base psychologique des archétypes universels |
-| Margaret Mark & Carol Pearson — *The Hero and the Outlaw* (HarperCollins, 2001) | 12 archétypes appliqués au branding |
-| Al Ries & Jack Trout — *Positioning: The Battle for Your Mind* (McGraw-Hill, 1981) | Positionnement mental, loi du premier |
-| Geoffrey Moore — *Crossing the Chasm* (HarperBusiness, 1991) | Template de positionnement |
-| Donald Miller — *Building a StoryBrand* (HarperCollins Leadership, 2017) | SB7 narrative framework, client = héros |
-| W. Chan Kim & Renée Mauborgne — *Blue Ocean Strategy* (HBSP, 2004) | ERRC framework, création de catégorie |
-| Jean-Noël Kapferer — *The New Strategic Brand Management* (Kogan Page, 4e éd. 2008) | Brand Identity Prism (6 facettes) |
-| Marty Neumeier — *The Brand Gap* (New Riders, 2005) | Brand = gut feeling, pas logo |
+| Reference | Contribution |
+|-----------|-------------|
+| Simon Sinek — *Start With Why* (Portfolio/Penguin, 2009) | Golden Circle, inside-out communication |
+| Carl Jung — *Archetypes and the Collective Unconscious* (1919) | Psychological foundation of universal archetypes |
+| Margaret Mark & Carol Pearson — *The Hero and the Outlaw* (HarperCollins, 2001) | 12 archetypes applied to branding |
+| Al Ries & Jack Trout — *Positioning: The Battle for Your Mind* (McGraw-Hill, 1981) | Mental positioning, law of the first |
+| Geoffrey Moore — *Crossing the Chasm* (HarperBusiness, 1991) | Positioning template |
+| Donald Miller — *Building a StoryBrand* (HarperCollins Leadership, 2017) | SB7 narrative framework, client = hero |
+| W. Chan Kim & Renée Mauborgne — *Blue Ocean Strategy* (HBSP, 2004) | ERRC framework, category creation |
+| Jean-Noël Kapferer — *The New Strategic Brand Management* (Kogan Page, 4th ed. 2008) | Brand Identity Prism (6 facets) |
+| Marty Neumeier — *The Brand Gap* (New Riders, 2005) | Brand = gut feeling, not logo |
 | Ann Handley — *Everybody Writes* (Wiley, 2014) | Voice vs Tone distinction |
-| Nielsen Norman Group — Kate Moran, *The Four Dimensions of Tone of Voice* (2016) | Tone contextuel |
+| Nielsen Norman Group — Kate Moran, *The Four Dimensions of Tone of Voice* (2016) | Contextual tone |

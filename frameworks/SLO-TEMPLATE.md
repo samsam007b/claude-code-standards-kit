@@ -1,150 +1,150 @@
 # Framework — Service Level Objectives (SLO)
 
-> Framework SQWR Project Kit — fiabilité mesurable et error budgets.
-> Sources : Google SRE Book (Ch. 4), Google SRE Workbook (Ch. 2).
-> Principe : sans définition de "assez fiable", on ne sait jamais si le service est en bonne santé.
+> SQWR Project Kit Framework — measurable reliability and error budgets.
+> Sources: Google SRE Book (Ch. 4), Google SRE Workbook (Ch. 2).
+> Principle: without a definition of "reliable enough", you never know if a service is healthy.
 
 ---
 
-## Les 3 concepts fondamentaux (Google SRE)
+## The 3 Core Concepts (Google SRE)
 
 ### SLI — Service Level Indicator
 
-Ce qu'on mesure. Un SLI est une métrique qui reflète l'expérience utilisateur.
+What you measure. An SLI is a metric that reflects the user experience.
 
 ```
-SLI = (événements bons / total d'événements) × 100%
+SLI = (good events / total events) × 100%
 
-Ex: SLI uptime = (requêtes avec status 200-499) / (toutes les requêtes) × 100%
+Ex: SLI uptime = (requests with status 200-499) / (all requests) × 100%
 ```
 
 ### SLO — Service Level Objective
 
-La cible. Un SLO est le niveau de fiabilité qu'on s'engage à atteindre.
+The target. An SLO is the level of reliability you commit to achieving.
 
 ```
-Ex: SLO = 99.5% des requêtes retournent 200-499 par fenêtre de 30 jours
+Ex: SLO = 99.5% of requests return 200-499 over a 30-day window
 ```
 
 ### Error Budget
 
-La tolérance. Si SLO = 99.5%, l'error budget = 0.5% de downtime autorisé.
+The tolerance. If SLO = 99.5%, the error budget = 0.5% of allowed downtime.
 
 ```
-Error budget 99.5% sur 30 jours = 0.5% × 30 × 24 × 60 min = 216 min = 3h36 de downtime/mois
+Error budget 99.5% over 30 days = 0.5% × 30 × 24 × 60 min = 216 min = 3h36 of downtime/month
 ```
 
-**L'insight clé :** l'error budget finance l'innovation. Tant que le budget n'est pas épuisé, l'équipe peut déployer des nouvelles features, prendre des risques calculés, et expérimenter. Si le budget est épuisé → stop features, focus fiabilité.
+**The key insight:** the error budget finances innovation. As long as the budget is not exhausted, the team can deploy new features, take calculated risks, and experiment. If the budget is exhausted → stop features, focus on reliability.
 
 ---
 
-## SLIs recommandés par type de service
+## Recommended SLIs by service type
 
-| Type de service | SLIs à mesurer |
-|----------------|---------------|
-| **Site web public (sqwr-site)** | Uptime, LCP, taux d'erreur HTTP |
-| **App web (izzico)** | Uptime, latence auth, taux d'erreur API |
-| **Agents IA (CozyGrowth)** | Uptime, latence LLM, taux de réponses vides/erreur |
-| **API REST** | Disponibilité, latence p95, taux d'erreur 5xx |
+| Service type | SLIs to measure |
+|--------------|----------------|
+| **Public website (sqwr-site)** | Uptime, LCP, HTTP error rate |
+| **Web app (izzico)** | Uptime, auth latency, API error rate |
+| **AI agents (CozyGrowth)** | Uptime, LLM latency, empty/error response rate |
+| **REST API** | Availability, p95 latency, 5xx error rate |
 
 ---
 
-## Template SLO par projet
+## SLO Template per project
 
 ```markdown
-# SLO — [Nom du projet]
+# SLO — [Project Name]
 
-**Service :** [description courte]
-**Audience :** [utilisateurs finaux / clients / internes]
-**Fenêtre de mesure :** 30 jours glissants
-**Dernière révision :** [JJ/MM/AAAA]
+**Service:** [short description]
+**Audience:** [end users / clients / internal]
+**Measurement window:** 30 rolling days
+**Last reviewed:** [DD/MM/YYYY]
 
 ---
 
-## SLIs & SLOs définis
+## Defined SLIs & SLOs
 
-### 1. Disponibilité
+### 1. Availability
 
-| SLI | Définition | SLO cible | Mesure |
-|-----|-----------|-----------|--------|
-| Uptime | % de requêtes avec HTTP 200-499 | **99.5%** | Vercel Analytics / UptimeRobot |
+| SLI | Definition | SLO Target | Measurement |
+|-----|-----------|-----------|-------------|
+| Uptime | % of requests with HTTP 200-499 | **99.5%** | Vercel Analytics / UptimeRobot |
 
-Error budget = 0.5% × 30j = **216 min/mois** (3h36)
+Error budget = 0.5% × 30d = **216 min/month** (3h36)
 
-### 2. Latence
+### 2. Latency
 
-| SLI | Définition | SLO cible | Mesure |
-|-----|-----------|-----------|--------|
-| LCP p75 | 75e percentile du Largest Contentful Paint | **≤2.5s** | Vercel Speed Insights |
-| API latence p95 | 95e percentile du temps de réponse API | **≤1s** | Vercel Analytics |
+| SLI | Definition | SLO Target | Measurement |
+|-----|-----------|-----------|-------------|
+| LCP p75 | 75th percentile of Largest Contentful Paint | **≤2.5s** | Vercel Speed Insights |
+| API latency p95 | 95th percentile of API response time | **≤1s** | Vercel Analytics |
 
-### 3. Qualité (si applicable)
+### 3. Quality (if applicable)
 
-| SLI | Définition | SLO cible | Mesure |
-|-----|-----------|-----------|--------|
-| Error rate | % de sessions avec une erreur JS | **≤0.5%** | Sentry |
-| AI response quality | % de réponses sans [À CONFIRMER] | **≥95%** | Logs |
+| SLI | Definition | SLO Target | Measurement |
+|-----|-----------|-----------|-------------|
+| Error rate | % of sessions with a JS error | **≤0.5%** | Sentry |
+| AI response quality | % of responses without [TO CONFIRM] | **≥95%** | Logs |
 
 ---
 
 ## Error Budget Policy
 
-| Budget restant | Action |
-|---------------|--------|
-| >50% | ✅ Déploiements normaux, expérimentation autorisée |
-| 25-50% | ⚠️ Revue des risques avant chaque déploiement |
-| <25% | 🔴 Stop features non-critiques, focus stabilité |
-| 0% | ❌ Freeze déploiements, postmortem obligatoire |
+| Budget remaining | Action |
+|-----------------|--------|
+| >50% | ✅ Normal deployments, experimentation allowed |
+| 25-50% | ⚠️ Risk review before each deployment |
+| <25% | 🔴 Stop non-critical features, focus on stability |
+| 0% | ❌ Deployment freeze, postmortem mandatory |
 
 ---
 
-## Monitoring SLO
+## SLO Monitoring
 
-### Outils recommandés SQWR
+### Recommended SQWR Tools
 
-| Besoin | Outil | Coût |
-|--------|-------|------|
-| Uptime monitoring | UptimeRobot | Gratuit (5 moniteurs) |
-| RUM (LCP, INP, CLS) | Vercel Speed Insights | Inclus Vercel |
-| Error tracking | Sentry | Free tier (10k erreurs/mois) |
-| Alertes | Slack webhook + Sentry | Inclus |
+| Need | Tool | Cost |
+|------|-------|------|
+| Uptime monitoring | UptimeRobot | Free (5 monitors) |
+| RUM (LCP, INP, CLS) | Vercel Speed Insights | Included with Vercel |
+| Error tracking | Sentry | Free tier (10k errors/month) |
+| Alerts | Slack webhook + Sentry | Included |
 
-### Dashboard SLO (à tenir à jour)
+### SLO Dashboard (keep up to date)
 
-| Période | Uptime | LCP p75 | Error rate | Budget restant |
-|---------|--------|---------|-----------|---------------|
-| [Mois en cours] | ___% | ___s | ___% | ___% |
-| [Mois-1] | ___% | ___s | ___% | ___% |
+| Period | Uptime | LCP p75 | Error rate | Budget remaining |
+|--------|--------|---------|-----------|-----------------|
+| [Current month] | ___% | ___s | ___% | ___% |
+| [Month-1] | ___% | ___s | ___% | ___% |
 ```
 
 ---
 
-## SLOs recommandés par type de service SQWR
+## Recommended SLOs by SQWR service type
 
-| Service | SLO Uptime | SLO Latence | Justification |
+| Service | SLO Uptime | SLO Latency | Justification |
 |---------|-----------|------------|--------------|
-| **Site marketing (sqwr-site)** | 99.5% | LCP ≤2.5s | Tolérance plus haute, impact limité |
-| **App avec auth (izzico)** | 99.9% | Auth ≤500ms | Utilisateurs actifs, impact direct |
-| **Agents IA (CozyGrowth)** | 99.5% | LLM ≤5s | LLMs sont lents par nature |
-| **API publique** | 99.9% | p95 ≤500ms | Clients techniques, SLA contractuel |
+| **Marketing site (sqwr-site)** | 99.5% | LCP ≤2.5s | Higher tolerance, limited impact |
+| **App with auth (izzico)** | 99.9% | Auth ≤500ms | Active users, direct impact |
+| **AI agents (CozyGrowth)** | 99.5% | LLM ≤5s | LLMs are slow by nature |
+| **Public API** | 99.9% | p95 ≤500ms | Technical clients, contractual SLA |
 
 ---
 
-## SLO vs SLA — distinction importante
+## SLO vs SLA — an important distinction
 
-| Concept | Qui l'utilise | Conséquences si raté |
-|---------|--------------|---------------------|
-| **SLO** (interne) | L'équipe technique | Processus internes (freeze features) |
-| **SLA** (contrat) | Clients, investisseurs | Pénalités contractuelles, remboursements |
+| Concept | Who uses it | Consequences if missed |
+|---------|------------|----------------------|
+| **SLO** (internal) | The engineering team | Internal processes (feature freeze) |
+| **SLA** (contract) | Clients, investors | Contractual penalties, refunds |
 
-**Règle SQWR :** Le SLO interne doit toujours être plus strict que le SLA contractuel.
-Ex: Si SLA client = 99%, notre SLO interne = 99.5%.
+**SQWR Rule:** The internal SLO must always be stricter than the contractual SLA.
+Ex: If client SLA = 99%, our internal SLO = 99.5%.
 
 ---
 
 ## Sources
 
-| Référence | Source |
+| Reference | Source |
 |-----------|--------|
 | Google SRE Book — Ch. 4 SLOs | sre.google/sre-book/service-level-objectives |
 | Google SRE Workbook — SLOs | sre.google/workbook/implementing-slos |

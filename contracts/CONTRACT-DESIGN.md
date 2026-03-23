@@ -1,193 +1,193 @@
-# Contrat — Design System & UI
+# Contract — Design System & UI
 
-> Module de contrat SQWR Project Kit — enrichi avec références scientifiques.
-> Sources : Itten, Munsell, Wertheimer/Köhler (Gestalt), Bringhurst, Baymard Institute, WCAG 2.1 W3C, Dr. Pamela Rutledge.
-
----
-
-## Fondements scientifiques
-
-**62-90% du jugement utilisateur sur une interface est basé sur la couleur seule** (Dr. Pamela Rutledge, Media Psychology Research Center). Les décisions de design ne sont pas esthétiques — elles sont cognitives.
+> SQWR Project Kit contract module — enriched with scientific references.
+> Sources: Itten, Munsell, Wertheimer/Köhler (Gestalt), Bringhurst, Baymard Institute, WCAG 2.1 W3C, Dr. Pamela Rutledge.
 
 ---
 
-## 1. Théorie des couleurs
+## Scientific Foundations
 
-### Systèmes d'harmonie (Johannes Itten, Albert Munsell)
+**62-90% of user judgment about an interface is based on color alone** (Dr. Pamela Rutledge, Media Psychology Research Center). Design decisions are not aesthetic — they are cognitive.
 
-| Système | Principe | Usage |
-|---------|----------|-------|
-| **Complémentaire** | Couleurs opposées sur la roue (180°) | Contraste fort, attention, CTAs |
-| **Analogique** | Couleurs adjacentes (30-60°) | Harmonie naturelle, cohérence visuelle |
-| **Triadique** | 3 couleurs à 120° (triangle équilatéral) | Vivacité équilibrée |
-| **Split-complémentaire** | Couleur + 2 voisines de son complément | Contraste doux, polyvalent |
+---
 
-**Règle d'attribution des rôles (hiérarchie couleur) :**
-- **Dominante** (60%) : fond, surfaces neutres
-- **Secondaire** (30%) : éléments structurants, navigation
-- **Accent** (10%) : CTAs, alertes, liens actifs
+## 1. Color Theory
 
-### Seuils de contraste WCAG 2.1 (W3C — standard légal)
+### Harmony Systems (Johannes Itten, Albert Munsell)
 
-| Niveau | Texte normal | Grand texte (≥18pt ou ≥14pt bold) | Graphiques & UI |
-|--------|-------------|----------------------------------|----------------|
+| System | Principle | Usage |
+|--------|-----------|-------|
+| **Complementary** | Opposite colors on the wheel (180°) | Strong contrast, attention, CTAs |
+| **Analogous** | Adjacent colors (30-60°) | Natural harmony, visual consistency |
+| **Triadic** | 3 colors at 120° (equilateral triangle) | Balanced vibrancy |
+| **Split-complementary** | Color + 2 neighbors of its complement | Soft contrast, versatile |
+
+**Role assignment rule (color hierarchy):**
+- **Dominant** (60%): backgrounds, neutral surfaces
+- **Secondary** (30%): structural elements, navigation
+- **Accent** (10%): CTAs, alerts, active links
+
+### WCAG 2.1 Contrast Thresholds (W3C — legal standard)
+
+| Level | Normal text | Large text (≥18pt or ≥14pt bold) | Graphics & UI |
+|-------|-------------|----------------------------------|---------------|
 | **AA (minimum)** | 4.5:1 | 3:1 | 3:1 |
 | **AAA (optimal)** | 7:1 | 4.5:1 | — |
 
-**Outil de vérification :** WebAIM Contrast Checker (webaim.org/resources/contrastchecker)
+**Verification tool:** WebAIM Contrast Checker (webaim.org/resources/contrastchecker)
 
-> Source : W3C WCAG 2.1 SC 1.4.3 — [w3.org/WAI/WCAG21/Understanding/contrast-minimum](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html)
+> Source: W3C WCAG 2.1 SC 1.4.3 — [w3.org/WAI/WCAG21/Understanding/contrast-minimum](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html)
 
-### Espaces couleur modernes (W3C 2025)
-Les professionnels de niveau avancé préparent pour **Display P3** et **Oklch** (CSS Color Level 4). L'amateur reste en sRGB/hex. Pour les projets SQWR actuels : hex + vérification WCAG suffisent.
+### Modern Color Spaces (W3C 2025)
+Advanced-level professionals prepare for **Display P3** and **Oklch** (CSS Color Level 4). Amateurs stay in sRGB/hex. For current SQWR projects: hex + WCAG verification is sufficient.
 
 ---
 
-## 2. Typographie & Lisibilité
+## 2. Typography & Readability
 
-> Source principale : Lesia Rello & Martin Pielot (CHI 2016 — étude sur la taille de police optimale), Baymard Institute (étude longueur de ligne), Robert Bringhurst (*The Elements of Typographic Style*)
+> Primary source: Lesia Rello & Martin Pielot (CHI 2016 — study on optimal font size), Baymard Institute (line length study), Robert Bringhurst (*The Elements of Typographic Style*)
 
-### Seuils mesurables — obligatoires
+### Measurable Thresholds — Mandatory
 
-| Paramètre | Seuil | Raison scientifique |
-|-----------|-------|---------------------|
-| **Taille corps minimum** | 16px (idéal 18px) | Sous 14px = augmentation mesurée de la fatigue oculaire (Rello & Pielot) |
-| **Longueur de ligne (desktop)** | 50-75 caractères/ligne | Sweet spot = 66 CPL. Au-delà = perte de tracé oculaire (Baymard) |
-| **Longueur de ligne (mobile)** | 30-50 caractères/ligne | — |
-| **WCAG max characters** | ≤80 (anglais/français), ≤40 (CJK) | WCAG 2.1 SC 1.4.8 |
-| **Interligne (line-height)** | 1.5 × taille police | Prévient les "rivières blanches" et la perte de ligne |
+| Parameter | Threshold | Scientific rationale |
+|-----------|-----------|----------------------|
+| **Minimum body font size** | 16px (ideal 18px) | Below 14px = measured increase in eye strain (Rello & Pielot) |
+| **Line length (desktop)** | 50-75 characters/line | Sweet spot = 66 CPL. Beyond = loss of eye tracking (Baymard) |
+| **Line length (mobile)** | 30-50 characters/line | — |
+| **WCAG max characters** | ≤80 (English/French), ≤40 (CJK) | WCAG 2.1 SC 1.4.8 |
+| **Line height** | 1.5 × font size | Prevents "rivers" and loss of line tracking |
 
-**Implementation CSS :**
+**CSS Implementation:**
 ```css
-/* ✅ Largeur de colonne de texte : forcer les seuils mesurables */
+/* ✅ Text column width: enforce measurable thresholds */
 .prose {
-  max-width: 75ch;      /* 75 caractères max */
+  max-width: 75ch;      /* 75 characters max */
   font-size: 1rem;      /* 16px minimum */
-  line-height: 1.5;     /* ratio 1.5 obligatoire */
+  line-height: 1.5;     /* 1.5 ratio mandatory */
 }
 ```
 
 ### Modular Scale (Robert Bringhurst)
 
-Au lieu de tailles arbitraires, utiliser un **ratio mathématique** pour la hiérarchie typographique :
+Instead of arbitrary sizes, use a **mathematical ratio** for typographic hierarchy:
 
-| Ratio | Nom | Application |
-|-------|-----|-------------|
-| ×1.618 | Golden Ratio | Titres impactants, présence forte |
-| ×1.5 | Perfect Fifth | Usage web général, équilibré |
-| ×1.333 | Perfect Fourth | Interface dense, hiérarchie subtile |
+| Ratio | Name | Application |
+|-------|------|-------------|
+| ×1.618 | Golden Ratio | Impactful headings, strong presence |
+| ×1.5 | Perfect Fifth | General web use, balanced |
+| ×1.333 | Perfect Fourth | Dense interface, subtle hierarchy |
 
 ```
 Base: 16px → ×1.5 = 24px → ×1.5 = 36px → ×1.5 = 54px → ×1.5 = 81px
 ```
 
-**Jamais de tailles arbitraires** (`12px → 20px → 32px → 48px` = signale du travail amateur).
+**Never use arbitrary sizes** (`12px → 20px → 32px → 48px` = signals amateur work).
 
 ---
 
-## 3. Les 7 Lois de Gestalt (Wertheimer, Koffka, Köhler — 1920s)
+## 3. The 7 Laws of Gestalt (Wertheimer, Koffka, Köhler — 1920s)
 
-> Base scientifique universelle de la perception visuelle humaine. Établies par la psychologie expérimentale, non remises en question depuis 1960.
+> Universal scientific basis of human visual perception. Established by experimental psychology, unchallenged since 1960.
 
-| Loi | Principe | Application UI concrète |
-|-----|----------|------------------------|
-| **Proximité** | Éléments proches = perçus comme liés | Grouper les champs d'un formulaire (8-16px), séparer les sections (32px+) |
-| **Similarité** | Même apparence = même fonction | Tous les boutons primaires = même couleur ; tous les liens = même style |
-| **Continuité** | L'œil suit les lignes et courbes | Alignements, grilles, animations qui guident le regard |
-| **Fermeture** | Le cerveau complète les formes incomplètes | Icônes minimalistes encore lisibles ; espaces négatifs intentionnels |
-| **Figure-fond** | Séparation premier plan / arrière-plan | Contraste suffisant entre contenu et fond |
-| **Symétrie** | Arrangements symétriques = ordre | Layouts équilibrés réduisent la charge cognitive |
-| **Destin commun** | Éléments qui bougent ensemble = liés | Animations groupant des éléments relatifs |
+| Law | Principle | Concrete UI application |
+|-----|-----------|------------------------|
+| **Proximity** | Close elements = perceived as related | Group form fields (8-16px), separate sections (32px+) |
+| **Similarity** | Same appearance = same function | All primary buttons = same color; all links = same style |
+| **Continuity** | The eye follows lines and curves | Alignments, grids, animations that guide the gaze |
+| **Closure** | The brain completes incomplete shapes | Minimalist icons still legible; intentional negative space |
+| **Figure-ground** | Separation of foreground / background | Sufficient contrast between content and background |
+| **Symmetry** | Symmetric arrangements = order | Balanced layouts reduce cognitive load |
+| **Common fate** | Elements that move together = related | Animations grouping related elements |
 
-**Règle d'application :** toute violation consciente d'une loi Gestalt doit être documentée avec sa justification.
-
----
-
-## 4. Hiérarchie visuelle
-
-### Eye-tracking & patterns de lecture (Nielsen Norman Group)
-
-- **Pattern F** (contenu texte dense) : balayage horizontal en haut → vertical gauche → horizontal milieu
-- **Pattern Z** (interfaces éparses) : coin haut-gauche → coin haut-droit → diagonal → coin bas-droit
-
-**Implication :** placer les CTAs primaires dans les zones de fort engagement (haut-gauche, haut-droit).
-
-### Espacement systématique (base 8px)
-
-| Usage | Valeur |
-|-------|--------|
-| Espacement interne (padding tight) | 8px |
-| Espacement interne (padding normal) | 16px |
-| Espacement entre éléments liés | 8-16px |
-| Espacement entre sections | 32-48px |
-| Espacement entre blocs majeurs | 64-96px |
-
-**Ratio espacement négatif/positif : 30-50% d'espace blanc optimal.**
+**Application rule:** any conscious violation of a Gestalt law must be documented with its justification.
 
 ---
 
-## 5. Identité visuelle — Tokens à définir par projet
+## 4. Visual Hierarchy
 
-> Remplir avec les valeurs de votre charte graphique.
-> Voir `frameworks/BRAND-STRATEGY.md` pour définir la stratégie avant de choisir les couleurs.
+### Eye-tracking & Reading Patterns (Nielsen Norman Group)
 
-**Palette principale**
+- **F Pattern** (dense text content): horizontal scan at top → vertical left → horizontal middle
+- **Z Pattern** (sparse interfaces): top-left corner → top-right corner → diagonal → bottom-right corner
 
-| Token | Valeur | Usage |
-|-------|--------|-------|
-| `brand-primary` | `[À COMPLÉTER — ex: #0A0A0A]` | Couleur dominante (60%) — fond ou couleur forte |
-| `brand-secondary` | `[À COMPLÉTER — ex: #F5F5F0]` | Couleur secondaire (30%) — éléments structurants |
-| `brand-accent` | `[À COMPLÉTER — ex: #FF4D00]` | Accent (10%) — CTAs, liens actifs, alertes |
+**Implication:** place primary CTAs in high-engagement zones (top-left, top-right).
 
-**Exemple minimal Tailwind (`tailwind.config.ts`) :**
+### Systematic Spacing (8px base)
+
+| Usage | Value |
+|-------|-------|
+| Internal spacing (tight padding) | 8px |
+| Internal spacing (normal padding) | 16px |
+| Spacing between related elements | 8-16px |
+| Spacing between sections | 32-48px |
+| Spacing between major blocks | 64-96px |
+
+**Negative/positive spacing ratio: 30-50% white space is optimal.**
+
+---
+
+## 5. Visual Identity — Tokens to Define per Project
+
+> Fill in with your brand guidelines values.
+> See `frameworks/BRAND-STRATEGY.md` to define the strategy before choosing colors.
+
+**Primary Palette**
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `brand-primary` | `[TO FILL — e.g.: #0A0A0A]` | Dominant color (60%) — background or strong color |
+| `brand-secondary` | `[TO FILL — e.g.: #F5F5F0]` | Secondary color (30%) — structural elements |
+| `brand-accent` | `[TO FILL — e.g.: #FF4D00]` | Accent (10%) — CTAs, active links, alerts |
+
+**Minimal Tailwind example (`tailwind.config.ts`):**
 ```ts
 colors: {
-  'brand-primary': '[votre couleur]',
-  'brand-secondary': '[votre couleur]',
-  'brand-accent': '[votre couleur]',
+  'brand-primary': '[your color]',
+  'brand-secondary': '[your color]',
+  'brand-accent': '[your color]',
 }
 ```
 
-> Documenter votre design system complet dans `docs/design-system.md` de votre projet.
+> Document your complete design system in `docs/design-system.md` of your project.
 
 ---
 
-## 6. Règles Tailwind
+## 6. Tailwind Rules
 
-### Ne jamais faire
+### Never do
 
-- **Styles inline** (`style={{ color: 'red' }}`) — toujours des classes Tailwind
-- **Valeurs arbitraires excessives** (`w-[347px]`) — utiliser la grille de spacing Tailwind
-- **Tailles de police sous 16px** pour le corps de texte
-- **Mélanger Tailwind v3 et v4 syntax** dans le même projet
+- **Inline styles** (`style={{ color: 'red' }}`) — always use Tailwind classes
+- **Excessive arbitrary values** (`w-[347px]`) — use Tailwind's spacing grid
+- **Font sizes below 16px** for body text
+- **Mixing Tailwind v3 and v4 syntax** in the same project
 
-### Toujours faire
+### Always do
 
-- Utiliser les tokens définis dans `tailwind.config.ts`
-- Grouper les classes dans l'ordre : layout → spacing → typography → colors → effects
-- Extraire les classes répétées dans des composants
+- Use tokens defined in `tailwind.config.ts`
+- Group classes in order: layout → spacing → typography → colors → effects
+- Extract repeated classes into components
 
 ```tsx
-// ✅ Ordre cohérent, lisible
+// ✅ Consistent, readable order
 <div className="flex items-center gap-4 px-6 py-3 text-base font-medium text-sqwr-black bg-sqwr-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
 ```
 
 ---
 
-## 7. Composants — Règles générales
+## 7. Components — General Rules
 
 ### Atomic Design (Brad Frost)
 
-| Niveau | Description | Exemples |
-|--------|------------|---------|
-| **Atoms** | Éléments indivisibles | Button, Input, Label, Icon |
-| **Molecules** | Combinaisons simples | SearchForm (Input + Button) |
-| **Organisms** | Sections fonctionnelles | ProductCard, NavigationBar |
-| **Templates** | Structure de page (sans contenu réel) | PageLayout |
-| **Pages** | Contenu réel dans templates | HomePage, AboutPage |
+| Level | Description | Examples |
+|-------|-------------|---------|
+| **Atoms** | Indivisible elements | Button, Input, Label, Icon |
+| **Molecules** | Simple combinations | SearchForm (Input + Button) |
+| **Organisms** | Functional sections | ProductCard, NavigationBar |
+| **Templates** | Page structure (without real content) | PageLayout |
+| **Pages** | Real content in templates | HomePage, AboutPage |
 
 ```tsx
-// Structure d'un composant
+// Component structure
 interface ComponentProps {
   title: string
   variant?: 'primary' | 'secondary'
@@ -202,36 +202,36 @@ export default function Component({ title, variant = 'primary' }: ComponentProps
 
 ## 8. Animations
 
-- Préférer Framer Motion (déclaratif, React-natif) pour composants
-- GSAP pour animations timeline/canvas complexes
-- **Toujours respecter `prefers-reduced-motion`** — obligation WCAG
+- Prefer Framer Motion (declarative, React-native) for components
+- GSAP for complex timeline/canvas animations
+- **Always respect `prefers-reduced-motion`** — WCAG obligation
 
 ```tsx
-// ✅ Obligatoire sur toute animation
+// ✅ Mandatory on every animation
 const shouldReduceMotion = useReducedMotion()
 const animation = shouldReduceMotion ? {} : { opacity: [0, 1], y: [20, 0] }
 ```
 
 ---
 
-## 9. Psychologie du Design — Ancrage Académique
+## 9. Design Psychology — Academic Foundations
 
-> Ces principes complètent les règles de design du kit avec des fondements issus de la recherche cognitive et comportementale. Ils s'appliquent à tout projet avec une composante UI, quelle que soit la stack.
+> These principles complement the kit's design rules with foundations from cognitive and behavioral research. They apply to any project with a UI component, regardless of the stack.
 
 ### 9.1 Processing Fluency
 
-**Principe :** Plus un stimulus visuel est fluent à traiter cognitivement, plus il est perçu comme beau et fiable — ce jugement est pré-cognitif et se produit en moins de 3 secondes.
+**Principle:** The more cognitively fluent a visual stimulus is to process, the more it is perceived as beautiful and trustworthy — this judgment is pre-cognitive and occurs in under 3 seconds.
 
-| Variable | Effet sur la fluence |
-|----------|---------------------|
-| Figural goodness (formes simples et régulières) | Augmente |
-| Contraste élevé | Augmente |
-| Symétrie | Augmente |
-| Répétition de motifs | Augmente |
+| Variable | Effect on fluency |
+|----------|------------------|
+| Figural goodness (simple, regular shapes) | Increases |
+| High contrast | Increases |
+| Symmetry | Increases |
+| Pattern repetition | Increases |
 
-**Threshold :** Jugement de beauté = < 3 secondes (avant toute lecture).
+**Threshold:** Beauty judgment = < 3 seconds (before any reading).
 
-**Implication :** Un design system cohérent (grille, échelle typographique, palette limitée) génère de la confiance avant même que l'utilisateur lise le contenu. Toute incohérence visuelle dégrade la fluence et donc la crédibilité perçue.
+**Implication:** A consistent design system (grid, typographic scale, limited palette) generates trust before the user even reads the content. Any visual inconsistency degrades fluency and therefore perceived credibility.
 
 **(Reber, Schwarz & Winkielman, 2004 — Personality and Social Psychology Review, 8(4), 364–382)**
 
@@ -239,11 +239,11 @@ const animation = shouldReduceMotion ? {} : { opacity: [0, 1], y: [20, 0] }
 
 ### 9.2 Peak-End Rule
 
-**Principe :** Les humains jugent une expérience par son moment PEAK (le point d'intensité maximale) et sa FIN — pas par sa durée totale ni par la moyenne des moments.
+**Principle:** Humans judge an experience by its PEAK moment (the point of maximum intensity) and its END — not by total duration or average of moments.
 
-**Threshold :** Investir ≥ 60% du budget d'animation et de soin visuel sur le moment signature (hero section) et le exit de page.
+**Threshold:** Invest ≥ 60% of the animation budget and visual care on the signature moment (hero section) and the page exit.
 
-**Implication :** 1 moment signature fort + un footer soigné surpasse 47 micro-animations médiocres réparties sur la page. Identifier et suroptimiser le point émotionnel maximal de chaque page avant de traiter les détails intermédiaires.
+**Implication:** 1 strong signature moment + a polished footer outperforms 47 mediocre micro-animations spread across the page. Identify and over-optimize the maximum emotional point of each page before handling intermediate details.
 
 **(Kahneman & Frederickson, 1993 — Psychological Science, 4(6), 409–415)**
 
@@ -251,15 +251,15 @@ const animation = shouldReduceMotion ? {} : { opacity: [0, 1], y: [20, 0] }
 
 ### 9.3 Isolation Effect (Von Restorff)
 
-**Principe :** Un élément distinctif parmi des éléments homogènes est mieux mémorisé que les éléments uniformes environnants.
+**Principle:** A distinctive element among homogeneous elements is better remembered than the surrounding uniform elements.
 
-**Threshold :** 95% de surface sobre et cohérente + 5% de rupture intentionnelle radicale = mémorabilité maximale.
+**Threshold:** 95% sober and consistent surface + 5% radical intentional rupture = maximum memorability.
 
-**Anti-patterns :**
-- 100% "propre et sobre" = aucun point focal = rien de mémorable
-- 100% animé ou contrasté = saturation = aucun élément ne se détache
+**Anti-patterns:**
+- 100% "clean and sober" = no focal point = nothing memorable
+- 100% animated or contrasted = saturation = no element stands out
 
-**Implication :** Choisir délibérément 1 seul élément par page comme point de rupture (couleur, typographie, taille, mouvement). Tout le reste doit être cohérent pour que la rupture fonctionne.
+**Implication:** Deliberately choose 1 single element per page as the break point (color, typography, size, movement). Everything else must be consistent for the rupture to work.
 
 **(Von Restorff, 1933 — Psychologische Forschung, 18, 299–342)**
 
@@ -267,15 +267,15 @@ const animation = shouldReduceMotion ? {} : { opacity: [0, 1], y: [20, 0] }
 
 ### 9.4 Optimal Complexity (Berlyne)
 
-**Principe :** Le plaisir esthétique suit une courbe en U inversé selon la complexité visuelle — la complexité intermédiaire produit le plaisir maximal.
+**Principle:** Aesthetic pleasure follows an inverted U-curve according to visual complexity — intermediate complexity produces maximum pleasure.
 
-| Niveau de complexité | Réponse |
-|---------------------|---------|
-| Trop faible | Ennui, désengagement |
-| Intermédiaire | Plaisir esthétique maximal |
-| Trop élevé | Confusion, rejet |
+| Complexity level | Response |
+|-----------------|---------|
+| Too low | Boredom, disengagement |
+| Intermediate | Maximum aesthetic pleasure |
+| Too high | Confusion, rejection |
 
-**Implication :** Un design system cohérent (réduction de la complexité) + 1 convention intentionnellement brisée (injection de complexité ciblée) = point optimal. Ne pas viser ni le maximalisme ni le minimalisme absolu.
+**Implication:** A consistent design system (complexity reduction) + 1 intentionally broken convention (targeted complexity injection) = optimal point. Aim for neither maximalism nor absolute minimalism.
 
 **(Berlyne, 1971 — Aesthetics and Psychobiology, Appleton-Century-Crofts)**
 
@@ -283,11 +283,11 @@ const animation = shouldReduceMotion ? {} : { opacity: [0, 1], y: [20, 0] }
 
 ### 9.5 Aesthetic-Usability Effect
 
-**Principe :** Un design beau est perçu comme plus utilisable — même lorsque l'usabilité fonctionnelle réelle est identique à celle d'un design moins esthétique.
+**Principle:** A beautiful design is perceived as more usable — even when actual functional usability is identical to that of a less aesthetic design.
 
-**Threshold :** Corrélation r = 0.73 entre beauté perçue et usabilité perçue (Tractinsky, 2000).
+**Threshold:** Correlation r = 0.73 between perceived beauty and perceived usability (Tractinsky, 2000).
 
-**Implication ROI :** L'investissement esthétique produit une meilleure satisfaction, une meilleure tolérance aux frictions et une perception de qualité supérieure. Le design "fonctionnel mais laid" n'est pas neutre — il dégrade activement la satisfaction.
+**ROI Implication:** Aesthetic investment produces better satisfaction, greater tolerance for friction, and a perception of superior quality. "Functional but ugly" design is not neutral — it actively degrades satisfaction.
 
 **(Kurosu & Kashimura, 1995 — CHI Conference Companion, 292–293)**
 **(Tractinsky, Katz & Ikar, 2000 — Interacting with Computers, 13(2), 127–145)**
@@ -296,30 +296,30 @@ const animation = shouldReduceMotion ? {} : { opacity: [0, 1], y: [20, 0] }
 
 ### 9.6 Anti-Laws of Luxury Design (Kapferer)
 
-**Principe :** Le design de marques premium suit des règles inverses au marketing de masse. 6 anti-lois applicables au digital :
+**Principle:** Premium brand design follows rules that are the inverse of mass marketing. 6 anti-laws applicable to digital:
 
-| Anti-loi | Application design |
+| Anti-law | Design application |
 |----------|-------------------|
-| Ne jamais se comparer | Zéro référence à la concurrence dans le copy ou les visuels |
-| Maintenir la rareté | Pas de "disponible maintenant" — la friction est un signal de valeur |
-| Rendre l'accès difficile | Contact = candidature, pas checkout instantané |
-| Communiquer au-delà des acheteurs | Le rêve dépasse la cible — l'aspirationnel est une fonctionnalité |
-| Just enough imperfection | Légère irrégularité intentionnelle = signature artisanale |
-| Jamais afficher les tarifs sans contexte | Le prix est un signal de valeur, pas un point d'entrée |
+| Never compare yourself | Zero reference to competition in copy or visuals |
+| Maintain scarcity | No "available now" — friction is a value signal |
+| Make access difficult | Contact = application, not instant checkout |
+| Communicate beyond buyers | The dream exceeds the target — aspiration is a feature |
+| Just enough imperfection | Slight intentional irregularity = artisanal signature |
+| Never display prices without context | Price is a value signal, not an entry point |
 
-**Implication technique :** Grille légèrement visible (opacity 0.02–0.04), courbes d'easing custom (pas les défauts navigateur), asymétries géométriques intentionnelles documentées.
+**Technical implication:** Slightly visible grid (opacity 0.02–0.04), custom easing curves (not browser defaults), intentionally documented geometric asymmetries.
 
-**(Kapferer & Bastien, 2009, 2e éd. 2012 — The Luxury Strategy, Kogan Page)**
+**(Kapferer & Bastien, 2009, 2nd ed. 2012 — The Luxury Strategy, Kogan Page)**
 
 ---
 
-### 9.7 Color Psychology — Rouge et dominance
+### 9.7 Color Psychology — Red and Dominance
 
-**Principe :** Le rouge est un signal de dominance, de statut et de capture d'attention maximale.
+**Principle:** Red is a signal of dominance, status, and maximum attention capture.
 
-**Threshold :** Utiliser le rouge < 10% de la surface totale (rôle d'accent exclusivement).
+**Threshold:** Use red < 10% of the total surface area (accent role exclusively).
 
-**Contre-indication :** Le rouge inhibe la performance cognitive par association au signal de danger — à éviter sur les CTAs informatifs, les formulaires et les zones de lecture. Le réserver aux alertes et aux accents de marque.
+**Contraindication:** Red inhibits cognitive performance through association with the danger signal — avoid it on informational CTAs, forms, and reading areas. Reserve it for alerts and brand accents.
 
 **(Elliot & Maier, 2007 — Current Directions in Psychological Science, 16(5), 250–254)**
 
@@ -327,162 +327,162 @@ const animation = shouldReduceMotion ? {} : { opacity: [0, 1], y: [20, 0] }
 
 ### 9.8 Typeface Personality
 
-**Principe :** La typographie est perçue selon 3 dimensions : Potency (force/autorité), Evaluative (élégance/qualité), Activity (énergie/dynamisme).
+**Principle:** Typography is perceived along 3 dimensions: Potency (strength/authority), Evaluative (elegance/quality), Activity (energy/dynamism).
 
-| Contexte | Choix typographique | Effet |
-|----------|--------------------|----|
-| Projets premium, titres | Sérif | Signal d'autorité et de fiabilité supérieure au sans-sérif |
-| Corps de texte, UI | Sans-sérif | Lisibilité optimale à taille réduite |
-| Display/hero (72–120px+) | Sérif display ou sans-sérif condensé | Impact émotionnel maximal |
+| Context | Typographic choice | Effect |
+|---------|-------------------|----|
+| Premium projects, headings | Serif | Signals authority and reliability superior to sans-serif |
+| Body text, UI | Sans-serif | Optimal readability at small sizes |
+| Display/hero (72–120px+) | Display serif or condensed sans-serif | Maximum emotional impact |
 
-**Threshold ratio :** Minimum 1.5:1 entre niveaux de hiérarchie typographique (Golden Ratio 1.618 recommandé — cf. Section 2).
+**Threshold ratio:** Minimum 1.5:1 between typographic hierarchy levels (Golden Ratio 1.618 recommended — cf. Section 2).
 
 **(Li & Suen, 2010 — Proceedings of DAS 2010)**
 **(MIT AgeLab & Monotype, 2019 — Emotional Response to Type)**
 
 ---
 
-### 9.9 Standards d'Animation — Thresholds de timing
+### 9.9 Animation Standards — Timing Thresholds
 
-> Sources : Apple HIG (developer.apple.com/design/human-interface-guidelines), Google Material Design 3 (m3.material.io), WCAG 2.1 SC 2.3.3
+> Sources: Apple HIG (developer.apple.com/design/human-interface-guidelines), Google Material Design 3 (m3.material.io), WCAG 2.1 SC 2.3.3
 
-| Type d'interaction | Durée cible | Règle |
-|-------------------|-------------|-------|
-| Small interactions (boutons, toggles, focus) | 200–350ms | En dessous = imperceptible. Au-dessus = lent. |
-| Large transitions (pages, modals, drawers) | 400–600ms | Laisser l'utilisateur percevoir le changement de contexte |
-| Stagger entre éléments d'une liste | 50–100ms | Délai entre chaque enfant pour guider le regard |
+| Interaction type | Target duration | Rule |
+|-----------------|-----------------|-------|
+| Small interactions (buttons, toggles, focus) | 200–350ms | Below = imperceptible. Above = slow. |
+| Large transitions (pages, modals, drawers) | 400–600ms | Let the user perceive the context change |
+| Stagger between list elements | 50–100ms | Delay between each child to guide the gaze |
 
-**Règles absolues :**
-- **Custom easing obligatoire** — jamais `ease-in-out` navigateur par défaut. Définir des courbes de Bézier spécifiques au projet.
-- **`prefers-reduced-motion` toujours respecté** — obligation WCAG 2.1 SC 2.3.3.
+**Absolute Rules:**
+- **Custom easing mandatory** — never use the browser default `ease-in-out`. Define project-specific Bézier curves.
+- **`prefers-reduced-motion` always respected** — WCAG 2.1 SC 2.3.3 obligation.
 
 ```tsx
-// ✅ Easing custom — exemple
+// ✅ Custom easing — example
 const easing = [0.16, 1, 0.3, 1] // ease-out-expo
 
-// ✅ prefers-reduced-motion obligatoire
+// ✅ prefers-reduced-motion mandatory
 const shouldReduceMotion = useReducedMotion()
 const transition = shouldReduceMotion
   ? { duration: 0 }
   : { duration: 0.4, ease: easing }
 ```
 
-**Display typography — thresholds hero :**
-- Titres héros : 72–120px+ pour impact émotionnel maximal
-- Whitespace ≥ 40% de la surface pour signal premium **(Baymard Institute)**
+**Display typography — hero thresholds:**
+- Hero titles: 72–120px+ for maximum emotional impact
+- Whitespace ≥ 40% of the surface for premium signal **(Baymard Institute)**
 
 ---
 
-## 10. Color Scale — Cohérence Perceptuelle
+## 10. Color Scale — Perceptual Consistency
 
-> Source : Fairchild, M.D. — *Color Appearance Models*, 3e éd. (Wiley, 2013) — CIECAM02/CIELAB
-> Source : Izzico Design System (terrain — couleurs de rôle, validé avec WCAG AA)
+> Source: Fairchild, M.D. — *Color Appearance Models*, 3rd ed. (Wiley, 2013) — CIECAM02/CIELAB
+> Source: Izzico Design System (field — role colors, validated with WCAG AA)
 
-### ΔE — Seuil de distinction perceptuelle
+### ΔE — Perceptual Distinction Threshold
 
-**Threshold : ΔE > 7 entre deux couleurs censées être distinctes** — seuil humain de discrimination (CIELAB). En dessous, les utilisateurs risquent de confondre deux couleurs.
+**Threshold: ΔE > 7 between two colors intended to be distinct** — human discrimination threshold (CIELAB). Below this, users risk confusing two colors.
 
 | ΔE | Perception |
 |----|-----------|
 | 0–1 | Imperceptible |
-| 1–3 | Subtile (visible en comparaison directe) |
-| 3–7 | Modérée (visible à l'œil nu) |
-| >7 | **Clairement distincte** ← threshold SQWR |
+| 1–3 | Subtle (visible in direct comparison) |
+| 3–7 | Moderate (visible to the naked eye) |
+| >7 | **Clearly distinct** ← SQWR threshold |
 
-**Outil de calcul ΔE :** Colorpedia (colorpedia.io) ou Adobe Color.
+**ΔE calculation tool:** Colorpedia (colorpedia.io) or Adobe Color.
 
-### L* Progression pour les scales de couleur
+### L* Progression for Color Scales
 
-Pour créer des scales de 50 à 900 (style Tailwind) :
+To create scales from 50 to 900 (Tailwind style):
 
 ```
-L* doit décroître monotoniquement de 50 (clair) → 900 (foncé)
-Exemple correct :    50 → L*=95, 100 → L*=88, 500 → L*=50, 900 → L*=15
-Exemple incorrect :  50 → L*=95, 100 → L*=93, 200 → L*=94 ← inversion = erreur
+L* must decrease monotonically from 50 (light) → 900 (dark)
+Correct example:    50 → L*=95, 100 → L*=88, 500 → L*=50, 900 → L*=15
+Incorrect example:  50 → L*=95, 100 → L*=93, 200 → L*=94 ← inversion = error
 ```
 
-**Implication :** Pour les systèmes multi-rôle (ex: Owner/Resident/Seeker), vérifier que les couleurs à même niveau (ex: tous les -500) ont des ΔE > 7 entre elles.
+**Implication:** For multi-role systems (e.g.: Owner/Resident/Seeker), verify that colors at the same level (e.g.: all -500) have ΔE > 7 between them.
 
 ---
 
-## 11. Voice & Tone — Matrice par Segment
+## 11. Voice & Tone — Matrix by Segment
 
-> Source : Nielsen Norman Group — 4 Dimensions of Tone of Voice
+> Source: Nielsen Norman Group — 4 Dimensions of Tone of Voice
 > [nngroup.com/articles/tone-of-voice-dimensions](https://www.nngroup.com/articles/tone-of-voice-dimensions)
 
-**Le design ne s'arrête pas au visuel.** Le copywriting est une composante du design — chaque surface UI contient du texte, et ce texte communique une personnalité de marque. La cohérence tone/visuel est ce qui fait qu'une interface paraît "professionnelle" ou "générique".
+**Design does not stop at the visual.** Copywriting is a design component — every UI surface contains text, and that text communicates a brand personality. Tone/visual consistency is what makes an interface feel "professional" or "generic".
 
-### Les 4 dimensions Nielsen NN/G
+### The 4 Nielsen NN/G Dimensions
 
-| Dimension | Pôle bas | Pôle haut |
+| Dimension | Low pole | High pole |
 |-----------|---------|----------|
-| Formalité | Casual (1) | Formel (5) |
-| Humour | Sérieux (1) | Humoristique (5) |
-| Irrévérence | Respectueux (1) | Irrévérencieux (5) |
-| Énergie | Neutre (1) | Enthousiaste (5) |
+| Formality | Casual (1) | Formal (5) |
+| Humor | Serious (1) | Humorous (5) |
+| Irreverence | Respectful (1) | Irreverent (5) |
+| Energy | Neutral (1) | Enthusiastic (5) |
 
-**Usage :** définir la matrice dans `CLAUDE.md` du projet. Claude Code l'applique ensuite sur tous les textes UI générés.
+**Usage:** define the matrix in the project's `CLAUDE.md`. Claude Code then applies it to all generated UI text.
 
-### Template de matrice à documenter par projet
+### Matrix Template to Document per Project
 
 ```markdown
-## Tone of Voice — [Nom du projet]
+## Tone of Voice — [Project Name]
 
-### Segment : [ex: Utilisateurs B2C]
-| Dimension | Score | Exemple |
+### Segment: [e.g.: B2C Users]
+| Dimension | Score | Example |
 |-----------|-------|---------|
-| Formalité | 4/5 (casual) | "Hello [Prénom] !" |
-| Humour | 3/5 (léger) | "Tu dois X€ à Lucas 💸" |
-| Irrévérence | 3/5 | "Tes colocs aussi ont du mal à finir le mois..." |
-| Énergie | 4/5 | Verbes d'action, phrases courtes |
+| Formality | 4/5 (casual) | "Hello [First Name]!" |
+| Humor | 3/5 (light) | "You owe €X to Lucas 💸" |
+| Irreverence | 3/5 | "Your roommates also struggle to make it to the end of the month..." |
+| Energy | 4/5 | Action verbs, short sentences |
 
-### Segment : [ex: Utilisateurs B2B / propriétaires]
-| Dimension | Score | Exemple |
+### Segment: [e.g.: B2B Users / owners]
+| Dimension | Score | Example |
 |-----------|-------|---------|
-| Formalité | 2/5 (neutre) | "Bonjour [Prénom]" |
-| Humour | 2/5 (sobre) | Pas d'humour sur sujets financiers |
-| Irrévérence | 1/5 (respectueux) | Vouvoiement |
-| Énergie | 3/5 | Professionnel, factuel |
+| Formality | 2/5 (neutral) | "Hello [First Name]" |
+| Humor | 2/5 (sober) | No humor on financial topics |
+| Irreverence | 1/5 (respectful) | Formal address |
+| Energy | 3/5 | Professional, factual |
 
-### Mots interdits
-- [corporate speak] : "leverage", "synergy", "seamless"
-- [jargon secteur à éviter] : ...
+### Banned Words
+- [corporate speak]: "leverage", "synergy", "seamless"
+- [industry jargon to avoid]: ...
 
-### Mots propriétaires
-- [terme de marque 1] : utilisé à la place de [terme générique]
-- [terme de marque 2] : ...
+### Brand-owned Words
+- [brand term 1]: used in place of [generic term]
+- [brand term 2]: ...
 ```
 
-**Règle multi-segments :** si la plateforme s'adresse à des types d'utilisateurs différents (B2C + B2B, juniors + seniors), définir une matrice distincte par segment. Confondre les tonalités crée une expérience incohérente.
+**Multi-segment rule:** if the platform addresses different user types (B2C + B2B, juniors + seniors), define a distinct matrix per segment. Mixing tones creates an inconsistent experience.
 
 ---
 
-## 12. Sources scientifiques
+## 12. Scientific Sources
 
-| Référence | Usage |
+| Reference | Usage |
 |-----------|-------|
-| Johannes Itten — *Kunst der Farbe* (1961) | Systèmes d'harmonie couleur |
-| Albert Munsell — Munsell Color System (1905) | Mesure scientifique des couleurs |
-| Dr. Pamela Rutledge — Media Psychology Research (2024) | Cognition et couleur |
-| Wertheimer, Koffka, Köhler (1920-1960) | 7 lois Gestalt |
-| Robert Bringhurst — *The Elements of Typographic Style* (1992) | Modular scale, typographie |
-| Lesia Rello & Martin Pielot — CHI 2016 | Taille de police optimale |
-| Baymard Institute — Line Length Study | CPL 50-75, whitespace premium |
-| Nielsen Norman Group — Eye-tracking studies | F/Z patterns, hiérarchie |
-| W3C WCAG 2.1 — SC 1.4.3, 1.4.8, 2.3.3 | Contrastes, longueur de ligne, motion |
-| Brad Frost — *Atomic Design* (2016) | Hiérarchie de composants |
-| W3C Design Tokens Community Group (2025.10) | Standard tokens cross-platform |
+| Johannes Itten — *Kunst der Farbe* (1961) | Color harmony systems |
+| Albert Munsell — Munsell Color System (1905) | Scientific color measurement |
+| Dr. Pamela Rutledge — Media Psychology Research (2024) | Cognition and color |
+| Wertheimer, Koffka, Köhler (1920-1960) | 7 Gestalt laws |
+| Robert Bringhurst — *The Elements of Typographic Style* (1992) | Modular scale, typography |
+| Lesia Rello & Martin Pielot — CHI 2016 | Optimal font size |
+| Baymard Institute — Line Length Study | CPL 50-75, premium whitespace |
+| Nielsen Norman Group — Eye-tracking studies | F/Z patterns, hierarchy |
+| W3C WCAG 2.1 — SC 1.4.3, 1.4.8, 2.3.3 | Contrast, line length, motion |
+| Brad Frost — *Atomic Design* (2016) | Component hierarchy |
+| W3C Design Tokens Community Group (2025.10) | Cross-platform tokens standard |
 | Reber, Schwarz & Winkielman (2004) — *Personality and Social Psychology Review* | Processing Fluency |
 | Kahneman & Frederickson (1993) — *Psychological Science* | Peak-End Rule |
-| Von Restorff (1933) — *Psychologische Forschung* | Isolation Effect, mémorabilité |
+| Von Restorff (1933) — *Psychologische Forschung* | Isolation Effect, memorability |
 | Berlyne (1971) — *Aesthetics and Psychobiology* | Optimal Complexity |
 | Kurosu & Kashimura (1995) — CHI | Aesthetic-Usability Effect |
 | Tractinsky, Katz & Ikar (2000) — *Interacting with Computers* | Aesthetic-Usability Effect (r=0.73) |
-| Kapferer & Bastien (2009, 2e éd. 2012) — *The Luxury Strategy* | Anti-Laws of Luxury Design |
-| Elliot & Maier (2007) — *Current Directions in Psychological Science* | Color Psychology, rouge |
+| Kapferer & Bastien (2009, 2nd ed. 2012) — *The Luxury Strategy* | Anti-Laws of Luxury Design |
+| Elliot & Maier (2007) — *Current Directions in Psychological Science* | Color Psychology, red |
 | Li & Suen (2010) — *Proceedings of DAS 2010* | Typeface Personality |
 | MIT AgeLab & Monotype (2019) — *Emotional Response to Type* | Typeface Personality |
 | Apple Human Interface Guidelines (developer.apple.com) | Animation timing standards |
 | Google Material Design 3 (m3.material.io) | Animation timing standards |
 | Nielsen Norman Group — 4 Dimensions of Tone of Voice (nngroup.com) | Voice & Tone matrix |
-| Fairchild, M.D. — *Color Appearance Models* 3e éd. (Wiley, 2013) | CIECAM02/CIELAB ΔE |
+| Fairchild, M.D. — *Color Appearance Models* 3rd ed. (Wiley, 2013) | CIECAM02/CIELAB ΔE |

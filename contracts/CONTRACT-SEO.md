@@ -1,89 +1,89 @@
-# Contrat — SEO Technique
+# Contract — Technical SEO
 
-> Module de contrat SQWR Project Kit.
-> Sources : Google Search Central (developers.google.com/search), Google Core Web Vitals (web.dev), schema.org, Open Graph Protocol (ogp.me), sitemaps.org Protocol.
-
----
-
-## Fondements scientifiques
-
-**Le SEO technique est la condition nécessaire du référencement.** Aucune stratégie de contenu ne compense une architecture non-indexable. Depuis juin 2021, Google utilise les Core Web Vitals comme signal de classement (Page Experience Update). Depuis 2024, le passage à l'index mobile-first est total.
-
-**Chiffres de référence :**
-- **53% des visites mobiles** sont abandonnées si le chargement dépasse 3 secondes (Google/SOASTA, 2016)
-- **Structured data** → rich snippets → CTR +20-30% en moyenne (Google Search Central, cas documentés)
-- Une page en `use client` sans SSR n'est **pas indexée** par Googlebot au premier rendu (Google, "JavaScript SEO basics")
+> SQWR Project Kit contract module.
+> Sources: Google Search Central (developers.google.com/search), Google Core Web Vitals (web.dev), schema.org, Open Graph Protocol (ogp.me), sitemaps.org Protocol.
 
 ---
 
-## 1. Architecture — SSR/SSG obligatoire pour les pages SEO-critiques
+## Scientific Foundations
 
-> Source : Google Search Central — "JavaScript SEO basics" (developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics)
+**Technical SEO is the necessary condition for search visibility.** No content strategy compensates for a non-indexable architecture. Since June 2021, Google has used Core Web Vitals as a ranking signal (Page Experience Update). Since 2024, the transition to a mobile-first index is complete.
 
-**Règle absolue : ne jamais mettre `use client` en haut d'une page SEO-critique.**
+**Reference figures:**
+- **53% of mobile visits** are abandoned if loading exceeds 3 seconds (Google/SOASTA, 2016)
+- **Structured data** → rich snippets → CTR +20–30% on average (Google Search Central, documented cases)
+- A page with `use client` and no SSR is **not indexed** by Googlebot on first render (Google, "JavaScript SEO basics")
+
+---
+
+## 1. Architecture — SSR/SSG Mandatory for SEO-Critical Pages
+
+> Source: Google Search Central — "JavaScript SEO basics" (developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics)
+
+**Absolute Rule: never put `use client` at the top of an SEO-critical page.**
 
 ```tsx
-// ❌ Toute la page devient client-side — Googlebot ne voit que le HTML initial vide
+// ❌ The entire page becomes client-side — Googlebot only sees the initial empty HTML
 'use client'
 export default function HomePage() { ... }
 
-// ✅ Page Server Component (défaut Next.js App Router)
-// Googlebot reçoit le HTML complet au premier rendu
+// ✅ Server Component page (Next.js App Router default)
+// Googlebot receives the full HTML on first render
 export default async function HomePage() {
   const data = await fetch('...')
   return <main>...</main>
 }
 
-// ✅ Isolation correcte : seul le composant interactif est client
-// La page reste un Server Component
-import { SearchBar } from './SearchBar' // 'use client' à l'intérieur
+// ✅ Correct isolation: only the interactive component is client-side
+// The page remains a Server Component
+import { SearchBar } from './SearchBar' // 'use client' inside
 
 export default async function HomePage() {
   return (
     <main>
-      <h1>Titre indexable</h1>
-      <SearchBar />  {/* seul ce composant est client */}
+      <h1>Indexable title</h1>
+      <SearchBar />  {/* only this component is client-side */}
     </main>
   )
 }
 ```
 
-**Règle de décision :**
+**Decision rule:**
 ```
-Page d'accueil, blog, landing, product → Server Component (SSR/SSG)
-Dashboard authentifié, app interactive  → Client Component acceptable
+Homepage, blog, landing, product → Server Component (SSR/SSG)
+Authenticated dashboard, interactive app  → Client Component acceptable
 ```
 
 ---
 
-## 2. Metadata API Next.js 14
+## 2. Next.js 14 Metadata API
 
-> Source : Next.js docs — Metadata (nextjs.org/docs/app/building-your-application/optimizing/metadata)
+> Source: Next.js docs — Metadata (nextjs.org/docs/app/building-your-application/optimizing/metadata)
 
 ```tsx
-// app/layout.tsx — métadonnées globales
+// app/layout.tsx — global metadata
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  // Title — 50-60 caractères (Google tronque à ~60)
+  // Title — 50-60 characters (Google truncates at ~60)
   title: {
-    template: '%s | Nom du Site',
-    default: 'Nom du Site — Baseline courte',
+    template: '%s | Site Name',
+    default: 'Site Name — Short Baseline',
   },
-  // Description — 150-160 caractères
-  description: 'Description précise de la valeur, 150-160 caractères maximum pour éviter la troncature dans les SERPs.',
-  // Open Graph — obligatoire pour partages sociaux
+  // Description — 150-160 characters
+  description: 'Precise description of the value proposition, 150-160 characters maximum to avoid truncation in SERPs.',
+  // Open Graph — required for social sharing
   openGraph: {
-    title: 'Nom du Site',
-    description: 'Description OG — peut différer de la meta description',
+    title: 'Site Name',
+    description: 'OG description — may differ from meta description',
     url: 'https://www.exemple.com',
-    siteName: 'Nom du Site',
+    siteName: 'Site Name',
     images: [
       {
         url: 'https://www.exemple.com/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Description de l\'image OG',
+        alt: 'Description of the OG image',
       },
     ],
     locale: 'fr_FR',
@@ -92,8 +92,8 @@ export const metadata: Metadata = {
   // Twitter / X Cards
   twitter: {
     card: 'summary_large_image',
-    title: 'Nom du Site',
-    description: 'Description Twitter',
+    title: 'Site Name',
+    description: 'Twitter description',
     images: ['https://www.exemple.com/twitter-image.jpg'],
   },
   // Robots
@@ -103,7 +103,7 @@ export const metadata: Metadata = {
   },
 }
 
-// app/blog/[slug]/page.tsx — métadonnées dynamiques
+// app/blog/[slug]/page.tsx — dynamic metadata
 export async function generateMetadata(
   { params }: { params: { slug: string } }
 ): Promise<Metadata> {
@@ -122,8 +122,8 @@ export async function generateMetadata(
 }
 ```
 
-**Thresholds :**
-| Champ | Minimum | Optimal | Maximum |
+**Thresholds:**
+| Field | Minimum | Optimal | Maximum |
 |-------|---------|---------|---------|
 | `<title>` | 30 chars | 50-60 chars | 60 chars |
 | `<meta description>` | 70 chars | 150-160 chars | 160 chars |
@@ -133,31 +133,31 @@ export async function generateMetadata(
 
 ## 3. Structured Data — JSON-LD
 
-> Source : schema.org (schema.org), Google Search Central — Structured Data (developers.google.com/search/docs/appearance/structured-data/intro-structured-data)
+> Source: schema.org (schema.org), Google Search Central — Structured Data (developers.google.com/search/docs/appearance/structured-data/intro-structured-data)
 
-**Règle : JSON-LD préféré à Microdata ou RDFa** (recommandation Google officielle).
+**Rule: JSON-LD preferred over Microdata or RDFa** (official Google recommendation).
 
 ```tsx
 // components/JsonLd.tsx
-// Sécurité : data doit provenir uniquement de sources internes (jamais user input).
-// JSON.stringify échappe les caractères spéciaux — aucun risque XSS avec données serveur.
-// Ne jamais passer de données non-maîtrisées dans ce composant.
+// Security: data must come exclusively from internal sources (never user input).
+// JSON.stringify escapes special characters — no XSS risk with server data.
+// Never pass uncontrolled data to this component.
 export function JsonLd({ data }: { data: Record<string, unknown> }) {
   return (
     <script
       type="application/ld+json"
-      // data provient exclusivement du CMS/BDD interne — safe par construction
+      // data comes exclusively from internal CMS/DB — safe by construction
       // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
     />
   )
 }
 
-// Organisation (obligatoire sur la page d'accueil)
+// Organization (required on the homepage)
 const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  name: 'Nom de l\'entreprise',
+  name: 'Company Name',
   url: 'https://www.exemple.com',
   logo: 'https://www.exemple.com/logo.png',
   sameAs: [
@@ -166,22 +166,22 @@ const organizationSchema = {
   ],
 }
 
-// WebSite — active la SearchBox dans Google
+// WebSite — enables the SearchBox in Google
 const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  name: 'Nom du Site',
+  name: 'Site Name',
   url: 'https://www.exemple.com',
 }
 
-// Article (pour les pages de blog)
+// Article (for blog pages)
 const articleSchema = {
   '@context': 'https://schema.org',
   '@type': 'Article',
-  headline: 'Titre de l\'article',
+  headline: 'Article Title',
   datePublished: '2026-01-01T00:00:00Z',
   dateModified: '2026-01-15T00:00:00Z',
-  author: { '@type': 'Person', name: 'Auteur' },
+  author: { '@type': 'Person', name: 'Author' },
   image: 'https://www.exemple.com/article-image.jpg',
 }
 
@@ -190,22 +190,22 @@ const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://www.exemple.com' },
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.exemple.com' },
     { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://www.exemple.com/blog' },
   ],
 }
 ```
 
-**Tester avec :** Google Rich Results Test — search.google.com/test/rich-results
+**Test with:** Google Rich Results Test — search.google.com/test/rich-results
 
 ---
 
 ## 4. Sitemap.xml
 
-> Source : Sitemaps Protocol — sitemaps.org/protocol.html, Next.js docs — sitemap.ts (nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap)
+> Source: Sitemaps Protocol — sitemaps.org/protocol.html, Next.js docs — sitemap.ts (nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap)
 
 ```tsx
-// app/sitemap.ts — généré automatiquement par Next.js 14
+// app/sitemap.ts — automatically generated by Next.js 14
 import { MetadataRoute } from 'next'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -234,16 +234,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 }
 ```
 
-**Règles :**
-- Soumettre le sitemap dans Google Search Console (search.google.com/search-console)
-- `priority` : 1.0 = homepage, 0.8 = sections, 0.6 = articles, 0.4 = pages secondaires
-- Exclure les pages `noindex` du sitemap (incohérence crawl budget)
+**Rules:**
+- Submit the sitemap in Google Search Console (search.google.com/search-console)
+- `priority`: 1.0 = homepage, 0.8 = sections, 0.6 = articles, 0.4 = secondary pages
+- Exclude `noindex` pages from the sitemap (crawl budget inconsistency)
 
 ---
 
 ## 5. robots.txt
 
-> Source : Google Search Central — robots.txt specification (developers.google.com/search/docs/crawling-indexing/robots/intro)
+> Source: Google Search Central — robots.txt specification (developers.google.com/search/docs/crawling-indexing/robots/intro)
 
 ```tsx
 // app/robots.ts
@@ -263,89 +263,89 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-**Règles critiques :**
-- Ne jamais `Disallow: /` en production (bloque tout le crawl)
-- Toujours pointer vers `sitemap.xml`
-- Exclure `/api/`, `/admin/`, routes privées
+**Critical rules:**
+- Never `Disallow: /` in production (blocks all crawling)
+- Always point to `sitemap.xml`
+- Exclude `/api/`, `/admin/`, private routes
 
 ---
 
-## 6. URLs canoniques
+## 6. Canonical URLs
 
-> Source : Google Search Central — Canonical URLs (developers.google.com/search/docs/crawling-indexing/canonicalization)
+> Source: Google Search Central — Canonical URLs (developers.google.com/search/docs/crawling-indexing/canonicalization)
 
 ```tsx
-// Éviter le duplicate content — déclarer la version canonique
+// Avoid duplicate content — declare the canonical version
 export const metadata: Metadata = {
   alternates: {
-    canonical: 'https://www.exemple.com/blog/mon-article',
+    canonical: 'https://www.exemple.com/blog/my-article',
     languages: {
-      'fr-FR': 'https://www.exemple.com/fr/blog/mon-article',
-      'en-US': 'https://www.exemple.com/en/blog/mon-article',
+      'fr-FR': 'https://www.exemple.com/fr/blog/my-article',
+      'en-US': 'https://www.exemple.com/en/blog/my-article',
     },
   },
 }
 ```
 
-**Cas nécessitant un canonical :**
-- Pages paginées (`/blog?page=2` → canonical vers `/blog`)
-- Paramètres UTM (`?utm_source=...` → canonical sans paramètre)
-- Versions www et non-www (choisir une, forcer via redirect 301)
+**Cases requiring a canonical:**
+- Paginated pages (`/blog?page=2` → canonical to `/blog`)
+- UTM parameters (`?utm_source=...` → canonical without parameter)
+- www and non-www versions (choose one, enforce via 301 redirect)
 
 ---
 
-## 7. Core Web Vitals — signal de classement
+## 7. Core Web Vitals — Ranking Signal
 
-> Source : Google — "Understanding page experience in Google Search results" (developers.google.com/search/docs/appearance/page-experience)
-> Source : web.dev/vitals (web.dev/articles/vitals)
+> Source: Google — "Understanding page experience in Google Search results" (developers.google.com/search/docs/appearance/page-experience)
+> Source: web.dev/vitals (web.dev/articles/vitals)
 
-**Google utilise les CWV comme signal de classement depuis juin 2021.** Thresholds identiques à CONTRACT-PERFORMANCE.md :
+**Google has used CWV as a ranking signal since June 2021.** Thresholds identical to CONTRACT-PERFORMANCE.md:
 
-| Métrique | Bon ✅ | À améliorer ⚠️ | Mauvais ❌ |
+| Metric | Good ✅ | Needs improvement ⚠️ | Poor ❌ |
 |----------|--------|----------------|-----------|
 | **LCP** | ≤2.5s | 2.5-4.0s | >4.0s |
 | **INP** | ≤200ms | 200-500ms | >500ms |
 | **CLS** | ≤0.1 | 0.1-0.25 | >0.25 |
 
-**Pour le SEO spécifiquement :**
-- Lighthouse SEO score : **≥90/100 cible**
-- Mesurer au **75e percentile** (pas la moyenne) — c'est le seuil Google
+**For SEO specifically:**
+- Lighthouse SEO score: **target ≥90/100**
+- Measure at the **75th percentile** (not the average) — this is the Google threshold
 
 ---
 
-## 8. Images — Optimisation SEO
+## 8. Images — SEO Optimization
 
-> Source : Google Search Central — Images best practices (developers.google.com/search/docs/appearance/google-images)
+> Source: Google Search Central — Images best practices (developers.google.com/search/docs/appearance/google-images)
 
 ```tsx
-// ✅ next/image — optimisation automatique (WebP, lazy loading, responsive)
+// ✅ next/image — automatic optimization (WebP, lazy loading, responsive)
 import Image from 'next/image'
 
 <Image
   src="/hero.jpg"
-  alt="Description précise et informative de l'image"  // obligatoire pour indexation images
+  alt="Precise and informative description of the image"  // required for image indexing
   width={1200}
   height={630}
-  priority  // LCP image — ne pas lazy-loader le hero
+  priority  // LCP image — do not lazy-load the hero
   sizes="(max-width: 768px) 100vw, 1200px"
 />
 
-// ✅ Images décoratives — exclure de l'indexation images
+// ✅ Decorative images — exclude from image indexing
 <Image src="/pattern.svg" alt="" role="presentation" />
 
-// ❌ Balise img native — pas d'optimisation, pas de lazy loading auto
+// ❌ Native img tag — no optimization, no automatic lazy loading
 // <img src="/hero.jpg" />
 ```
 
-**Règles :**
-- `alt` descriptif sur toutes les images informatives (double rôle : SEO + accessibilité)
-- `priority` sur l'image LCP (above-the-fold)
-- Format WebP ou AVIF (automatique avec `next/image`)
-- Noms de fichiers descriptifs (`hero-presentation.jpg` > `IMG_1234.jpg`)
+**Rules:**
+- Descriptive `alt` on all informative images (dual role: SEO + accessibility)
+- `priority` on the LCP image (above-the-fold)
+- WebP or AVIF format (automatic with `next/image`)
+- Descriptive file names (`hero-presentation.jpg` > `IMG_1234.jpg`)
 
 ---
 
-## 9. Checklist Lighthouse SEO
+## 9. Lighthouse SEO Checklist
 
 ```bash
 # Lighthouse CLI
@@ -355,48 +355,48 @@ npx lighthouse https://www.exemple.com --only-categories=seo,performance \
 
 | Check | Threshold |
 |-------|-----------|
-| `<title>` présent et non vide | Obligatoire |
-| `<meta description>` présente | Obligatoire |
-| Liens avec texte descriptif | Obligatoire |
-| Images avec `alt` | Obligatoire |
-| HTTPS | Obligatoire |
-| robots.txt valide | Obligatoire |
+| `<title>` present and non-empty | Required |
+| `<meta description>` present | Required |
+| Links with descriptive text | Required |
+| Images with `alt` | Required |
+| HTTPS | Required |
+| Valid robots.txt | Required |
 | Lighthouse SEO score | ≥90/100 |
 
 ---
 
-## Checklist pré-lancement SEO
+## Pre-Launch SEO Checklist
 
-### Bloquants
+### Blockers
 
-- [ ] Aucune page SEO-critique en `use client` seul
-- [ ] `<title>` unique sur chaque page (50-60 chars)
-- [ ] `<meta description>` unique sur chaque page (150-160 chars)
-- [ ] Open Graph sur toutes les pages publiques (og:image 1200×630)
-- [ ] `sitemap.xml` généré et accessible
-- [ ] `robots.txt` valide
-- [ ] Google Search Console — sitemap soumis
-- [ ] Core Web Vitals : LCP ≤2.5s, INP ≤200ms, CLS ≤0.1
+- [ ] No SEO-critical page with `use client` only
+- [ ] Unique `<title>` on every page (50-60 chars)
+- [ ] Unique `<meta description>` on every page (150-160 chars)
+- [ ] Open Graph on all public pages (og:image 1200×630)
+- [ ] `sitemap.xml` generated and accessible
+- [ ] Valid `robots.txt`
+- [ ] Google Search Console — sitemap submitted
+- [ ] Core Web Vitals: LCP ≤2.5s, INP ≤200ms, CLS ≤0.1
 
-### Importants
+### Important
 
-- [ ] JSON-LD Organization sur la page d'accueil
-- [ ] JSON-LD Article sur les pages de blog
-- [ ] Alt descriptifs sur toutes les images informatives
-- [ ] Lighthouse SEO ≥90/100 (mobile ET desktop)
-- [ ] URLs canoniques sur les pages avec paramètres
+- [ ] JSON-LD Organization on the homepage
+- [ ] JSON-LD Article on blog pages
+- [ ] Descriptive alt on all informative images
+- [ ] Lighthouse SEO ≥90/100 (mobile AND desktop)
+- [ ] Canonical URLs on pages with parameters
 
-### Souhaitables
+### Nice to have
 
-- [ ] JSON-LD FAQ (si page FAQ)
-- [ ] Hreflang (si multilingue)
-- [ ] Google Rich Results Test — 0 erreur
+- [ ] JSON-LD FAQ (if FAQ page)
+- [ ] Hreflang (if multilingual)
+- [ ] Google Rich Results Test — 0 errors
 
 ---
 
 ## Sources
 
-| Référence | Lien |
+| Reference | Link |
 |-----------|------|
 | Google Search Central | developers.google.com/search |
 | JavaScript SEO basics | developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics |

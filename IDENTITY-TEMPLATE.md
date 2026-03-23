@@ -1,112 +1,112 @@
-# Identité — [VotrePrénom NomDeFamille]
+# Identity — [YourFirstName LastName]
 
-> Ce fichier est votre source de vérité personnelle pour tous vos projets.
-> À inclure ou référencer dans chaque CLAUDE.md de projet.
-> Instructions : remplacer tous les [VOTRE_*] par vos informations réelles.
+> This file is your personal source of truth for all your projects.
+> Include or reference it in each project's CLAUDE.md.
+> Instructions: replace all [YOUR_*] placeholders with your real information.
 
 ---
 
-## Qui je suis
+## Who I am
 
-**[VOTRE NOM COMPLET]** — [Votre rôle principal]
-- [Ex : Étudiant en Master X — Université Y, ville (fin AAAA)]
-- [Ex : Indépendant / Entrepreneur / Développeur freelance]
-- Localisation : [Ville, Pays]
+**[YOUR FULL NAME]** — [Your primary role]
+- [E.g. Master's student in X — University Y, city (graduating YYYY)]
+- [E.g. Freelancer / Entrepreneur / Freelance developer]
+- Location: [City, Country]
 
 ---
 
 ## Contacts
 
-| Type | Valeur |
+| Type | Value |
 |------|--------|
-| **Email principal** | [votre@email.com] |
-| **Email professionnel** | [pro@votrestudio.be] |
-| **Tél / WhatsApp** | [+XX XXX XX XX XX] |
+| **Primary email** | [your@email.com] |
+| **Professional email** | [pro@yourstudio.be] |
+| **Phone / WhatsApp** | [+XX XXX XX XX XX] |
 
 ---
 
-## Structures & projets actifs
+## Structures & active projects
 
-### [NOM DE VOTRE STUDIO / ENTREPRISE]
+### [YOUR STUDIO / COMPANY NAME]
 
-[Description courte : type d'activité, co-fondateurs si applicable]
-- **Rôle** : [votre rôle dans la structure]
-- **Site** : [votresite.be / N/A]
-- **Statut légal** : [Auto-entrepreneur / Étudiant-indépendant / SARL / N/A]
+[Short description: type of activity, co-founders if applicable]
+- **Role**: [your role in the structure]
+- **Website**: [yoursite.be / N/A]
+- **Legal status**: [Sole trader / Student freelancer / Ltd / N/A]
 
-### [PROJET PRINCIPAL 1]
+### [MAIN PROJECT 1]
 
-[Description du projet en 1-2 phrases]
-- Stack : [technologies utilisées]
-- Statut : [En développement / En production / Archivé]
+[Project description in 1-2 sentences]
+- Stack: [technologies used]
+- Status: [In development / In production / Archived]
 
-### [PROJET PRINCIPAL 2]
+### [MAIN PROJECT 2]
 
 [Description]
-- Stack : [technologies]
-- Statut : [statut]
+- Stack: [technologies]
+- Status: [status]
 
 ---
 
-## Stack de prédilection
+## Preferred stack
 
-> Décisions validées sur plusieurs projets réels — à adapter à votre contexte.
+> Decisions validated across multiple real projects — adapt to your context.
 
-- **Web** : [Ex : Next.js (App Router) + TypeScript + Tailwind CSS + Supabase]
-- **Mobile** : [Ex : Swift / SwiftUI (iOS natif) / React Native]
-- **Infra** : [Ex : Vercel + Supabase + GitHub]
-- **IA** : [Ex : Claude Code (production principale)]
-
----
-
-## Contexte
-
-- [Ex : Étudiant en X — établissement Y (années)]
-- [Ex : Projets marquants : Projet A (description), Projet B (description)]
-- [Ex : Claude Code utilisé comme outil de production depuis AAAA]
+- **Web**: [E.g. Next.js (App Router) + TypeScript + Tailwind CSS + Supabase]
+- **Mobile**: [E.g. Swift / SwiftUI (native iOS) / React Native]
+- **Infra**: [E.g. Vercel + Supabase + GitHub]
+- **AI**: [E.g. Claude Code (primary production tool)]
 
 ---
 
-## Style de travail & collaboration IA
+## Context
 
-### Préférences de collaboration
+- [E.g. Student in X — institution Y (years)]
+- [E.g. Notable projects: Project A (description), Project B (description)]
+- [E.g. Claude Code used as a production tool since YYYY]
 
-> Remplir selon vos préférences réelles — ces informations aident Claude Code à travailler avec vous de façon plus pertinente.
+---
 
-- **Réponses** : [Ex : concises / détaillées / avec explications]
-- **Autonomie** : [Ex : exécuter sans confirmation pour les actions non-destructives]
-- **Langue** : [Ex : Français — langue principale pour les conversations]
-- **Priorité** : [Ex : qualité > vitesse / vitesse > qualité]
-- **Standards** : [Ex : citer les sources plutôt qu'inventer des règles]
+## Work style & AI collaboration
 
-### Registre des décisions stratégiques (ADR narratif)
+### Collaboration preferences
 
-> Vos décisions tech structurantes, documentées avec leur raison.
+> Fill in according to your real preferences — this information helps Claude Code work with you more effectively.
 
-| Décision | Raison | Date |
+- **Responses**: [E.g. concise / detailed / with explanations]
+- **Autonomy**: [E.g. execute without confirmation for non-destructive actions]
+- **Language**: [E.g. English — primary language for conversations]
+- **Priority**: [E.g. quality > speed / speed > quality]
+- **Standards**: [E.g. cite sources rather than inventing rules]
+
+### Strategic decision log (narrative ADR)
+
+> Your structural tech decisions, documented with their rationale.
+
+| Decision | Rationale | Date |
 |----------|--------|------|
-| [Ex : Supabase vs alternatives] | [Ex : RLS natif + Auth + PostgreSQL migratable] | AAAA |
-| [Ex : Vercel vs Railway] | [Ex : intégration Next.js native + preview URLs] | AAAA |
-| [Votre décision 3] | [Raison] | AAAA |
+| [E.g. Supabase vs alternatives] | [E.g. Native RLS + Auth + migratable PostgreSQL] | YYYY |
+| [E.g. Vercel vs Railway] | [E.g. Native Next.js integration + preview URLs] | YYYY |
+| [Your decision 3] | [Rationale] | YYYY |
 
-*ADRs formels à créer dans `/docs/adr/` de chaque projet (voir `frameworks/ADR-TEMPLATE.md`)*
+*Formal ADRs to be created in `/docs/adr/` of each project (see `frameworks/ADR-TEMPLATE.md`)*
 
 ---
 
-## Biais cognitifs à surveiller
+## Cognitive biases to watch for
 
-> Documentés pour les projets solo/petit studio — ces 3 biais sont les plus dangereux.
+> Documented for solo/small studio projects — these 3 biases are the most dangerous.
 
-| Biais | Manifestation | Mitigation |
+| Bias | Manifestation | Mitigation |
 |-------|--------------|-----------|
-| **Planning fallacy** | "Ce feature prend 2h max" → 2 jours | Comparer avec des projets similaires passés avant d'estimer. Utiliser `frameworks/ESTIMATION.md`. |
-| **Sunk cost fallacy** | Continuer une approche qui ne marche pas "parce qu'on a déjà investi" | Checkpoints décisionnels pré-définis : "si bloqué >4h, pivoter" |
-| **Anchoring bias** | Se fixer sur la première estimation ou la première architecture vue | Considérer explicitement au moins 2 alternatives avant de décider |
+| **Planning fallacy** | "This feature takes 2 hours max" → 2 days | Compare with similar past projects before estimating. Use `frameworks/ESTIMATION.md`. |
+| **Sunk cost fallacy** | Continuing an approach that is not working "because we've already invested" | Pre-defined decision checkpoints: "if blocked >4h, pivot" |
+| **Anchoring bias** | Fixating on the first estimate or first architecture seen | Explicitly consider at least 2 alternatives before deciding |
 
-**Signal d'alarme :** si une décision est prise uniquement parce que "c'est ce qu'on a toujours fait", écrire un ADR qui force à documenter les alternatives rejetées.
+**Warning signal:** if a decision is made solely because "it's what we've always done", write an ADR that forces documentation of the rejected alternatives.
 
 ---
 
-## Notes personnelles
+## Personal notes
 
-[À COMPLÉTER — informations importantes sur votre façon de travailler, vos contraintes, vos préférences non documentées ailleurs]
+[TO FILL IN — important information about your working style, constraints, and preferences not documented elsewhere]

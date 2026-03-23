@@ -1,103 +1,103 @@
-# Audit Observabilité & Fiabilité
+# Observability & Reliability Audit
 
-> Basé sur Google SRE Book, OpenTelemetry, Sentry Best Practices.
-> Score : /100 | Seuil recommandé : ≥70
+> Based on Google SRE Book, OpenTelemetry, Sentry Best Practices.
+> Score: /100 | Recommended threshold: ≥70
 
 ---
 
-## Section 1 — Logging structuré (10 points)
+## Section 1 — Structured Logging (10 points)
 
-- [ ] Logs en format JSON structuré (pas de `console.log` string brut) ............. (4)
-- [ ] Niveaux de log utilisés correctement (debug/info/warn/error/fatal) ........... (3)
-- [ ] Aucune donnée PII dans les logs (email, password, tokens) ..................... (3)
+- [ ] Logs in structured JSON format (no raw `console.log` strings) .............. (4)
+- [ ] Log levels used correctly (debug/info/warn/error/fatal) ..................... (3)
+- [ ] No PII data in logs (email, password, tokens) ............................... (3)
 
-**Vérification rapide :**
+**Quick check:**
 ```bash
-# Chercher les console.log non structurés
+# Find unstructured console.log calls
 grep -r "console\.log\|print(" src/ --include="*.ts" --include="*.tsx" --include="*.py"
 ```
 
-**Sous-total : /10**
+**Subtotal: /10**
 
 ---
 
 ## Section 2 — Error Tracking (20 points)
 
-- [ ] Sentry (ou équivalent) configuré avec DSN ..................................... (8)
-- [ ] Source maps uploadés (erreurs lisibles, pas minifiées) ........................ (4)
-- [ ] Tags d'environnement configurés (production/staging/development) .............. (4)
-- [ ] Alertes Sentry configurées (error rate > seuil → notification) ................ (4)
+- [ ] Sentry (or equivalent) configured with DSN ................................. (8)
+- [ ] Source maps uploaded (readable errors, not minified) ....................... (4)
+- [ ] Environment tags configured (production/staging/development) ............... (4)
+- [ ] Sentry alerts configured (error rate > threshold → notification) ........... (4)
 
-**Vérification :**
+**Verification:**
 ```bash
-# Vérifier la présence de la config Sentry
+# Check for Sentry config presence
 ls sentry.client.config.ts sentry.server.config.ts sentry.edge.config.ts 2>/dev/null
 grep -r "NEXT_PUBLIC_SENTRY_DSN\|SENTRY_DSN" .env.example
 ```
 
-**Sous-total : /20**
+**Subtotal: /20**
 
 ---
 
 ## Section 3 — Performance Monitoring / RUM (20 points)
 
-- [ ] Real User Monitoring configuré (Vercel Speed Insights ou équivalent) .......... (8)
-- [ ] LCP mesuré sur les pages critiques (valeur réelle, pas Lighthouse local) ...... (6)
-- [ ] INP mesuré (interactivité réelle utilisateurs) ................................ (3)
-- [ ] Alertes sur régressions CWV (comparaison semaine précédente) .................. (3)
+- [ ] Real User Monitoring configured (Vercel Speed Insights or equivalent) ...... (8)
+- [ ] LCP measured on critical pages (real value, not local Lighthouse) .......... (6)
+- [ ] INP measured (real user interactivity) ..................................... (3)
+- [ ] Alerts on CWV regressions (comparison with previous week) .................. (3)
 
-**Valeurs mesurées :**
+**Measured values:**
 
-| Métrique | Valeur actuelle | Seuil cible | OK ? |
-|----------|----------------|-------------|------|
+| Metric | Current value | Target threshold | OK? |
+|--------|---------------|------------------|-----|
 | LCP (p75) | ___s | ≤2.5s | |
 | INP (p75) | ___ms | ≤200ms | |
 | CLS (p75) | ___ | <0.1 | |
 
-**Sous-total : /20**
+**Subtotal: /20**
 
 ---
 
 ## Section 4 — Backup & Disaster Recovery (20 points)
 
-- [ ] PITR Supabase activé (ou export automatique configuré) ........................ (8)
-- [ ] Procédure de restauration documentée (et testée au moins une fois) ............ (8)
-- [ ] Contacts d'urgence définis et accessibles (Supabase support, Vercel support) .. (4)
+- [ ] Supabase PITR enabled (or automated export configured) ..................... (8)
+- [ ] Restore procedure documented (and tested at least once) .................... (8)
+- [ ] Emergency contacts defined and accessible (Supabase support, Vercel support) (4)
 
-**Vérification :**
+**Verification:**
 ```bash
-# Vérifier la présence d'une procédure DR
-ls docs/disaster-recovery.md docs/runbook.md 2>/dev/null || echo "MANQUANT"
+# Check for DR procedure presence
+ls docs/disaster-recovery.md docs/runbook.md 2>/dev/null || echo "MISSING"
 ```
 
-**Sous-total : /20**
+**Subtotal: /20**
 
 ---
 
 ## Section 5 — SLO & Monitoring (30 points)
 
-- [ ] SLI définis (uptime, latence, error rate) ..................................... (10)
-- [ ] SLO documentés avec cibles numériques ......................................... (8)
-- [ ] Error budget calculé et suivi ................................................. (6)
-- [ ] Dashboard de monitoring accessible (Vercel, UptimeRobot, ou équivalent) ....... (6)
+- [ ] SLIs defined (uptime, latency, error rate) ................................. (10)
+- [ ] SLOs documented with numerical targets ..................................... (8)
+- [ ] Error budget calculated and tracked ........................................ (6)
+- [ ] Monitoring dashboard accessible (Vercel, UptimeRobot, or equivalent) ....... (6)
 
-**SLO actuels :**
+**Current SLOs:**
 
-| SLI | Cible SLO | Mesure actuelle | Budget restant |
-|-----|-----------|-----------------|---------------|
+| SLI | SLO Target | Current measurement | Remaining budget |
+|-----|------------|---------------------|-----------------|
 | Uptime | ___% | ___% | ___% |
-| API latence p95 | ≤___ms | ___ms | N/A |
+| API latency p95 | ≤___ms | ___ms | N/A |
 | Error rate | ≤___% | ___% | ___% |
 
-**Sous-total : /30**
+**Subtotal: /30**
 
 ---
 
-## Score total : /100
+## Total Score: /100
 
 | Section | Score | /Total |
 |---------|-------|--------|
-| Logging structuré | | /10 |
+| Structured Logging | | /10 |
 | Error Tracking | | /20 |
 | Performance Monitoring | | /20 |
 | Backup & DR | | /20 |
@@ -106,21 +106,21 @@ ls docs/disaster-recovery.md docs/runbook.md 2>/dev/null || echo "MANQUANT"
 
 ---
 
-## Outils recommandés
+## Recommended tools
 
-| Besoin | Outil | Plan |
-|--------|-------|------|
-| Error tracking | Sentry | Free tier (10k erreurs/mois) |
-| RUM | Vercel Speed Insights | Inclus Vercel |
-| Uptime | UptimeRobot | Free (5 moniteurs) |
-| Backup | Supabase PITR | Pro plan requis |
+| Need | Tool | Plan |
+|------|------|------|
+| Error tracking | Sentry | Free tier (10k errors/month) |
+| RUM | Vercel Speed Insights | Included with Vercel |
+| Uptime | UptimeRobot | Free (5 monitors) |
+| Backup | Supabase PITR | Pro plan required |
 | SLO dashboard | Grafana Cloud | Free tier |
 
 ---
 
-## Sources de référence
+## Reference sources
 
-- Google SRE Book — Monitoring Distributed Systems : sre.google/sre-book/monitoring-distributed-systems
-- OpenTelemetry : opentelemetry.io/docs
-- Sentry Next.js : docs.sentry.io/platforms/javascript/guides/nextjs
-- Vercel Speed Insights : vercel.com/docs/speed-insights
+- Google SRE Book — Monitoring Distributed Systems: sre.google/sre-book/monitoring-distributed-systems
+- OpenTelemetry: opentelemetry.io/docs
+- Sentry Next.js: docs.sentry.io/platforms/javascript/guides/nextjs
+- Vercel Speed Insights: vercel.com/docs/speed-insights

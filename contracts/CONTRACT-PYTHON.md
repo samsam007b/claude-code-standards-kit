@@ -1,65 +1,65 @@
-# Contrat — Python
+# Contract — Python
 
-> Module de contrat SQWR Project Kit.
-> Sources : PEP 8, PEP 20 (Zen of Python), FastAPI docs, PyObjC docs, mypy docs.
-> Applicable : sqwr-dictate (PyObjC), scripts utilitaires, agents IA Python.
+> SQWR Project Kit contract module.
+> Sources: PEP 8, PEP 20 (Zen of Python), FastAPI docs, PyObjC docs, mypy docs.
+> Applicable to: sqwr-dictate (PyObjC), utility scripts, Python AI agents.
 
 ---
 
-## 1. Style & Qualité — PEP 8 + PEP 20
+## 1. Style & Quality — PEP 8 + PEP 20
 
-**The Zen of Python (PEP 20) — les 3 règles les plus importantes :**
+**The Zen of Python (PEP 20) — the 3 most important rules:**
 ```
 Explicit is better than implicit.
 Simple is better than complex.
 Errors should never pass silently.
 ```
 
-### Formatage obligatoire
+### Mandatory Formatting
 
 ```python
-# Outil de formatage : black (non-configurable = cohérence forcée)
+# Formatting tool: black (non-configurable = enforced consistency)
 pip install black
-black src/          # formater tout le code source
+black src/          # format all source code
 
-# Linting : ruff (remplace flake8 + isort, 10-100x plus rapide)
+# Linting: ruff (replaces flake8 + isort, 10-100x faster)
 pip install ruff
 ruff check src/
 
-# Type checking : mypy (équivalent TypeScript strict pour Python)
+# Type checking: mypy (Python equivalent of TypeScript strict mode)
 pip install mypy
 mypy src/ --strict
 ```
 
-### Nommage (PEP 8)
+### Naming Conventions (PEP 8)
 
 ```python
-# Variables et fonctions : snake_case
+# Variables and functions: snake_case
 user_name = "samuel"
 def get_user_profile(): ...
 
-# Classes : PascalCase
+# Classes: PascalCase
 class AudioTranscriber: ...
 
-# Constantes : SCREAMING_SNAKE_CASE
-MAX_RECORDING_DURATION = 30  # secondes
+# Constants: SCREAMING_SNAKE_CASE
+MAX_RECORDING_DURATION = 30  # seconds
 
-# Modules/fichiers : snake_case
+# Modules/files: snake_case
 # transcriber.py, paster.py, audio_utils.py
 
-# Éviter les noms génériques
+# Avoid generic names
 # ❌ data, info, temp, x, res, val
 # ✅ audio_buffer, transcription_result, retry_count
 ```
 
 ---
 
-## 2. Typage statique — mypy strict
+## 2. Static Typing — mypy strict
 
-**Règle : tout code Python SQWR utilise le typage statique.**
+**Rule: all SQWR Python code uses static typing.**
 
 ```python
-# ✅ Toujours annoter les fonctions
+# ✅ Always annotate functions
 from typing import Optional, list, dict
 
 def transcribe_audio(
@@ -67,10 +67,10 @@ def transcribe_audio(
     language: str = "fr",
     model: str = "base"
 ) -> Optional[str]:
-    """Transcrit un fichier audio et retourne le texte, ou None si erreur."""
+    """Transcribes an audio file and returns the text, or None on error."""
     ...
 
-# ✅ Dataclasses pour les structures de données
+# ✅ Dataclasses for data structures
 from dataclasses import dataclass
 
 @dataclass
@@ -80,12 +80,12 @@ class TranscriptionResult:
     confidence: float
     duration_seconds: float
 
-# ❌ Éviter any et les fonctions sans annotations
-def process(data):  # ❌ pas de types
+# ❌ Avoid any and functions without annotations
+def process(data):  # ❌ no types
     ...
 ```
 
-### Configuration mypy
+### mypy Configuration
 
 ```ini
 # mypy.ini
@@ -98,24 +98,24 @@ disallow_any_generics = true
 
 ---
 
-## 3. Gestion des erreurs
+## 3. Error Handling
 
-**Règle PEP 20 : "Errors should never pass silently."**
+**PEP 20 rule: "Errors should never pass silently."**
 
 ```python
-# ❌ Exception silencieuse — bug invisible
+# ❌ Silent exception — invisible bug
 try:
     result = transcribe(audio)
 except:
-    pass  # JAMAIS
+    pass  # NEVER
 
-# ❌ Exception trop large
+# ❌ Overly broad exception
 try:
     result = transcribe(audio)
 except Exception:
     print("Something went wrong")
 
-# ✅ Exceptions spécifiques avec logging
+# ✅ Specific exceptions with logging
 import logging
 
 logger = logging.getLogger(__name__)
@@ -124,24 +124,24 @@ try:
     result = transcribe(audio)
 except FileNotFoundError as e:
     logger.error("Audio file not found: %s", e)
-    raise  # Re-raise si on ne peut pas récupérer
+    raise  # Re-raise if we cannot recover
 except TranscriptionError as e:
     logger.warning("Transcription failed, retrying: %s", e)
     return fallback_transcription(audio)
 ```
 
-### Exceptions personnalisées
+### Custom Exceptions
 
 ```python
-# exceptions.py — hiérarchie claire
+# exceptions.py — clear hierarchy
 class SQWRError(Exception):
-    """Base exception pour tous les projets SQWR Python."""
+    """Base exception for all SQWR Python projects."""
 
 class TranscriptionError(SQWRError):
-    """Erreur lors de la transcription audio."""
+    """Error during audio transcription."""
 
 class APIError(SQWRError):
-    """Erreur d'API externe."""
+    """External API error."""
     def __init__(self, message: str, status_code: int):
         super().__init__(message)
         self.status_code = status_code
@@ -149,32 +149,32 @@ class APIError(SQWRError):
 
 ---
 
-## 4. PyObjC — Règles spécifiques sqwr-dictate
+## 4. PyObjC — Specific Rules for sqwr-dictate
 
-> Source : PyObjC documentation + architecture sqwr-dictate (CLAUDE.md)
+> Source: PyObjC documentation + sqwr-dictate architecture (CLAUDE.md)
 
 ```python
-# ✅ Vérifier les valeurs de retour des fonctions Core Graphics
+# ✅ Check return values of Core Graphics functions
 import Quartz
 
 event = Quartz.CGEventCreateKeyboardEvent(None, key_code, key_down)
 if event is None:
     logger.error("Failed to create keyboard event for key_code=%d", key_code)
-    return  # ← Évite l'Abort trap 6 (crash documenté)
+    return  # ← Prevents Abort trap 6 (documented crash)
 
-# ✅ Utiliser arch -arm64 pour les binaires macOS Silicon
-# Voir build_app.sh — le launcher doit être compilé en arm64 Mach-O
+# ✅ Use arch -arm64 for macOS Silicon binaries
+# See build_app.sh — the launcher must be compiled as arm64 Mach-O
 # clang -arch arm64 -o launcher launcher.c
 
-# ✅ Droits Accessibilité — 3 entrées dans System Settings
-# "Python", "python3.13", "sqwr-dictate" doivent TOUTES être activées
+# ✅ Accessibility permissions — 3 entries in System Settings
+# "Python", "python3.13", "sqwr-dictate" must ALL be enabled
 ```
 
 ---
 
 ## 5. Packaging & Distribution
 
-### Structure de projet
+### Project Structure
 
 ```
 sqwr-dictate/
@@ -190,10 +190,10 @@ sqwr-dictate/
 │   └── test_paster.py
 ├── pyproject.toml
 ├── mypy.ini
-└── .python-version    # version Python exacte (ex: 3.13.2)
+└── .python-version    # exact Python version (e.g. 3.13.2)
 ```
 
-### pyproject.toml (standard moderne)
+### pyproject.toml (modern standard)
 
 ```toml
 [build-system]
@@ -221,21 +221,21 @@ line-length = 88
 select = ["E", "F", "I", "N", "W"]  # PEP 8 + imports + naming
 ```
 
-### Environnements virtuels
+### Virtual Environments
 
 ```bash
-# Toujours utiliser un venv isolé
+# Always use an isolated venv
 python3.13 -m venv .venv
 source .venv/bin/activate
 pip install -e ".[dev]"
 
-# .python-version pour pyenv
+# .python-version for pyenv
 echo "3.13.2" > .python-version
 ```
 
 ---
 
-## 6. Tests Python
+## 6. Python Tests
 
 ```python
 # tests/test_transcriber.py
@@ -243,14 +243,14 @@ import pytest
 from sqwr_dictate.transcriber import transcribe_audio, TranscriptionResult
 
 def test_transcribe_valid_audio(tmp_path):
-    # Arrangement
+    # Arrange
     audio_file = tmp_path / "test.wav"
     audio_file.write_bytes(generate_test_wav())
 
-    # Action
+    # Act
     result = transcribe_audio(str(audio_file))
 
-    # Assertion
+    # Assert
     assert result is not None
     assert isinstance(result, TranscriptionResult)
     assert len(result.text) > 0
@@ -262,36 +262,36 @@ def test_transcribe_missing_file():
 ```
 
 ```bash
-# Lancer les tests
+# Run tests
 pytest tests/ -v --tb=short
 
-# Avec coverage
+# With coverage
 pytest tests/ --cov=src/sqwr_dictate --cov-report=term-missing
 ```
 
 ---
 
-## 7. Règles absolues
+## 7. Absolute Rules
 
-### Ne jamais faire
-- Bare `except:` sans logger et sans re-raise (erreurs silencieuses)
-- Code sans annotations de type (mypy doit passer en strict mode)
-- `print()` pour le debug en production (utiliser `logging`)
-- Dépendances globales (toujours utiliser un venv)
-- Retourner `None` sans l'annoter `Optional[T]`
+### Never do
+- Bare `except:` without logging and without re-raise (silent errors)
+- Code without type annotations (mypy must pass in strict mode)
+- `print()` for debug in production (use `logging`)
+- Global dependencies (always use a venv)
+- Return `None` without annotating it as `Optional[T]`
 
-### Toujours faire
-- `black` + `ruff` + `mypy --strict` avant tout commit
-- Type hints sur toutes les fonctions
-- Logging structuré avec niveaux appropriés
-- Tests pour chaque fonction publique
-- Vérifier les valeurs de retour des fonctions système (PyObjC notamment)
+### Always do
+- `black` + `ruff` + `mypy --strict` before every commit
+- Type hints on all functions
+- Structured logging with appropriate levels
+- Tests for every public function
+- Check return values of system functions (especially PyObjC)
 
 ---
 
 ## 8. Sources
 
-| Référence | Source |
+| Reference | Source |
 |-----------|--------|
 | PEP 8 — Style Guide | peps.python.org/pep-0008 |
 | PEP 20 — Zen of Python | peps.python.org/pep-0020 |
@@ -299,4 +299,4 @@ pytest tests/ --cov=src/sqwr_dictate --cov-report=term-missing
 | black — formatter | black.readthedocs.io |
 | ruff — linter | docs.astral.sh/ruff |
 | PyObjC — macOS binding | pyobjc.readthedocs.io |
-| FastAPI — API REST Python | fastapi.tiangolo.com |
+| FastAPI — REST API Python | fastapi.tiangolo.com |

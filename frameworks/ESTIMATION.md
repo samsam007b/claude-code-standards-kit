@@ -1,208 +1,208 @@
-# Framework — Estimation de Projet
+# Framework — Project Estimation
 
-> Sources : US Navy PERT (1957), Daniel Kahneman & Amos Tversky (Prix Nobel Économie 2002),
+> Sources: US Navy PERT (1957), Daniel Kahneman & Amos Tversky (Nobel Prize in Economics 2002),
 > Joel Spolsky Evidence-Based Scheduling (joelonsoftware.com, 2007),
 > UK Department for Transport Reference Class Forecasting (gov.uk, 2004).
-> À utiliser : avant tout engagement de délai avec un client ou soi-même.
+> When to use: before committing to any deadline with a client or yourself.
 
 ---
 
-## Le problème fondamental : la Planning Fallacy
+## The Core Problem: the Planning Fallacy
 
-Kahneman & Tversky ont nommé ce phénomène en 1979 : la **planning fallacy** est la tendance
-systématique à sous-estimer le temps, le coût et les risques d'une tâche future, tout en
-surestimant ses bénéfices — même en sachant qu'on a systématiquement sous-estimé par le passé.
+Kahneman & Tversky named this phenomenon in 1979: the **planning fallacy** is the systematic tendency
+to underestimate the time, cost, and risks of a future task, while overestimating its benefits —
+even while knowing that one has systematically underestimated in the past.
 
-Ce n'est pas un défaut de caractère. C'est un biais cognitif universel, documenté sur
-des milliers de projets, des rénovations domestiques aux tunnels ferroviaires.
+This is not a character flaw. It is a universal cognitive bias, documented across
+thousands of projects, from home renovations to railway tunnels.
 
-**Données concrètes :**
-- Le UK Department for Transport introduit le Reference Class Forecasting en 2004.
-  Résultat : les dépassements de budget passent de **38% à 5%** sur les grands projets.
-- Les développeurs sous-estiment systématiquement de **40-200%** selon le type de tâche.
+**Concrete data:**
+- The UK Department for Transport introduced Reference Class Forecasting in 2004.
+  Result: budget overruns dropped from **38% to 5%** on major projects.
+- Developers systematically underestimate by **40–200%** depending on the type of task.
 
-### La règle SQWR : ×1.5 systématique pour solo+IA
+### The SQWR Rule: ×1.5 systematically for solo+AI
 
-Le contexte Claude Code introduit un optimisme artificiel supplémentaire :
-- Claude génère un prototype en 30 min → donne l'illusion que la feature est finie
-- La réalité : debugging, edge cases, tests, intégration avec le code existant multiplient par 2-3
-- **Règle empirique SQWR : multiplier TOUTE estimation par ×1.5 avant de s'engager**
+The Claude Code context introduces an additional artificial optimism:
+- Claude generates a prototype in 30 min → gives the illusion that the feature is done
+- Reality: debugging, edge cases, tests, and integration with existing code multiply by 2–3
+- **SQWR empirical rule: multiply EVERY estimate by ×1.5 before committing**
 
 ```
-Estimation intuitive : 4 heures
-PERT calculé        : 5.3 heures
-Ajustement ×1.5     : 8 heures → 1 journée de travail
+Intuitive estimate : 4 hours
+Calculated PERT   : 5.3 hours
+×1.5 adjustment   : 8 hours → 1 working day
 ```
 
 ---
 
-## Méthode 1 — PERT (US Navy, Programme Polaris, 1957)
+## Method 1 — PERT (US Navy, Polaris Program, 1957)
 
-### La formule
+### The formula
 
-PERT (Program Evaluation and Review Technique) force à penser en trois scénarios :
+PERT (Program Evaluation and Review Technique) forces thinking in three scenarios:
 
 ```
-Estimation PERT = (O + 4M + P) / 6
+PERT Estimate = (O + 4M + P) / 6
 
-O = Optimiste       (tout se passe parfaitement, aucun imprévu)
-M = Most Likely     (scénario normal avec quelques frictions typiques)
-P = Pessimiste      (les complications prennent plus de temps que prévu)
+O = Optimistic      (everything goes perfectly, no surprises)
+M = Most Likely     (normal scenario with a few typical frictions)
+P = Pessimistic     (complications take longer than expected)
 ```
 
-**Pourquoi 4×M ?** La formule vient de la distribution Beta. Le cas le plus probable
-est pondéré 4 fois car il est empiriquement le plus représentatif de la réalité —
-avec des limites pour éviter les optimismes extrêmes.
+**Why 4×M?** The formula comes from the Beta distribution. The most likely case
+is weighted 4 times because it is empirically the most representative of reality —
+with bounds to prevent extreme optimism.
 
-### Déviation standard — mesurer l'incertitude
+### Standard deviation — measuring uncertainty
 
 ```
 σ = (P - O) / 6
 ```
 
-Plus σ est grand, plus la tâche est incertaine. σ > 2h sur une tâche estimée à 4h
-signifie une incertitude élevée → creuser les Rabbit Holes avant de s'engager.
+The larger σ is, the more uncertain the task. σ > 2h on a task estimated at 4h
+signals high uncertainty → dig into Rabbit Holes before committing.
 
-### Table d'exemples SQWR
+### SQWR Example Table
 
-| Tâche | O | M | P | PERT brut | ×1.5 | Estimation engagement |
-|-------|---|---|---|-----------|------|----------------------|
-| Page marketing statique (Next.js) | 2h | 4h | 8h | 4.3h | 6.5h | **1 jour** |
-| Feature auth complète (Supabase) | 4h | 8h | 20h | 9.3h | 14h | **2 jours** |
-| Intégration API tierce (webhook, etc.) | 2h | 6h | 16h | 7h | 10.5h | **1.5 jours** |
-| Composant UI réutilisable | 1h | 2h | 5h | 2.3h | 3.5h | **4h ouvrables** |
-| Migration base de données (Supabase) | 1h | 3h | 8h | 3.5h | 5.3h | **1 jour** |
-| Setup projet from scratch | 2h | 4h | 6h | 4h | 6h | **1 jour** |
+| Task | O | M | P | Raw PERT | ×1.5 | Committed Estimate |
+|------|---|---|---|----------|------|-------------------|
+| Static marketing page (Next.js) | 2h | 4h | 8h | 4.3h | 6.5h | **1 day** |
+| Full auth feature (Supabase) | 4h | 8h | 20h | 9.3h | 14h | **2 days** |
+| Third-party API integration (webhook, etc.) | 2h | 6h | 16h | 7h | 10.5h | **1.5 days** |
+| Reusable UI component | 1h | 2h | 5h | 2.3h | 3.5h | **4 working hours** |
+| Database migration (Supabase) | 1h | 3h | 8h | 3.5h | 5.3h | **1 day** |
+| Project setup from scratch | 2h | 4h | 6h | 4h | 6h | **1 day** |
 
 ---
 
-## Méthode 2 — Reference Class Forecasting (Kahneman)
+## Method 2 — Reference Class Forecasting (Kahneman)
 
 ### Inside view vs Outside view
 
-| Approche | Description | Biais |
+| Approach | Description | Bias |
 |----------|-------------|-------|
-| **Inside view** | Estimer *cette* tâche en se concentrant sur ses détails | Ignore comment les tâches similaires se sont réellement passées |
-| **Outside view** | Regarder comment des tâches *similaires* se sont passées dans le passé | Corrige le biais d'optimisme avec de la data réelle |
+| **Inside view** | Estimate *this* task by focusing on its details | Ignores how similar tasks actually played out |
+| **Outside view** | Look at how *similar* tasks have played out in the past | Corrects optimism bias with real data |
 
-**La Reference Class Forecasting, c'est systématiquement préférer l'Outside view.**
+**Reference Class Forecasting means systematically preferring the Outside view.**
 
-### Application pratique SQWR
+### Practical application at SQWR
 
-1. Identifier la classe de la tâche (ex: "page avec formulaire + API Supabase")
-2. Regarder dans l'historique SQWR combien ça a pris les fois précédentes
-3. Utiliser la **médiane** (pas la moyenne, trop influencée par les outliers)
-4. Ajuster pour les différences connues avec la tâche actuelle
+1. Identify the task class (e.g., "page with form + Supabase API")
+2. Look in SQWR history to see how long it took in previous instances
+3. Use the **median** (not the average, which is too influenced by outliers)
+4. Adjust for known differences with the current task
 
-### Registre de référence SQWR — à remplir au fil des projets
+### SQWR Reference Register — to be filled in over time
 
-| Classe de tâche | Exemples passés | Médianne réelle | Ajustement |
-|----------------|-----------------|-----------------|-----------|
-| Page statique marketing | La Villa, SQWR, Villa Coladeira | [à remplir] | |
-| Page avec auth Supabase | izzico login, CozyGrowth dashboard | [à remplir] | |
-| Composant UI réutilisable | [liste des composants créés] | [à remplir] | |
-| Feature CRUD complète | [liste] | [à remplir] | |
-| Intégration service tiers | [liste] | [à remplir] | |
-| Setup projet from scratch | [liste] | [à remplir] | |
+| Task Class | Past Examples | Actual Median | Adjustment |
+|------------|---------------|---------------|-----------|
+| Static marketing page | La Villa, SQWR, Villa Coladeira | [to fill] | |
+| Page with Supabase auth | izzico login, CozyGrowth dashboard | [to fill] | |
+| Reusable UI component | [list of components created] | [to fill] | |
+| Full CRUD feature | [list] | [to fill] | |
+| Third-party service integration | [list] | [to fill] | |
+| Project setup from scratch | [list] | [to fill] | |
 
-**Instruction :** Après chaque projet, noter [estimation initiale, durée réelle] dans ce tableau.
-En 3-4 projets, les médianes deviennent statistiquement fiables.
+**Instruction:** After each project, record [initial estimate, actual duration] in this table.
+After 3–4 projects, medians become statistically reliable.
 
 ---
 
-## Méthode 3 — Evidence-Based Scheduling (Joel Spolsky, 2007)
+## Method 3 — Evidence-Based Scheduling (Joel Spolsky, 2007)
 
-### Principe
+### Principle
 
 > *"Instead of pulling a date out of thin air, you use your actual historical velocity
 > to produce a probability distribution of ship dates."* — Joel Spolsky
 
-**Velocity individuelle = temps estimé / temps réel**
+**Individual velocity = estimated time / actual time**
 
 ```
-Si tu estimes "4h" et ça prend "6h" → velocity = 4/6 = 0.67
-Pour corriger : estimation future × (1 / 0.67) = × 1.5
+If you estimate "4h" and it takes "6h" → velocity = 4/6 = 0.67
+To correct: future estimate × (1 / 0.67) = × 1.5
 
-Si tu estimes "4h" et ça prend "3h" → velocity = 4/3 = 1.33
-Pour corriger : estimation future × (1 / 1.33) = × 0.75
+If you estimate "4h" and it takes "3h" → velocity = 4/3 = 1.33
+To correct: future estimate × (1 / 1.33) = × 0.75
 ```
 
-### Comment tracker sa velocity SQWR
+### How to track your SQWR velocity
 
-| Mois | Tâche | Estimé | Réel | Ratio |
-|------|-------|--------|------|-------|
-| [mois] | [tâche] | [Xh] | [Yh] | [X/Y] |
+| Month | Task | Estimated | Actual | Ratio |
+|-------|------|-----------|--------|-------|
+| [month] | [task] | [Xh] | [Yh] | [X/Y] |
 | | | | | |
 | | | | | |
-| **Moyenne** | | | | **[calculer]** |
+| **Average** | | | | **[calculate]** |
 
-**Multiplicateur personnel = 1 / (moyenne des ratios)**
+**Personal multiplier = 1 / (average of ratios)**
 
-*Exemple : si ta moyenne est 0.7 → tu divises par 0.7 = tu multiplies par ×1.43.
-C'est très proche du ×1.5 empirique de la règle SQWR — ce n'est pas une coïncidence.*
+*Example: if your average is 0.7 → you divide by 0.7 = you multiply by ×1.43.
+This is very close to the empirical ×1.5 SQWR rule — that is not a coincidence.*
 
 ---
 
-## Template d'estimation SQWR
+## SQWR Estimation Template
 
 ```markdown
-## Estimation — [Feature / Projet]
+## Estimation — [Feature / Project]
 
-**Date :** [JJ/MM/AAAA]
-**Projet :** [nom]
-**Décrit dans le Pitch :** [lien ou description courte]
+**Date:** [DD/MM/YYYY]
+**Project:** [name]
+**Described in Pitch:** [link or short description]
 
-### Décomposition des tâches
+### Task Breakdown
 
-| # | Tâche | O | M | P | PERT brut |
-|---|-------|---|---|---|-----------|
-| 1 | [tâche] | | | | |
-| 2 | [tâche] | | | | |
-| 3 | [tâche] | | | | |
-| **Total** | | | | | **[somme]h** |
+| # | Task | O | M | P | Raw PERT |
+|---|------|---|---|---|----------|
+| 1 | [task] | | | | |
+| 2 | [task] | | | | |
+| 3 | [task] | | | | |
+| **Total** | | | | | **[sum]h** |
 
-### Ajustements
+### Adjustments
 
-| Ajustement | Facteur | Résultat |
-|-----------|---------|----------|
-| Total PERT brut | 1.0 | [X]h |
-| Multiplicateur solo+IA | ×1.5 | [X × 1.5]h |
-| Ajustement velocity personnelle | ×[ton ratio] | [résultat]h |
-| **Estimation finale** | | **[résultat]h → [X] jours** |
+| Adjustment | Factor | Result |
+|-----------|--------|--------|
+| Raw PERT total | 1.0 | [X]h |
+| Solo+AI multiplier | ×1.5 | [X × 1.5]h |
+| Personal velocity adjustment | ×[your ratio] | [result]h |
+| **Final estimate** | | **[result]h → [X] days** |
 
 ### Reference Class
 
-Tâche la plus similaire dans l'historique SQWR : [description]
-Durée réelle de cette tâche : [X]h / [X] jours
+Most similar task in SQWR history: [description]
+Actual duration of that task: [X]h / [X] days
 
-### Engagements de livraison
+### Delivery Commitments
 
-| Confiance | Date |
+| Confidence | Date |
 |-----------|------|
-| 50% (optimiste) | [JJ/MM/AAAA] |
-| **85% (à communiquer)** | **[JJ/MM/AAAA]** |
+| 50% (optimistic) | [DD/MM/YYYY] |
+| **85% (to communicate)** | **[DD/MM/YYYY]** |
 
-**Règle SQWR : toujours communiquer la date à 85% de confiance au client.
-Ne jamais communiquer la date optimiste comme date de livraison.**
+**SQWR Rule: always communicate the 85% confidence date to the client.
+Never communicate the optimistic date as the delivery date.**
 ```
 
 ---
 
-## Checklist Estimation
+## Estimation Checklist
 
-- [ ] Tâche décomposée en sous-tâches (chaque sous-tâche ≤ 4h)
-- [ ] Formule PERT appliquée sur chaque sous-tâche (O, M, P remplis)
-- [ ] Reference Class consultée (a-t-on fait quelque chose de similaire avant ?)
-- [ ] Multiplicateur ×1.5 (solo+IA) appliqué sur le total
-- [ ] Vélocité personnelle prise en compte si historique disponible
-- [ ] Rabbit Holes identifiés (→ voir `frameworks/PROJECT-SCOPING.md`)
-- [ ] **Date à 85% de confiance communiquée — jamais la date optimiste**
+- [ ] Task broken down into sub-tasks (each sub-task ≤ 4h)
+- [ ] PERT formula applied to each sub-task (O, M, P filled in)
+- [ ] Reference Class consulted (have we done something similar before?)
+- [ ] ×1.5 multiplier (solo+AI) applied to the total
+- [ ] Personal velocity taken into account if history is available
+- [ ] Rabbit Holes identified (→ see `frameworks/PROJECT-SCOPING.md`)
+- [ ] **85% confidence date communicated — never the optimistic date**
 
 ---
 
 ## Sources
 
-| Référence | Lien |
+| Reference | Link |
 |-----------|------|
 | PERT — US Navy Polaris Program (1957) | wikipedia.org/wiki/Program_evaluation_and_review_technique |
 | Planning Fallacy — Kahneman & Tversky | scholar.princeton.edu (Nobel Prize 2002 — Judgment under Uncertainty) |

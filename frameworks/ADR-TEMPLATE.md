@@ -1,181 +1,181 @@
 # Framework — Architecture Decision Records (ADR)
 
-> Framework SQWR Project Kit — mémoire institutionnelle des décisions architecturales.
-> Sources : Michael Nygard (2011), ADR GitHub (adr.github.io), AWS ADR Best Practices, GOV.UK ADR Framework.
-> Principe : documenter POURQUOI, pas seulement QUOI.
+> SQWR Project Kit Framework — institutional memory for architectural decisions.
+> Sources: Michael Nygard (2011), ADR GitHub (adr.github.io), AWS ADR Best Practices, GOV.UK ADR Framework.
+> Principle: document WHY, not just WHAT.
 
 ---
 
-## Pourquoi les ADRs ?
+## Why ADRs?
 
-**Le problème :** Dans 6 mois, pourquoi a-t-on choisi Supabase plutôt que PlanetScale ? Pourquoi Plausible plutôt que Mixpanel ? Pourquoi Vercel plutôt que Railway ? Ces décisions existent dans la mémoire des fondateurs. Quand un collaborateur arrive, ou quand on veut revenir sur une décision, le contexte est perdu.
+**The problem:** In 6 months, why did we choose Supabase over PlanetScale? Why Plausible over Mixpanel? Why Vercel over Railway? These decisions live in the founders' memory. When a collaborator joins, or when a decision needs to be revisited, the context is lost.
 
-**La solution :** Un ADR (Architecture Decision Record) capture une décision significative avec son contexte, les alternatives considérées, et les conséquences. Immuable. Versionné avec le code. Retrouvable.
+**The solution:** An ADR (Architecture Decision Record) captures a significant decision with its context, the alternatives considered, and the consequences. Immutable. Versioned with the code. Retrievable.
 
 > *"An ADR is not a requirements document. It's a record of a decision that was made."* — Michael Nygard
 
 ---
 
-## Convention de stockage
+## Storage convention
 
 ```
-[projet]/
+[project]/
 └── docs/
     └── adr/
-        ├── ADR-001-choix-supabase.md
+        ├── ADR-001-supabase-choice.md
         ├── ADR-002-analytics-plausible.md
         ├── ADR-003-tailwind-vs-styled-components.md
         └── ...
 ```
 
-**Règle d'immuabilité :** Un ADR existant ne s'édite jamais. Si une décision change :
-1. Créer un nouvel ADR : `ADR-XXX-remplacement-de-ADR-NNN.md`
-2. Mettre le statut de l'ancien ADR à `Superseded by ADR-XXX`
+**Immutability rule:** An existing ADR is never edited. If a decision changes:
+1. Create a new ADR: `ADR-XXX-supersedes-ADR-NNN.md`
+2. Set the old ADR's status to `Superseded by ADR-XXX`
 
 ---
 
-## Template ADR (format Michael Nygard)
+## ADR Template (Michael Nygard format)
 
 ```markdown
-# ADR-[NNN]: [Titre court et descriptif]
+# ADR-[NNN]: [Short, descriptive title]
 
-**Date :** [JJ/MM/AAAA]
-**Statut :** [Proposed | Accepted | Deprecated | Superseded by ADR-XXX]
-**Décideur(s) :** [Samuel / Samuel + Joakim / Samuel + Alexandre]
+**Date:** [DD/MM/YYYY]
+**Status:** [Proposed | Accepted | Deprecated | Superseded by ADR-XXX]
+**Decider(s):** [Samuel / Samuel + Joakim / Samuel + Alexandre]
 
 ---
 
-## Contexte
+## Context
 
-[Décrivez la situation ou le problème qui nécessite cette décision.
-Quel est le contexte technique, métier, ou organisationnel ?
-Quelles contraintes existent ?]
+[Describe the situation or problem requiring this decision.
+What is the technical, business, or organizational context?
+What constraints exist?]
 
-## Alternatives considérées
+## Alternatives Considered
 
-| Option | Avantages | Inconvénients |
+| Option | Advantages | Disadvantages |
 |--------|-----------|--------------|
 | **[Option A]** | [+] | [-] |
 | **[Option B]** | [+] | [-] |
 | **[Option C]** | [+] | [-] |
 
-## Décision
+## Decision
 
-[Quelle option a été choisie et pourquoi.]
+[Which option was chosen and why.]
 
-**Option retenue : [Option X]**
+**Chosen option: [Option X]**
 
-Raisons :
-- [raison 1]
-- [raison 2]
+Reasons:
+- [reason 1]
+- [reason 2]
 
-## Conséquences
+## Consequences
 
-**Ce qui devient plus facile :**
-- [conséquence positive 1]
+**What becomes easier:**
+- [positive consequence 1]
 
-**Ce qui devient plus difficile (trade-offs) :**
+**What becomes harder (trade-offs):**
 - [trade-off 1]
 
-**Ce qui doit être fait à la suite de cette décision :**
-- [ ] [action concrète]
+**What must be done as a result of this decision:**
+- [ ] [concrete action]
 
-## Révision possible si
+## Review conditions
 
-[Conditions dans lesquelles cette décision devrait être réévaluée]
-Ex: "Si le volume dépasse X requêtes/jour" ou "Si le coût mensuel dépasse Y€"
+[Conditions under which this decision should be reconsidered]
+Ex: "If volume exceeds X requests/day" or "If monthly cost exceeds Y€"
 ```
 
 ---
 
-## Cycle de vie des statuts
+## Status lifecycle
 
 ```
 Proposed → Accepted → Deprecated
                   ↘ Superseded by ADR-XXX
 ```
 
-| Statut | Signification |
-|--------|--------------|
-| **Proposed** | En discussion, pas encore validée |
-| **Accepted** | Décision active, en vigueur |
-| **Deprecated** | N'est plus pertinente (technologie abandonnée, contexte changé) |
-| **Superseded by ADR-NNN** | Remplacée par un nouvel ADR |
+| Status | Meaning |
+|--------|---------|
+| **Proposed** | Under discussion, not yet validated |
+| **Accepted** | Active decision, currently in effect |
+| **Deprecated** | No longer relevant (technology abandoned, context changed) |
+| **Superseded by ADR-NNN** | Replaced by a new ADR |
 
 ---
 
-## ADRs fondateurs SQWR — à créer pour chaque projet
+## Foundational SQWR ADRs — to create for each project
 
-Ces décisions ont déjà été prises implicitement. Les documenter crée la mémoire institutionnelle.
+These decisions have already been made implicitly. Documenting them creates institutional memory.
 
-| Décision | ADR suggéré |
-|----------|-------------|
-| Choix de Supabase vs alternatives | `ADR-001-database-supabase.md` |
-| Choix de Vercel vs Railway/Render | `ADR-002-hosting-vercel.md` |
-| Choix de Plausible vs Google Analytics | `ADR-003-analytics-plausible.md` |
-| Choix de Claude vs OpenAI pour le dev | `ADR-004-ai-dev-claude-code.md` |
-| Choix de Next.js App Router vs Pages Router | `ADR-005-nextjs-app-router.md` |
-| Choix de Tailwind vs CSS Modules | `ADR-006-styling-tailwind.md` |
+| Decision | Suggested ADR |
+|----------|--------------|
+| Choosing Supabase vs alternatives | `ADR-001-database-supabase.md` |
+| Choosing Vercel vs Railway/Render | `ADR-002-hosting-vercel.md` |
+| Choosing Plausible vs Google Analytics | `ADR-003-analytics-plausible.md` |
+| Choosing Claude vs OpenAI for dev | `ADR-004-ai-dev-claude-code.md` |
+| Choosing Next.js App Router vs Pages Router | `ADR-005-nextjs-app-router.md` |
+| Choosing Tailwind vs CSS Modules | `ADR-006-styling-tailwind.md` |
 
 ---
 
-## Exemple complet — ADR-001
+## Complete Example — ADR-001
 
 ```markdown
-# ADR-001: Supabase comme base de données
+# ADR-001: Supabase as the database
 
-**Date :** 15/01/2025
-**Statut :** Accepted
-**Décideur(s) :** Samuel Baudon
+**Date:** 15/01/2025
+**Status:** Accepted
+**Decider(s):** Samuel Baudon
 
 ---
 
-## Contexte
+## Context
 
-izzico nécessite une base de données PostgreSQL avec authentification intégrée,
-stockage de fichiers, et des politiques d'accès granulaires par rôle utilisateur
-(Seekers, Residents, Owners). Budget initial : bootstrapé, pas de DevOps dédié.
+izzico requires a PostgreSQL database with integrated authentication,
+file storage, and granular access policies by user role
+(Seekers, Residents, Owners). Initial budget: bootstrapped, no dedicated DevOps.
 
-## Alternatives considérées
+## Alternatives Considered
 
-| Option | Avantages | Inconvénients |
+| Option | Advantages | Disadvantages |
 |--------|-----------|--------------|
-| **Supabase** | Auth + DB + Storage intégré, RLS natif, SDK JS excellent, tier gratuit généreux | Vendor lock-in, prix scalabilité |
-| **PlanetScale** | Scalabilité MySQL excellente, branching | Pas d'auth natif, pas de storage, pas de RLS |
-| **Firebase** | Mature, Google ecosystem | NoSQL = migration difficile, prix imprévisible |
+| **Supabase** | Auth + DB + Storage integrated, native RLS, excellent JS SDK, generous free tier | Vendor lock-in, scalability pricing |
+| **PlanetScale** | Excellent MySQL scalability, branching | No native auth, no storage, no RLS |
+| **Firebase** | Mature, Google ecosystem | NoSQL = difficult migration, unpredictable pricing |
 
-## Décision
+## Decision
 
-**Option retenue : Supabase**
+**Chosen option: Supabase**
 
-Raisons :
-- RLS natif = sécurité multi-tenant sans infrastructure supplémentaire
-- Auth, Storage, Realtime dans le même service = moins de pièces mobiles
-- PostgreSQL = migration possible vers tout hébergeur Postgres si nécessaire
-- SDK Next.js + SSR = compatible avec notre stack
+Reasons:
+- Native RLS = multi-tenant security without additional infrastructure
+- Auth, Storage, Realtime in a single service = fewer moving parts
+- PostgreSQL = migration possible to any Postgres host if needed
+- Next.js + SSR SDK = compatible with our stack
 
-## Conséquences
+## Consequences
 
-**Ce qui devient plus facile :**
-- Gestion des permissions par rôle (RLS)
-- Auth sans serveur tiers
+**What becomes easier:**
+- Role-based permission management (RLS)
+- Auth without a third-party server
 
-**Trade-offs :**
-- Vendor lock-in sur les fonctionnalités Supabase-spécifiques (Edge Functions, Realtime)
-- Coût scalabilité à surveiller au-delà de 50k MAU
+**Trade-offs:**
+- Vendor lock-in on Supabase-specific features (Edge Functions, Realtime)
+- Scalability cost to monitor beyond 50k MAU
 
-## Révision possible si
+## Review conditions
 
-Prix Supabase dépasse 500€/mois ou si des limitations techniques bloquantes apparaissent
+Supabase pricing exceeds €500/month or blocking technical limitations appear
 ```
 
 ---
 
 ## Sources
 
-| Référence | Source |
+| Reference | Source |
 |-----------|--------|
-| Michael Nygard — ADR original | cognitect.com/blog/2011/11/15/documenting-architecture-decisions |
+| Michael Nygard — original ADR | cognitect.com/blog/2011/11/15/documenting-architecture-decisions |
 | ADR GitHub | adr.github.io |
 | AWS ADR Best Practices | aws.amazon.com/blogs/architecture/master-architecture-decision-records-adrs-best-practices |
 | Microsoft Azure Well-Architected | learn.microsoft.com/en-us/azure/well-architected/architect-role/architecture-decision-record |

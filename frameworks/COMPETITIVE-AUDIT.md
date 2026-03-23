@@ -1,124 +1,124 @@
-# Framework — Audit Concurrentiel
+# Framework — Competitive Audit
 
-> Module de framework SQWR Project Kit.
-> Sources : Nielsen Norman Group — Competitive Usability (nngroup.com/articles/competitive-usability-evaluations), Harvard Business Review — Mystery Shopper methodology, Kim & Mauborgne — Blue Ocean Strategy Canvas (hbr.org/2004/10/blue-ocean-strategy), Baymard Institute — Competitive UX Benchmark.
+> SQWR Project Kit framework module.
+> Sources: Nielsen Norman Group — Competitive Usability (nngroup.com/articles/competitive-usability-evaluations), Harvard Business Review — Mystery Shopper methodology, Kim & Mauborgne — Blue Ocean Strategy Canvas (hbr.org/2004/10/blue-ocean-strategy), Baymard Institute — Competitive UX Benchmark.
 
 ---
 
-## Quand utiliser ce framework
+## When to use this framework
 
-**Avant tout nouveau projet, produit ou repositionnement de marque**, analyser 3 à 5 concurrents directs et indirects. Un audit concurrentiel prend 2 à 4 heures mais évite de construire quelque chose qui existe déjà ou qui ignore des conventions établies dans le secteur.
+**Before any new project, product, or brand repositioning**, analyze 3 to 5 direct and indirect competitors. A competitive audit takes 2 to 4 hours but prevents building something that already exists or ignores established conventions in the industry.
 
 > "The best way to differentiate is to know exactly what you're differentiating from." — Nielsen Norman Group
 
 ---
 
-## 1. Sélection des Concurrents
+## 1. Competitor Selection
 
-### 3 types à analyser
+### 3 types to analyze
 
-| Type | Définition | Exemples |
+| Type | Definition | Examples |
 |------|------------|---------|
-| **Concurrent direct** | Même offre, même cible | Produit A vs Produit B |
-| **Concurrent indirect** | Solution alternative au même problème | Alternative workflow différent |
-| **Meilleure pratique (hors secteur)** | Leader UX/branding dans un autre domaine | Airbnb pour l'hospitalité, Notion pour la productivité |
+| **Direct competitor** | Same offer, same target | Product A vs Product B |
+| **Indirect competitor** | Alternative solution to the same problem | Alternative with a different workflow |
+| **Best practice (outside the sector)** | UX/branding leader in another domain | Airbnb for hospitality, Notion for productivity |
 
-**Règle :** inclure toujours au moins **1 concurrent hors secteur** — les meilleures innovations UX viennent souvent d'analogies cross-sectorielles.
+**Rule:** always include at least **1 out-of-sector competitor** — the best UX innovations often come from cross-industry analogies.
 
-**Nombre recommandé : 3–5 concurrents.** Au-delà = analyse trop diffuse. En dessous = biais de confirmation.
+**Recommended number: 3–5 competitors.** Beyond that = analysis too diffuse. Fewer = confirmation bias.
 
-> Source : Nielsen Norman Group — [nngroup.com/articles/competitive-usability-evaluations](https://www.nngroup.com/articles/competitive-usability-evaluations/)
+> Source: Nielsen Norman Group — [nngroup.com/articles/competitive-usability-evaluations](https://www.nngroup.com/articles/competitive-usability-evaluations/)
 
 ---
 
-## 2. Grille d'Analyse — Template
+## 2. Analysis Grid — Template
 
-Pour chaque concurrent, évaluer les 6 dimensions suivantes.
+For each competitor, evaluate the following 6 dimensions.
 
-### Template par concurrent
+### Template per competitor
 
 ```
-Concurrent : [Nom]
-URL / App : [lien]
-Date d'analyse : [date]
-Analyste : [nom]
+Competitor: [Name]
+URL / App: [link]
+Analysis date: [date]
+Analyst: [name]
 
 ═══════════════════════════════════
-DIMENSION 1 — POSITIONNEMENT (20 pts)
+DIMENSION 1 — POSITIONING (20 pts)
 ═══════════════════════════════════
 
-Proposition de valeur principale :
-→ [En 1 phrase — ce qu'ils disent être]
+Main value proposition:
+→ [In 1 sentence — what they claim to be]
 
-Cible exprimée :
-→ [Qui ils ciblent explicitement]
+Stated target:
+→ [Who they explicitly target]
 
-Différenciants revendiqués :
-→ [Ce qu'ils disent être uniques]
+Claimed differentiators:
+→ [What they say makes them unique]
 
-Score positionement : ___/20
-Commentaires : ...
+Positioning score: ___/20
+Comments: ...
 
 ═══════════════════════════════════
 DIMENSION 2 — DESIGN & UX (20 pts)
 ═══════════════════════════════════
 
-Cohérence visuelle (couleurs, typo, espacement) : ___/5
-Clarté de la navigation (temps pour trouver X) :  ___/5
-Qualité du onboarding (première expérience) :      ___/5
-Responsive / Mobile :                              ___/5
+Visual consistency (colors, type, spacing):  ___/5
+Navigation clarity (time to find X):         ___/5
+Onboarding quality (first experience):       ___/5
+Responsive / Mobile:                         ___/5
 
-Score Design & UX : ___/20
+Design & UX score: ___/20
 
-Observations :
-→ [Ce qui fonctionne]
-→ [Ce qui ne fonctionne pas]
-→ [Inspiration possible]
+Observations:
+→ [What works]
+→ [What does not work]
+→ [Possible inspiration]
 
 ═══════════════════════════════════
 DIMENSION 3 — PERFORMANCE (20 pts)
 ═══════════════════════════════════
 
-LCP (Largest Contentful Paint) :   [Mesurer sur web.dev/measure]
-FID / INP :                        [Mesurer sur web.dev/measure]
-CLS :                              [Mesurer sur web.dev/measure]
-Score Lighthouse Performance :     ___/100
+LCP (Largest Contentful Paint):   [Measure at web.dev/measure]
+FID / INP:                        [Measure at web.dev/measure]
+CLS:                              [Measure at web.dev/measure]
+Lighthouse Performance score:     ___/100
 
-Score Performance : ___/20
+Performance score: ___/20
 (>90 Lighthouse = 20pts | 75-90 = 15pts | 60-75 = 10pts | <60 = 5pts)
 
 ═══════════════════════════════════
-DIMENSION 4 — ACCESSIBILITÉ (15 pts)
+DIMENSION 4 — ACCESSIBILITY (15 pts)
 ═══════════════════════════════════
 
-Score Lighthouse Accessibility :   ___/100
-Navigation clavier fonctionnelle : ☐ Oui / ☐ Non / ☐ Partiel
-Contrastes WCAG AA respectés :     ☐ Oui / ☐ Non / ☐ Partiel
-Alt text sur images :              ☐ Oui / ☐ Non / ☐ Partiel
+Lighthouse Accessibility score:    ___/100
+Functional keyboard navigation:    ☐ Yes / ☐ No / ☐ Partial
+WCAG AA contrast ratios respected: ☐ Yes / ☐ No / ☐ Partial
+Alt text on images:                ☐ Yes / ☐ No / ☐ Partial
 
-Score Accessibilité : ___/15
+Accessibility score: ___/15
 
 ═══════════════════════════════════
-DIMENSION 5 — CONTENU & SEO (15 pts)
+DIMENSION 5 — CONTENT & SEO (15 pts)
 ═══════════════════════════════════
 
-Clarté du message (< 5 sec pour comprendre l'offre) : ___/5
-Qualité du copywriting (tone of voice cohérent) :     ___/5
-Présence SEO (ranking mots-clés cibles) :             ___/5
+Message clarity (< 5 sec to understand the offer): ___/5
+Copywriting quality (consistent tone of voice):    ___/5
+SEO presence (target keyword rankings):            ___/5
 
-Score Contenu & SEO : ___/15
+Content & SEO score: ___/15
 
 ═══════════════════════════════════
 DIMENSION 6 — BRAND (10 pts)
 ═══════════════════════════════════
 
-Mémorabilité (logo, couleurs uniques) :     ___/5
-Cohérence cross-platform (web, app, RS) :   ___/5
+Memorability (unique logo, colors):     ___/5
+Cross-platform consistency (web, app, social): ___/5
 
-Score Brand : ___/10
+Brand score: ___/10
 
 ═══════════════════════════════════
-SCORE TOTAL : ___/100
+TOTAL SCORE: ___/100
 ═══════════════════════════════════
 ```
 
@@ -126,159 +126,159 @@ SCORE TOTAL : ___/100
 
 ## 3. Heuristic Evaluation (Nielsen)
 
-> Source : Nielsen Norman Group — How to Conduct a Heuristic Evaluation — [nngroup.com/articles/how-to-conduct-a-heuristic-evaluation](https://www.nngroup.com/articles/how-to-conduct-a-heuristic-evaluation/)
+> Source: Nielsen Norman Group — How to Conduct a Heuristic Evaluation — [nngroup.com/articles/how-to-conduct-a-heuristic-evaluation](https://www.nngroup.com/articles/how-to-conduct-a-heuristic-evaluation/)
 
-Pour chaque concurrent, appliquer les 10 heuristiques de Nielsen. Scorer de 0 à 4 :
+For each competitor, apply Nielsen's 10 heuristics. Score from 0 to 4:
 
-| Score | Signification |
-|-------|---------------|
-| 0 | Pas de problème |
-| 1 | Problème cosmétique — fix si le temps le permet |
-| 2 | Problème mineur — priorité basse |
-| 3 | Problème majeur — priorité haute |
-| 4 | Catastrophe — bloque l'usage |
+| Score | Meaning |
+|-------|---------|
+| 0 | Not a problem |
+| 1 | Cosmetic problem — fix if time allows |
+| 2 | Minor problem — low priority |
+| 3 | Major problem — high priority |
+| 4 | Catastrophe — blocks usage |
 
 ```
-Heuristique 1 — Visibilité du statut :         [0-4]
-Heuristique 2 — Correspondance monde réel :    [0-4]
-Heuristique 3 — Contrôle et liberté :          [0-4]
-Heuristique 4 — Cohérence et standards :       [0-4]
-Heuristique 5 — Prévention des erreurs :       [0-4]
-Heuristique 6 — Reconnaissance plutôt que rappel : [0-4]
-Heuristique 7 — Flexibilité et efficacité :    [0-4]
-Heuristique 8 — Design minimaliste :           [0-4]
-Heuristique 9 — Aide à corriger les erreurs :  [0-4]
-Heuristique 10 — Aide et documentation :       [0-4]
+Heuristic 1 — Visibility of system status:       [0-4]
+Heuristic 2 — Match between system and world:    [0-4]
+Heuristic 3 — User control and freedom:          [0-4]
+Heuristic 4 — Consistency and standards:         [0-4]
+Heuristic 5 — Error prevention:                  [0-4]
+Heuristic 6 — Recognition rather than recall:    [0-4]
+Heuristic 7 — Flexibility and efficiency:        [0-4]
+Heuristic 8 — Aesthetic and minimalist design:   [0-4]
+Heuristic 9 — Help users recognize errors:       [0-4]
+Heuristic 10 — Help and documentation:           [0-4]
 
-Score Nielsen (problèmes détectés) : ___/40
-(Plus le score est bas = mieux / 0 = aucun problème)
+Nielsen score (problems detected): ___/40
+(Lower score = better / 0 = no problems)
 ```
 
-> **Nombre d'évaluateurs recommandé : 3–5.** Un seul évaluateur détecte ~35% des problèmes. Cinq évaluateurs en détectent ~75%. Au-delà de 5 = rendements décroissants.
-> Source : Nielsen Norman Group — [nngroup.com/articles/how-to-conduct-a-heuristic-evaluation](https://www.nngroup.com/articles/how-to-conduct-a-heuristic-evaluation/)
+> **Recommended number of evaluators: 3–5.** A single evaluator detects ~35% of problems. Five evaluators detect ~75%. Beyond 5 = diminishing returns.
+> Source: Nielsen Norman Group — [nngroup.com/articles/how-to-conduct-a-heuristic-evaluation](https://www.nngroup.com/articles/how-to-conduct-a-heuristic-evaluation/)
 
 ---
 
 ## 4. Blue Ocean Canvas
 
-> Source : Kim & Mauborgne — *Blue Ocean Strategy* (Harvard Business Review Press, 2005)
+> Source: Kim & Mauborgne — *Blue Ocean Strategy* (Harvard Business Review Press, 2005)
 > [hbr.org/2004/10/blue-ocean-strategy](https://hbr.org/2004/10/blue-ocean-strategy)
 
-Le Blue Ocean Canvas permet de visualiser les facteurs compétitifs et d'identifier les espaces non exploités.
+The Blue Ocean Canvas allows you to visualize competitive factors and identify unexplored spaces.
 
 ### Instructions
 
-1. Lister les **6–8 facteurs compétitifs** importants dans votre secteur
-2. Scorer chaque concurrent de 1 (bas) à 5 (haut) sur chaque facteur
-3. Tracer les courbes de valeur
-4. Identifier les zones où vous pouvez : **Éliminer / Réduire / Augmenter / Créer (ERIC)**
+1. List the **6–8 competitive factors** important in your sector
+2. Score each competitor from 1 (low) to 5 (high) on each factor
+3. Draw the value curves
+4. Identify zones where you can: **Eliminate / Reduce / Raise / Create (ERRC)**
 
-### Template Blue Ocean Canvas
+### Blue Ocean Canvas Template
 
 ```
-FACTEURS COMPÉTITIFS          | Vous | Conc.A | Conc.B | Conc.C
+COMPETITIVE FACTORS              | You | Comp.A | Comp.B | Comp.C
 ─────────────────────────────────────────────────────────────────
-[Facteur 1 — ex: Prix]        |  3   |   5    |   2    |   4
-[Facteur 2 — ex: Vitesse]     |  4   |   3    |   5    |   2
-[Facteur 3 — ex: Design]      |  5   |   2    |   3    |   2
-[Facteur 4 — ex: Support]     |  2   |   4    |   3    |   5
-[Facteur 5 — ex: Intégrations]|  3   |   5    |   4    |   3
-[Facteur 6 — ex: Mobile]      |  5   |   3    |   2    |   4
-[Facteur 7 — ex: IA/Auto]     |  4   |   2    |   1    |   2
+[Factor 1 — e.g., Price]         |  3  |   5    |   2    |   4
+[Factor 2 — e.g., Speed]         |  4  |   3    |   5    |   2
+[Factor 3 — e.g., Design]        |  5  |   2    |   3    |   2
+[Factor 4 — e.g., Support]       |  2  |   4    |   3    |   5
+[Factor 5 — e.g., Integrations]  |  3  |   5    |   4    |   3
+[Factor 6 — e.g., Mobile]        |  5  |   3    |   2    |   4
+[Factor 7 — e.g., AI/Automation] |  4  |   2    |   1    |   2
 ─────────────────────────────────────────────────────────────────
 
-ACTIONS ERIC :
-→ ÉLIMINER : [facteurs sur lesquels tous investissent mais qui n'ont pas de valeur perçue]
-→ RÉDUIRE : [facteurs sur-investis vs standard du secteur]
-→ AUGMENTER : [facteurs sous-investis vs standard du secteur]
-→ CRÉER : [facteurs inexistants dans le secteur = océan bleu]
+ERRC ACTIONS:
+→ ELIMINATE: [factors everyone invests in but that have no perceived value]
+→ REDUCE: [factors over-invested vs sector standard]
+→ RAISE: [factors under-invested vs sector standard]
+→ CREATE: [factors nonexistent in the sector = blue ocean]
 ```
 
 ---
 
-## 5. Mystery Shopper — Parcours Utilisateur
+## 5. Mystery Shopper — User Journey
 
-> Source : Harvard Business Review — Customer Journey Mapping (hbr.org)
-> Source : Baymard Institute — UX Benchmark methodology (baymard.com/research)
+> Source: Harvard Business Review — Customer Journey Mapping (hbr.org)
+> Source: Baymard Institute — UX Benchmark methodology (baymard.com/research)
 
-**Principe :** effectuer le parcours complet d'un concurrent comme si vous étiez un vrai utilisateur. Documenter chaque friction.
+**Principle:** complete a competitor's full user journey as if you were a real user. Document every friction.
 
 ```
-MYSTERY SHOPPER — Rapport de parcours
-Concurrent : [Nom]
-Parcours testé : [ex: Inscription → Premier achat → Support]
-Date : [date]
-Durée : [temps total]
+MYSTERY SHOPPER — Journey Report
+Competitor: [Name]
+Journey tested: [e.g., Sign-up → First purchase → Support]
+Date: [date]
+Duration: [total time]
 
 ─────────────────────────
-ÉTAPE 1 — [Nom de l'étape]
+STEP 1 — [Step Name]
 ─────────────────────────
-Durée : [temps]
-Action effectuée : [description]
-Friction identifiée : [problème si applicable]
-Émotion : [confus / frustré / satisfait / impressionné]
-Screenshot : [référence]
+Duration: [time]
+Action taken: [description]
+Friction identified: [problem if applicable]
+Emotion: [confused / frustrated / satisfied / impressed]
+Screenshot: [reference]
 
 ─────────────────────────
-ÉTAPE 2 — ...
+STEP 2 — ...
 ─────────────────────────
 
-SYNTHÈSE DU PARCOURS :
-→ Moment le plus fluide : [étape]
-→ Moment le plus frustrant : [étape + raison]
-→ Ce qu'on doit absolument copier : [...]
-→ Ce qu'on doit absolument éviter : [...]
-→ Opportunité identifiée : [...]
+JOURNEY SUMMARY:
+→ Smoothest moment: [step]
+→ Most frustrating moment: [step + reason]
+→ What we must absolutely copy: [...]
+→ What we must absolutely avoid: [...]
+→ Opportunity identified: [...]
 ```
 
 ---
 
-## 6. Tableau de Synthèse Comparative
+## 6. Comparative Summary Table
 
 ```
-TABLEAU COMPARATIF — [Projet X] vs Concurrents
-Date : [date]
+COMPARATIVE TABLE — [Project X] vs Competitors
+Date: [date]
 
-                    | Vous | Conc.A | Conc.B | Conc.C | Leader idéal
+                    | You | Comp.A | Comp.B | Comp.C | Ideal leader
 ────────────────────────────────────────────────────────────────────
-Positionnement      |  -   |  /20   |  /20   |  /20   |    /20
-Design & UX         |  -   |  /20   |  /20   |  /20   |    /20
-Performance         |  -   |  /20   |  /20   |  /20   |    /20
-Accessibilité       |  -   |  /15   |  /15   |  /15   |    /15
-Contenu & SEO       |  -   |  /15   |  /15   |  /15   |    /15
-Brand               |  -   |  /10   |  /10   |  /10   |    /10
+Positioning         |  -  |  /20   |  /20   |  /20   |    /20
+Design & UX         |  -  |  /20   |  /20   |  /20   |    /20
+Performance         |  -  |  /20   |  /20   |  /20   |    /20
+Accessibility       |  -  |  /15   |  /15   |  /15   |    /15
+Content & SEO       |  -  |  /15   |  /15   |  /15   |    /15
+Brand               |  -  |  /10   |  /10   |  /10   |    /10
 ────────────────────────────────────────────────────────────────────
-SCORE TOTAL         |  -   | /100   | /100   | /100   |   /100
+TOTAL SCORE         |  -  | /100   | /100   | /100   |   /100
 
-FORCES DE [Projet X] par rapport aux concurrents :
-1. [Force 1]
-2. [Force 2]
+STRENGTHS OF [Project X] relative to competitors:
+1. [Strength 1]
+2. [Strength 2]
 
-FAIBLESSES à adresser en priorité :
-1. [Faiblesse 1 — dimension + score]
-2. [Faiblesse 2 — dimension + score]
+WEAKNESSES to address as a priority:
+1. [Weakness 1 — dimension + score]
+2. [Weakness 2 — dimension + score]
 
-OPPORTUNITÉS (angles non exploités par les concurrents) :
-1. [Opportunité Blue Ocean 1]
-2. [Opportunité Blue Ocean 2]
+OPPORTUNITIES (angles unexploited by competitors):
+1. [Blue Ocean Opportunity 1]
+2. [Blue Ocean Opportunity 2]
 ```
 
 ---
 
-## 7. Quand relancer l'audit
+## 7. When to re-run the audit
 
-| Déclencheur | Fréquence recommandée |
-|-------------|----------------------|
-| Lancement d'un nouveau projet | Avant le premier sprint |
-| Repositionnement de marque | Avant la nouvelle stratégie |
-| Nouveau concurrent majeur détecté | Sous 2 semaines |
-| Audit de maintenance | Tous les 6 mois |
+| Trigger | Recommended frequency |
+|---------|----------------------|
+| Launch of a new project | Before the first sprint |
+| Brand repositioning | Before the new strategy |
+| Major new competitor detected | Within 2 weeks |
+| Maintenance audit | Every 6 months |
 
 ---
 
 ## Sources
 
-| Référence | Lien |
+| Reference | Link |
 |-----------|------|
 | Nielsen Norman Group — Competitive Usability | nngroup.com/articles/competitive-usability-evaluations |
 | Nielsen — Heuristic Evaluation | nngroup.com/articles/how-to-conduct-a-heuristic-evaluation |

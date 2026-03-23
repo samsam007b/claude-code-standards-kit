@@ -1,89 +1,89 @@
-# Contrat — Analytics Produit
+# Contract — Product Analytics
 
-> Module de contrat SQWR Project Kit.
-> Sources : HEART Framework — Google Research (Rodden et al., CHI 2010), Pirate Metrics AARRR (Dave McClure, 2007), Google Analytics 4 docs (developers.google.com/analytics), PostHog docs (posthog.com/docs), Andreessen Horowitz SaaS Metrics (a16z.com/2015/08/21/16-metrics).
+> SQWR Project Kit contract module.
+> Sources: HEART Framework — Google Research (Rodden et al., CHI 2010), Pirate Metrics AARRR (Dave McClure, 2007), Google Analytics 4 docs (developers.google.com/analytics), PostHog docs (posthog.com/docs), Andreessen Horowitz SaaS Metrics (a16z.com/2015/08/21/16-metrics).
 
 ---
 
-## Fondements scientifiques
+## Scientific Foundations
 
-**Les analytics produit ne sont pas les analytics marketing.** Les analytics marketing mesurent les canaux d'acquisition. Les analytics produit mesurent ce que les utilisateurs font *dans* le produit — et pourquoi ils restent ou partent.
+**Product analytics are not marketing analytics.** Marketing analytics measure acquisition channels. Product analytics measure what users do *inside* the product — and why they stay or leave.
 
-**Deux frameworks de référence :**
-- **HEART** (Google, 2010 — Kerry Rodden, Hilary Hutchinson, Xin Fu) : mesure orientée expérience utilisateur
-- **AARRR / Pirate Metrics** (Dave McClure, 2007) : mesure orientée croissance
+**Two reference frameworks:**
+- **HEART** (Google, 2010 — Kerry Rodden, Hilary Hutchinson, Xin Fu): user experience-oriented measurement
+- **AARRR / Pirate Metrics** (Dave McClure, 2007): growth-oriented measurement
 
-Ces deux frameworks sont complémentaires — AARRR pour la vision macro, HEART pour l'évaluation par feature.
+These two frameworks are complementary — AARRR for the macro view, HEART for per-feature evaluation.
 
 ---
 
 ## 1. AARRR — Pirate Metrics
 
-> Source : Dave McClure — "Startup Metrics for Pirates: AARRR" (500hats.com, 2007)
+> Source: Dave McClure — "Startup Metrics for Pirates: AARRR" (500hats.com, 2007)
 
-| Étape | Métrique clé | Threshold de référence |
+| Stage | Key Metric | Reference Threshold |
 |-------|-------------|----------------------|
-| **Acquisition** | CAC (Coût d'Acquisition Client) | LTV/CAC ≥3x (SaaStr) |
-| **Activation** | % users atteignant l'événement "Aha moment" | ≥40% (benchmark SaaS — Andreessen Horowitz) |
-| **Retention** | Rétention J7 / J30 / J90 | J30 ≥30% SaaS (a16z benchmark) |
-| **Referral** | NPS (Net Promoter Score) | ≥40 = bon, ≥70 = excellent (Bain & Company) |
-| **Revenue** | MRR Churn mensuel | <2%/mois (ProfitWell benchmark) |
+| **Acquisition** | CAC (Customer Acquisition Cost) | LTV/CAC ≥3x (SaaStr) |
+| **Activation** | % users reaching the "Aha moment" event | ≥40% (SaaS benchmark — Andreessen Horowitz) |
+| **Retention** | Day 7 / Day 30 / Day 90 retention | D30 ≥30% SaaS (a16z benchmark) |
+| **Referral** | NPS (Net Promoter Score) | ≥40 = good, ≥70 = excellent (Bain & Company) |
+| **Revenue** | Monthly MRR Churn | <2%/month (ProfitWell benchmark) |
 
-**Aha Moment** : événement spécifique qui corrèle avec la rétention long terme. À identifier par cohort analysis (ex : sur Twitter → "suivre 30 personnes dans les 3 premiers jours").
+**Aha Moment**: specific event that correlates with long-term retention. To be identified via cohort analysis (e.g., on Twitter → "follow 30 people within the first 3 days").
 
 ---
 
-## 2. HEART Framework — Par feature
+## 2. HEART Framework — Per Feature
 
-> Source : Rodden K., Hutchinson H., Fu X. — "Measuring the User Experience on a Large Scale: User-Centered Metrics for Web Applications" (Google, CHI 2010)
+> Source: Rodden K., Hutchinson H., Fu X. — "Measuring the User Experience on a Large Scale: User-Centered Metrics for Web Applications" (Google, CHI 2010)
 
-| Dimension | Signification | Exemple de métrique |
+| Dimension | Meaning | Example Metric |
 |-----------|--------------|-------------------|
-| **H**appiness | Satisfaction subjective | CSAT, NPS, score moyen in-app |
-| **E**ngagement | Fréquence d'utilisation | DAU/MAU ratio, sessions/user/semaine |
-| **A**doption | Nouveaux utilisateurs d'une feature | % users ayant utilisé la feature 1x |
-| **R**etention | Utilisateurs revenant | Cohort J7, J30, J90 |
-| **T**ask Success | Taux de complétion d'une tâche | Completion rate, error rate, time-on-task |
+| **H**appiness | Subjective satisfaction | CSAT, NPS, average in-app score |
+| **E**ngagement | Frequency of use | DAU/MAU ratio, sessions/user/week |
+| **A**doption | New users of a feature | % users who used the feature 1x |
+| **R**etention | Returning users | Cohort D7, D30, D90 |
+| **T**ask Success | Task completion rate | Completion rate, error rate, time-on-task |
 
-**Processus :** pour chaque nouvelle feature, définir 1-2 métriques HEART *avant* le développement, puis mesurer après le launch.
+**Process:** for each new feature, define 1-2 HEART metrics *before* development, then measure after launch.
 
 ---
 
-## 3. Taxonomie d'événements — Naming convention
+## 3. Event Taxonomy — Naming Convention
 
-> Source : Segment Analytics Spec (segment.com/docs/connections/spec/track) — standard industriel adopté par Amplitude, Mixpanel, PostHog
+> Source: Segment Analytics Spec (segment.com/docs/connections/spec/track) — industry standard adopted by Amplitude, Mixpanel, PostHog
 
-**Convention : `<object>_<action>` en snake_case**
+**Convention: `<object>_<action>` in snake_case**
 
 ```typescript
-// ✅ Naming correct
+// ✅ Correct naming
 'user_signed_up'
 'subscription_created'
 'feature_clicked'
 'onboarding_step_completed'
 'document_exported'
 
-// ❌ Naming incorrect
+// ❌ Incorrect naming
 'SignUp'           // PascalCase
-'click button'     // espace
-'btn_click'        // trop vague
+'click button'     // space
+'btn_click'        // too vague
 'userDidSignUp'    // camelCase
 ```
 
-**Propriétés obligatoires sur chaque événement :**
+**Mandatory properties on every event:**
 
 ```typescript
 // types/analytics.ts
 interface BaseEventProperties {
-  user_id: string | null       // null si non-authentifié
-  session_id: string           // UUID de session
+  user_id: string | null       // null if unauthenticated
+  session_id: string           // session UUID
   timestamp: string            // ISO 8601
   platform: 'web' | 'ios' | 'android'
   app_version: string          // semver
   environment: 'production' | 'staging'
 }
 
-// Union type — tous les événements possibles (type-safety)
+// Union type — all possible events (type-safety)
 type AnalyticsEvent =
   | { event: 'user_signed_up'; properties: { method: 'email' | 'google' | 'github' } }
   | { event: 'user_logged_in'; properties: { method: 'email' | 'google' | 'github' } }
@@ -95,7 +95,7 @@ type AnalyticsEvent =
 
 ---
 
-## 4. Helper TypeScript — trackEvent
+## 4. TypeScript Helper — trackEvent
 
 ```typescript
 // lib/analytics.ts
@@ -124,16 +124,16 @@ export function trackEvent<T extends AnalyticsEvent['event']>(
   })
 }
 
-// Utilisation — erreur TypeScript si mauvaises propriétés
+// Usage — TypeScript error if wrong properties
 trackEvent('subscription_created', { plan: 'pro', mrr: 49 })  // ✅
 trackEvent('subscription_created', { plan: 'pro' })           // ❌ TypeScript error
 ```
 
 ---
 
-## 5. GA4 — Configuration Next.js 14
+## 5. GA4 — Next.js 14 Configuration
 
-> Source : Next.js docs — `@next/third-parties` (nextjs.org/docs/app/building-your-application/optimizing/third-party-libraries), Google Analytics 4 docs (developers.google.com/analytics/devguides/collection/ga4)
+> Source: Next.js docs — `@next/third-parties` (nextjs.org/docs/app/building-your-application/optimizing/third-party-libraries), Google Analytics 4 docs (developers.google.com/analytics/devguides/collection/ga4)
 
 ```tsx
 // app/layout.tsx
@@ -160,7 +160,7 @@ export function gtagEvent(action: string, parameters: Record<string, unknown>) {
   window.gtag?.('event', action, parameters)
 }
 
-// Événement e-commerce GA4
+// GA4 e-commerce event
 gtagEvent('purchase', {
   transaction_id: 'T_12345',
   value: 49.00,
@@ -169,22 +169,22 @@ gtagEvent('purchase', {
 })
 ```
 
-**Variables d'environnement :**
+**Environment variables:**
 ```bash
 NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX    # Google Analytics 4 Measurement ID
 ```
 
 ---
 
-## 6. PostHog — Recommandé pour projets EU (RGPD)
+## 6. PostHog — Recommended for EU Projects (GDPR)
 
-> Source : PostHog docs (posthog.com/docs), PostHog EU Cloud (eu.posthog.com)
+> Source: PostHog docs (posthog.com/docs), PostHog EU Cloud (eu.posthog.com)
 
-**Pourquoi PostHog vs GA4 pour les projets EU :**
-- Hébergement EU disponible (eu.posthog.com) → données restent en Europe
-- Open-source → auto-hébergeable
-- Session replay + heatmaps + feature flags inclus
-- Gratuit jusqu'à 1M events/mois
+**Why PostHog vs GA4 for EU projects:**
+- EU hosting available (eu.posthog.com) → data stays in Europe
+- Open-source → self-hostable
+- Session replay + heatmaps + feature flags included
+- Free up to 1M events/month
 
 ```bash
 npm install posthog-js
@@ -201,8 +201,8 @@ export function PHProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
       api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST ?? 'https://eu.i.posthog.com',
-      person_profiles: 'identified_only',  // RGPD : pas de profil anonyme par défaut
-      capture_pageview: false,  // gérer manuellement pour Next.js App Router
+      person_profiles: 'identified_only',  // GDPR: no anonymous profile by default
+      capture_pageview: false,  // manage manually for Next.js App Router
     })
   }, [])
 
@@ -212,10 +212,10 @@ export function PHProvider({ children }: { children: React.ReactNode }) {
 
 ---
 
-## 7. Rétention — Cohort Analysis (Supabase)
+## 7. Retention — Cohort Analysis (Supabase)
 
 ```sql
--- Cohorte J30 : % d'utilisateurs actifs 30 jours après inscription
+-- D30 Cohort: % of active users 30 days after signup
 WITH cohort AS (
   SELECT
     user_id,
@@ -244,34 +244,34 @@ ORDER BY c.cohort_week;
 
 ---
 
-## Checklist pré-lancement analytics
+## Pre-Launch Analytics Checklist
 
-### Bloquants
+### Blockers
 
-- [ ] Plan de tracking documenté (liste des événements + propriétés) avant développement
-- [ ] GA4 ou PostHog configuré et testé en staging
-- [ ] Consentement RGPD avant tout tracking (banner cookie → analytics désactivées par défaut)
-- [ ] `trackEvent` type-safe — aucun `string` libre pour les noms d'événements
-- [ ] `user_id` hashé ou pseudonymisé dans les événements (RGPD)
+- [ ] Tracking plan documented (event list + properties) before development
+- [ ] GA4 or PostHog configured and tested in staging
+- [ ] GDPR consent before any tracking (cookie banner → analytics disabled by default)
+- [ ] `trackEvent` type-safe — no free `string` for event names
+- [ ] `user_id` hashed or pseudonymized in events (GDPR)
 
-### Importants
+### Important
 
-- [ ] Funnel d'activation défini et instrumenté (Sign up → Aha Moment)
-- [ ] NPS configuré (in-app ou email, déclenché à J7 après activation)
-- [ ] Cohort J7/J30 visible dans le dashboard
-- [ ] DAU/MAU ratio instrumenté
+- [ ] Activation funnel defined and instrumented (Sign up → Aha Moment)
+- [ ] NPS configured (in-app or email, triggered at D7 after activation)
+- [ ] D7/D30 cohort visible in the dashboard
+- [ ] DAU/MAU ratio instrumented
 
-### Souhaitables
+### Desirable
 
-- [ ] Session replay activé (PostHog) pour le debugging UX
-- [ ] Feature flags (PostHog) pour les A/B tests
-- [ ] Alertes automatiques si churn rate hebdomadaire > seuil
+- [ ] Session replay enabled (PostHog) for UX debugging
+- [ ] Feature flags (PostHog) for A/B tests
+- [ ] Automatic alerts if weekly churn rate exceeds threshold
 
 ---
 
 ## Sources
 
-| Référence | Lien |
+| Reference | Link |
 |-----------|------|
 | HEART Framework — Google CHI 2010 | research.google/pubs/measuring-the-user-experience-on-a-large-scale |
 | Pirate Metrics AARRR — Dave McClure | 500hats.com/startups/distribution |

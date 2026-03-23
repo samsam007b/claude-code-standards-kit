@@ -1,73 +1,73 @@
-# Audit Gouvernance IA
+# AI Governance Audit
 
-> Vérifie la qualité de la collaboration IA sur ce projet.
-> Score : /100 | Seuil recommandé : ≥80
+> Verifies the quality of AI collaboration on this project.
+> Score: /100 | Recommended threshold: ≥80
 
 ---
 
 ## Section 1 — CLAUDE.md (40 points)
 
-- [ ] CLAUDE.md présent à la racine du projet ................................ (10)
-- [ ] Section "Qui travaille avec toi" complète ............................. (5)
-- [ ] Section "Ce projet" remplie (pas de [À COMPLÉTER] restants) ............ (8)
-- [ ] Section "Architecture" avec arborescence et fichiers critiques ......... (7)
-- [ ] Contrats actifs listés et pertinents pour la stack .................... (5)
-- [ ] Section "Règles absolues" non vide .................................... (5)
+- [ ] CLAUDE.md present at the project root .................................. (10)
+- [ ] "Who works with you" section complete .................................. (5)
+- [ ] "This project" section filled in (no remaining [TO COMPLETE]) .......... (8)
+- [ ] "Architecture" section with directory tree and critical files ........... (7)
+- [ ] Active contracts listed and relevant to the stack ...................... (5)
+- [ ] "Absolute rules" section not empty ..................................... (5)
 
-**Sous-total : /40**
-
----
-
-## Section 2 — Contrats (25 points)
-
-Vérifier que les contrats pertinents sont présents et lisibles par l'IA :
-
-- [ ] CONTRACT-NEXTJS.md accessible (si projet Next.js) ..................... (5)
-- [ ] CONTRACT-SUPABASE.md accessible (si Supabase) ......................... (5)
-- [ ] CONTRACT-SECURITY.md référencé ........................................ (5)
-- [ ] CONTRACT-ANTI-HALLUCINATION.md si données réelles clients ............. (5)
-- [ ] Contrats à jour (pas d'informations contradictoires avec le code réel) . (5)
-
-**Sous-total : /25**
+**Subtotal: /40**
 
 ---
 
-## Section 3 — Historique des erreurs (20 points)
+## Section 2 — Contracts (25 points)
 
-- [ ] Tableau "Historique des erreurs" présent dans CLAUDE.md ................ (8)
-- [ ] Au moins une erreur documentée si le projet a >1 mois d'historique ..... (6)
-- [ ] Erreurs marquées "Corrigé" ou "À corriger" ............................ (6)
+Verify that relevant contracts are present and readable by the AI:
 
-**Sous-total : /20**
+- [ ] CONTRACT-NEXTJS.md accessible (if Next.js project) ..................... (5)
+- [ ] CONTRACT-SUPABASE.md accessible (if Supabase) .......................... (5)
+- [ ] CONTRACT-SECURITY.md referenced ........................................ (5)
+- [ ] CONTRACT-ANTI-HALLUCINATION.md if real client data ..................... (5)
+- [ ] Contracts up to date (no information contradicting actual code) ........ (5)
 
----
-
-## Section 4 — Qualité des prompts et contexte (15 points)
-
-- [ ] Context window jamais saturé (>80% utilisation = risque) ............... (5)
-- [ ] Sessions séparées par domaine de tâche ................................ (5)
-- [ ] Données client/KB vérifiées avant insertion (anti-hallucination) ....... (5)
-
-**Sous-total : /15**
+**Subtotal: /25**
 
 ---
 
-## Score total : /100
+## Section 3 — Error History (20 points)
+
+- [ ] "Error history" table present in CLAUDE.md ............................. (8)
+- [ ] At least one error documented if project has >1 month of history ....... (6)
+- [ ] Errors marked "Fixed" or "To fix" ...................................... (6)
+
+**Subtotal: /20**
+
+---
+
+## Section 4 — Prompt Quality and Context (15 points)
+
+- [ ] Context window never saturated (>80% usage = risk) ..................... (5)
+- [ ] Sessions separated by task domain ...................................... (5)
+- [ ] Client/KB data verified before insertion (anti-hallucination) .......... (5)
+
+**Subtotal: /15**
+
+---
+
+## Total Score: /100
 
 | Section | Score | /Total |
 |---------|-------|--------|
 | CLAUDE.md | | /40 |
-| Contrats | | /25 |
-| Historique erreurs | | /20 |
-| Qualité prompts | | /15 |
+| Contracts | | /25 |
+| Error history | | /20 |
+| Prompt quality | | /15 |
 | **TOTAL** | | **/100** |
 
 ---
 
-## Hallucinations détectées sur ce projet
+## Hallucinations detected on this project
 
-> Copier depuis le CLAUDE.md du projet
+> Copy from the project's CLAUDE.md
 
-| Date | Donnée | Source erreur | Statut |
-|------|--------|--------------|--------|
+| Date | Data | Error source | Status |
+|------|------|-------------|--------|
 | — | — | — | — |

@@ -1,65 +1,65 @@
-# Framework — Gestion des Dépendances
+# Framework — Dependency Management
 
-> Sources : Snyk State of Open Source Security 2024, GitHub Dependabot Documentation,
+> Sources: Snyk State of Open Source Security 2024, GitHub Dependabot Documentation,
 > Renovate Bot Documentation (Mend.io), OWASP A06:2021 Vulnerable and Outdated Components,
 > CISA Known Exploited Vulnerabilities Catalog, NIST National Vulnerability Database.
-> À utiliser : setup initial de tout projet + revue mensuelle + configuration CI/CD.
+> When to use: initial setup of any project + monthly review + CI/CD configuration.
 
 ---
 
-## Pourquoi c'est critique
+## Why this is critical
 
-**OWASP A06:2021 — Vulnerable and Outdated Components** est dans le Top 10 OWASP depuis 2021.
-Un package NPM vulnérable peut compromettre toute l'application, même si le code SQWR est parfait.
+**OWASP A06:2021 — Vulnerable and Outdated Components** has been in the OWASP Top 10 since 2021.
+A vulnerable NPM package can compromise an entire application, even if the SQWR code itself is perfect.
 
-**Snyk 2024 :** 52% des équipes ne respectent pas leurs SLA de vulnérabilités sur les dépendances.
-74% définissent des SLA qu'elles ne tiennent pas. La conséquence : des projets déployés avec
-des CVEs critiques connus, accessibles à n'importe qui via la NVD.
+**Snyk 2024:** 52% of teams do not meet their vulnerability SLAs for dependencies.
+74% define SLAs they do not honor. The consequence: projects deployed with
+known critical CVEs, publicly accessible via the NVD.
 
-**La réalité SQWR :** Un projet Next.js + Supabase lancé en janvier 2026 peut avoir
-15+ CVEs critiques en mars 2026 sans que personne ne le sache, si aucun process n'est en place.
+**SQWR reality:** A Next.js + Supabase project launched in January 2026 can have
+15+ critical CVEs by March 2026 without anyone knowing, if no process is in place.
 
 ---
 
-## Partie 1 — Renovate vs Dependabot
+## Part 1 — Renovate vs Dependabot
 
-### Comparatif
+### Comparison
 
-| Critère | Renovate Bot | Dependabot |
+| Criteria | Renovate Bot | Dependabot |
 |---------|-------------|-----------|
-| **Intégration GitHub** | Via App GitHub (setup 5 min) | Natif (0 setup requis) |
-| **Config** | `renovate.json` (flexible, complexe) | `.github/dependabot.yml` (simple) |
-| **Groupement de PRs** | Oui — grouper par catégorie (réduire bruit ×10) | Limité |
-| **Auto-merge** | Configurable finement | Basique (via GitHub Actions) |
-| **Dependency Dashboard** | Issue GitHub avec vue globale | Non |
-| **Écosystèmes** | npm, pip, Docker, Actions, Helm, etc. | npm, pip, Docker, Actions, etc. |
-| **Coût** | Gratuit (open source) | Gratuit (natif GitHub) |
-| **Complexité de config** | Élevée | Faible |
-| **Idéal pour** | Monorepo, équipes multiples, fine-tuning | Projets solo, setup rapide |
+| **GitHub integration** | Via GitHub App (5-min setup) | Native (0 setup required) |
+| **Config** | `renovate.json` (flexible, complex) | `.github/dependabot.yml` (simple) |
+| **PR grouping** | Yes — group by category (reduce noise ×10) | Limited |
+| **Auto-merge** | Finely configurable | Basic (via GitHub Actions) |
+| **Dependency Dashboard** | GitHub issue with global view | No |
+| **Ecosystems** | npm, pip, Docker, Actions, Helm, etc. | npm, pip, Docker, Actions, etc. |
+| **Cost** | Free (open source) | Free (native GitHub) |
+| **Config complexity** | High | Low |
+| **Ideal for** | Monorepo, multiple teams, fine-tuning | Solo projects, quick setup |
 
-### Recommandation SQWR
+### SQWR Recommendation
 
-**Dependabot** pour tous les projets SQWR. Raisons :
-- Zéro configuration externe requise — activé depuis GitHub Settings
-- Intégré aux GitHub Security Alerts (email automatique sur CVE critique)
-- PRs automatiques pour les vulnérabilités critiques sans action manuelle
-- Suffisant pour la taille et la structure des projets SQWR (solo, projets séparés)
+**Dependabot** for all SQWR projects. Reasons:
+- Zero external configuration required — enabled from GitHub Settings
+- Integrated with GitHub Security Alerts (automatic email on critical CVE)
+- Automatic PRs for critical vulnerabilities without manual action
+- Sufficient for the size and structure of SQWR projects (solo, separate projects)
 
-**Passer à Renovate si** : monorepo avec >5 packages, besoin de groupement sophistiqué,
-ou si le bruit des PRs Dependabot devient ingérable.
+**Switch to Renovate if**: monorepo with >5 packages, need for sophisticated grouping,
+or if Dependabot PR noise becomes unmanageable.
 
 ---
 
-## Partie 2 — Configuration Dependabot pour stack SQWR
+## Part 2 — Dependabot Configuration for the SQWR Stack
 
-### `.github/dependabot.yml` — Template complet
+### `.github/dependabot.yml` — Complete Template
 
-Créer ce fichier à la racine du repo :
+Create this file at the root of the repo:
 
 ```yaml
 # .github/dependabot.yml
-# Mise à jour automatique des dépendances via Dependabot
-# Source : docs.github.com/en/code-security/dependabot
+# Automatic dependency updates via Dependabot
+# Source: docs.github.com/en/code-security/dependabot
 
 version: 2
 
@@ -77,12 +77,12 @@ updates:
       - "dependencies"
       - "npm"
     reviewers:
-      - "samuelbaudon"           # Remplacer par le username GitHub du projet
+      - "samuelbaudon"           # Replace with the project's GitHub username
     commit-message:
       prefix: "chore"
       prefix-development: "chore"
       include: "scope"
-    # Ignorer les major versions — review manuelle requise (risque breaking change)
+    # Ignore major versions — manual review required (breaking change risk)
     ignore:
       - dependency-name: "*"
         update-types: ["version-update:semver-major"]
@@ -102,40 +102,40 @@ updates:
       prefix: "ci"
 ```
 
-**Notes de configuration :**
-- `interval: weekly` = suffisant pour SQWR (`daily` génère trop de bruit)
-- `open-pull-requests-limit: 5` = évite la paralysie par accumulation de PRs
-- `ignore: semver-major` = les breaking changes (v1→v2) doivent être reviewés manuellement + ADR si significatif
+**Configuration notes:**
+- `interval: weekly` = sufficient for SQWR (`daily` generates too much noise)
+- `open-pull-requests-limit: 5` = avoids paralysis from accumulating PRs
+- `ignore: semver-major` = breaking changes (v1→v2) must be reviewed manually + ADR if significant
 
-### Activation sur GitHub
+### Activation on GitHub
 
 1. GitHub repo → Settings → Security → Code security and analysis
 2. "Dependabot alerts" → Enable
 3. "Dependabot security updates" → Enable
-4. "Dependabot version updates" → Enable (nécessite `.github/dependabot.yml`)
+4. "Dependabot version updates" → Enable (requires `.github/dependabot.yml`)
 
 ---
 
-## Partie 3 — SLA de Réponse aux CVEs (SQWR)
+## Part 3 — CVE Response SLAs (SQWR)
 
-Standards basés sur la classification CVSS + guidelines CISA :
+Standards based on CVSS classification + CISA guidelines:
 
-| Sévérité | CVSS Score | Délai maximum | Action requise |
-|----------|-----------|---------------|----------------|
-| **P0 — Critical** | 9.0 – 10.0 | **< 48 heures** | Patcher et déployer en urgence. Notifier les parties prenantes si données utilisateurs à risque. |
-| **P1 — High** | 7.0 – 8.9 | **< 1 semaine** | PR créée dans les 24h, déployée dans la semaine. |
-| **P2 — Medium** | 4.0 – 6.9 | **< 4 semaines** | Inclure dans le prochain sprint de maintenance. |
-| **P3 — Low** | 0.1 – 3.9 | **Backlog** | Traiter lors de la maintenance mensuelle. |
+| Severity | CVSS Score | Maximum Deadline | Required Action |
+|----------|-----------|----------------|----------------|
+| **P0 — Critical** | 9.0 – 10.0 | **< 48 hours** | Patch and deploy urgently. Notify stakeholders if user data is at risk. |
+| **P1 — High** | 7.0 – 8.9 | **< 1 week** | PR created within 24h, deployed within the week. |
+| **P2 — Medium** | 4.0 – 6.9 | **< 4 weeks** | Include in the next maintenance sprint. |
+| **P3 — Low** | 0.1 – 3.9 | **Backlog** | Handle during monthly maintenance. |
 
-**Règle SQWR :** toute vulnérabilité P0 bloque le déploiement de nouvelles features
-jusqu'à résolution. Le SLO de production (voir `frameworks/SLO-TEMPLATE.md`) intègre
-la résolution de CVEs P0 comme incident SEV-2.
+**SQWR Rule:** any P0 vulnerability blocks the deployment of new features
+until resolution. The production SLO (see `frameworks/SLO-TEMPLATE.md`) includes
+P0 CVE resolution as a SEV-2 incident.
 
 ---
 
-## Partie 4 — GitHub Actions Security Workflow
+## Part 4 — GitHub Actions Security Workflow
 
-Intégrer l'audit de sécurité dans la CI/CD :
+Integrate security auditing into CI/CD:
 
 ```yaml
 # .github/workflows/security.yml
@@ -147,7 +147,7 @@ on:
   pull_request:
     branches: [main]
   schedule:
-    # Audit hebdomadaire automatique — lundi 9h UTC
+    # Automatic weekly audit — Monday 9am UTC
     - cron: '0 9 * * 1'
 
 jobs:
@@ -165,76 +165,76 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # Bloquant — exit 1 si vulnérabilité critique
-      - name: Security audit (critical — bloque le merge)
+      # Blocking — exit 1 if critical vulnerability
+      - name: Security audit (critical — blocks merge)
         run: npm audit --audit-level=critical
 
-      # Non-bloquant — génère un rapport pour suivi
-      - name: Security audit (high — rapport uniquement)
-        run: npm audit --audit-level=high || echo "⚠️ Vulnérabilités High détectées — review requise"
+      # Non-blocking — generates a report for tracking
+      - name: Security audit (high — report only)
+        run: npm audit --audit-level=high || echo "⚠️ High vulnerabilities detected — review required"
         continue-on-error: true
 ```
 
-**Comportement :**
-- Vulnérabilité **Critical** → le workflow échoue → merge bloqué (gate obligatoire)
-- Vulnérabilité **High** → le workflow passe mais génère un avertissement visible
-- Aucune vulnérabilité → workflow passe, tout est vert
+**Behavior:**
+- **Critical** vulnerability → workflow fails → merge blocked (mandatory gate)
+- **High** vulnerability → workflow passes but generates a visible warning
+- No vulnerability → workflow passes, everything is green
 
 ---
 
-## Partie 5 — Workflow mensuel de maintenance
+## Part 5 — Monthly Maintenance Workflow
 
-### Checklist mensuelle (1× par mois, environ 30 min)
+### Monthly checklist (1× per month, approximately 30 min)
 
-- [ ] `npm audit` lancé sur chaque projet actif — rapport consulté
-- [ ] Dependabot PRs reviewées : merger les patch/minor sûres, documenter les skips
-- [ ] `npm outdated` consulté — identifier les packages très en retard (>6 mois)
-- [ ] Packages avec CVE P0/P1 non traités patchés sans exception
-- [ ] Si major update disponible sur une dépendance critique → créer ADR pour décider
+- [ ] `npm audit` run on each active project — report reviewed
+- [ ] Dependabot PRs reviewed: merge safe patch/minor updates, document skips
+- [ ] `npm outdated` consulted — identify packages significantly behind (>6 months)
+- [ ] Packages with unresolved P0/P1 CVEs patched without exception
+- [ ] If a major update is available for a critical dependency → create ADR to decide
 
-### Commandes de diagnostic
+### Diagnostic commands
 
 ```bash
-# ─── Audit de sécurité ─────────────────────────────────────────
-# Rapport complet (JSON pour parsing)
+# ─── Security audit ─────────────────────────────────────────────
+# Full report (JSON for parsing)
 npm audit --json
 
-# Uniquement les critiques (exit code 1 si trouvé)
+# Critical vulnerabilities only (exit code 1 if found)
 npm audit --audit-level=critical
 
-# Uniquement les high+
+# High+ only
 npm audit --audit-level=high
 
-# ─── Vue des dépendances ───────────────────────────────────────
-# Packages outdated avec versions disponibles
+# ─── Dependency view ────────────────────────────────────────────
+# Outdated packages with available versions
 npm outdated
 
-# ─── Mises à jour ─────────────────────────────────────────────
-# Mise à jour sécurisée (patch + minor uniquement — respecte semver)
+# ─── Updates ────────────────────────────────────────────────────
+# Safe update (patch + minor only — respects semver)
 npm update
 
-# Force update d'un package spécifique vers une version précise
+# Force update of a specific package to a precise version
 npm install [package]@[version]
 
-# Force update vers la dernière version (attention aux breaking changes)
+# Force update to the latest version (watch out for breaking changes)
 npm install [package]@latest
 ```
 
 ---
 
-## Checklist Setup Initial (nouveau projet)
+## Initial Setup Checklist (new project)
 
-- [ ] `.github/dependabot.yml` créé et poussé sur le repo
-- [ ] GitHub Security Alerts activé (Settings → Security → Enable tout)
-- [ ] `npm audit --audit-level=critical` dans le workflow CI/CD (bloquant)
-- [ ] `npm audit` propre au launch (zéro vulnérabilité critique et high au démarrage)
-- [ ] Label `dependencies` créé sur le repo (pour filtrer les PRs Dependabot)
+- [ ] `.github/dependabot.yml` created and pushed to the repo
+- [ ] GitHub Security Alerts enabled (Settings → Security → Enable all)
+- [ ] `npm audit --audit-level=critical` in the CI/CD workflow (blocking)
+- [ ] `npm audit` clean at launch (zero critical and high vulnerabilities at start)
+- [ ] `dependencies` label created on the repo (to filter Dependabot PRs)
 
 ---
 
 ## Sources
 
-| Référence | Lien |
+| Reference | Link |
 |-----------|------|
 | OWASP A06:2021 — Vulnerable Components | owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components |
 | GitHub Dependabot Documentation | docs.github.com/en/code-security/dependabot |

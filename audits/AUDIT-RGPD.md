@@ -1,167 +1,167 @@
-# Audit — Conformité RGPD
+# Audit — GDPR Compliance
 
-> Module d'audit SQWR Project Kit.
-> Sources : Règlement UE 2016/679 (RGPD), CNIL (cnil.fr), European Data Protection Board (edpb.europa.eu), ICO (ico.org.uk).
-
----
-
-## Fondements légaux
-
-**Le RGPD (Règlement Général sur la Protection des Données) est obligatoire pour tout traitement de données personnelles de résidents EU** depuis le 25 mai 2018. Amendes : jusqu'à 4% du CA mondial ou 20M€. Sur 10 points critiques, un score ≥8/10 est requis avant mise en production grand public.
-
-> Source : Règlement (UE) 2016/679 du Parlement européen — [eur-lex.europa.eu](https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32016R0679)
+> SQWR Project Kit audit module.
+> Sources: EU Regulation 2016/679 (GDPR), CNIL (cnil.fr), European Data Protection Board (edpb.europa.eu), ICO (ico.org.uk).
 
 ---
 
-## Instructions d'utilisation
+## Legal basis
 
-Pour chaque dimension ci-dessous :
-1. Vérifier l'implémentation actuelle
-2. Scorer 0-10 selon le barème
-3. Identifier les gaps
-4. Prioriser selon le niveau de risque (🔴 critique / 🟡 important / 🟢 souhaitable)
+**The GDPR (General Data Protection Regulation) is mandatory for any processing of personal data of EU residents** since May 25, 2018. Fines: up to 4% of global annual revenue or €20M. Out of 10 critical points, a score ≥8/10 is required before general public production launch.
+
+> Source: Regulation (EU) 2016/679 of the European Parliament — [eur-lex.europa.eu](https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32016R0679)
 
 ---
 
-## Dimensions d'audit
+## Usage instructions
 
-### D1 — Droits Utilisateurs Core (20 points)
+For each dimension below:
+1. Verify the current implementation
+2. Score 0-10 according to the scoring guide
+3. Identify gaps
+4. Prioritize by risk level (🔴 critical / 🟡 important / 🟢 desirable)
 
-**Poids : 20% du score total**
+---
 
-| Article | Droit | Implémenté | Points |
-|---------|-------|------------|--------|
-| Art. 15 | Droit d'accès — export des données personnelles (format JSON lisible) | ☐ | 0-5 |
-| Art. 17 | Droit à l'oubli — suppression + anonymisation des PII | ☐ | 0-5 |
-| Art. 20 | Droit à la portabilité — export format standard, machine-readable | ☐ | 0-5 |
-| Art. 21 | Droit d'opposition — opt-out marketing/profiling | ☐ | 0-5 |
+## Audit dimensions
 
-**Score D1 : ___/20**
+### D1 — Core User Rights (20 points)
 
-#### Ce que ça implique techniquement
+**Weight: 20% of total score**
+
+| Article | Right | Implemented | Points |
+|---------|-------|-------------|--------|
+| Art. 15 | Right of access — personal data export (readable JSON format) | ☐ | 0-5 |
+| Art. 17 | Right to erasure — deletion + anonymization of PII | ☐ | 0-5 |
+| Art. 20 | Right to data portability — standard format export, machine-readable | ☐ | 0-5 |
+| Art. 21 | Right to object — opt-out from marketing/profiling | ☐ | 0-5 |
+
+**Score D1: ___/20**
+
+#### Technical implications
 
 ```typescript
-// Art. 15 + 20 — Export données
-// Route : GET /api/user/export
-// Rate limit : 2/heure par IP
-// Contenu : profile, messages, transactions, preferences
-// Format : JSON horodaté avec export_version
+// Art. 15 + 20 — Data export
+// Route: GET /api/user/export
+// Rate limit: 2/hour per IP
+// Content: profile, messages, transactions, preferences
+// Format: timestamped JSON with export_version
 
-// Art. 17 — Suppression compte
-// Stratégie recommandée :
-// - Anonymiser : nom, email, téléphone, bio → null
-// - Anonymiser : messages → "[Message supprimé]"
-// - Conserver : données financières (obligation légale 6 ans)
-// - Supprimer : storage (avatars, documents)
-// - Supprimer : compte auth
+// Art. 17 — Account deletion
+// Recommended strategy:
+// - Anonymize: name, email, phone, bio → null
+// - Anonymize: messages → "[Message deleted]"
+// - Retain: financial data (legal obligation 6 years)
+// - Delete: storage (avatars, documents)
+// - Delete: auth account
 ```
 
 ---
 
-### D2 — Consentement & Collecte (15 points)
+### D2 — Consent & Collection (15 points)
 
-**Poids : 15% du score total**
+**Weight: 15% of total score**
 
-| Article | Obligation | Implémenté | Points |
-|---------|------------|------------|--------|
-| Art. 6 | Base légale documentée pour chaque traitement (consentement / contrat / intérêt légitime) | ☐ | 0-5 |
-| Art. 7 | Consentement granulaire, librement donné, retirable — cookie banner opt-in (pas opt-out) | ☐ | 0-5 |
-| Art. 8 | Vérification d'âge minimum 16 ans (recommandé : 18 ans) à l'inscription | ☐ | 0-5 |
+| Article | Obligation | Implemented | Points |
+|---------|------------|-------------|--------|
+| Art. 6 | Legal basis documented for each processing (consent / contract / legitimate interest) | ☐ | 0-5 |
+| Art. 7 | Granular consent, freely given, withdrawable — opt-in cookie banner (not opt-out) | ☐ | 0-5 |
+| Art. 8 | Minimum age verification 16 years (recommended: 18 years) at registration | ☐ | 0-5 |
 
-**Score D2 : ___/15**
+**Score D2: ___/15**
 
 #### Threshold article 8
 
 ```typescript
-// ✅ Implémentation minimale conforme Article 8
+// ✅ Minimum compliant implementation Article 8
 const age = differenceInYears(new Date(), new Date(birthDate))
 if (age < 18) {
-  return { error: 'RGPD Art. 8 — Âge minimum 18 ans requis.' }
+  return { error: 'GDPR Art. 8 — Minimum age 18 required.' }
 }
 ```
 
-**Cookie consent — critères de conformité :**
-- ✅ Opt-in (pas opt-out par défaut)
-- ✅ Consentement granulaire par catégorie (essentiel / analytics / marketing)
-- ✅ Timestamp du consentement stocké en DB
-- ✅ Révocation possible à tout moment
-- ❌ Pré-cochage des cases = NON conforme
+**Cookie consent — compliance criteria:**
+- ✅ Opt-in (not opt-out by default)
+- ✅ Granular consent by category (essential / analytics / marketing)
+- ✅ Consent timestamp stored in DB
+- ✅ Revocation possible at any time
+- ❌ Pre-checked boxes = NOT compliant
 
 ---
 
-### D3 — Transparence & Documentation (15 points)
+### D3 — Transparency & Documentation (15 points)
 
-**Poids : 15% du score total**
+**Weight: 15% of total score**
 
-| Article | Obligation | Implémenté | Points |
-|---------|------------|------------|--------|
-| Art. 13 | Privacy Policy complète : identité du responsable, finalités, sous-traitants, durées de conservation | ☐ | 0-5 |
-| Art. 13 | Sous-traitants nommés + mécanisme légal pour transferts hors EU (SCC si USA) | ☐ | 0-5 |
-| Art. 5(1)(e) | Data retention policies documentées par type de donnée | ☐ | 0-5 |
+| Article | Obligation | Implemented | Points |
+|---------|------------|-------------|--------|
+| Art. 13 | Complete Privacy Policy: controller identity, purposes, sub-processors, retention periods | ☐ | 0-5 |
+| Art. 13 | Sub-processors named + legal mechanism for transfers outside EU (SCC if USA) | ☐ | 0-5 |
+| Art. 5(1)(e) | Data retention policies documented per data type | ☐ | 0-5 |
 
-**Score D3 : ___/15**
+**Score D3: ___/15**
 
-#### Template sous-traitants (Privacy Policy)
+#### Sub-processors template (Privacy Policy)
 
 ```markdown
-| Sous-traitant | Pays | Rôle | Mécanisme légal |
-|---------------|------|------|-----------------|
-| Supabase Inc. | USA | Base de données, auth, stockage | DPA + SCC (Décision 2021/914) |
-| Stripe Inc. | USA | Paiements | SCC + Privacy Shield successor |
-| Sentry (Functional Software) | USA | Monitoring erreurs | SCC (Décision 2021/914) |
-| Vercel Inc. | USA | Hébergement | DPA disponible sur vercel.com/legal/dpa |
+| Sub-processor | Country | Role | Legal mechanism |
+|---------------|---------|------|-----------------|
+| Supabase Inc. | USA | Database, auth, storage | DPA + SCC (Decision 2021/914) |
+| Stripe Inc. | USA | Payments | SCC + Privacy Shield successor |
+| Sentry (Functional Software) | USA | Error monitoring | SCC (Decision 2021/914) |
+| Vercel Inc. | USA | Hosting | DPA available at vercel.com/legal/dpa |
 ```
 
-#### Data retention policies minimales
+#### Minimum data retention policies
 
-| Type | Durée | Justification légale |
-|------|-------|---------------------|
-| Données financières | 6 ans | Code civil belge / français |
-| Logs sécurité | 12 mois | Bonne pratique CNIL |
-| Données marketing | 3 ans sans contact | Recommandation CNIL |
-| Analytics | 13 mois | Standard GA4 |
-| Sessions expirées | 24h | Nettoyage technique |
+| Type | Duration | Legal justification |
+|------|----------|---------------------|
+| Financial data | 6 years | Belgian / French civil code |
+| Security logs | 12 months | CNIL best practice |
+| Marketing data | 3 years without contact | CNIL recommendation |
+| Analytics | 13 months | GA4 standard |
+| Expired sessions | 24h | Technical cleanup |
 
 ---
 
-### D4 — Sécurité des Données (20 points)
+### D4 — Data Security (20 points)
 
-**Poids : 20% du score total**
+**Weight: 20% of total score**
 
-| Article | Obligation | Implémenté | Points |
-|---------|------------|------------|--------|
-| Art. 25 | Privacy by Design — données minimales collectées (pas de champs superflus) | ☐ | 0-5 |
-| Art. 32 | Mesures techniques : chiffrement, RLS, rate limiting, HTTPS | ☐ | 0-5 |
-| Art. 32 | Protection contre l'énumération d'emails (réponses génériques auth) | ☐ | 0-5 |
-| Art. 32 | Aucun `console.log(email/password/token)` en production | ☐ | 0-5 |
+| Article | Obligation | Implemented | Points |
+|---------|------------|-------------|--------|
+| Art. 25 | Privacy by Design — minimal data collected (no superfluous fields) | ☐ | 0-5 |
+| Art. 32 | Technical measures: encryption, RLS, rate limiting, HTTPS | ☐ | 0-5 |
+| Art. 32 | Protection against email enumeration (generic auth responses) | ☐ | 0-5 |
+| Art. 32 | No `console.log(email/password/token)` in production | ☐ | 0-5 |
 
-**Score D4 : ___/20**
+**Score D4: ___/20**
 
-#### Checklist technique Art. 32
+#### Technical checklist Art. 32
 
 ```bash
-# Détecter les logs avec PII
+# Detect logs with PII
 grep -r "console.log" src/ | grep -i "email\|password\|token\|secret"
 
-# Détecter les données sensibles non protégées
-grep -r "SELECT \*" src/ --include="*.ts"  # Éviter SELECT * sur tables sensibles
+# Detect unprotected sensitive data
+grep -r "SELECT \*" src/ --include="*.ts"  # Avoid SELECT * on sensitive tables
 ```
 
 ---
 
-### D5 — Notification d'Incidents (15 points)
+### D5 — Incident Notification (15 points)
 
-**Poids : 15% du score total**
+**Weight: 15% of total score**
 
-| Article | Obligation | Implémenté | Points |
-|---------|------------|------------|--------|
-| Art. 33 | Table `security_breaches` pour traçabilité interne des incidents | ☐ | 0-5 |
-| Art. 33 | Process documenté pour notification autorité < 72h après détection | ☐ | 0-5 |
-| Art. 34 | Process documenté pour notification utilisateurs si risque élevé | ☐ | 0-5 |
+| Article | Obligation | Implemented | Points |
+|---------|------------|-------------|--------|
+| Art. 33 | `security_breaches` table for internal incident traceability | ☐ | 0-5 |
+| Art. 33 | Process documented for authority notification < 72h after detection | ☐ | 0-5 |
+| Art. 34 | Process documented for user notification if high risk | ☐ | 0-5 |
 
-**Score D5 : ___/15**
+**Score D5: ___/15**
 
-#### Structure minimale table `security_breaches`
+#### Minimum `security_breaches` table structure
 
 ```sql
 CREATE TABLE security_breaches (
@@ -178,111 +178,111 @@ CREATE TABLE security_breaches (
 );
 ```
 
-**Contacts autorités de contrôle EU :**
-| Pays | Autorité | Délai |
-|------|----------|-------|
-| Belgique | APD — apd-gba.be | <72h |
+**EU supervisory authority contacts:**
+| Country | Authority | Deadline |
+|---------|-----------|----------|
+| Belgium | APD — apd-gba.be | <72h |
 | France | CNIL — cnil.fr | <72h |
-| UE (trans-frontalier) | EDPB — edpb.europa.eu | <72h |
+| EU (cross-border) | EDPB — edpb.europa.eu | <72h |
 
 ---
 
-### D6 — Pages Légales (15 points)
+### D6 — Legal Pages (15 points)
 
-**Poids : 15% du score total**
+**Weight: 15% of total score**
 
-| Obligation | Implémenté | Points |
-|------------|------------|--------|
-| Privacy Policy complète et accessible (lien en footer) | ☐ | 0-3 |
-| Terms of Service / CGU | ☐ | 0-3 |
-| Mentions légales (identité entreprise, numéro d'entreprise) | ☐ | 0-3 |
-| Cookie Policy avec liste des cookies | ☐ | 0-3 |
-| Données de contact pour exercer les droits | ☐ | 0-3 |
+| Obligation | Implemented | Points |
+|------------|-------------|--------|
+| Complete Privacy Policy accessible (footer link) | ☐ | 0-3 |
+| Terms of Service / Terms and Conditions | ☐ | 0-3 |
+| Legal notice (company identity, registration number) | ☐ | 0-3 |
+| Cookie Policy with list of cookies | ☐ | 0-3 |
+| Contact details for exercising rights | ☐ | 0-3 |
 
-**Score D6 : ___/15**
+**Score D6: ___/15**
 
 ---
 
-## Calcul du Score Global
+## Global Score Calculation
 
 ```
-Score RGPD = (D1/20 × 20) + (D2/15 × 15) + (D3/15 × 15) + (D4/20 × 20) + (D5/15 × 15) + (D6/15 × 15)
-           = Score sur 100
+GDPR Score = (D1/20 × 20) + (D2/15 × 15) + (D3/15 × 15) + (D4/20 × 20) + (D5/15 × 15) + (D6/15 × 15)
+           = Score out of 100
 ```
 
-| Score | Niveau | Action |
-|-------|--------|--------|
-| ≥90/100 | ✅ Conforme | Audit de maintenance annuel |
-| 75-89/100 | 🟡 Majoritairement conforme | Traiter les gaps dans les 30 jours |
-| 60-74/100 | 🟠 Partiellement conforme | Ne pas lancer en production grand public |
-| <60/100 | 🔴 Non conforme | **BLOQUER** le lancement — risque légal |
+| Score | Level | Action |
+|-------|-------|--------|
+| ≥90/100 | ✅ Compliant | Annual maintenance audit |
+| 75-89/100 | 🟡 Mostly compliant | Address gaps within 30 days |
+| 60-74/100 | 🟠 Partially compliant | Do not launch for general public |
+| <60/100 | 🔴 Non-compliant | **BLOCK** the launch — legal risk |
 
-**Score cible avant production grand public : ≥80/100**
+**Target score before general public production: ≥80/100**
 
 ---
 
-## Checklist pré-lancement
+## Pre-launch Checklist
 
-### 🔴 Bloquants (score <80 = ne pas lancer)
+### 🔴 Blocking (score <80 = do not launch)
 
-- [ ] Droits utilisateurs core implémentés (export + suppression — Art. 15, 17, 20)
-- [ ] Privacy Policy complète avec sous-traitants et SCC pour transferts USA
-- [ ] Cookie banner opt-in (pas opt-out)
-- [ ] Vérification d'âge à l'inscription (Art. 8)
-- [ ] Données financières conservées 6 ans, PII anonymisées après suppression compte
-- [ ] Aucun `console.log(email/password)` en production
+- [ ] Core user rights implemented (export + deletion — Art. 15, 17, 20)
+- [ ] Complete Privacy Policy with sub-processors and SCC for USA transfers
+- [ ] Opt-in cookie banner (not opt-out)
+- [ ] Age verification at registration (Art. 8)
+- [ ] Financial data retained 6 years, PII anonymized after account deletion
+- [ ] No `console.log(email/password)` in production
 
-### 🟡 Importants (dans 30 jours post-lancement)
+### 🟡 Important (within 30 days post-launch)
 
-- [ ] Table `security_breaches` créée + process notification 72h documenté (Art. 34)
-- [ ] Consentement stocké avec timestamp en DB (Art. 7)
-- [ ] Protection énumération emails — réponses auth génériques
-- [ ] Opt-out marketing emails (Art. 21)
+- [ ] `security_breaches` table created + 72h notification process documented (Art. 34)
+- [ ] Consent stored with timestamp in DB (Art. 7)
+- [ ] Email enumeration protection — generic auth responses
+- [ ] Marketing email opt-out (Art. 21)
 
-### 🟢 Souhaitables (dans 90 jours)
+### 🟢 Desirable (within 90 days)
 
-- [ ] DPIA (Data Protection Impact Assessment) pour traitements à risque élevé (Art. 35)
-- [ ] DPO désigné si traitement à grande échelle
-- [ ] Dashboard admin pour auditer les sous-traitants
+- [ ] DPIA (Data Protection Impact Assessment) for high-risk processing (Art. 35)
+- [ ] DPO designated if large-scale processing
+- [ ] Admin dashboard to audit sub-processors
 
 ---
 
-## Template Rapport d'Audit
+## Audit Report Template
 
 ```
-RAPPORT AUDIT RGPD
-Projet : [nom]
-Date : [date]
-Auditeur : [nom]
+GDPR AUDIT REPORT
+Project: [name]
+Date: [date]
+Auditor: [name]
 
-D1 — Droits utilisateurs    : ___/20
-D2 — Consentement           : ___/15
-D3 — Transparence           : ___/15
-D4 — Sécurité               : ___/20
-D5 — Notification incidents : ___/15
-D6 — Pages légales          : ___/15
-                              ------
-SCORE GLOBAL                : ___/100
+D1 — User rights          : ___/20
+D2 — Consent              : ___/15
+D3 — Transparency         : ___/15
+D4 — Security             : ___/20
+D5 — Incident notification: ___/15
+D6 — Legal pages          : ___/15
+                            ------
+GLOBAL SCORE              : ___/100
 
-Gaps critiques (🔴) :
+Critical gaps (🔴):
 - [gap 1]
 - [gap 2]
 
-Plan d'action :
-- [action 1] — Responsable : [nom] — Délai : [date]
-- [action 2] — Responsable : [nom] — Délai : [date]
+Action plan:
+- [action 1] — Owner: [name] — Deadline: [date]
+- [action 2] — Owner: [name] — Deadline: [date]
 ```
 
 ---
 
 ## Sources
 
-| Référence | Lien |
+| Reference | Link |
 |-----------|------|
-| RGPD — Règlement UE 2016/679 | eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32016R0679 |
-| CNIL — Guide sécurité développeurs | cnil.fr/fr/la-securite-des-donnees-personnelles |
+| GDPR — EU Regulation 2016/679 | eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32016R0679 |
+| CNIL — Developer security guide | cnil.fr/fr/la-securite-des-donnees-personnelles |
 | EDPB — Guidelines | edpb.europa.eu/our-work-tools/our-documents/guidelines |
 | ICO — GDPR Guide for developers | ico.org.uk/for-organisations/guide-to-data-protection |
-| SCC — Décision Commission 2021/914 | eur-lex.europa.eu/eli/dec_impl/2021/914/oj |
-| APD Belgique | apd-gba.be |
+| SCC — Commission Decision 2021/914 | eur-lex.europa.eu/eli/dec_impl/2021/914/oj |
+| APD Belgium | apd-gba.be |
 | CNIL France | cnil.fr |

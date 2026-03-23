@@ -1,252 +1,252 @@
-# Audit — Stratégie de Marque
+# Audit — Brand Strategy
 
-> Module d'audit SQWR Project Kit.
-> Sources : Nielsen Norman Group — Tone of Voice (nngroup.com/articles/tone-of-voice-dimensions), Kapferer — *The New Strategic Brand Management* (Kogan Page, 2012), Aaker — *Brand Identity* (Free Press, 1996), Harvard Business Review — Brand Consistency Research.
+> SQWR Project Kit audit module.
+> Sources: Nielsen Norman Group — Tone of Voice (nngroup.com/articles/tone-of-voice-dimensions), Kapferer — *The New Strategic Brand Management* (Kogan Page, 2012), Aaker — *Brand Identity* (Free Press, 1996), Harvard Business Review — Brand Consistency Research.
 
 ---
 
-## Fondements
+## Foundations
 
-**La cohérence de marque augmente les revenus de 10 à 20%** (Lucidpress / Marq — *The State of Brand Consistency*, 2021). Une marque incohérente n'est pas seulement esthétiquement désagréable — elle mine activement la confiance et la mémorabilité.
+**Brand consistency increases revenue by 10 to 20%** (Lucidpress / Marq — *The State of Brand Consistency*, 2021). An inconsistent brand is not merely aesthetically unpleasant — it actively undermines trust and memorability.
 
-Cet audit doit être réalisé avant tout lancement et révisé à chaque repositionnement. Voir `frameworks/BRAND-STRATEGY.md` pour définir la stratégie avant de scorer.
+This audit must be conducted before any launch and reviewed at each repositioning. See `frameworks/BRAND-STRATEGY.md` to define strategy before scoring.
 
 ---
 
 ## Instructions
 
-Pour chaque dimension :
-1. Évaluer l'état actuel selon les critères listés
-2. Scorer selon le barème fourni
-3. Identifier les gaps concrets
-4. Prioriser selon l'impact sur la perception utilisateur
+For each dimension:
+1. Assess the current state against the listed criteria
+2. Score according to the provided scale
+3. Identify concrete gaps
+4. Prioritize by impact on user perception
 
 ---
 
-## Dimension 1 — Fondations Stratégiques (20 points)
+## Dimension 1 — Strategic Foundations (20 points)
 
-**Poids : 20% du score total**
+**Weight: 20% of total score**
 
-> Source : Simon Sinek — *Start With Why* (Portfolio/Penguin, 2009), Kapferer *The New Strategic Brand Management*
+> Source: Simon Sinek — *Start With Why* (Portfolio/Penguin, 2009), Kapferer *The New Strategic Brand Management*
 
-| Critère | Questions de vérification | Score |
-|---------|--------------------------|-------|
-| **Raison d'être (WHY)** | Pourquoi existez-vous au-delà de gagner de l'argent ? Documenté ? | 0-5 |
-| **Positionnement différenciant** | En quoi êtes-vous objectivement différent de vos 3 concurrents directs ? | 0-5 |
-| **Cible précise** | Avez-vous une persona primaire documentée avec besoins, objections, vocabulaire ? | 0-5 |
-| **Proposition de valeur** | Un inconnu comprend votre offre en < 5 secondes ? (Test des 5 secondes) | 0-5 |
+| Criterion | Verification questions | Score |
+|-----------|----------------------|-------|
+| **Purpose (WHY)** | Why do you exist beyond making money? Is it documented? | 0-5 |
+| **Differentiating positioning** | What objectively sets you apart from your 3 direct competitors? | 0-5 |
+| **Precise target** | Do you have a documented primary persona with needs, objections, and vocabulary? | 0-5 |
+| **Value proposition** | Can a stranger understand your offering in < 5 seconds? (5-second test) | 0-5 |
 
-**Score D1 : ___/20**
+**Score D1: ___/20**
 
-**Test des 5 secondes :** montrer la homepage ou le pitch à 5 personnes extérieures pendant 5 secondes. Demander : "C'est quoi ce produit ? Pour qui ?" Si < 4/5 répondent correctement → proposition de valeur à retravailler.
+**5-second test:** show the homepage or pitch to 5 external people for 5 seconds. Ask: "What is this product? Who is it for?" If < 4/5 answer correctly → value proposition needs reworking.
 
 ---
 
-## Dimension 2 — Identité Visuelle (20 points)
+## Dimension 2 — Visual Identity (20 points)
 
-**Poids : 20% du score total**
+**Weight: 20% of total score**
 
-> Source : Aaker — *Building Strong Brands* (Free Press, 1996), W3C WCAG 2.1
+> Source: Aaker — *Building Strong Brands* (Free Press, 1996), W3C WCAG 2.1
 
-| Critère | Questions de vérification | Score |
-|---------|--------------------------|-------|
-| **Cohérence de la palette** | Même palette utilisée sur tous les supports ? Tokens définis et documentés ? | 0-5 |
-| **Typographie cohérente** | Même combinaison typographique partout ? Hiérarchie respectée ? | 0-5 |
-| **Logo — utilisation correcte** | Espaces de protection respectés ? Pas de variantes non-officielles utilisées ? | 0-5 |
-| **WCAG accessibilité** | Contrastes ≥ 4.5:1 sur toutes les surfaces ? (vérifier avec WebAIM) | 0-5 |
+| Criterion | Verification questions | Score |
+|-----------|----------------------|-------|
+| **Palette consistency** | Same palette used across all touchpoints? Tokens defined and documented? | 0-5 |
+| **Consistent typography** | Same typographic combination everywhere? Hierarchy respected? | 0-5 |
+| **Logo — correct usage** | Protection spaces respected? No unofficial variants in use? | 0-5 |
+| **WCAG accessibility** | Contrast ≥ 4.5:1 on all surfaces? (verify with WebAIM) | 0-5 |
 
-**Score D2 : ___/20**
+**Score D2: ___/20**
 
-**Checklist visuelle :**
+**Visual checklist:**
 ```
-Palette couleurs :
-  ☐ Palette principale documentée (max 3 couleurs primaires)
-  ☐ Tokens CSS/Swift définis
-  ☐ Variantes dark mode définies
-  ☐ ΔE > 7 entre couleurs distinctes (seuil de perception humaine)
+Color palette:
+  ☐ Primary palette documented (max 3 primary colors)
+  ☐ CSS/Swift tokens defined
+  ☐ Dark mode variants defined
+  ☐ ΔE > 7 between distinct colors (human perception threshold)
 
-Typographie :
-  ☐ Police primaire (titres) + secondaire (corps) définies
-  ☐ Scale typographique basée sur un ratio mathématique (1.5 ou 1.618)
-  ☐ Taille minimale 16px (corps web)
+Typography:
+  ☐ Primary font (headings) + secondary font (body) defined
+  ☐ Typographic scale based on a mathematical ratio (1.5 or 1.618)
+  ☐ Minimum size 16px (web body)
 
-Logo :
-  ☐ Versions : couleur / noir / blanc / fond foncé
-  ☐ Format SVG disponible pour le web
-  ☐ Règles d'utilisation documentées (minimum size, clear space)
+Logo:
+  ☐ Versions: color / black / white / dark background
+  ☐ SVG format available for web
+  ☐ Usage rules documented (minimum size, clear space)
 ```
 
 ---
 
 ## Dimension 3 — Tone of Voice (25 points)
 
-**Poids : 25% du score total**
+**Weight: 25% of total score**
 
-> Source : Nielsen Norman Group — 4 Dimensions of Tone of Voice
+> Source: Nielsen Norman Group — 4 Dimensions of Tone of Voice
 > [nngroup.com/articles/tone-of-voice-dimensions](https://www.nngroup.com/articles/tone-of-voice-dimensions)
 
-Nielsen NN/G a identifié 4 dimensions mesurables du tone of voice. Chaque marque doit se positionner sur ces 4 axes et le documenter.
+Nielsen NN/G identified 4 measurable dimensions of tone of voice. Each brand must position itself on these 4 axes and document them.
 
-### Les 4 dimensions Nielsen NN/G
+### The 4 Nielsen NN/G dimensions
 
-| Dimension | Axe | Score 1–5 |
-|-----------|-----|-----------|
-| **Formalité** | 1 = Casual / 5 = Formel | ___ |
-| **Humour** | 1 = Sérieux / 5 = Humoristique | ___ |
-| **Irrévérence** | 1 = Respectueux / 5 = Irrévérencieux | ___ |
-| **Énergie** | 1 = Neutre / 5 = Enthousiaste | ___ |
+| Dimension | Axis | Score 1–5 |
+|-----------|------|-----------|
+| **Formality** | 1 = Casual / 5 = Formal | ___ |
+| **Humor** | 1 = Serious / 5 = Humorous | ___ |
+| **Irreverence** | 1 = Respectful / 5 = Irreverent | ___ |
+| **Energy** | 1 = Neutral / 5 = Enthusiastic | ___ |
 
-**Règle :** si la marque s'adresse à des segments différents (ex: B2C et B2B), définir une matrice distincte par segment.
+**Rule:** if the brand addresses different segments (e.g., B2C and B2B), define a distinct matrix per segment.
 
-### Scoring Tone of Voice
+### Tone of Voice Scoring
 
-| Critère | Questions de vérification | Score |
-|---------|--------------------------|-------|
-| **Positionnement documenté** | Les 4 dimensions Nielsen sont-elles définies et documentées ? | 0-5 |
-| **Cohérence cross-surface** | Même tone sur : site, emails, app, réseaux sociaux, support ? | 0-5 |
-| **Vocabulaire propriétaire** | Termes de marque définis (et leurs interdits) ? | 0-5 |
-| **Adaptation par segment** | Si multi-cibles, matrice distincte documentée ? | 0-5 |
-| **Test en pratique** | Rédiger 5 phrases représentatives — sont-elles cohérentes avec la matrice ? | 0-5 |
+| Criterion | Verification questions | Score |
+|-----------|----------------------|-------|
+| **Documented positioning** | Are the 4 Nielsen dimensions defined and documented? | 0-5 |
+| **Cross-surface consistency** | Same tone on: website, emails, app, social media, support? | 0-5 |
+| **Proprietary vocabulary** | Brand terms defined (and their prohibited alternatives)? | 0-5 |
+| **Adaptation by segment** | If multi-target, is a distinct matrix documented? | 0-5 |
+| **Practical test** | Write 5 representative sentences — are they consistent with the matrix? | 0-5 |
 
-**Score D3 : ___/25**
+**Score D3: ___/25**
 
-### Template matrice tone of voice
+### Tone of voice matrix template
 
 ```
-MATRICE TONE OF VOICE — [Marque]
+TONE OF VOICE MATRIX — [Brand]
 
-Segment : [ex: Utilisateurs consumers]
-  Formalité :   [1-5] — [1 phrase d'exemple]
-  Humour :      [1-5] — [1 phrase d'exemple]
-  Irrévérence : [1-5] — [1 phrase d'exemple]
-  Énergie :     [1-5] — [1 phrase d'exemple]
+Segment: [e.g., Consumer users]
+  Formality:   [1-5] — [1 example sentence]
+  Humor:       [1-5] — [1 example sentence]
+  Irreverence: [1-5] — [1 example sentence]
+  Energy:      [1-5] — [1 example sentence]
 
-Segment : [ex: Clients business]
-  Formalité :   [1-5] — [1 phrase d'exemple]
-  Humour :      [1-5] — [1 phrase d'exemple]
-  Irrévérence : [1-5] — [1 phrase d'exemple]
-  Énergie :     [1-5] — [1 phrase d'exemple]
+Segment: [e.g., Business clients]
+  Formality:   [1-5] — [1 example sentence]
+  Humor:       [1-5] — [1 example sentence]
+  Irreverence: [1-5] — [1 example sentence]
+  Energy:      [1-5] — [1 example sentence]
 
-Mots interdits : [liste]
-Mots de marque propriétaires : [liste]
-Salutations : [ex: "Hello [Prénom] !" vs "Bonjour,"]
-Signature : [ex: "L'équipe [Marque]"]
+Prohibited words: [list]
+Proprietary brand words: [list]
+Greetings: [e.g., "Hello [First name]!" vs "Dear,"]
+Sign-off: [e.g., "The [Brand] team"]
 ```
 
 ---
 
-## Dimension 4 — Cohérence Cross-Platform (20 points)
+## Dimension 4 — Cross-Platform Consistency (20 points)
 
-**Poids : 20% du score total**
+**Weight: 20% of total score**
 
-> Source : Lucidpress / Marq — *The State of Brand Consistency* (2021)
+> Source: Lucidpress / Marq — *The State of Brand Consistency* (2021)
 
-| Critère | Questions de vérification | Score |
-|---------|--------------------------|-------|
-| **Site web** | Design system respecté ? Tone of voice cohérent ? | 0-5 |
-| **Application mobile** | Même tokens visuels que le web ? Adaptations iOS/Android documentées ? | 0-5 |
-| **Réseaux sociaux** | Même palette ? Templates de posts définis ? | 0-5 |
-| **Emails** | Template email brandé ? Même tone de voice ? | 0-5 |
+| Criterion | Verification questions | Score |
+|-----------|----------------------|-------|
+| **Website** | Design system respected? Tone of voice consistent? | 0-5 |
+| **Mobile application** | Same visual tokens as web? iOS/Android adaptations documented? | 0-5 |
+| **Social media** | Same palette? Post templates defined? | 0-5 |
+| **Emails** | Branded email template? Same tone of voice? | 0-5 |
 
-**Score D4 : ___/20**
+**Score D4: ___/20**
 
-**Test de cohérence :** ouvrir simultanément le site, l'app et les réseaux sociaux. Fermer les yeux. Rouvrir. La marque est-elle instantanément reconnaissable sur chaque surface sans lire le logo ?
-
----
-
-## Dimension 5 — Différenciation (15 points)
-
-**Poids : 15% du score total**
-
-> Source : Ries & Trout — *Positioning: The Battle for Your Mind* (McGraw-Hill, 2001)
-> Source : Kim & Mauborgne — *Blue Ocean Strategy* (HBR Press, 2005)
-
-| Critère | Questions de vérification | Score |
-|---------|--------------------------|-------|
-| **Position unique** | Pouvez-vous citer votre différenciant en 1 phrase sans nommer la concurrence ? | 0-5 |
-| **Preuve du différenciant** | Avez-vous des données/preuves concrètes de ce différenciant ? | 0-5 |
-| **Durabilité** | Ce différenciant est-il difficile à copier par les concurrents ? | 0-5 |
-
-**Score D5 : ___/15**
+**Consistency test:** open the website, app, and social media simultaneously. Close your eyes. Reopen. Is the brand instantly recognizable on each surface without reading the logo?
 
 ---
 
-## Calcul du Score Global
+## Dimension 5 — Differentiation (15 points)
+
+**Weight: 15% of total score**
+
+> Source: Ries & Trout — *Positioning: The Battle for Your Mind* (McGraw-Hill, 2001)
+> Source: Kim & Mauborgne — *Blue Ocean Strategy* (HBR Press, 2005)
+
+| Criterion | Verification questions | Score |
+|-----------|----------------------|-------|
+| **Unique position** | Can you state your differentiator in 1 sentence without naming the competition? | 0-5 |
+| **Proof of differentiator** | Do you have concrete data/evidence of this differentiator? | 0-5 |
+| **Durability** | Is this differentiator difficult for competitors to copy? | 0-5 |
+
+**Score D5: ___/15**
+
+---
+
+## Global Score Calculation
 
 ```
-Score Brand = D1 (20) + D2 (20) + D3 (25) + D4 (20) + D5 (15)
-            = Score sur 100
+Brand Score = D1 (20) + D2 (20) + D3 (25) + D4 (20) + D5 (15)
+            = Score out of 100
 ```
 
-| Score | Niveau | Action |
-|-------|--------|--------|
-| ≥85/100 | ✅ Marque forte | Maintenir la cohérence — audit semestriel |
-| 70-84/100 | 🟡 Marque en développement | Identifier et traiter les gaps prioritaires |
-| 55-69/100 | 🟠 Marque fragile | Retravailler les fondations avant de scaler |
-| <55/100 | 🔴 Marque incohérente | Repositionnement nécessaire avant tout investissement marketing |
+| Score | Level | Action |
+|-------|-------|--------|
+| ≥85/100 | ✅ Strong brand | Maintain consistency — semi-annual audit |
+| 70-84/100 | 🟡 Developing brand | Identify and address priority gaps |
+| 55-69/100 | 🟠 Fragile brand | Rework foundations before scaling |
+| <55/100 | 🔴 Inconsistent brand | Repositioning required before any marketing investment |
 
 ---
 
-## Checklist pré-lancement Brand
+## Pre-launch Brand Checklist
 
-### 🔴 Bloquants
+### 🔴 Blocking
 
-- [ ] WHY documenté (raison d'être)
-- [ ] Proposition de valeur testée (test des 5 secondes)
-- [ ] Palette couleurs avec tokens + vérification WCAG
-- [ ] Tone of voice avec les 4 dimensions Nielsen documentées
-- [ ] Vocabulaire interdit défini (mots à bannir)
+- [ ] WHY documented (purpose)
+- [ ] Value proposition tested (5-second test)
+- [ ] Color palette with tokens + WCAG verification
+- [ ] Tone of voice with the 4 Nielsen dimensions documented
+- [ ] Prohibited vocabulary defined (words to ban)
 
-### 🟡 Importants
+### 🟡 Important
 
-- [ ] Logo en 3 variantes (couleur / noir / blanc)
-- [ ] Scale typographique mathématique
-- [ ] Template email brandé
-- [ ] Matrice tone of voice par segment (si multi-cibles)
+- [ ] Logo in 3 variants (color / black / white)
+- [ ] Mathematical typographic scale
+- [ ] Branded email template
+- [ ] Tone of voice matrix per segment (if multi-target)
 
-### 🟢 Souhaitables
+### 🟢 Desirable
 
-- [ ] Brand guidelines document complet (PDF)
-- [ ] Kit de presse / médias kit
-- [ ] Templates réseaux sociaux
-- [ ] Tests utilisateurs sur mémorabilité de la marque
+- [ ] Complete brand guidelines document (PDF)
+- [ ] Press kit / media kit
+- [ ] Social media templates
+- [ ] User tests on brand memorability
 
 ---
 
-## Template Rapport
+## Report Template
 
 ```
-RAPPORT AUDIT BRAND STRATEGY
-Marque : [nom]
-Date : [date]
-Auditeur : [nom]
+BRAND STRATEGY AUDIT REPORT
+Brand: [name]
+Date: [date]
+Auditor: [name]
 
-D1 — Fondations stratégiques : ___/20
-D2 — Identité visuelle        : ___/20
-D3 — Tone of Voice            : ___/25
-D4 — Cohérence cross-platform : ___/20
-D5 — Différenciation          : ___/15
-                                ------
-SCORE GLOBAL                  : ___/100
+D1 — Strategic foundations  : ___/20
+D2 — Visual identity        : ___/20
+D3 — Tone of Voice          : ___/25
+D4 — Cross-platform consistency: ___/20
+D5 — Differentiation        : ___/15
+                               ------
+GLOBAL SCORE                 : ___/100
 
-FORCES :
-1. [Force principale]
-2. [Force secondaire]
+STRENGTHS:
+1. [Primary strength]
+2. [Secondary strength]
 
-GAPS PRIORITAIRES :
-1. [Gap 1 — dimension + impact estimé]
-2. [Gap 2 — dimension + impact estimé]
+PRIORITY GAPS:
+1. [Gap 1 — dimension + estimated impact]
+2. [Gap 2 — dimension + estimated impact]
 
-PLAN D'ACTION :
-- [Action 1] — Délai : [date] — Responsable : [nom]
-- [Action 2] — Délai : [date] — Responsable : [nom]
+ACTION PLAN:
+- [Action 1] — Deadline: [date] — Owner: [name]
+- [Action 2] — Deadline: [date] — Owner: [name]
 ```
 
 ---
 
 ## Sources
 
-| Référence | Lien |
+| Reference | Link |
 |-----------|------|
 | Nielsen Norman Group — 4 Dimensions of Tone of Voice | nngroup.com/articles/tone-of-voice-dimensions |
 | Kapferer — *The New Strategic Brand Management* (Kogan Page, 2012) | — |

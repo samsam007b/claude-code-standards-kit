@@ -1,218 +1,218 @@
 # Framework — Incident Response & Postmortem
 
-> Framework SQWR Project Kit — inspiré du Google SRE Workbook et PagerDuty.
-> Sources : Google SRE Workbook (response.pagerduty.com), PagerDuty Incident Response.
-> À utiliser quand un service en production est dégradé ou indisponible.
+> SQWR Project Kit Framework — inspired by the Google SRE Workbook and PagerDuty.
+> Sources: Google SRE Workbook (response.pagerduty.com), PagerDuty Incident Response.
+> When to use: when a production service is degraded or unavailable.
 
 ---
 
-## Principe : Culture Blameless
+## Principle: Blameless Culture
 
-**Un incident n'est jamais la faute d'une personne. C'est un échec du système.**
+**An incident is never the fault of a person. It is a system failure.**
 
-Un postmortem qui cherche un coupable ne produit pas de systèmes plus fiables. Un postmortem qui cherche des causes systémiques et des actions concrètes, oui.
+A postmortem that looks for someone to blame does not produce more reliable systems. A postmortem that looks for systemic causes and concrete actions does.
 
 > *"The goal is not to find the bad apple. The goal is to find the rotten barrel."* — John Allspaw, Etsy
 
 ---
 
-## Partie 1 — Réponse à l'incident (pendant)
+## Part 1 — Incident Response (during)
 
-### Rôles
+### Roles
 
-Pour une équipe solo/très petite, une personne peut cumuler plusieurs rôles. L'important est de savoir qui fait quoi.
+For a solo/very small team, one person can hold multiple roles. What matters is knowing who does what.
 
-| Rôle | Responsabilité |
+| Role | Responsibility |
 |------|---------------|
-| **Incident Commander (IC)** | Coordonne la réponse, prend les décisions, déclare la résolution |
-| **Ops Lead** | Effectue les actions techniques (rollback, hotfix, restart) |
-| **Communications Lead** | Informe les parties prenantes (clients, équipe, uptime page) |
+| **Incident Commander (IC)** | Coordinates the response, makes decisions, declares resolution |
+| **Ops Lead** | Performs technical actions (rollback, hotfix, restart) |
+| **Communications Lead** | Informs stakeholders (clients, team, uptime page) |
 
-### Timeline de réponse
+### Response Timeline
 
 ```
-[0 min]   Détection (alerte Sentry, Vercel, signalement utilisateur)
-           → Créer un canal/thread dédié à l'incident
+[0 min]   Detection (Sentry alert, Vercel, user report)
+           → Create a dedicated channel/thread for the incident
 
 [< 5 min] Acknowledgment
-           → Quelqu'un a pris en charge l'incident
-           → Communication initiale aux parties prenantes si impact utilisateurs
+           → Someone has taken ownership of the incident
+           → Initial communication to stakeholders if user impact
 
-[< 15 min] Évaluation
-           → Définir la sévérité (voir ci-dessous)
-           → Identifier les systèmes affectés
-           → Premier plan de mitigation
+[< 15 min] Assessment
+           → Define severity (see below)
+           → Identify affected systems
+           → First mitigation plan
 
-[< 30 min] Mitigation ou Escalade
-           → Rollback si possible (voir CONTRACT-VERCEL.md)
-           → Hotfix si identifiable rapidement
-           → Escalade si bloqué
+[< 30 min] Mitigation or Escalation
+           → Rollback if possible (see CONTRACT-VERCEL.md)
+           → Hotfix if quickly identifiable
+           → Escalate if blocked
 
-[Résolution] Déclaration de fin d'incident par l'IC
-           → Communication finale aux parties prenantes
-           → Planification du postmortem (< 48h)
+[Resolution] Incident declared resolved by the IC
+           → Final communication to stakeholders
+           → Postmortem scheduled (< 48h)
 ```
 
-### Niveaux de sévérité
+### Severity Levels
 
-| Niveau | Définition | Temps de réponse |
-|--------|-----------|-----------------|
-| **SEV-1** | Service totalement indisponible, données à risque | < 5 min |
-| **SEV-2** | Feature critique dégradée (auth, paiement) | < 15 min |
-| **SEV-3** | Feature non-critique dégradée | < 1h |
-| **SEV-4** | Bug mineur, impact limité | Sprint suivant |
+| Level | Definition | Response Time |
+|-------|-----------|--------------|
+| **SEV-1** | Service fully unavailable, data at risk | < 5 min |
+| **SEV-2** | Critical feature degraded (auth, payment) | < 15 min |
+| **SEV-3** | Non-critical feature degraded | < 1h |
+| **SEV-4** | Minor bug, limited impact | Next sprint |
 
-### Communication pendant l'incident
+### Communication during the incident
 
 ```markdown
-<!-- Template message initial (< 5 min après détection) -->
-🔴 INCIDENT EN COURS — [Date/Heure]
+<!-- Initial message template (< 5 min after detection) -->
+🔴 INCIDENT IN PROGRESS — [Date/Time]
 
-**Impact :** [ce que les utilisateurs voient]
-**Systèmes affectés :** [Vercel / Supabase / LLM API / ...]
-**Statut :** Investigation en cours
-**Prochain update dans :** 15 minutes
+**Impact:** [what users are experiencing]
+**Affected systems:** [Vercel / Supabase / LLM API / ...]
+**Status:** Investigation in progress
+**Next update in:** 15 minutes
 
-<!-- Template update intermédiaire -->
-🟡 UPDATE — [Date/Heure]
+<!-- Interim update template -->
+🟡 UPDATE — [Date/Time]
 
-**Cause identifiée :** [description courte]
-**Action en cours :** [rollback / hotfix / ...]
-**ETA résolution :** [estimation ou "inconnu"]
+**Identified cause:** [short description]
+**Action in progress:** [rollback / hotfix / ...]
+**ETA to resolution:** [estimate or "unknown"]
 
-<!-- Template résolution -->
-✅ INCIDENT RÉSOLU — [Date/Heure]
+<!-- Resolution template -->
+✅ INCIDENT RESOLVED — [Date/Time]
 
-**Durée :** [X minutes/heures]
-**Cause :** [résumé en une phrase]
-**Postmortem :** prévu le [date]
+**Duration:** [X minutes/hours]
+**Cause:** [one-sentence summary]
+**Postmortem:** scheduled for [date]
 ```
 
 ---
 
-## Partie 2 — Postmortem (après)
+## Part 2 — Postmortem (after)
 
-### Quand faire un postmortem
+### When to conduct a postmortem
 
-- Tout incident SEV-1 ou SEV-2 : **obligatoire**
-- Tout incident SEV-3 qui se répète : **recommandé**
-- Tout incident qui a surpris l'équipe : **recommandé**
+- Every SEV-1 or SEV-2 incident: **mandatory**
+- Every SEV-3 incident that recurs: **recommended**
+- Any incident that surprised the team: **recommended**
 
-**Timing :** dans les 48h suivant la résolution. Passé 48h, les détails s'effacent.
+**Timing:** within 48h of resolution. Past 48h, details fade.
 
-### Template Postmortem Blameless
+### Blameless Postmortem Template
 
 ```markdown
-# Postmortem — [Titre court de l'incident]
+# Postmortem — [Short Incident Title]
 
-**Date :** [JJ/MM/AAAA]
-**Durée :** [X minutes/heures]
-**Sévérité :** SEV-[1/2/3]
-**IC :** [nom]
-**Auteur postmortem :** [nom]
+**Date:** [DD/MM/YYYY]
+**Duration:** [X minutes/hours]
+**Severity:** SEV-[1/2/3]
+**IC:** [name]
+**Postmortem author:** [name]
 
 ---
 
-## Résumé
+## Summary
 
-[2-3 phrases max : que s'est-il passé, quel était l'impact, comment c'est résolu]
+[2–3 sentences max: what happened, what the impact was, how it was resolved]
 
 ---
 
 ## Impact
 
-- **Utilisateurs affectés :** [nombre ou estimation]
-- **Fonctionnalités impactées :** [liste]
-- **Durée d'impact :** [X min de dégradation totale]
-- **Données perdues :** [oui/non — si oui, lesquelles]
+- **Users affected:** [number or estimate]
+- **Affected features:** [list]
+- **Impact duration:** [X min of total degradation]
+- **Data lost:** [yes/no — if yes, which data]
 
 ---
 
-## Timeline détaillée
+## Detailed Timeline
 
-| Heure | Événement |
-|-------|-----------|
-| HH:MM | [détection — par qui / comment] |
-| HH:MM | [première action] |
-| HH:MM | [cause identifiée] |
-| HH:MM | [mitigation déployée] |
-| HH:MM | [incident déclaré résolu] |
+| Time | Event |
+|------|-------|
+| HH:MM | [detection — by whom / how] |
+| HH:MM | [first action] |
+| HH:MM | [cause identified] |
+| HH:MM | [mitigation deployed] |
+| HH:MM | [incident declared resolved] |
 
 ---
 
 ## Root Cause (5 Whys)
 
-1. **Pourquoi** le service a-t-il échoué ?
-   → [réponse]
-2. **Pourquoi** [réponse 1] ?
-   → [réponse]
-3. **Pourquoi** [réponse 2] ?
-   → [réponse]
-4. **Pourquoi** [réponse 3] ?
-   → [réponse]
-5. **Pourquoi** [réponse 4] ?
-   → **Root cause :** [cause racine systémique]
+1. **Why** did the service fail?
+   → [answer]
+2. **Why** [answer 1]?
+   → [answer]
+3. **Why** [answer 2]?
+   → [answer]
+4. **Why** [answer 3]?
+   → [answer]
+5. **Why** [answer 4]?
+   → **Root cause:** [systemic root cause]
 
 ---
 
-## Ce qui a bien fonctionné
+## What worked well
 
-- [élément 1 — ex: alerte Sentry a détecté en 2 min]
-- [élément 2]
+- [item 1 — e.g., Sentry alert detected in 2 min]
+- [item 2]
 
-## Ce qui n'a pas fonctionné
+## What did not work
 
-- [élément 1 — ex: procédure de rollback inconnue, a pris 20 min de plus]
-- [élément 2]
+- [item 1 — e.g., rollback procedure unknown, took 20 extra minutes]
+- [item 2]
 
 ---
 
-## Action Items (obligatoires — sans action = postmortem inutile)
+## Action Items (mandatory — no action = useless postmortem)
 
-| Action | Responsable | Deadline | Statut |
-|--------|------------|---------|--------|
-| [action préventive concrète] | [nom] | [date] | À faire |
-| [amélioration monitoring] | [nom] | [date] | À faire |
-| [documentation à créer] | [nom] | [date] | À faire |
+| Action | Owner | Deadline | Status |
+|--------|-------|---------|--------|
+| [concrete preventive action] | [name] | [date] | To do |
+| [monitoring improvement] | [name] | [date] | To do |
+| [documentation to create] | [name] | [date] | To do |
 
 ---
 
 ## Lessons Learned
 
-[Ce que ce postmortem apprend sur le système, pas sur les personnes]
+[What this postmortem teaches about the system, not about individuals]
 ```
 
 ---
 
-## Partie 3 — Registre des incidents
+## Part 3 — Incident Register
 
-Maintenir un registre dans le projet concerné pour tracker les incidents et leur résolution.
+Maintain a register in the relevant project to track incidents and their resolution.
 
 ```markdown
 <!-- docs/incidents/INCIDENT-LOG.md -->
-# Registre des Incidents
+# Incident Register
 
-| Date | Sévérité | Durée | Cause | Postmortem | Action Items |
-|------|---------|-------|-------|-----------|-------------|
-| [JJ/MM] | SEV-2 | 45 min | [cause] | [lien] | [X/Y complétés] |
+| Date | Severity | Duration | Cause | Postmortem | Action Items |
+|------|---------|---------|-------|-----------|-------------|
+| [DD/MM] | SEV-2 | 45 min | [cause] | [link] | [X/Y completed] |
 ```
 
 ---
 
-## Checklist post-résolution
+## Post-resolution Checklist
 
-- [ ] Incident déclaré résolu par l'IC
-- [ ] Communication finale envoyée aux parties prenantes
-- [ ] Postmortem schedulé dans les 48h
-- [ ] Incident loggé dans `docs/incidents/INCIDENT-LOG.md`
-- [ ] Action items créés dans le tracker (Linear, GitHub Issues, etc.)
-- [ ] ADR créé si la décision de l'incident change l'architecture
+- [ ] Incident declared resolved by the IC
+- [ ] Final communication sent to stakeholders
+- [ ] Postmortem scheduled within 48h
+- [ ] Incident logged in `docs/incidents/INCIDENT-LOG.md`
+- [ ] Action items created in the tracker (Linear, GitHub Issues, etc.)
+- [ ] ADR created if the incident decision changes the architecture
 
 ---
 
 ## Sources
 
-| Référence | Source |
+| Reference | Source |
 |-----------|--------|
 | Google SRE Workbook — Incident Response | sre.google/workbook/incident-response |
 | Google SRE Workbook — Postmortem Culture | sre.google/workbook/postmortem-culture |

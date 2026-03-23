@@ -1,155 +1,155 @@
-# Contrat — Zéro Hallucination & Gouvernance IA
+# Contract — Zero Hallucination & AI Governance
 
-> Module de contrat SQWR Project Kit — enrichi avec recherche scientifique.
-> Sources : Nature (2025), OpenAI Research (2025), PMC/NIH (2025), Springer Nature, Lakera.
-> Inspiré du CLAUDE.md CozyGrowth (15 mars 2026).
-
----
-
-## Fondements scientifiques
-
-**Pourquoi les LLMs hallucinent** (OpenAI Research, 2025) : les modèles de langage sont entraînés à optimiser la plausibilité textuelle, pas la vérité factuelle. L'évaluation traditionnelle pénalise l'incertitude et récompense la confiance — même erronée. Résultat : le modèle préfère inventer une réponse confiante plutôt qu'admettre qu'il ne sait pas.
-
-**Réduction mesurable :** les techniques RAG (Retrieval-Augmented Generation) réduisent les hallucinations de **15-82%** selon la combinaison de techniques (PMC/NIH, 2025).
-
-> Source : *"AI hallucinations can't be stopped — but these techniques can limit their damage"* — Nature, 2025
+> SQWR Project Kit contract module — enriched with scientific research.
+> Sources: Nature (2025), OpenAI Research (2025), PMC/NIH (2025), Springer Nature, Lakera.
+> Inspired by the CozyGrowth CLAUDE.md (March 15, 2026).
 
 ---
 
-## 1. Règle absolue — Zéro hallucination sur données réelles
+## Scientific Foundations
 
-**Une donnée incorrecte dans ce projet = problème réel pour un client ou un utilisateur réel.**
+**Why LLMs hallucinate** (OpenAI Research, 2025): language models are trained to optimize textual plausibility, not factual truth. Traditional evaluation penalizes uncertainty and rewards confidence — even when wrong. As a result, the model prefers to invent a confident answer rather than admitting it does not know.
 
-Ce contrat s'applique à tout projet contenant des données factuelles : prix, contacts, horaires, URLs, statistiques, noms propres, adresses.
+**Measurable reduction:** RAG (Retrieval-Augmented Generation) techniques reduce hallucinations by **15-82%** depending on the combination of techniques used (PMC/NIH, 2025).
 
----
-
-## 2. Ce que l'IA ne doit JAMAIS faire
-
-- **Inventer des chiffres** : prix, stats, capacités, années, horaires
-- **Compléter des données manquantes** par "logique métier" ou approximation
-- **Écrire des URLs, emails, numéros de téléphone** sans source vérifiée
-- **Ajouter des informations "plausibles"** sans confirmation explicite
-- **Inférer d'un contexte similaire** ("ce club ressemble à l'autre, donc...")
-- **Réutiliser des données d'une session précédente** sans vérification fraîche
+> Source: *"AI hallucinations can't be stopped — but these techniques can limit their damage"* — Nature, 2025
 
 ---
 
-## 3. Ce que l'IA doit TOUJOURS faire
+## 1. Absolute Rule — Zero Hallucination on Real Data
 
-- Information manquante → écrire `[À CONFIRMER]` et signaler
-- Chiffre d'origine inconnue → demander la source avant d'écrire
-- Avant tout ajout de donnée → identifier la source explicitement
-- Si <100% certain → poser la question, ne pas deviner
-- **Confidence scoring** : ne pas traiter tous les outputs pareil — distinguer les affirmations vérifiées des hypothèses
+**An incorrect piece of data in this project = a real problem for a real client or user.**
+
+This contract applies to any project containing factual data: prices, contacts, schedules, URLs, statistics, proper names, addresses.
 
 ---
 
-## 4. Sources valides
+## 2. What the AI Must NEVER Do
 
-1. **Screenshots ou texte fourni directement** dans la conversation
-2. **Contenu scrappé en direct** depuis la source officielle (`WebFetch`)
-3. **Confirmation orale explicite** de Samuel dans la conversation en cours
-
-## Sources NON valides
-
-- Ce qui "semble logique" pour ce type de projet
-- Données vues dans une session précédente (hors mémoire persistante explicite)
-- Chiffres interpolés ou extrapolés depuis des cas similaires
-- Informations générées sans source identifiée
+- **Invent numbers**: prices, stats, capacities, years, schedules
+- **Complete missing data** through "business logic" or approximation
+- **Write URLs, emails, phone numbers** without a verified source
+- **Add "plausible" information** without explicit confirmation
+- **Infer from a similar context** ("this space looks like the other one, so...")
+- **Reuse data from a previous session** without fresh verification
 
 ---
 
-## 5. Format pour les données manquantes
+## 3. What the AI Must ALWAYS Do
+
+- Missing information → write `[TO FILL IN]` and flag it
+- Number of unknown origin → ask for the source before writing
+- Before adding any data → explicitly identify the source
+- If <100% certain → ask the question, do not guess
+- **Confidence scoring**: do not treat all outputs the same — distinguish verified statements from hypotheses
+
+---
+
+## 4. Valid Sources
+
+1. **Screenshots or text provided directly** in the conversation
+2. **Content scraped live** from the official source (`WebFetch`)
+3. **Explicit verbal confirmation** from Samuel in the current conversation
+
+## Invalid Sources
+
+- What "seems logical" for this type of project
+- Data seen in a previous session (outside explicit persistent memory)
+- Numbers interpolated or extrapolated from similar cases
+- Information generated without an identified source
+
+---
+
+## 5. Format for Missing Data
 
 ```markdown
-Tarif mensuel : [À CONFIRMER — source requise]
-Email contact : [À CONFIRMER — non vérifié]
-Capacité : [À CONFIRMER — donnée non disponible dans les sources fournies]
-Statistique : [À CONFIRMER — aucune source trouvée pour ce chiffre]
+Monthly rate: [TO FILL IN — source required]
+Contact email: [TO FILL IN — unverified]
+Capacity: [TO FILL IN — data not available in provided sources]
+Statistic: [TO FILL IN — no source found for this figure]
 ```
 
 ---
 
-## 6. Optimisation du context window (recherche LLM 2025)
+## 6. Context Window Optimization (LLM Research 2025)
 
-> Source : LLM Context Management Guide — eval.16x.engineer, Redis Blog, GetMaxim
+> Source: LLM Context Management Guide — eval.16x.engineer, Redis Blog, GetMaxim
 
-**Le remplissage maximal du contexte dégrade les performances.**
+**Maximally filling the context degrades performance.**
 
-| Utilisation context window | Résultat |
+| Context window usage | Result |
 |---------------------------|---------|
-| 40-60% | Performance optimale |
-| 60-80% | Début de dégradation |
-| >80% | Dégradation significative prouvée |
+| 40-60% | Optimal performance |
+| 60-80% | Degradation starting |
+| >80% | Significant proven degradation |
 
-**Règles d'optimisation :**
+**Optimization rules:**
 
-- **Nouvelles sessions pour nouvelles tâches** — ne pas contaminer le contexte avec des tâches précédentes
-- **RAG plutôt que context exhaustif** — récupérer uniquement les sections pertinentes
-- **Few-shot limité** : 2-5 exemples curatés (au-delà = diminishing returns prouvé)
-- **Smart context selection** : charger uniquement les contrats pertinents au projet en cours
+- **New sessions for new tasks** — do not contaminate the context with previous tasks
+- **RAG rather than exhaustive context** — retrieve only the relevant sections
+- **Limited few-shot**: 2-5 curated examples (beyond = proven diminishing returns)
+- **Smart context selection**: load only the contracts relevant to the current project
 
 ---
 
-## 7. Techniques de réduction d'hallucinations recommandées
+## 7. Recommended Hallucination Reduction Techniques
 
-> Source : PMC/NIH (2025), Springer Nature — Hierarchical Semantic Piece method
+> Source: PMC/NIH (2025), Springer Nature — Hierarchical Semantic Piece method
 
-| Technique | Réduction hallucination | Quand l'utiliser |
+| Technique | Hallucination Reduction | When to Use |
 |-----------|------------------------|-----------------|
-| **RAG** (Retrieval-Augmented Generation) | 15-50% | Toujours sur données externes |
-| **Chain-of-thought prompting** | +25% accuracy | Tâches complexes multi-étapes |
-| **Verification step** | Variable | Données critiques (prix, contacts) |
-| **Confidence scoring** | 20-40% | Distinguer affirmations certaines/hypothèses |
-| **HSP method** | 20-50% | Extraction multi-granularité (phrase + entité) |
+| **RAG** (Retrieval-Augmented Generation) | 15-50% | Always for external data |
+| **Chain-of-thought prompting** | +25% accuracy | Complex multi-step tasks |
+| **Verification step** | Variable | Critical data (prices, contacts) |
+| **Confidence scoring** | 20-40% | Distinguish certain statements/hypotheses |
+| **HSP method** | 20-50% | Multi-granularity extraction (sentence + entity) |
 
 ---
 
-## 8. Structure d'un system prompt fiable (Anthropic + Lakera)
+## 8. Structure of a Reliable System Prompt (Anthropic + Lakera)
 
 ```
-[RÔLE] Tu es [rôle spécifique] pour [contexte précis].
+[ROLE] You are [specific role] for [precise context].
 
-[CONTRAINTES] Tu ne dois jamais :
-- [liste explicite des interdictions]
+[CONSTRAINTS] You must never:
+- [explicit list of prohibitions]
 
-[FORMAT] Tes réponses doivent :
-- [format attendu]
+[FORMAT] Your responses must:
+- [expected format]
 
-[EXEMPLES] Voici 2-3 exemples de réponses attendues :
-- [exemples curatés]
+[EXAMPLES] Here are 2-3 examples of expected responses:
+- [curated examples]
 
-[DONNÉES DISPONIBLES]
-{contexte_rag_injecté}
+[AVAILABLE DATA]
+{rag_injected_context}
 ```
 
 ---
 
-## 9. Risques IA avancés (2025-2026)
+## 9. Advanced AI Risks (2025-2026)
 
-> Sources : Anthropic Research, CSA 2025, OWASP LLM03:2025, OpenAI pricing history.
+> Sources: Anthropic Research, CSA 2025, OWASP LLM03:2025, OpenAI pricing history.
 
 ### Context Poisoning / RAG Poisoning
 
-**Anthropic Research et CSA 2025 : 5 documents soigneusement craftés suffisent à manipuler les outputs IA 90% du temps** dans un système RAG. Un attaquant ou même un contenu client mal formaté peut contaminer toutes les réponses du système.
+**Anthropic Research and CSA 2025: 5 carefully crafted documents are sufficient to manipulate AI outputs 90% of the time** in a RAG system. An attacker or even poorly formatted client content can contaminate all system responses.
 
-**Pour CozyGrowth (KBs RAG avec données clients) :**
-- Valider chaque document avant insertion en KB (voir CONTRACT-SECURITY.md section 10)
-- Isoler les KBs par espace/client — jamais de contamination cross-client
-- Auditer régulièrement les KBs avec `/verify-kb` pour détecter des patterns anormaux
-- Les sources de données clients sont de confiance limitée — les traiter comme des inputs externes
+**For CozyGrowth (RAG KBs with client data):**
+- Validate each document before inserting it into the KB (see CONTRACT-SECURITY.md section 10)
+- Isolate KBs by space/client — never allow cross-client contamination
+- Regularly audit KBs with `/verify-kb` to detect abnormal patterns
+- Client data sources carry limited trust — treat them as external inputs
 
-### Provider Lock-In & Stratégie de Fallback
+### Provider Lock-In & Fallback Strategy
 
-**OpenAI a déprécié GPT-3.5 sans préavis suffisant en 2024.** Anthropic peut modifier ses prix ou ses capacités. Tout projet qui dépend d'un seul fournisseur LLM sans fallback est fragile.
+**OpenAI deprecated GPT-3.5 without sufficient notice in 2024.** Anthropic may change its prices or capabilities. Any project that depends on a single LLM provider without a fallback is fragile.
 
-**Pattern d'abstraction recommandé :**
+**Recommended abstraction pattern:**
 
 ```typescript
-// lib/ai/client.ts — abstraction layer multi-provider
+// lib/ai/client.ts — multi-provider abstraction layer
 const AI_PROVIDERS = {
-  primary: 'anthropic',     // Claude (qualité)
+  primary: 'anthropic',     // Claude (quality)
   fallback: 'openrouter',   // OpenRouter (resilience)
 } as const
 
@@ -157,16 +157,16 @@ async function callAI(prompt: string, options: AIOptions = {}): Promise<string> 
   try {
     return await callAnthropic(prompt, options)
   } catch (err) {
-    // Fallback automatique si provider primaire indisponible
+    // Automatic fallback if primary provider is unavailable
     console.warn('Anthropic unavailable, falling back to OpenRouter', err)
     return await callOpenRouter(prompt, options)
   }
 }
 ```
 
-**Via OpenRouter (recommandé pour les projets clients) :**
+**Via OpenRouter (recommended for client projects):**
 ```typescript
-// OpenRouter permet de changer de modèle sans changer de code
+// OpenRouter allows changing models without changing code
 const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
   headers: { Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}` },
   body: JSON.stringify({
@@ -176,51 +176,51 @@ const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
 })
 ```
 
-### Denial of Wallet — Limits & Alertes Coût
+### Denial of Wallet — Limits & Cost Alerts
 
-**Un prompt malveillant ou une boucle infinie peut générer des milliers d'appels LLM en quelques minutes**, explosant les coûts. Sans hard limits, c'est un vecteur d'attaque financier.
+**A malicious prompt or infinite loop can generate thousands of LLM calls in a few minutes**, causing costs to explode. Without hard limits, this is a financial attack vector.
 
 ```typescript
-// Hard limits par appel LLM
+// Hard limits per LLM call
 const LLM_LIMITS = {
-  maxInputTokens: 10_000,    // ~7500 mots input max
-  maxOutputTokens: 4_000,    // ~3000 mots output max
-  maxRequestsPerUser: 50,    // par heure
-  maxRequestsPerSession: 20, // par session
+  maxInputTokens: 10_000,    // ~7500 words input max
+  maxOutputTokens: 4_000,    // ~3000 words output max
+  maxRequestsPerUser: 50,    // per hour
+  maxRequestsPerSession: 20, // per session
 } as const
 
-// Vérification avant chaque appel
+// Validation before each call
 function validateLLMRequest(input: string, userId: string) {
   const tokenEstimate = Math.ceil(input.length / 4)  // approximation
   if (tokenEstimate > LLM_LIMITS.maxInputTokens) {
-    throw new Error(`Input trop long : ${tokenEstimate} tokens estimés (max ${LLM_LIMITS.maxInputTokens})`)
+    throw new Error(`Input too long: ${tokenEstimate} estimated tokens (max ${LLM_LIMITS.maxInputTokens})`)
   }
-  // Rate limiting par userId...
+  // Rate limiting by userId...
 }
 ```
 
-**Alertes coût à configurer :**
-- Anthropic Console : budget alert à 80% du budget mensuel
-- OpenRouter : hard limit en dollars/mois
-- Vercel : alerte si edge function calls explosent (peut indiquer une boucle)
+**Cost alerts to configure:**
+- Anthropic Console: budget alert at 80% of monthly budget
+- OpenRouter: hard limit in dollars/month
+- Vercel: alert if edge function calls spike (may indicate a loop)
 
-### Model Drift — Monitoring comportemental
+### Model Drift — Behavioral Monitoring
 
-Les modèles fine-tunés ou les prompts qui fonctionnaient en janvier peuvent produire des outputs différents 6 mois plus tard, sans changement de code visible.
+Fine-tuned models or prompts that worked in January may produce different outputs 6 months later, with no visible code change.
 
-**Mitigation :**
+**Mitigation:**
 ```typescript
-// tests/ai-baseline.test.ts — test de régression comportementale
+// tests/ai-baseline.test.ts — behavioral regression test
 describe('AI Baseline Tests', () => {
   const BASELINE_PROMPTS = [
     {
-      input: 'Résume cet espace co-living en 2 phrases.',
-      mustContain: ['chambres', 'espace'],    // mots attendus
-      mustNotContain: ['À CONFIRMER', '['],   // signes de hallucination
+      input: 'Summarize this co-living space in 2 sentences.',
+      mustContain: ['rooms', 'space'],    // expected words
+      mustNotContain: ['TO FILL IN', '['],   // signs of hallucination
     },
   ]
 
-  // Lancer en CI mensuel ou après changement de modèle
+  // Run in monthly CI or after model change
   BASELINE_PROMPTS.forEach(({ input, mustContain, mustNotContain }) => {
     it(`Baseline: "${input.slice(0, 30)}..."`, async () => {
       const output = await callAI(input)
@@ -231,45 +231,45 @@ describe('AI Baseline Tests', () => {
 })
 ```
 
-**Règle :** après tout changement de modèle (montée de version, changement de provider), re-tester les baseline prompts avant de déployer en prod.
+**Rule:** after any model change (version upgrade, provider change), re-test the baseline prompts before deploying to production.
 
 ---
 
-## 10. Cas réel — Hallucinations CozyGrowth (15 mars 2026)
+## 10. Real Case — CozyGrowth Hallucinations (March 15, 2026)
 
-> Exemple documenté d'un projet SQWR réel. Source : CLAUDE.md CozyGrowth.
-> Ces 3 erreurs ont été détectées et corrigées le même jour.
+> Documented example from a real SQWR project. Source: CozyGrowth CLAUDE.md.
+> These 3 errors were detected and corrected on the same day.
 
-**Contexte** : CozyGrowth est une plateforme de génération de contenus marketing pour des espaces co-living. Les KBs (Knowledge Bases) contiennent les données réelles de chaque espace — tarifs, capacités, contacts, certifications.
+**Context**: CozyGrowth is a marketing content generation platform for co-living spaces. The KBs (Knowledge Bases) contain the real data for each space — rates, capacities, contacts, certifications.
 
-| Date | Donnée inventée | Source de l'erreur | Impact | Statut |
+| Date | Invented Data | Source of Error | Impact | Status |
 |------|----------------|-------------------|--------|--------|
-| 15/03/2026 | Smash Academy : "3,000 jeunes/an" | Inférence à partir du contexte "réseau national" — jamais mentionné dans la KB | Chiffre faux dans contenu marketing client | Corrigé — `[À CONFIRMER]` ajouté |
-| 15/03/2026 | Label "AFT 14/15" | Interprétation d'un label interne non défini dans la KB | Information non vérifiable publiée | Corrigé — label retiré du contenu |
-| 15/03/2026 | Numéro de téléphone LEGIO | Réutilisation du numéro d'un autre espace similaire dans la session | Contact erroné diffusé | Corrigé — `[À CONFIRMER]` + vérification directe |
+| 03/15/2026 | Smash Academy: "3,000 young people/year" | Inference from the "national network" context — never mentioned in the KB | False figure in client marketing content | Corrected — `[TO FILL IN]` added |
+| 03/15/2026 | "AFT 14/15" label | Interpretation of an internal label not defined in the KB | Unverifiable information published | Corrected — label removed from content |
+| 03/15/2026 | LEGIO phone number | Reuse of another similar space's number from the session | Incorrect contact disseminated | Corrected — `[TO FILL IN]` + direct verification |
 
-**Leçons tirées :**
-- Les chiffres ronds ("3,000") doivent systématiquement déclencher une vérification — ils sont souvent inventés
-- Les labels/certifications non définis explicitement dans la KB ne doivent jamais être émis
-- En session multi-espaces, les contacts ne sont jamais transférables d'un espace à l'autre
+**Lessons learned:**
+- Round numbers ("3,000") must systematically trigger a verification — they are often invented
+- Labels/certifications not explicitly defined in the KB must never be emitted
+- In multi-space sessions, contacts are never transferable from one space to another
 
-**Pattern RAG appliqué depuis** : chaque espace a une KB dédiée chargée isolément. Les sessions ne mélangent pas les données de plusieurs espaces.
+**RAG pattern applied since**: each space has a dedicated KB loaded in isolation. Sessions do not mix data from multiple spaces.
 
 ---
 
-## 10. Historique des hallucinations (à maintenir par projet)
+## 10. Hallucination History (to be maintained per project)
 
-> Tracker les erreurs détectées pour éviter leur répétition. Modèle CozyGrowth.
+> Track detected errors to prevent recurrence. CozyGrowth model.
 
-| Date | Donnée inventée | Source de l'erreur | Statut |
+| Date | Invented Data | Source of Error | Status |
 |------|----------------|-------------------|--------|
-| [JJ/MM/AAAA] | [description] | [ce qui a causé l'erreur] | Corrigé / Signalé |
+| [MM/DD/YYYY] | [description] | [what caused the error] | Corrected / Flagged |
 
 ---
 
 ## 11. Sources
 
-| Référence | Lien |
+| Reference | Link |
 |-----------|------|
 | AI hallucinations can't be stopped | nature.com/articles/d41586-025-00068-5 |
 | Why Language Models Hallucinate — OpenAI | openai.com/index/why-language-models-hallucinate |

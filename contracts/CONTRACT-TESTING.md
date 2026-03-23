@@ -1,17 +1,17 @@
-# Contrat — Testing
+# Contract — Testing
 
-> Module de contrat SQWR Project Kit.
-> Sources : Martin Fowler (test pyramid), Agile Alliance (Definition of Done), React Testing Library, Playwright docs.
-
----
-
-## Fondements scientifiques
-
-**La pyramide de tests** (Mike Cohn / Martin Fowler) est le modèle industriel standard depuis 2009. Elle repose sur un principe de coût/retour : les tests unitaires sont rapides et peu coûteux à écrire ; les tests E2E sont lents et fragiles. L'inverse (beaucoup d'E2E, peu d'unitaires = "ice cream cone anti-pattern") est l'erreur la plus coûteuse en QA.
+> SQWR Project Kit contract module.
+> Sources: Martin Fowler (test pyramid), Agile Alliance (Definition of Done), React Testing Library, Playwright docs.
 
 ---
 
-## 1. La pyramide de tests — répartition cible
+## Scientific Foundations
+
+**The test pyramid** (Mike Cohn / Martin Fowler) has been the standard industrial model since 2009. It rests on a cost/return principle: unit tests are fast and inexpensive to write; E2E tests are slow and brittle. The inverse (many E2E, few unit tests = "ice cream cone anti-pattern") is the most costly mistake in QA.
+
+---
+
+## 1. The Test Pyramid — Target Distribution
 
 ```
            E2E (5%)
@@ -27,26 +27,26 @@
  /─────────────────────────\
 ```
 
-| Niveau | % du total | Outil | Caractéristiques |
+| Level | % of total | Tool | Characteristics |
 |--------|-----------|-------|-----------------|
-| **Unit** | 80% | Vitest / Jest + RTL | Rapide (<1s), isolé, mocke les dépendances |
-| **Integration** | 15% | Vitest + vraie DB | Teste les interactions entre modules |
-| **E2E** | 5% | Playwright | Teste le flux complet utilisateur |
+| **Unit** | 80% | Vitest / Jest + RTL | Fast (<1s), isolated, mocks dependencies |
+| **Integration** | 15% | Vitest + real DB | Tests interactions between modules |
+| **E2E** | 5% | Playwright | Tests the full user flow |
 
 ---
 
-## 2. Seuils de couverture — non négociables
+## 2. Coverage Thresholds — Non-Negotiable
 
-| Métrique | Seuil | Standard |
+| Metric | Threshold | Standard |
 |----------|-------|---------|
-| **Line coverage global** | >80% | Industrie (client-facing code) |
-| **Branch coverage global** | >75% | Professionnel |
-| **Auth paths** | 100% | Critique — zero tolerance |
-| **Payment paths** | 100% | Critique — zero tolerance |
-| **API Routes** | >90% | Exposition publique |
+| **Line coverage global** | >80% | Industry (client-facing code) |
+| **Branch coverage global** | >75% | Professional |
+| **Auth paths** | 100% | Critical — zero tolerance |
+| **Payment paths** | 100% | Critical — zero tolerance |
+| **API Routes** | >90% | Public exposure |
 
 ```json
-// vitest.config.ts — coverage thresholds automatiques
+// vitest.config.ts — automatic coverage thresholds
 {
   "coverage": {
     "thresholds": {
@@ -63,18 +63,18 @@
 
 ## 3. Definition of Done (Agile Alliance)
 
-> Un incrément n'est "done" que si les tests sont écrits ET passants.
+> An increment is only "done" if the tests are written AND passing.
 
-**Checklist DoD obligatoire avant tout merge :**
-- [ ] Tests unitaires écrits pour la nouvelle logique
-- [ ] Tests d'intégration pour les nouvelles routes API
-- [ ] `npm run test` passe sans erreur
-- [ ] Coverage ne régresse pas (pas de merge qui fait descendre le % global)
-- [ ] E2E mis à jour si le flux utilisateur a changé
+**Mandatory DoD checklist before any merge:**
+- [ ] Unit tests written for new logic
+- [ ] Integration tests for new API routes
+- [ ] `npm run test` passes without errors
+- [ ] Coverage does not regress (no merge that lowers the global percentage)
+- [ ] E2E updated if the user flow has changed
 
 ---
 
-## 4. Patterns Next.js — Tests unitaires
+## 4. Next.js Patterns — Unit Tests
 
 ```typescript
 // components/__tests__/Button.test.tsx
@@ -103,23 +103,23 @@ describe('Button', () => {
 
 ---
 
-## 5. Patterns — Tests d'intégration
+## 5. Patterns — Integration Tests
 
 ```typescript
 // lib/__tests__/actions.integration.test.ts
 import { createClient } from '@/lib/supabase/server'
 import { createProject } from '@/lib/actions'
 
-// ⚠️ Tests sur VRAIE base de données (Supabase test project)
-// NE JAMAIS mocker Supabase pour les tests d'intégration
+// ⚠️ Tests on a REAL database (Supabase test project)
+// NEVER mock Supabase for integration tests
 
 describe('createProject action', () => {
   beforeEach(async () => {
-    // Setup : créer un user test, nettoyer les données
+    // Setup: create a test user, clean up data
   })
 
   afterEach(async () => {
-    // Cleanup : supprimer les données de test
+    // Cleanup: delete test data
   })
 
   it('creates a project with valid data', async () => {
@@ -133,7 +133,7 @@ describe('createProject action', () => {
 
   it('rejects invalid data', async () => {
     const formData = new FormData()
-    // name manquant
+    // name missing
 
     const result = await createProject(formData)
     expect(result.success).toBe(false)
@@ -144,7 +144,7 @@ describe('createProject action', () => {
 
 ---
 
-## 6. Patterns — Tests E2E (Playwright)
+## 6. Patterns — E2E Tests (Playwright)
 
 ```typescript
 // e2e/auth.spec.ts
@@ -171,24 +171,24 @@ test.describe('Authentication Flow', () => {
 
 ---
 
-## 7. Règles critiques
+## 7. Critical Rules
 
-### Ne jamais faire
+### Never do
 
-- **Mocker Supabase dans les tests d'intégration** — les mocks masquent les divergences réelles prod/test (erreur classique qui a causé des incidents)
-- **Merger du code sans tests** sur des features nouvelles
-- **Écrire des tests après le bug** — les tests doivent exister avant de clore un ticket
+- **Mock Supabase in integration tests** — mocks hide real divergences between production and test environments (a classic mistake that has caused incidents)
+- **Merge code without tests** on new features
+- **Write tests after the bug** — tests must exist before closing a ticket
 
-### Toujours faire
+### Always do
 
-- Tests dans le même dossier que le code (`Component.test.tsx` colocalisé)
-- Nommer les tests de façon lisible : "doit [faire quoi] quand [condition]"
-- Tester les cas d'erreur, pas seulement le happy path
-- CI/CD bloque si les tests échouent (jamais `--passWithNoTests` en prod)
+- Tests in the same directory as the code (`Component.test.tsx` co-located)
+- Name tests readably: "should [do what] when [condition]"
+- Test error cases, not just the happy path
+- CI/CD blocks if tests fail (never `--passWithNoTests` in production)
 
 ---
 
-## 8. Configuration recommandée
+## 8. Recommended Configuration
 
 ```typescript
 // vitest.config.ts
@@ -218,7 +218,7 @@ export default defineConfig({
 
 ## 9. Sources
 
-| Référence | Lien |
+| Reference | Link |
 |-----------|------|
 | Martin Fowler — Test Pyramid | martinfowler.com/articles/practical-test-pyramid.html |
 | Agile Alliance — Definition of Done | agilealliance.org/glossary/definition-of-done |

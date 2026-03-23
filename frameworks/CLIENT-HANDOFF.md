@@ -1,249 +1,249 @@
 # Framework — Client Handoff
 
-> Sources : Cloudways Web Agency Standards, Shopify Partner Program Documentation,
+> Sources: Cloudways Web Agency Standards, Shopify Partner Program Documentation,
 > Web Designer Depot Agency Best Practices 2024, frameworks/SLO-TEMPLATE.md.
-> À utiliser : dans les 2 semaines précédant la livraison finale d'un projet client.
+> When to use: in the 2 weeks before the final delivery of a client project.
 
 ---
 
-## Principe
+## Principle
 
-**Un déploiement réussi ≠ une livraison client réussie.**
+**A successful deployment ≠ a successful client delivery.**
 
-Le déploiement s'assure que le code fonctionne en production. La livraison s'assure que
-le client *possède* ce qu'on lui a construit — les accès, la documentation, la formation,
-et un plan de support clair. Un handoff bâclé génère du support client non facturé,
-des malentendus sur les responsabilités, et des litiges potentiels.
+Deployment ensures that the code works in production. Delivery ensures that
+the client *owns* what was built for them — the access credentials, documentation, training,
+and a clear support plan. A sloppy handoff generates unbilled client support,
+misunderstandings about responsibilities, and potential disputes.
 
-**Règle SQWR :** Toute livraison client doit passer par les 5 catégories ci-dessous.
-Aucune exception, même pour des projets "simples".
-
----
-
-## Catégorie 1 — Accès & Credentials
-
-**Règle absolue : ne jamais conserver les credentials d'un client livré.
-Tout doit être entre ses mains. Documenter la date de transfert.**
-
-| Accès | Méthode de transfert | Vérifié |
-|-------|---------------------|---------|
-| **GitHub repo** | Transférer l'ownership ou ajouter client comme Admin (Settings → Danger Zone → Transfer) | [ ] |
-| **Vercel project** | Inviter email client comme Member ou Owner (Dashboard → Team → Members) | [ ] |
-| **Supabase project** | Inviter via Dashboard → Settings → Team → Invite member | [ ] |
-| **Figma files** | Partager via "Move to project" dans le workspace client OU exporter + transférer | [ ] |
-| **DNS / Registrar** | Transfert de nom de domaine OU accès Admin au compte registrar du client | [ ] |
-| **Google Search Console** | Ajouter l'email client comme Owner (pas seulement User) | [ ] |
-| **Plausible Analytics** | Ajouter client via shared link OU transférer le site | [ ] |
-| **Email/SMTP (Resend)** | Transférer l'accès à l'API key ou créer un compte client séparé | [ ] |
-| **Variables d'environnement** | Fournir un `.env.production` documenté (sans secrets — les expliquer) | [ ] |
-
-**Post-transfert :**
-- [ ] Révoquer ou archiver les accès SQWR aux services du client (sauf si contrat maintenance actif)
-- [ ] Noter la date de transfert dans le registre interne SQWR
+**SQWR Rule:** Every client delivery must go through the 5 categories below.
+No exceptions, even for "simple" projects.
 
 ---
 
-## Catégorie 2 — Documentation Technique
+## Category 1 — Access & Credentials
 
-Structure recommandée du dossier livré au client :
+**Absolute rule: never retain a delivered client's credentials.
+Everything must be in their hands. Document the transfer date.**
+
+| Access | Transfer Method | Verified |
+|--------|----------------|---------|
+| **GitHub repo** | Transfer ownership or add client as Admin (Settings → Danger Zone → Transfer) | [ ] |
+| **Vercel project** | Invite client email as Member or Owner (Dashboard → Team → Members) | [ ] |
+| **Supabase project** | Invite via Dashboard → Settings → Team → Invite member | [ ] |
+| **Figma files** | Share via "Move to project" in client workspace OR export + transfer | [ ] |
+| **DNS / Registrar** | Domain name transfer OR Admin access to client's registrar account | [ ] |
+| **Google Search Console** | Add client email as Owner (not just User) | [ ] |
+| **Plausible Analytics** | Add client via shared link OR transfer the site | [ ] |
+| **Email/SMTP (Resend)** | Transfer API key access or create a separate client account | [ ] |
+| **Environment variables** | Provide a documented `.env.production` (without secrets — explain them) | [ ] |
+
+**Post-transfer:**
+- [ ] Revoke or archive SQWR access to client services (unless an active maintenance contract is in place)
+- [ ] Note the transfer date in the SQWR internal register
+
+---
+
+## Category 2 — Technical Documentation
+
+Recommended structure of the deliverable folder handed to the client:
 
 ```
-livrable-[nom-projet]-[date]/
-├── README-CLIENT.md          → Guide de prise en main (non-technique, 1 page)
+deliverable-[project-name]-[date]/
+├── README-CLIENT.md          → Onboarding guide (non-technical, 1 page)
 │
 ├── docs/
-│   ├── ARCHITECTURE.md       → Stack technique, services utilisés, dépendances clés
-│   ├── ENVIRONMENT.md        → Variables d'environnement requises (noms + rôles, pas les valeurs)
-│   ├── DEPLOYMENT.md         → Comment re-déployer (commandes, étapes Vercel)
-│   ├── CONTENT-UPDATE.md     → Comment modifier le contenu (CMS, code, ou Figma)
-│   └── TROUBLESHOOTING.md    → Problèmes fréquents et solutions documentées
+│   ├── ARCHITECTURE.md       → Tech stack, services used, key dependencies
+│   ├── ENVIRONMENT.md        → Required environment variables (names + roles, not values)
+│   ├── DEPLOYMENT.md         → How to redeploy (commands, Vercel steps)
+│   ├── CONTENT-UPDATE.md     → How to update content (CMS, code, or Figma)
+│   └── TROUBLESHOOTING.md    → Common issues and documented solutions
 │
 └── design/
-    ├── brand-kit/            → Tous les assets de marque (voir Catégorie 3)
-    └── components-export/    → Screenshots PNG des composants principaux
+    ├── brand-kit/            → All brand assets (see Category 3)
+    └── components-export/    → PNG screenshots of main components
 ```
 
-### README-CLIENT.md — Format cible
+### README-CLIENT.md — Target Format
 
 ```markdown
-# [Nom du projet] — Guide de démarrage
+# [Project Name] — Getting Started Guide
 
-## Ce que vous avez reçu
+## What you received
 
-- Site web déployé sur : [URL de production]
-- Code source sur : [URL GitHub]
-- Dashboard Vercel : [URL]
-- Base de données : [URL Supabase Dashboard]
+- Website deployed at: [production URL]
+- Source code at: [GitHub URL]
+- Vercel Dashboard: [URL]
+- Database: [Supabase Dashboard URL]
 
-## Comment accéder à votre site
+## How to access your website
 
-[Instructions simples, langage non-technique]
+[Simple instructions, non-technical language]
 
-## Comment modifier le contenu
+## How to update content
 
-[Instructions pas-à-pas selon la stack]
+[Step-by-step instructions based on the stack]
 
-## En cas de problème
+## In case of an issue
 
-Contacter SQWR Studio : studio@sqwr.be | +32 493 30 27 52
-Support garanti jusqu'au : [date expiration SLA]
+Contact SQWR Studio: studio@sqwr.be | +32 493 30 27 52
+Support guaranteed until: [SLA expiry date]
 ```
 
 ---
 
-## Catégorie 3 — Brand Style Guide (si inclus dans la mission)
+## Category 3 — Brand Style Guide (if included in the engagement)
 
-Contenu minimum d'un brand guide livrable :
+Minimum content of a deliverable brand guide:
 
-**Fichiers obligatoires :**
-- Logo principal — SVG vectoriel + PNG haute résolution (fond transparent + fond blanc)
-- Logo noir (pour fonds colorés) + Logo blanc (pour fonds foncés)
+**Required files:**
+- Primary logo — vector SVG + high-resolution PNG (transparent background + white background)
+- Black logo (for colored backgrounds) + White logo (for dark backgrounds)
 - Favicon — 32×32px, 192×192px, 512×512px (ICO + PNG)
 
-**Documentation :**
-- Couleurs primaires et secondaires — HEX + RGB + CMJN (pour print)
-- Zone d'exclusion (clear space) — règle de l'espace minimum autour du logo
-- Typographies — nom de la police + licence + lien téléchargement + graisses utilisées
-- Règles d'usage — ce qu'il ne faut pas faire (exemples visuels)
-- Exemples d'application — carte de visite, header web, signature email, réseaux sociaux
+**Documentation:**
+- Primary and secondary colors — HEX + RGB + CMYK (for print)
+- Exclusion zone (clear space) — minimum space rule around the logo
+- Typefaces — font name + license + download link + weights used
+- Usage rules — what not to do (visual examples)
+- Application examples — business card, web header, email signature, social media
 
-**Format de livraison :**
-- Dossier `/brand-kit/` zippé avec sous-dossiers par format
-- PDF brand guidelines (1-4 pages selon le niveau de mission)
-- Lien Figma permanent (si créé dans Figma) — transférer vers workspace client
-
----
-
-## Catégorie 4 — Training Manual
-
-Ce que le client doit pouvoir faire **seul** après livraison :
-
-| Compétence | Niveau cible | Support disponible |
-|-----------|-------------|-------------------|
-| Accéder au dashboard Vercel | Autonome | Documentation fournie |
-| Vérifier que le site fonctionne | Autonome | Checklist fournie |
-| Modifier du texte ou des images | Autonome | Vidéo ou guide pas-à-pas |
-| Comprendre une alerte Sentry | Notion de base | Contacter SQWR si > P1 |
-| Re-déployer après un commit | Notion de base (si applicable) | DEPLOYMENT.md fourni |
-
-**Format recommandé :**
-- PDF imprimable pour les non-techniques
-- Vidéo screen recording (≤ 5 min) pour les opérations fréquentes
-- Chat de prise en main à la livraison (30 min — inclus dans toute livraison)
+**Delivery format:**
+- `/brand-kit/` folder zipped with subfolders by format
+- PDF brand guidelines (1–4 pages depending on engagement level)
+- Permanent Figma link (if created in Figma) — transfer to client workspace
 
 ---
 
-## Catégorie 5 — SLA Post-Livraison SQWR
+## Category 4 — Training Manual
 
-### Template SLA à remettre au client à la livraison
+What the client must be able to do **independently** after delivery:
+
+| Skill | Target Level | Available Support |
+|-------|-------------|------------------|
+| Access the Vercel dashboard | Independent | Documentation provided |
+| Verify that the site is working | Independent | Checklist provided |
+| Edit text or images | Independent | Video or step-by-step guide |
+| Understand a Sentry alert | Basic awareness | Contact SQWR if > P1 |
+| Redeploy after a commit | Basic awareness (if applicable) | DEPLOYMENT.md provided |
+
+**Recommended format:**
+- Printable PDF for non-technical users
+- Screen recording video (≤ 5 min) for frequent operations
+- Onboarding call at delivery (30 min — included in every delivery)
+
+---
+
+## Category 5 — Post-Delivery SLA
+
+### SLA Template to hand to the client at delivery
 
 ```markdown
-# SLA Support Post-Livraison — [Nom du projet]
+# Post-Delivery Support SLA — [Project Name]
 
-**Client :** [Nom du client]
-**Date de livraison :** [JJ/MM/AAAA]
-**Période de support incluse :** [30 / 60 / 90 jours] à compter de la date de livraison
-**Date d'expiration :** [JJ/MM/AAAA]
-
----
-
-## Délais de réponse garantis
-
-| Type de demande | Délai de réponse | Délai de résolution |
-|----------------|-----------------|---------------------|
-| Critique (site inaccessible, données perdues) | < 4h ouvrables | < 24h |
-| Fonctionnel (feature cassée, bug visible) | < 1 jour ouvrable | < 3 jours ouvrables |
-| Question d'utilisation | < 2 jours ouvrables | Réponse = résolution |
-
-*Heures ouvrables : lundi-vendredi, 9h-18h (CET/CEST)*
+**Client:** [Client Name]
+**Delivery date:** [DD/MM/YYYY]
+**Included support period:** [30 / 60 / 90 days] from the delivery date
+**Expiry date:** [DD/MM/YYYY]
 
 ---
 
-## Ce qui est couvert
+## Guaranteed response times
 
-- Correction de bugs introduits lors du développement SQWR
-- Questions d'utilisation sur les fonctionnalités livrées
-- Ajustements mineurs de contenu (< 30 min par demande)
+| Request type | Response time | Resolution time |
+|-------------|--------------|-----------------|
+| Critical (site inaccessible, data lost) | < 4 business hours | < 24h |
+| Functional (broken feature, visible bug) | < 1 business day | < 3 business days |
+| Usage question | < 2 business days | Response = resolution |
 
-## Ce qui n'est PAS couvert
+*Business hours: Monday–Friday, 9am–6pm (CET/CEST)*
 
-- Nouvelles fonctionnalités (devis séparé requis)
-- Modifications de design demandées après validation finale
-- Problèmes causés par des modifications du client sur le code ou la config
-- Mises à jour de dépendances hors correctifs de sécurité critiques
-- Problèmes liés à des services tiers (Vercel, Supabase, Resend) hors de notre contrôle
+---
+
+## What is covered
+
+- Bug fixes introduced during SQWR development
+- Usage questions about delivered features
+- Minor content adjustments (< 30 min per request)
+
+## What is NOT covered
+
+- New features (separate quote required)
+- Design changes requested after final sign-off
+- Issues caused by client modifications to code or configuration
+- Dependency updates outside of critical security patches
+- Issues related to third-party services (Vercel, Supabase, Resend) outside our control
 
 ---
 
 ## Contact
 
-- Email : studio@sqwr.be
-- Téléphone : +32 493 30 27 52
-- Lundi–Vendredi, 9h–18h (urgences critiques : 7j/7)
+- Email: studio@sqwr.be
+- Phone: +32 493 30 27 52
+- Monday–Friday, 9am–6pm (critical emergencies: 7 days/7)
 
-## Après la période de support
+## After the support period
 
-Contrat de maintenance mensuel disponible sur devis.
-Inclut : mises à jour de dépendances, monitoring, 2h de modifications/mois.
+Monthly maintenance contract available on request.
+Includes: dependency updates, monitoring, 2h of changes/month.
 ```
 
 ---
 
-## Checklist Handoff Complète
+## Complete Handoff Checklist
 
-### Avant la réunion de livraison
+### Before the delivery meeting
 
-**Technique :**
-- [ ] `AUDIT-DEPLOYMENT.md` complété (score final documenté)
-- [ ] `AUDIT-ACCESSIBILITY.md` ≥ 80/100 (obligation légale EAA depuis juin 2025)
-- [ ] `AUDIT-SECURITY.md` ≥ 70/100 (seuil blocant)
-- [ ] `npm audit --audit-level=critical` passe (zéro vulnérabilité critique)
-- [ ] Performance Lighthouse ≥ 85 en production
+**Technical:**
+- [ ] `AUDIT-DEPLOYMENT.md` completed (final score documented)
+- [ ] `AUDIT-ACCESSIBILITY.md` ≥ 80/100 (legal obligation EAA since June 2025)
+- [ ] `AUDIT-SECURITY.md` ≥ 70/100 (blocking threshold)
+- [ ] `npm audit --audit-level=critical` passes (zero critical vulnerabilities)
+- [ ] Lighthouse Performance ≥ 85 in production
 
-**Accès :**
-- [ ] Tous les accès de la Catégorie 1 transférés ou programmés pour transfert
-- [ ] Environnement `.env.production` documenté remis au client
+**Access:**
+- [ ] All Category 1 accesses transferred or scheduled for transfer
+- [ ] Documented `.env.production` environment handed to client
 
-**Documentation :**
-- [ ] Dossier `/livrable-[projet]/` créé et complet (README-CLIENT + docs/ + design/)
-- [ ] Brand Style Guide exporté (si applicable à la mission)
-- [ ] Training Manual prêt (PDF ou vidéo)
-- [ ] SLA post-livraison préparé et daté
+**Documentation:**
+- [ ] `/deliverable-[project]/` folder created and complete (README-CLIENT + docs/ + design/)
+- [ ] Brand Style Guide exported (if applicable to the engagement)
+- [ ] Training Manual ready (PDF or video)
+- [ ] Post-delivery SLA prepared and dated
 
-### Pendant la réunion de livraison (30-60 min)
+### During the delivery meeting (30–60 min)
 
-- [ ] Démonstration complète du site/app au client
-- [ ] Walkthrough des accès principaux (Vercel, Supabase si applicable)
-- [ ] Remise du dossier livrable (lien Google Drive ou lien de téléchargement)
-- [ ] Explication du SLA (période de support, ce qui est inclus/exclu)
-- [ ] Questions/réponses
-- [ ] Email de confirmation planifié (ou envoyé en direct)
+- [ ] Full demonstration of the site/app to the client
+- [ ] Walkthrough of main access points (Vercel, Supabase if applicable)
+- [ ] Delivery of the deliverable folder (Google Drive link or download link)
+- [ ] Explanation of the SLA (support period, what is included/excluded)
+- [ ] Q&A
+- [ ] Confirmation email scheduled (or sent in real time)
 
-### Après la réunion de livraison
+### After the delivery meeting
 
-- [ ] Email récapitulatif envoyé au client (accès + SLA + contacts + lien docs)
-- [ ] Projet archivé dans le dossier interne SQWR Studio
-- [ ] Credentials clients supprimés des outils SQWR locaux (1Password, etc.)
-- [ ] Note de satisfaction interne créée (ce qui a bien marché / à améliorer)
-- [ ] Facture finale émise si applicable
+- [ ] Summary email sent to client (access + SLA + contacts + docs link)
+- [ ] Project archived in the internal SQWR Studio folder
+- [ ] Client credentials removed from SQWR local tools (1Password, etc.)
+- [ ] Internal satisfaction note created (what went well / what to improve)
+- [ ] Final invoice issued if applicable
 
 ---
 
-## Registre des livraisons SQWR
+## SQWR Delivery Register
 
-Tenir à jour dans le dossier interne SQWR Studio :
+Keep up to date in the internal SQWR Studio folder:
 
-| Projet | Client | Date livraison | SLA expire | Contrat maint. | Notes |
-|--------|--------|---------------|-----------|----------------|-------|
-| La Villa | [client] | 2024 | Expiré | Non | |
-| Nanou Mendels | [client] | 2025 | Expiré | Non | |
-| Villa Coladeira | [client] | 2025 | [vérifier] | [vérifier] | |
+| Project | Client | Delivery date | SLA expires | Maintenance contract | Notes |
+|---------|--------|--------------|------------|---------------------|-------|
+| La Villa | [client] | 2024 | Expired | No | |
+| Nanou Mendels | [client] | 2025 | Expired | No | |
+| Villa Coladeira | [client] | 2025 | [verify] | [verify] | |
 
 ---
 
 ## Sources
 
-| Référence | Lien |
+| Reference | Link |
 |-----------|------|
 | Cloudways — Agency Website Handoff | cloudways.com/blog/web-design-project-handoff |
 | Shopify Partner Program — Delivery Standards | shopify.com/partners/blog/project-handoff |
