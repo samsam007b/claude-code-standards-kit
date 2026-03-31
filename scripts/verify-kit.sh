@@ -130,6 +130,7 @@ REQUIRED_FILES=(
   "audits/AUDIT-DESIGN.md"
   "audits/AUDIT-DEPLOYMENT.md"
   "scripts/init-project.sh"
+  "scripts/install.sh"
   "scripts/verify-kit.sh"
   "scripts/validate-claude-md.sh"
   "templates/settings.json"
@@ -172,15 +173,19 @@ REQUIRED_FILES=(
   "ROADMAP.md"
   # New agents
   "agents/AGENT-RISK-SCORE.md"
+  "agents/AGENT-BRAINSTORM.md"
   # New audits
   "audits/AUDIT-RISK-SCORE.md"
+  "audits/AUDIT-ANTI-PATTERNS.md"
   # New contracts
   "contracts/CONTRACT-EU-AI-ACT.md"
   "contracts/CONTRACT-AI-SAFETY.md"
   "contracts/CONTRACT-DORA-METRICS.md"
+  "contracts/CONTRACT-ANTI-PATTERNS.md"
   # New skills
   "skills/compliance-check/SKILL.md"
   "skills/risk-score/SKILL.md"
+  "skills/brainstorm/SKILL.md"
   # New rules
   "rules/security-rules.md"
   "rules/accessibility-rules.md"

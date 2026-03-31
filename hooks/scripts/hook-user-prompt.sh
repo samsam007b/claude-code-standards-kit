@@ -30,4 +30,21 @@ if echo "$PROMPT" | grep -qiE "api|endpoint|route|request|response|rest|graphql"
   echo "[SQWR] API concern detected. CONTRACT-API.md applies."
 fi
 
+# Detect large-scope implementation — suggest brainstorm
+if echo "$PROMPT" | grep -qiE "implement|refactor|rewrite|migrate|redesign|overhaul|rebuild"; then
+  if echo "$PROMPT" | grep -qiE "all|every|entire|whole|complete|full system|entire codebase"; then
+    echo "[SQWR] Large-scope implementation detected. Consider running /brainstorm first. Ref: CONTRACT-ANTI-PATTERNS.md §6 (Context Drift)"
+  fi
+fi
+
+# Detect anti-rationalization patterns
+if echo "$PROMPT" | grep -qiE "just do it|no tests|skip.*(test|check|lint)|ignore.*(error|warning)|force.*(merge|push)|bypass|quick(ly)?.*don.t"; then
+  echo "[SQWR] Request to bypass quality standards detected. Ref: CONTRACT-ANTI-PATTERNS.md §2 (Anti-Rationalization)"
+fi
+
+# Detect database migration risk
+if echo "$PROMPT" | grep -qiE "migrat|schema change|alter table|drop column|rename.*column|add.*column"; then
+  echo "[SQWR] Database migration detected. Run /brainstorm first. Ref: CONTRACT-DATABASE-MIGRATIONS.md + CONTRACT-ANTI-PATTERNS.md §6"
+fi
+
 exit 0

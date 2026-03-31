@@ -76,6 +76,7 @@ The following weights reflect the relative impact of each domain on production q
 | **BRAND-STRATEGY** | — | `AUDIT-BRAND-STRATEGY.md` | Before launch / repositioning |
 | **RESILIENCE** | — | `AUDIT-RESILIENCE.md` | ≥70 recommended for production |
 | **RISK-SCORE** | — | `AUDIT-RISK-SCORE.md` | Composite weighted formula across all 8 domains |
+| **ANTI-PATTERNS** | — | `AUDIT-ANTI-PATTERNS.md` | ≥80/100 before merging to main; blocking items must be resolved |
 
 **Global score = weighted sum of the 8 weighted domains.**
 **GDPR and BRAND-STRATEGY are out-of-weighting audits — mandatory depending on context.**
