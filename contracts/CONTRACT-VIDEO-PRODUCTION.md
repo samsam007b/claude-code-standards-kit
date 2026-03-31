@@ -300,3 +300,5 @@ This pattern allows a single developer to manage a multi-disciplinary production
 | Meta Business — Video best practices | business.meta.com/creative-guidance/video |
 | Sprout Social — Best times to post | sproutsocial.com/insights/best-times-to-post-on-social-media |
 | YouTube Loudness Normalization | support.google.com/youtube/answer/6297273 |
+
+> **Last validated:** 2026-03-30 — platform specs (YouTube/TikTok/Meta), H.264/HEVC standards, ElevenLabs API docs, Nielsen NN/G Video Usability, YouTube Loudness Normalization

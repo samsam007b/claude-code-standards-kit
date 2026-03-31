@@ -184,3 +184,5 @@ Every project collaborating with Claude Code must have a `CLAUDE.md` including:
 | Prompt Engineering 2025 — Lakera | lakera.ai/blog/prompt-engineering-guide |
 | Prompt Engineering — Palantir | palantir.com/docs/foundry/aip/best-practices-prompt-engineering |
 | Prompt Engineering — Google Cloud | cloud.google.com/discover/what-is-prompt-engineering |
+
+> **Last validated:** 2026-03-30 — OpenAI docs, Anthropic docs, academic prompting research, Lakera Prompt Engineering 2025, Google Cloud Prompt Engineering

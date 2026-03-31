@@ -170,6 +170,45 @@ Are there official patterns or examples to follow?"
 
 Research becomes a contract (rules + sources + thresholds). Implementation follows the contract. The audit verifies that the thresholds are met.
 
+**Executable form**: The `skills/new-feature/SKILL.md` encodes this entire 5-step workflow as an invocable slash command. Instead of reading this document, run `/new-feature [description]` — the skill walks through each gate with Observable Truths.
+
+---
+
+## Observable Truths
+
+Every workflow gate must have an Observable Truth: a specific, binary, testable condition that proves the gate is complete.
+
+**Not an Observable Truth:**
+- "The feature is tested" ← subjective
+- "Security is reviewed" ← unverifiable
+
+**Observable Truths:**
+- "`npm run build && npm test` exits 0" ← binary, immediate
+- "Audit report exists with Security ≥70/100" ← measurable (not "security looks good")
+- "CLAUDE.md 'Active contracts' section shows at least 2 contracts checked [x]" ← verifiable
+- "`npm audit` shows 0 critical/high vulnerabilities" ← not "no obvious vulnerabilities"
+- "All 18 verify-kit.sh tests pass with 0 errors" ← not "kit seems valid"
+
+Observable Truths make quality measurable, not subjective.
+
+Every gate in `workflows/WORKFLOW-*.md`, `skills/*/SKILL.md`, and `agents/AGENT-FULL-AUDIT.md` follows this principle: no gate closes without a specific, non-subjective proof.
+
+**Why this matters for AI-assisted development:** Claude Code cannot report "done" subjectively. Observable Truths give it a concrete, automatable definition of completion — preventing the pattern where AI declares work finished before it is actually verifiable.
+
+---
+
+## The plugin system
+
+The kit ships as a Claude Code plugin (`.claude-plugin/plugin.json` v3.1.0). When installed, Claude Code auto-discovers:
+- 11 audit agents with enriched metadata (`model`, `effort`, `color`)
+- 9 skills for common workflows
+- 4 slash commands
+- 21 compliance hook scripts with conditional triggers
+
+**SessionStart hook**: Each session begins with `hook-session-context.sh` which detects your project stack, reads the active contracts from CLAUDE.md, and writes them to the Claude environment. The AI starts every session with project context rather than reading CLAUDE.md from scratch.
+
+**PreCompact hook**: Before context compression, `hook-pre-compact.sh` persists the active contracts, last audit score, and open tech debt markers to the Claude environment, ensuring continuity across long sessions.
+
 ---
 
 ## Trusted Claude Code community resources
@@ -259,6 +298,80 @@ The method used to build the kit is itself the kit:
 2. Find what professionals do (Tier 1-4)
 3. Synthesise into actionable rules with sources
 4. Implement and measure
+
+---
+
+## Active execution layer
+
+> The 5-step method above is the cognitive process. The automation layer below is its executable form.
+
+Starting from v2.0, the kit includes a Claude Code–native execution layer that transforms passive standards into active enforcement:
+
+### Agents (audits automated)
+10 audit agents in `agents/` use the **4-level verification** pattern (Exists → Substantive → Wired → Data Flows):
+- A file that exists but contains stubs does not pass Level 2.
+- A security measure that is imported but not wired to the route tree does not pass Level 3.
+- An API route that queries a database but returns hardcoded data does not pass Level 4.
+
+Place agents in `.claude/agents/` to invoke them from any Claude Code session.
+
+### Hooks (contracts enforced in real time)
+5 compliance hooks in `hooks/` run as Claude Code `PreToolUse`/`PostToolUse` events:
+- `hook-no-secrets.sh` — blocks `git commit` if staged files contain API keys or private keys
+- `hook-build-before-commit.sh` — blocks commit if `npm run build` fails
+- `hook-contract-compliance.sh` — warns after each file write if contract rules are violated
+
+Configure via `.claude/settings.json` (provisioned automatically by `init-project.sh`).
+
+### Workflows (Observable Truths gates)
+3 workflow templates in `workflows/` codify the RESEARCH → CONTRACT → CODE → AUDIT cycle with **Observable Truths** — specific, testable conditions that prove each gate was passed:
+
+```
+Gate 0 — Scope      → Observable truth: Scoping doc with Problem + Appetite + No-Gos
+Gate 1 — Research   → Observable truth: CLAUDE.md "Active contracts" updated
+Gate 2 — Implement  → Observable truth: npm run build && npm test exits 0
+Gate 3 — Verify     → Observable truth: Audit reports with all scores above thresholds
+Gate 4 — Ship       → Observable truth: PR with audit scores, CI passes
+```
+
+An "Observable Truth" replaces vague acceptance criteria ("check that it works") with testable conditions ("command X exits 0" or "file Y exists with content Z").
+
+---
+
+---
+
+## Quality Standards Reference
+
+ISO/IEC 25010:2023 (SQuaRE) defines 8 software quality dimensions: Functional Suitability, Performance Efficiency, Compatibility, Usability, Reliability, Security, Maintainability, and Portability. The SQWR AUDIT-INDEX maps directly to these dimensions.
+
+---
+
+## Standards Update Process
+
+Professional standards evolve. A contract citing OWASP 2017 in 2026 is misleading. This section defines when and how to update contracts when their source standards change.
+
+### Trigger Events → Update Deadlines
+
+| Standard | Update trigger | Target deadline |
+|----------|---------------|-----------------|
+| OWASP Top 10 | New edition released (typically every 2-3 years) | Update CONTRACT-SECURITY.md within 30 days |
+| WCAG | New version ratified (WCAG 2.2, 3.0) | Update CONTRACT-ACCESSIBILITY.md within 30 days |
+| Apple HIG | Major OS release (WWDC announcement) | Update CONTRACT-IOS.md within 60 days |
+| Google Core Web Vitals | Threshold update announced | Update CONTRACT-PERFORMANCE.md + CONTRACT-NEXTJS.md within **7 days** (SEO ranking impact) |
+| NIST standards | New SP or CSF version published | Update CONTRACT-SECURITY.md within 60 days |
+| EU regulations | Enforcement date or new guidance | Update COMPLIANCE-EU.md immediately |
+| npm/framework major version | Breaking API changes | Update relevant contracts within 30 days |
+
+### Quarterly Review
+- Check all contract URLs for dead links (source documentation may have moved)
+- Verify that numerical thresholds still match their source (e.g., CWV thresholds have changed historically)
+- Update "Last validated" dates for any contract that was re-verified
+- Target: full kit review in Q1 each year
+
+### Who Triggers Updates
+- Contract maintainer (original contributor) is responsible for monitoring their source standard
+- Community can open issues on GitHub when a standard changes
+- `CONTRIBUTING.md` defines the PR process for updates
 
 ---
 

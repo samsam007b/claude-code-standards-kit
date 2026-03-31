@@ -269,3 +269,5 @@ import { formatDate } from './utils'
 | TypeScript Handbook — Do's & Don'ts | typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts |
 | SOLID Principles in TypeScript | blog.logrocket.com/applying-solid-principles-typescript |
 | ISO/IEC 25010 — Software Quality | iso.org/standard/35733.html |
+
+> **Last validated:** 2026-03-30 — TypeScript docs, SOLID principles, ISO/IEC 25010, Clean Code (Robert C. Martin), Google Engineering Practices

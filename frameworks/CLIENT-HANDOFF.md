@@ -85,7 +85,7 @@ deliverable-[project-name]-[date]/
 
 ## In case of an issue
 
-Contact SQWR Studio: studio@sqwr.be | +32 493 30 27 52
+Contact SQWR Studio: [your@email.com] | [YOUR PHONE]
 Support guaranteed until: [SLA expiry date]
 ```
 
@@ -177,8 +177,8 @@ What the client must be able to do **independently** after delivery:
 
 ## Contact
 
-- Email: studio@sqwr.be
-- Phone: +32 493 30 27 52
+- Email: [your@email.com]
+- Phone: [YOUR PHONE]
 - Monday–Friday, 9am–6pm (critical emergencies: 7 days/7)
 
 ## After the support period

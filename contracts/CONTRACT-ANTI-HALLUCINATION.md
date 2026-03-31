@@ -2,7 +2,7 @@
 
 > SQWR Project Kit contract module — enriched with scientific research.
 > Sources: Nature (2025), OpenAI Research (2025), PMC/NIH (2025), Springer Nature, Lakera.
-> Inspired by the CozyGrowth CLAUDE.md (March 15, 2026).
+> Inspired by the Projet-Alpha CLAUDE.md (March 15, 2026).
 
 ---
 
@@ -10,7 +10,7 @@
 
 **Why LLMs hallucinate** (OpenAI Research, 2025): language models are trained to optimize textual plausibility, not factual truth. Traditional evaluation penalizes uncertainty and rewards confidence — even when wrong. As a result, the model prefers to invent a confident answer rather than admitting it does not know.
 
-**Measurable reduction:** RAG (Retrieval-Augmented Generation) techniques reduce hallucinations by **15-82%** depending on the combination of techniques used (PMC/NIH, 2025).
+**Measurable reduction:** RAG (Retrieval-Augmented Generation) techniques reduce hallucinations, with reductions documented across multiple studies — results vary significantly by domain and source quality (Lewis et al., 2020, arXiv:2005.11401 — Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks; Guu et al., 2020, REALM; PMC/NIH, 2025). For specific figures by technique, see Section 7 below.
 
 > Source: *"AI hallucinations can't be stopped — but these techniques can limit their damage"* — Nature, 2025
 
@@ -132,9 +132,9 @@ Statistic: [TO FILL IN — no source found for this figure]
 
 ### Context Poisoning / RAG Poisoning
 
-**Anthropic Research and CSA 2025: 5 carefully crafted documents are sufficient to manipulate AI outputs 90% of the time** in a RAG system. An attacker or even poorly formatted client content can contaminate all system responses.
+**Cloud Security Alliance (CSA AI Safety Initiative, 2025): 5 carefully crafted documents are sufficient to manipulate AI outputs in up to 90% of cases** in a RAG system. An attacker or even poorly formatted client content can contaminate all system responses.
 
-**For CozyGrowth (RAG KBs with client data):**
+**For projects with RAG KBs containing client data:**
 - Validate each document before inserting it into the KB (see CONTRACT-SECURITY.md section 10)
 - Isolate KBs by space/client — never allow cross-client contamination
 - Regularly audit KBs with `/verify-kb` to detect abnormal patterns
@@ -214,8 +214,8 @@ Fine-tuned models or prompts that worked in January may produce different output
 describe('AI Baseline Tests', () => {
   const BASELINE_PROMPTS = [
     {
-      input: 'Summarize this co-living space in 2 sentences.',
-      mustContain: ['rooms', 'space'],    // expected words
+      input: 'Summarize this listing in 2 sentences.',
+      mustContain: ['details', 'available'],    // expected words
       mustNotContain: ['TO FILL IN', '['],   // signs of hallucination
     },
   ]
@@ -235,31 +235,31 @@ describe('AI Baseline Tests', () => {
 
 ---
 
-## 10. Real Case — CozyGrowth Hallucinations (March 15, 2026)
+## 10. Real Case — Projet-Alpha Hallucinations (March 15, 2026)
 
-> Documented example from a real SQWR project. Source: CozyGrowth CLAUDE.md.
+> Documented example from a real SQWR project. Source: Projet-Alpha CLAUDE.md.
 > These 3 errors were detected and corrected on the same day.
 
-**Context**: CozyGrowth is a marketing content generation platform for co-living spaces. The KBs (Knowledge Bases) contain the real data for each space — rates, capacities, contacts, certifications.
+**Context**: Projet-Alpha is a marketing content generation platform for a B2C SaaS service. The KBs (Knowledge Bases) contain the real data for each entry — rates, capacities, contacts, certifications.
 
 | Date | Invented Data | Source of Error | Impact | Status |
 |------|----------------|-------------------|--------|--------|
-| 03/15/2026 | Smash Academy: "3,000 young people/year" | Inference from the "national network" context — never mentioned in the KB | False figure in client marketing content | Corrected — `[TO FILL IN]` added |
-| 03/15/2026 | "AFT 14/15" label | Interpretation of an internal label not defined in the KB | Unverifiable information published | Corrected — label removed from content |
-| 03/15/2026 | LEGIO phone number | Reuse of another similar space's number from the session | Incorrect contact disseminated | Corrected — `[TO FILL IN]` + direct verification |
+| 03/15/2026 | Entry A: "3,000 users/year" | Inference from the "national network" context — never mentioned in the KB | False figure in client marketing content | Corrected — `[TO FILL IN]` added |
+| 03/15/2026 | "[Label X]" certification | Interpretation of an internal label not defined in the KB | Unverifiable information published | Corrected — label removed from content |
+| 03/15/2026 | Entry B phone number | Reuse of another similar entry's number from the session | Incorrect contact disseminated | Corrected — `[TO FILL IN]` + direct verification |
 
 **Lessons learned:**
 - Round numbers ("3,000") must systematically trigger a verification — they are often invented
 - Labels/certifications not explicitly defined in the KB must never be emitted
-- In multi-space sessions, contacts are never transferable from one space to another
+- In multi-entry sessions, contacts are never transferable from one entry to another
 
-**RAG pattern applied since**: each space has a dedicated KB loaded in isolation. Sessions do not mix data from multiple spaces.
+**RAG pattern applied since**: each entry has a dedicated KB loaded in isolation. Sessions do not mix data from multiple entries.
 
 ---
 
 ## 10. Hallucination History (to be maintained per project)
 
-> Track detected errors to prevent recurrence. CozyGrowth model.
+> Track detected errors to prevent recurrence. Projet-Alpha model.
 
 | Date | Invented Data | Source of Error | Status |
 |------|----------------|-------------------|--------|
@@ -278,3 +278,5 @@ describe('AI Baseline Tests', () => {
 | LLM Context Management | eval.16x.engineer/blog/llm-context-management-guide |
 | Context Windows Explained — Redis | redis.io/blog/llm-context-windows |
 | Prompt Engineering 2025 — Lakera | lakera.ai/blog/prompt-engineering-guide |
+
+> **Last validated:** 2026-03-30 — academic papers (Nature, PMC/NIH), RAG literature, HSP Method (Springer Nature), LLM Context Management, Lakera Prompt Engineering 2025

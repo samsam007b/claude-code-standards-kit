@@ -99,7 +99,7 @@ signals high uncertainty → dig into Rabbit Holes before committing.
 | Task Class | Past Examples | Actual Median | Adjustment |
 |------------|---------------|---------------|-----------|
 | Static marketing page | La Villa, SQWR, Villa Coladeira | [to fill] | |
-| Page with Supabase auth | izzico login, CozyGrowth dashboard | [to fill] | |
+| Page with Supabase auth | [ClientApp] login, [YourProject] dashboard | [to fill] | |
 | Reusable UI component | [list of components created] | [to fill] | |
 | Full CRUD feature | [list] | [to fill] | |
 | Third-party service integration | [list] | [to fill] | |

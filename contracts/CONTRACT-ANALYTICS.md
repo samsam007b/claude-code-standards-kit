@@ -24,8 +24,8 @@ These two frameworks are complementary — AARRR for the macro view, HEART for p
 | Stage | Key Metric | Reference Threshold |
 |-------|-------------|----------------------|
 | **Acquisition** | CAC (Customer Acquisition Cost) | LTV/CAC ≥3x (SaaStr) |
-| **Activation** | % users reaching the "Aha moment" event | ≥40% (SaaS benchmark — Andreessen Horowitz) |
-| **Retention** | Day 7 / Day 30 / Day 90 retention | D30 ≥30% SaaS (a16z benchmark) |
+| **Activation** | % users reaching the "Aha moment" event | Taux d'activation cible au 'Aha Moment' : B2C SaaS 40–60%, B2B SaaS 20–40% (Reforge Product Benchmarks 2023 — reforge.com ; OpenView Product Benchmarks 2023). Note : ce seuil varie fortement par vertical — calibrer sur ses propres cohortes. |
+| **Retention** | Day 7 / Day 30 / Day 90 retention | D30 ≥30% SaaS (a16z benchmark). Benchmarks D30 par catégorie : jeux 25–30%, productivité 30–35%, B2B SaaS 40–50% (a16z 2024 SaaS Metrics Report — a16z.com/2024/saas-metrics ; Benchmark adapté à son vertical obligatoire) |
 | **Referral** | NPS (Net Promoter Score) | ≥40 = good, ≥70 = excellent (Bain & Company) |
 | **Revenue** | Monthly MRR Churn | <2%/month (ProfitWell benchmark) |
 
@@ -35,7 +35,7 @@ These two frameworks are complementary — AARRR for the macro view, HEART for p
 
 ## 2. HEART Framework — Per Feature
 
-> Source: Rodden K., Hutchinson H., Fu X. — "Measuring the User Experience on a Large Scale: User-Centered Metrics for Web Applications" (Google, CHI 2010)
+> Source: Rodden K., Hutchinson H., Fu X. — "Measuring the User Experience on a Large Scale: User-Centered Metrics for Web Applications" (Google, CHI 2010 — doi.acm.org/10.1145/1753326.1753687)
 
 | Dimension | Meaning | Example Metric |
 |-----------|--------------|-------------------|
@@ -280,3 +280,8 @@ ORDER BY c.cohort_week;
 | PostHog docs | posthog.com/docs |
 | Segment Analytics Spec | segment.com/docs/connections/spec/track |
 | ProfitWell SaaS Metrics | profitwell.com/recur/all |
+| Reforge Product Benchmarks 2023 | reforge.com |
+| OpenView Product Benchmarks 2023 | openviewpartners.com |
+| a16z 2024 SaaS Metrics Report | a16z.com/2024/saas-metrics |
+
+> **Last validated:** 2026-03-30 — Google HEART 2010, AARRR (McClure 2007), a16z 2024, OpenView 2023, Reforge 2023

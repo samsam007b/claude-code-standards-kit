@@ -13,6 +13,12 @@
 
 ---
 
+## 0. Inclusive Design
+
+**Inclusive Design** : concevoir pour les limitations permanentes (handicap), temporaires (bras cassé), et situationnelles (soleil sur l'écran). Source : Microsoft Inclusive Design Toolkit (microsoft.com/design/inclusive). Un design accessible à une personne avec handicap bénéficie à tous.
+
+---
+
 ## 1. WCAG 2.1 — The 4 POUR Principles
 
 | Principle | Meaning | Examples |
@@ -24,6 +30,8 @@
 
 **Minimum level:** WCAG 2.1 **AA** (mandatory)
 **Target:** WCAG 2.1 **AAA** for critical elements (main text, navigation)
+
+> **Legal deadline**: The European Accessibility Act (EAA) is enforceable from **June 28, 2025**. Products failing WCAG 2.1 AA compliance risk fines up to 1% of annual turnover in EU member states. Score ≥ 80/100 is the minimum legal threshold for EU deployment.
 
 ---
 
@@ -44,6 +52,14 @@
 | 8 | **Aesthetic and minimalist design** | Every element must justify its presence |
 | 9 | **Help users recognize, diagnose, and recover from errors** | Precise error messages + suggested solution |
 | 10 | **Help and documentation** | Searchable, task-oriented, concrete steps |
+
+---
+
+## 2b. Daltonisme et APCA
+
+**Daltonisme** : 8% des hommes ont une déficience de la vision des couleurs (Birch J., 'Worldwide prevalence of red-green color deficiency', Journal of the Optical Society of America A, 2012). Tester avec : Sim Daltonism (macOS), Color Oracle (multi-platform), ou Chrome DevTools → Rendering → Emulate vision deficiencies. Couvrir : deutéranopie (vert), protanopie (rouge), tritanopie (bleu).
+
+**APCA (Advanced Perceptual Contrast Algorithm)** : amélioration de l'algorithme de contraste WCAG 2.x, intégré dans WCAG 3.0 (W3C WCAG 3.0 Working Draft). APCA offre une meilleure uniformité perceptuelle, particulièrement pour les textes de taille intermédiaire. Outils : Colour Contrast Checker (APCA), apcacontrast.com.
 
 ---
 
@@ -408,6 +424,8 @@ test('page is accessible', async () => {
 
 ## 13. Sources
 
+| European Accessibility Act | Directive (EU) 2019/882, enforceable June 28, 2025, eur-lex.europa.eu | Tier 1 |
+
 | Reference | Link |
 |-----------|------|
 | W3C WCAG 2.1 | w3.org/TR/WCAG21 |
@@ -420,3 +438,9 @@ test('page is accessible', async () => {
 | W3C WCAG 2.5.8 — Target Size Minimum | w3.org/WAI/WCAG22/Understanding/target-size-minimum |
 | Apple HIG — Touch Targets | developer.apple.com/design/human-interface-guidelines/buttons |
 | WAI-ARIA Authoring Practices 1.2 | w3.org/WAI/ARIA/apg/patterns |
+| Microsoft Inclusive Design Toolkit | microsoft.com/design/inclusive |
+| Birch J. — Color deficiency prevalence (JOSA A, 2012) | doi.org/10.1364/JOSAA.29.000313 |
+| APCA — Advanced Perceptual Contrast Algorithm | apcacontrast.com |
+| W3C WCAG 3.0 Working Draft | w3.org/TR/wcag-3.0 |
+
+> **Last validated:** 2026-03-30 — WCAG 2.1 AA, EAA juin 2025, EN 301 549, W3C ARIA 1.2, Microsoft Inclusive Design Toolkit, WCAG 3.0 (draft)

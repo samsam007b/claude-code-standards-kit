@@ -132,7 +132,7 @@ These decisions have already been made implicitly. Documenting them creates inst
 
 ## Context
 
-izzico requires a PostgreSQL database with integrated authentication,
+[ClientApp] requires a PostgreSQL database with integrated authentication,
 file storage, and granular access policies by user role
 (Seekers, Residents, Owners). Initial budget: bootstrapped, no dedicated DevOps.
 

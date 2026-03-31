@@ -43,8 +43,8 @@ Error budget 99.5% over 30 days = 0.5% × 30 × 24 × 60 min = 216 min = 3h36 of
 | Service type | SLIs to measure |
 |--------------|----------------|
 | **Public website (sqwr-site)** | Uptime, LCP, HTTP error rate |
-| **Web app (izzico)** | Uptime, auth latency, API error rate |
-| **AI agents (CozyGrowth)** | Uptime, LLM latency, empty/error response rate |
+| **Web app ([ClientApp])** | Uptime, auth latency, API error rate |
+| **AI agents ([YourProject])** | Uptime, LLM latency, empty/error response rate |
 | **REST API** | Availability, p95 latency, 5xx error rate |
 
 ---
@@ -124,8 +124,8 @@ Error budget = 0.5% × 30d = **216 min/month** (3h36)
 | Service | SLO Uptime | SLO Latency | Justification |
 |---------|-----------|------------|--------------|
 | **Marketing site (sqwr-site)** | 99.5% | LCP ≤2.5s | Higher tolerance, limited impact |
-| **App with auth (izzico)** | 99.9% | Auth ≤500ms | Active users, direct impact |
-| **AI agents (CozyGrowth)** | 99.5% | LLM ≤5s | LLMs are slow by nature |
+| **App with auth ([ClientApp])** | 99.9% | Auth ≤500ms | Active users, direct impact |
+| **AI agents ([YourProject])** | 99.5% | LLM ≤5s | LLMs are slow by nature |
 | **Public API** | 99.9% | p95 ≤500ms | Technical clients, contractual SLA |
 
 ---

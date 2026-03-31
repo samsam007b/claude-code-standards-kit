@@ -77,7 +77,7 @@ updates:
       - "dependencies"
       - "npm"
     reviewers:
-      - "samuelbaudon"           # Replace with the project's GitHub username
+      - "your-github-username"    # Replace with the project's GitHub username
     commit-message:
       prefix: "chore"
       prefix-development: "chore"

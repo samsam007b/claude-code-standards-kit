@@ -409,3 +409,5 @@ npx lighthouse https://www.exemple.com --only-categories=seo,performance \
 | Open Graph Protocol | ogp.me |
 | Google Rich Results Test | search.google.com/test/rich-results |
 | Page Experience update | developers.google.com/search/docs/appearance/page-experience |
+
+> **Last validated:** 2026-03-30 — Google Search Central, Core Web Vitals, JSON-LD spec, Next.js Metadata API, Open Graph Protocol

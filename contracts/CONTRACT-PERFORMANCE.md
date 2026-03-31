@@ -201,3 +201,5 @@ Measure with **PageSpeed Insights** (pagespeed.web.dev) on critical pages:
 | DebugBear — Next.js Performance | debugbear.com/blog/nextjs-performance |
 | Google HEART Framework | research.google/pubs/measuring-the-user-experience-on-a-large-scale |
 | Google Search — Page Speed Impact | developers.google.com/search/blog/2019/04 |
+
+> **Last validated:** 2026-03-30 — Google Core Web Vitals, W3C, Lighthouse, Next.js Production Checklist, Google HEART Framework

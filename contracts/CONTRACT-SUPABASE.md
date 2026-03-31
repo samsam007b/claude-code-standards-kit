@@ -239,3 +239,5 @@ SUPABASE_SERVICE_ROLE_KEY=        # Service key — NEVER NEXT_PUBLIC_
 | JWT Security — LogRocket | blog.logrocket.com/jwt-authentication-best-practices |
 | NIST SP 800-63B | pages.nist.gov/800-63-4/sp800-63b.html |
 | OWASP Secrets Management | cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet |
+
+> **Last validated:** 2026-03-30 — Supabase docs, PostgreSQL docs, NIST SP 800-63B, OWASP Secrets Management, JWT Best Practices

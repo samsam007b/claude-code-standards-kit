@@ -44,7 +44,7 @@ RESEND_API_KEY=re_...
 ## Branches & Deployment
 
 ```
-main        → Production (sqwr.be, cozygrowth.vercel.app, etc.)
+main        → Production (your-domain.com, your-project.vercel.app, etc.)
 develop     → Automatic Vercel Preview
 feature/*   → Automatic Vercel Preview
 ```
@@ -339,3 +339,5 @@ git push origin main  # Automatically triggers a new Vercel deployment
 | Martin Fowler — Feature Toggles (2016) | martinfowler.com/articles/feature-toggles.html |
 | Vercel Skew Protection | vercel.com/docs/deployments/skew-protection |
 | Vercel Rolling Releases | vercel.com/docs/deployments/rolling-releases |
+
+> **Last validated:** 2026-03-30 — Vercel docs, Next.js docs, Martin Fowler Feature Toggles 2016, Vercel Skew Protection, Plausible Data Policy

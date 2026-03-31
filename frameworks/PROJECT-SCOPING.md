@@ -33,7 +33,7 @@ spec every pixel — it is to define the problem and the boundaries of the possi
 
 | Component | Key Question | SQWR Example |
 |-----------|-------------|--------------|
-| **Problem** | What real problem does the user have? | "Property owners can't see who has viewed their izzico listing without navigating through 3 screens" |
+| **Problem** | What real problem does the user have? | "Property owners can't see who has viewed their [ClientApp] listing without navigating through 3 screens" |
 | **Appetite** | How much time are we willing to spend on it? | "2 days max — if more, we reduce the scope" |
 | **Solution** | Fat-marker sketch (not a precise wireframe) | Owner dashboard with a view counter + list of the 5 most recent viewer profiles |
 | **Rabbit Holes** | What complexities could blow up the scope? | "Do not try to display historical analytics — just the last 30 days" |
@@ -56,7 +56,7 @@ is not defined well enough. Return to the Problem step before continuing.
 ```markdown
 # Pitch — [Short Title]
 
-**Project:** [izzico / SQWR Studio / CozyGrowth / Client X]
+**Project:** [[ClientApp] / SQWR Studio / [YourProject] / Client X]
 **Date:** [DD/MM/YYYY]
 **Appetite:** [Small 1-3d / Medium 1 week / Large 2-3 weeks]
 
@@ -168,7 +168,7 @@ identification by 30%**. The mechanism: "prospective hindsight" — imagining fa
 ```
 
 **For SQWR solo:** Do the exercise alone, then repeat with Joakim (for SQWR Studio projects)
-or Alexandre (for CozyGrowth). Even solo, the exercise forces the externalization
+or Alexandre (for [YourProject]). Even solo, the exercise forces the externalization
 of concerns that remained implicit.
 
 ### SQWR Pre-mortem Template

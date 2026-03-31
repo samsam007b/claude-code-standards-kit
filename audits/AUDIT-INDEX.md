@@ -19,9 +19,9 @@
 | **Adding an AI agent** | AI-GOVERNANCE + ANTI-HALLUCINATION (contract) |
 | **New project launched** | AI-GOVERNANCE + CODE-QUALITY + DESIGN |
 | **Client delivery (EU)** | ACCESSIBILITY (EAA mandatory) + SECURITY + DEPLOYMENT + GDPR |
-| **Before client delivery** | CLIENT-HANDOFF (→ frameworks/) + DEPLOYMENT + ACCESSIBILITY + SECURITY + GDPR |
+| **Before client delivery** | `frameworks/CLIENT-HANDOFF.md` (framework — not an audit file) + DEPLOYMENT + ACCESSIBILITY + SECURITY + GDPR |
 | **End of sprint / release** | DEPLOYMENT (CHANGELOG updated?) + CODE-QUALITY |
-| **Before product/brand launch** | BRAND-STRATEGY + COMPETITIVE-AUDIT (→ frameworks/) |
+| **Before product/brand launch** | BRAND-STRATEGY + `frameworks/COMPETITIVE-AUDIT.md` (framework — not an audit file) |
 | **Repositioning or rebranding** | BRAND-STRATEGY alone |
 | **EU general public (personal data)** | GDPR ≥80/100 mandatory before production |
 
@@ -41,6 +41,25 @@
 
 ---
 
+## Weighting Methodology
+
+The following weights reflect the relative impact of each domain on production quality and regulatory risk. This is a professional judgment calibrated against the research below — not derived from a single authoritative study.
+
+| Domain | Weight | Rationale | Source |
+|--------|--------|-----------|--------|
+| SECURITY | 22% | Highest legal liability + OWASP attack prevalence | OWASP Top 10 2021, GDPR Art.83 |
+| PERFORMANCE | 18% | Google CWV = direct SEO ranking signal + 3s bounce rate data | Google CWV ranking signal (2021), Google/Deloitte mobile study (2018) |
+| CODE-QUALITY | 18% | DORA research correlates code quality with elite deployment frequency | DORA State of DevOps Report 2023 |
+| OBSERVABILITY | 12% | Unmeasured systems cannot be improved; SRE prerequisite | Google SRE Book Chapter 6 |
+| ACCESSIBILITY | 12% | EU legal obligation (EAA June 2025) + 15% of global users | European Accessibility Act, WHO disability statistics (2023) |
+| DESIGN | 8% | Downstream of functional quality; measurable but not blocking | Baymard Institute UX Research |
+| AI-GOVERNANCE | 5% | Emerging regulatory risk (EU AI Act); applicable only when AI used | EU AI Act 2024 |
+| DEPLOYMENT | 5% | Final gate — gates above are more impactful | DORA MTTR metric |
+
+**GDPR and BRAND-STRATEGY** are out-of-weighting: mandatory when applicable, not part of the 100-point scale.
+
+---
+
 ## Scores by domain (global weighting — v2)
 
 | Audit | Weight | File | Blocking threshold |
@@ -55,9 +74,12 @@
 | **DEPLOYMENT** | 5% | `AUDIT-DEPLOYMENT.md` | Pre-prod gate |
 | **GDPR** | — | `AUDIT-RGPD.md` | ≥80/100 before general public prod |
 | **BRAND-STRATEGY** | — | `AUDIT-BRAND-STRATEGY.md` | Before launch / repositioning |
+| **RESILIENCE** | — | `AUDIT-RESILIENCE.md` | ≥70 recommended for production |
+| **RISK-SCORE** | — | `AUDIT-RISK-SCORE.md` | Composite weighted formula across all 8 domains |
 
 **Global score = weighted sum of the 8 weighted domains.**
 **GDPR and BRAND-STRATEGY are out-of-weighting audits — mandatory depending on context.**
+**RESILIENCE is a SUPPLEMENTARY audit — not included in global weighted score.** The 8 weighted domains sum to 100%; RESILIENCE is an additional audit recommended for production systems, executed separately. Run with `agents/AGENT-RESILIENCE-AUDIT.md`. Score ≥70 recommended for production systems. Not included in global weighted score.
 
 **ACCESSIBILITY <80 = non-compliant with European Accessibility Act (June 2025) — legal obligation.**
 **GDPR <80 = CNIL / ICO risk if processing personal data of EU residents.**

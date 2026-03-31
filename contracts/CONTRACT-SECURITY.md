@@ -7,9 +7,13 @@
 
 ## Scientific Foundations
 
-**Broken Access Control** is the #1 vulnerability in the OWASP Top 10 (2021 data, updated 2024). 94% of tested applications exhibit some form of broken access control. Security is not added as an afterthought — it is designed into the architecture from the start.
+**Broken Access Control** is the #1 vulnerability in the OWASP Top 10 2021 (current version as of 2026 — no subsequent edition published). 94% of tested applications exhibit some form of broken access control. Security is not added as an afterthought — it is designed into the architecture from the start.
 
 > Source: [OWASP Top 10 — owasp.org/www-project-top-ten](https://owasp.org/www-project-top-ten/)
+
+**NIST Cybersecurity Framework 2.0** (CSF 2.0, février 2024 — nist.gov/cyberframework) : couche de gouvernance de la sécurité organisationnelle. Applicable aux projets SaaS livrés à des entreprises.
+
+**CIS Controls v8** (Center for Internet Security — cisecurity.org/controls/v8) : 18 contrôles prioritaires. Controls 1-6 = 'Basic Cyber Hygiene'.
 
 ---
 
@@ -24,7 +28,9 @@
 | **A05** | Security Misconfiguration | Security headers, RLS enabled, env vars never exposed |
 | **A06** | Vulnerable Components | `npm audit` in CI, SLA <48h for critical |
 | **A07** | Auth Failures | Short sessions, refresh token rotation, no localStorage |
+| **A08** | Software and Data Integrity Failures | Verify integrity of CI/CD pipelines; use lock files (package-lock.json, yarn.lock); enable npm audit in CI; sign releases (SLSA Level 1+); no unverified plugins in build pipeline |
 | **A09** | Logging Failures | Errors logged (without sensitive data), alerts on suspicious events |
+| **A10** | Server-Side Request Forgery (SSRF) | Validate and sanitize all user-supplied URLs; use allowlist for external requests; disable HTTP redirects from user input; network segmentation to prevent internal resource access |
 
 ---
 
@@ -56,14 +62,21 @@ function sanitizeUrl(url: string): string {
 }
 <a href={sanitizeUrl(userProvidedUrl)}>Link</a>
 
-// ✅ Content Security Policy (next.config.js)
+// ✅ Minimal secure Content Security Policy (next.config.js)
+// Uses nonce-based approach — avoids 'unsafe-eval' and 'unsafe-inline'
+// which negate XSS protection entirely (OWASP CSP Cheat Sheet §Nonces)
+const nonce = crypto.randomBytes(16).toString('base64')
 const ContentSecurityPolicy = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline';
-  style-src 'self' 'unsafe-inline';
+  script-src 'self' 'nonce-${nonce}' 'strict-dynamic';
+  style-src 'self' 'nonce-${nonce}';
   img-src 'self' blob: data:;
   font-src 'self';
 `
+
+// > ⚠️ Next.js 14+ : use nonce-based CSP with headers() in next.config.js.
+// > Avoid 'unsafe-inline' and 'unsafe-eval' — they negate XSS protection.
+// > See: OWASP CSP Cheat Sheet §Nonces, Next.js docs §Content Security Policy.
 ```
 
 ---
@@ -85,7 +98,13 @@ export async function sensitiveAction(formData: FormData) {
 
 ---
 
-## 4. Injection (SQL, LDAP, OS)
+## 4. AI-Enabled Applications — Prompt Injection
+
+**OWASP LLM01:2023 — Prompt Injection** : toute route utilisant un LLM ne doit jamais inclure directement une entrée utilisateur non-sanitisée dans le system prompt. (OWASP Top 10 for LLM Applications 2023 — owasp.org/www-project-top-10-for-large-language-model-applications/)
+
+---
+
+## 5. Injection (SQL, LDAP, OS)
 
 **Supabase automatically uses prepared statements via PostgREST.** The main risk is building SQL manually.
 
@@ -102,7 +121,7 @@ const validated = ProjectSchema.parse(input)  // throws if invalid
 
 ---
 
-## 5. Security Headers (next.config.js)
+## 6. Security Headers (next.config.js)
 
 ```javascript
 /** @type {import('next').NextConfig} */
@@ -130,7 +149,7 @@ const nextConfig = {
 
 ---
 
-## 6. Dependency Scanning
+## 7. Dependency Scanning
 
 ```bash
 # In CI/CD (GitHub Actions) — block on critical vulnerabilities
@@ -153,7 +172,7 @@ npm audit fix
 
 ---
 
-## 7. Secrets Management
+## 8. Secrets Management
 
 ```bash
 # ✅ Rotate Supabase keys if compromised
@@ -167,7 +186,7 @@ git log -S "SUPABASE_SERVICE" --all  # Search through git history
 
 ---
 
-## 8. Incident Response (3 steps)
+## 9. Incident Response (3 steps)
 
 **If a compromise is detected:**
 
@@ -187,13 +206,13 @@ git log -S "SUPABASE_SERVICE" --all  # Search through git history
 
 ---
 
-## 9. GDPR Compliance — Technical Obligations
+## 10. GDPR Compliance — Technical Obligations
 
 > Sources: EU Regulation 2016/679 (GDPR), CNIL (cnil.fr), European Data Protection Board (edpb.europa.eu)
 
 **Applicable to any project processing personal data of EU residents.**
 
-### 9.1 Article 8 — Age Verification
+### 10.1 Article 8 — Age Verification
 
 **Legal threshold: minimum 16 years without parental consent (recommended implementation: 18 years).**
 
@@ -214,7 +233,7 @@ if (age < 18) {
 - `age >= 18` check server-side (not client-side only)
 - Document in Terms of Service: minimum age requirement
 
-### 9.2 Article 34 — Data Breach Notification
+### 10.2 Article 34 — Data Breach Notification
 
 **Threshold: maximum 72 hours to notify the supervisory authority (CNIL/DPA).**
 
@@ -241,7 +260,7 @@ CREATE TABLE security_breaches (
 3. If YES → notify national authority (CNIL/DPA) **< 72h** after detection
 4. If high risk to individuals → notify affected users without delay
 
-### 9.3 Articles 44-49 — International Transfers (Schrems II)
+### 10.3 Articles 44-49 — International Transfers (Schrems II)
 
 **Applicable when US sub-processors handle EU data.**
 
@@ -261,7 +280,7 @@ approved by the European Commission (Decision 2021/914).
 
 **Never:** name US sub-processors without mentioning the legal transfer mechanism.
 
-### 9.4 Circuit Breaker for Rate Limiting
+### 10.4 Circuit Breaker for Rate Limiting
 
 **Problem:** A "fail-open" rate limiter (lets requests through when Redis is down) exposes the system to DoS attacks during a Redis outage.
 
@@ -296,7 +315,7 @@ async function checkRateLimit(ip: string, limit: number, windowMs: number): Prom
 }
 ```
 
-### 9.5 Data Retention Policies
+### 10.5 Data Retention Policies
 
 **GDPR Article 5(1)(e) — Storage limitation.**
 
@@ -315,7 +334,7 @@ DELETE FROM audit_logs WHERE created_at < NOW() - INTERVAL '12 months';
 DELETE FROM analytics_events WHERE created_at < NOW() - INTERVAL '13 months';
 ```
 
-### 9.6 Protection Against Email Enumeration
+### 10.6 Protection Against Email Enumeration
 
 **Principle:** never reveal whether an email exists or not — prevents reconnaissance attacks.
 
@@ -342,7 +361,7 @@ export async function POST(req: Request) {
 
 ---
 
-## 10. Pre-Deployment Security Checklist
+## 11. Pre-Deployment Security Checklist
 
 - [ ] `npm audit --audit-level=critical` passes
 - [ ] RLS enabled on all tables with user data
@@ -415,9 +434,9 @@ npm audit
 3. Run `npm audit` after installing new packages
 4. Scan `src/` for dangerous patterns (unsafe HTML injection, direct innerHTML assignments)
 
-### RAG Poisoning — Threat for CozyGrowth/izzico Knowledge Bases
+### RAG Poisoning — Threat for AI-Powered Knowledge Bases
 
-**Anthropic Research (2025): 5 carefully crafted documents are enough to manipulate AI responses 90% of the time** in a RAG system. Source: CSA 2025 "AI Security Threats".
+**Cloud Security Alliance (CSA AI Safety Initiative, 2025): jusqu'à 90% des réponses d'un système RAG peuvent être manipulées par 5 documents soigneusement construits.** Source: CSA 2025 "AI Security Threats".
 
 **Mitigations:**
 
@@ -434,7 +453,7 @@ function validateKBDocument(doc: string): boolean {
   return !injectionPatterns.some(pattern => pattern.test(doc))
 }
 
-// For CozyGrowth: validate each KB document before insertion
+// For [YourProject]: validate each KB document before insertion
 function addToKnowledgeBase(doc: string, metadata: KBMetadata) {
   if (!validateKBDocument(doc)) {
     throw new Error('KB document rejected: injection attempt detected')
@@ -451,12 +470,15 @@ function addToKnowledgeBase(doc: string, metadata: KBMetadata) {
 | Slopsquatting — The Register | theregister.com/2025/04/12/ai_code_suggestions_sabotage_supply_chain |
 | Slopsquatting — Trend Micro | trendmicro.com/vinfo/us/security/news/slopsquatting |
 | AI Code Security — Veracode | veracode.com/blog/research/state-of-software-security-genai |
-| RAG Poisoning — Anthropic | anthropic.com/research |
+| RAG Poisoning — CSA AI Safety Initiative 2025 | cloudsecurityalliance.org/research/ai |
 | OWASP LLM03:2025 Supply Chain | genai.owasp.org/llmrisk/llm032025-supply-chain |
 
 ---
 
 ## 13. Sources
+
+| OWASP Top 10 for Agentic AI | OWASP Agentic AI Security Top 10, 2025, owasp.org | Tier 1 |
+| NIST AI 600-1 | Generative AI Risk Management Framework, NIST, 2024 | Tier 1 |
 
 | Reference | Link |
 |-----------|------|
@@ -470,3 +492,8 @@ function addToKnowledgeBase(doc: string, metadata: KBMetadata) {
 | CNIL — GDPR Developer Guide | cnil.fr/fr/la-securite-des-donnees-personnelles |
 | EDPB — International Transfer Guidelines | edpb.europa.eu/our-work-tools/our-documents/guidelines |
 | SCC — Commission Decision 2021/914 | eur-lex.europa.eu/eli/dec_impl/2021/914/oj |
+| NIST Cybersecurity Framework 2.0 | nist.gov/cyberframework |
+| CIS Controls v8 | cisecurity.org/controls/v8 |
+| OWASP Top 10 for LLM Applications 2023 | owasp.org/www-project-top-10-for-large-language-model-applications |
+
+> **Last validated:** 2026-03-30 — OWASP Top 10 2021, NIST SP 800-63B, NIST CSF 2.0, CIS Controls v8, OWASP LLM01:2023, CWE Top 25

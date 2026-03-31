@@ -1,0 +1,59 @@
+name: SQWR Kit Verification
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  verify-kit:
+    name: Verify Kit Structure
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Make verify-kit.sh executable
+        run: chmod +x scripts/verify-kit.sh
+
+      - name: Run SQWR Kit Verification
+        run: bash scripts/verify-kit.sh --verbose
+
+      - name: Validate plugin.json
+        run: python3 -m json.tool .claude-plugin/plugin.json > /dev/null && echo "plugin.json is valid JSON"
+
+      - name: Validate hooks.json
+        run: python3 -m json.tool hooks/hooks.json > /dev/null && echo "hooks.json is valid JSON"
+
+      - name: Validate all hook scripts (bash syntax)
+        run: |
+          ERRORS=0
+          for script in hooks/scripts/*.sh; do
+            if ! bash -n "$script" 2>/dev/null; then
+              echo "Syntax error in: $script"
+              ERRORS=$((ERRORS + 1))
+            fi
+          done
+          if [ "$ERRORS" -gt 0 ]; then
+            echo "$ERRORS hook script(s) have syntax errors"
+            exit 1
+          fi
+          echo "All hook scripts have valid bash syntax"
+
+      - name: Check for private data
+        run: |
+          if grep -rn "password\s*=\s*['\"][^'\"]*['\"]" hooks/scripts/ 2>/dev/null; then
+            echo "WARNING: Potential hardcoded passwords found"
+            exit 1
+          fi
+          echo "No hardcoded secrets detected"
+
+      - name: Count contracts (should be 38)
+        run: |
+          COUNT=$(ls contracts/CONTRACT-*.md 2>/dev/null | wc -l | tr -d ' ')
+          echo "Contract count: $COUNT"
+          if [ "$COUNT" -lt 38 ]; then
+            echo "WARNING: Expected 38+ contracts, found $COUNT"
+          fi
