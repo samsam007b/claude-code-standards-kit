@@ -10,6 +10,25 @@ This project adheres to [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
 ---
 
+## [3.2.0] — 2026-03-31
+
+### Added
+
+- **CONTRACT-ANTI-PATTERNS.md**: 10 AI coding anti-patterns codified with Tier 1 sources (Fowler, Martin, OWASP Agentic, DORA 2024, arXiv 2602.22302) — premature abstraction, anti-rationalization, over-engineering, hallucinated requirements, god objects, context drift, silent failures, premature optimization, cargo-cult, speculative generalization
+- **`/brainstorm` skill** (`skills/brainstorm/SKILL.md`): Pre-implementation guard — evaluates scope, reversibility, approach plurality, and motivation clarity before any implementation starts
+- **AGENT-BRAINSTORM.md**: 4-level brainstorm agent (Quick Scope Check → Full Brainstorm → Conflict Resolution → Post-Implementation Validation)
+- **AUDIT-ANTI-PATTERNS.md**: 5-section anti-patterns audit scoring /100 with automated detection scripts
+- **`scripts/install.sh`**: One-command installer (`curl -sL .../install.sh | bash`)
+- **hook-user-prompt.sh** enhanced: detects large-scope tasks, anti-rationalization requests, and database migration risk — suggests `/brainstorm` proactively
+
+### Changed
+
+- plugin.json version: 3.1.0 → 3.2.0 (39 contracts, 14 audits, 12 agents, 10 skills, 5 scripts)
+- verify-kit.sh REQUIRED_FILES: +5 new files (CONTRACT-ANTI-PATTERNS, AUDIT-ANTI-PATTERNS, AGENT-BRAINSTORM, skills/brainstorm/SKILL.md, scripts/install.sh)
+- README.md: updated counts, added `/brainstorm` to skills table, added one-liner install, added competitive positioning section
+
+---
+
 ## [3.1.0] — 2026-03-31
 
 ### Added
