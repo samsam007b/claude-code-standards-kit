@@ -5,7 +5,7 @@
 #       Uses file-based persistence (CLAUDE_ENV_FILE not supported for PreCompact)
 # Fix: Writes to .sqwr-last-state.sh instead of CLAUDE_ENV_FILE
 
-set -uo pipefail
+set -euo pipefail
 
 # Detect project root (where CLAUDE.md lives)
 PROJECT_ROOT=$(git rev-parse --show-toplevel 2>/dev/null || pwd)

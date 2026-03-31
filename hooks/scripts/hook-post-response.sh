@@ -5,7 +5,7 @@
 # Role: Advisory check — detects debug artifacts introduced in the last response
 # Mode: async (non-blocking — never delays Claude's response)
 
-set -uo pipefail
+set -euo pipefail
 
 # Read Stop event input (contains response metadata)
 INPUT=$(cat)

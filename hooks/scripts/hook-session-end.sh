@@ -3,7 +3,7 @@
 # Event: SessionEnd (fires when Claude Code session ends)
 # Role: Persist session state to .sqwr-last-state.sh for continuity across sessions
 
-set -uo pipefail
+set -euo pipefail
 
 # Read SessionEnd input
 INPUT=$(cat)
