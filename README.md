@@ -5,7 +5,7 @@
 **Professional standards for Claude Code — grounded in science, not opinions.**
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![113 files](https://img.shields.io/badge/113%20files-organised-green.svg)]()
+[![141 files](https://img.shields.io/badge/141%20files-organised-green.svg)]()
 [![Self-audit](https://img.shields.io/badge/self--audit-91%2F100-brightgreen.svg)]()
 [![Made for Claude Code](https://img.shields.io/badge/made%20for-Claude%20Code-orange.svg)]()
 [![By SQWR Studio](https://img.shields.io/badge/by-SQWR%20Studio-black.svg)](https://sqwr.be)
@@ -34,22 +34,25 @@ Run `bash scripts/verify-kit.sh --verbose` to see the kit score its own componen
 ## Quick start
 
 ```bash
+# One-command install
+curl -sL https://raw.githubusercontent.com/samsam007b/claude-code-standards-kit/main/scripts/install.sh | bash
+```
+
+Or manually:
+
+```bash
 # 1. Clone the kit
-git clone https://github.com/samsam007b/claude-code-standards-kit ~/Desktop/Project-Kit
+git clone https://github.com/samsam007b/claude-code-standards-kit ~/sqwr-standards-kit
 
-# 2. Bootstrap a new project (legacy mode — copies settings.json)
-bash ~/Desktop/Project-Kit/scripts/init-project.sh \
-  --name "my-project" --stack "nextjs-supabase" --path "~/Desktop/my-project"
-
-# 2b. Bootstrap with plugin mode (copies hooks.json + skills + commands)
-bash ~/Desktop/Project-Kit/scripts/init-project.sh \
+# 2. Bootstrap a new project (plugin mode — recommended)
+bash ~/sqwr-standards-kit/scripts/init-project.sh \
   --name "my-project" --stack "nextjs-supabase" --path "~/Desktop/my-project" --plugin
 
 # 3. Verify kit integrity
-bash ~/Desktop/Project-Kit/scripts/verify-kit.sh --verbose
+bash ~/sqwr-standards-kit/scripts/verify-kit.sh --verbose
 
 # 4. Verify project health
-bash ~/Desktop/Project-Kit/scripts/verify-project.sh --path ~/Desktop/my-project
+bash ~/sqwr-standards-kit/scripts/verify-project.sh --path ~/Desktop/my-project
 ```
 
 **Available stacks:** `nextjs-supabase` · `nextjs` · `nextjs-supabase-ai` · `python` · `ios` · `android` · `fullstack`
@@ -90,16 +93,16 @@ Read [`METHODOLOGY.md`](METHODOLOGY.md) for the full method.
 
 | Category | Files | Role |
 |-----------|---------|------|
-| **Contracts** | 38 | Business rules with numerical thresholds — copy into `CLAUDE.md` |
+| **Contracts** | 39 | Business rules with numerical thresholds — copy into `CLAUDE.md` |
 | **Frameworks** | 13 | Situational tools (branding, estimation, incident, campaign…) |
-| **Audits** | 13 | Scoring /100 per domain — run before each delivery |
-| **Agents** | 11 | Automated audit agents with 4-level verification — place in `.claude/agents/` |
-| **Skills** | 9 | Slash-command workflows — `/new-feature`, `/pre-deployment`, `/monthly-review`, `/audit-runner`, `/contract-lookup`, `/project-setup`, `/auto-fix`, `/compliance-check`, `/risk-score` |
+| **Audits** | 14 | Scoring /100 per domain — run before each delivery |
+| **Agents** | 12 | Automated audit agents with 4-level verification — place in `.claude/agents/` |
+| **Skills** | 10 | Slash-command workflows — `/new-feature`, `/brainstorm`, `/pre-deployment`, `/monthly-review`, `/audit-runner`, `/contract-lookup`, `/project-setup`, `/auto-fix`, `/compliance-check`, `/risk-score` |
 | **Commands** | 4 | Slash commands — `/init-project`, `/full-audit`, `/verify-kit`, `/verify-project` |
 | **Hooks** | 21 | Claude Code compliance hooks — enforcement + session management (21 hook scripts) |
 | **Workflows** | 3 | Structured process templates (RESEARCH → CONTRACT → CODE → AUDIT) |
 | **Templates** | 5 | `CLAUDE.md`, `settings.json`, `CHANGELOG.md`, `CONTRIBUTING.md`, `github-actions/verify-kit.yml` |
-| **Scripts** | 4 | `init-project.sh`, `verify-kit.sh`, `verify-project.sh`, `validate-claude-md.sh` |
+| **Scripts** | 5 | `install.sh`, `init-project.sh`, `verify-kit.sh`, `verify-project.sh`, `validate-claude-md.sh` |
 
 ---
 
@@ -160,6 +163,7 @@ These papers independently validate the core hypothesis: structured, sourced con
 | [`CONTRACT-EU-AI-ACT.md`](contracts/CONTRACT-EU-AI-ACT.md) | EU AI Act Compliance | EU Regulation 2024/1689, NIST AI RMF, ISO/IEC 42001 |
 | [`CONTRACT-AI-SAFETY.md`](contracts/CONTRACT-AI-SAFETY.md) | AI Safety & Agentic Security | OWASP Agentic AI Top 10 2025, NIST AI 600-1 |
 | [`CONTRACT-DORA-METRICS.md`](contracts/CONTRACT-DORA-METRICS.md) | DORA DevOps Metrics | DORA State of DevOps 2024, Accelerate (Forsgren et al.) |
+| [`CONTRACT-ANTI-PATTERNS.md`](contracts/CONTRACT-ANTI-PATTERNS.md) | AI Coding Anti-Patterns | Fowler (2018), Martin (2008), OWASP Agentic AI 2025, DORA 2024 |
 
 ---
 
@@ -193,9 +197,9 @@ The kit ships with a Claude Code–native automation layer inspired by [GSD](htt
 
 | Component | Count | What it does |
 |-----------|-------|-------------|
-| **Plugin manifest** | 1 | `.claude-plugin/plugin.json` (v3.1.0) — auto-discovers agents, skills, hooks, commands |
-| **Audit agents** | 11 | Run `agents/AGENT-SECURITY-AUDIT.md` — 4-level verification with enriched frontmatter (`model`, `effort`, `color`) |
-| **Skills** | 9 | `/new-feature`, `/pre-deployment`, `/monthly-review`, `/audit-runner`, `/contract-lookup`, `/project-setup`, `/auto-fix`, `/compliance-check`, `/risk-score` |
+| **Plugin manifest** | 1 | `.claude-plugin/plugin.json` (v3.2.0) — auto-discovers agents, skills, hooks, commands |
+| **Audit agents** | 12 | Run `agents/AGENT-SECURITY-AUDIT.md` — 4-level verification with enriched frontmatter (`model`, `effort`, `color`) |
+| **Skills** | 10 | `/brainstorm`, `/new-feature`, `/pre-deployment`, `/monthly-review`, `/audit-runner`, `/contract-lookup`, `/project-setup`, `/auto-fix`, `/compliance-check`, `/risk-score` |
 | **Slash commands** | 4 | `/init-project`, `/full-audit`, `/verify-kit`, `/verify-project` |
 | **Compliance hooks** | 21 | `hooks/hooks.json` — 21 hook scripts: secrets, build, XSS, contract compliance, session context, post-response, session-end, and more |
 | **Workflow templates** | 3 | `WORKFLOW-NEW-FEATURE.md` — 5 gates with Observable Truths |
@@ -212,6 +216,7 @@ The kit ships with a Claude Code–native automation layer inspired by [GSD](htt
 
 | Skill | Usage | Description |
 |-------|-------|-------------|
+| **Brainstorm** | `/brainstorm <task>` | **Pre-implementation guard** — scope + reversibility + approach plurality before first line of code |
 | New Feature | `/new-feature <description>` | Full RESEARCH → CONTRACT → CODE → AUDIT workflow |
 | Audit Runner | `/audit-runner <domain>` | Run one or all SQWR audit agents |
 | Pre-Deployment | `/pre-deployment` | Full quality gate before merging to main |
@@ -221,6 +226,26 @@ The kit ships with a Claude Code–native automation layer inspired by [GSD](htt
 | Auto Fix | `/auto-fix` | Automatically fix console.log, alt text, TODO format |
 | Compliance Check | `/compliance-check <regulation>` | EU regulatory compliance (EAA, GDPR, AI Act) |
 | Risk Score | `/risk-score [quick\|full]` | Compute composite SQWR Risk Score (0-100) |
+
+---
+
+## SQWR vs other Claude Code kits
+
+| Dimension | SQWR Standards Kit | dev-skills | hotl-plugin |
+|-----------|-------------------|------------|-------------|
+| Pre-implementation guard | `/brainstorm` skill + AGENT-BRAINSTORM | ✓ (behavioral) | ✓ (workflow) |
+| Anti-patterns standard | 10 patterns, cited sources | ✗ | ✗ |
+| Contracts / standards | **39 domains** | 3 contracts | 3 contracts |
+| Hook coverage | **21 scripts, 18 events** | ✗ | ✗ |
+| Audit system | **14 audits, /100 per domain** | 30 behavioral evals | ✗ |
+| EU compliance | EAA + GDPR + EU AI Act | ✗ | ✗ |
+| Scientific citations | arXiv + OWASP + NIST | ✗ | ✗ |
+| Risk Score formula | Weighted, verifiable | ✗ | ✗ |
+| One-command install | `curl \| bash` | npx | install.sh |
+| Self-verifying | `verify-kit.sh` 18 tests | 98 assertions | ✗ |
+| Regulatory compliance | OWASP, WCAG, Core Web Vitals, EU AI Act | ✗ | ✗ |
+
+**The key difference:** SQWR provides *industry-standard, source-cited thresholds* — not behavioral rules. Every threshold (`LCP ≤2.5s`, `Security < 70 = BLOCKED`) has a verifiable source. Other kits enforce workflow; SQWR enforces standards.
 
 ---
 
