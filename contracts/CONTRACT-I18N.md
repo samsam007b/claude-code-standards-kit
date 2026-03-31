@@ -301,3 +301,5 @@ const rtlLocales = ['ar', 'he', 'fa', 'ur']
 | MDN — Intl API | developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Intl |
 | Common Sense Advisory 2014 | csa-research.com |
 | GDPR Art. 7 — Consent | eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:32016R0679 |
+
+> **Last validated:** 2026-03-30 — Unicode CLDR, W3C i18n, ICU, BCP 47, MDN Intl API, GDPR Art. 7

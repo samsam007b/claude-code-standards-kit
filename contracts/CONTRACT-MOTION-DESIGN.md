@@ -32,7 +32,7 @@ This contract covers: web/app UI animations, social motion design (Reels, TikTok
 .button:active { transform: scale(0.97); }
 ```
 
-Beyond 200ms, the user perceives **lag** — the response no longer feels instantaneous (Miller's Law: threshold of "immediate" = 100-200ms).
+Beyond 200ms, the user perceives **lag** — the response no longer feels instantaneous. (Doherty & Thadhani, IBM Systems Journal Vol. 21 No. 1, 1982 : réponses <400ms créent un sentiment d'immédiateté. Nielsen Norman Group, 1993 : ≤100ms = instantané, ≤1s = flux ininterrompu. 200ms est le seuil d'implémentation courant entre les deux.)
 
 ---
 
@@ -136,6 +136,7 @@ const easings = {
 
 ```typescript
 // Framer Motion — stagger entry (0.08s between each item)
+// (Source : Material Design Motion guidelines — material.io/design/motion. Note : ces valeurs proviennent de guidelines de design, non d'études de perception publiées — ajuster selon le nombre d'éléments et le contexte.)
 const container = {
   hidden: { opacity: 0 },
   show: {
@@ -229,6 +230,8 @@ export const AnimatedCard: React.FC = () => {
 > Source: W3C WCAG 2.3 SC 2.3.3 — Animation from Interactions (AAA) (w3.org/TR/WCAG23)
 > Source: MDN — prefers-reduced-motion (developer.mozilla.org/fr/docs/Web/CSS/@media/prefers-reduced-motion)
 > **Threshold: respecting `prefers-reduced-motion` is mandatory (WCAG 2.3 SC 2.3.3)**
+
+**RÈGLE #0 — prefers-reduced-motion est obligatoire (WCAG 2.3.3)** : toute animation non essentielle doit être désactivée si `@media (prefers-reduced-motion: reduce)`. Violation = non-conformité légale (EAA juin 2025).
 
 ```css
 /* ✅ Global pattern — reduce or remove all animations */
@@ -334,3 +337,6 @@ export const motionTokens = {
 | TikTok Creator Portal | creator.tiktok.com/creator-portal |
 | YouTube upload specs | support.google.com/youtube/answer/1722171 |
 | MDN — prefers-reduced-motion | developer.mozilla.org/fr/docs/Web/CSS/@media/prefers-reduced-motion |
+| Doherty & Thadhani — IBM Systems Journal Vol.21 No.1 | 1982 |
+
+> **Last validated:** 2026-03-30 — Material Design 3 Motion, Apple HIG Motion, WCAG 2.3 (AAA), Doherty & Thadhani 1982

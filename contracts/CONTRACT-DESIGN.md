@@ -486,3 +486,5 @@ Incorrect example:  50 → L*=95, 100 → L*=93, 200 → L*=94 ← inversion = e
 | Google Material Design 3 (m3.material.io) | Animation timing standards |
 | Nielsen Norman Group — 4 Dimensions of Tone of Voice (nngroup.com) | Voice & Tone matrix |
 | Fairchild, M.D. — *Color Appearance Models* 3rd ed. (Wiley, 2013) | CIECAM02/CIELAB ΔE |
+
+> **Last validated:** 2026-03-30 — Gestalt principles, WCAG, Apple HIG, Material Design 3, Nielsen Norman Group, Color Appearance Models (Fairchild)

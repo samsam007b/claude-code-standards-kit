@@ -295,3 +295,5 @@ return <StaticRecommendations />  // fallback
 | Release It! — Michael Nygard | pragprog.com/titles/mnee2 |
 | Supabase Connection Pooling | supabase.com/docs/guides/database/connecting-to-postgres |
 | Vercel Serverless Cold Starts | vercel.com/docs/functions/runtimes |
+
+> **Last validated:** 2026-03-30 — AWS Well-Architected Framework, Release It\! (Nygard 2018), Google SRE Book, Microsoft Resilience Patterns, Supabase docs

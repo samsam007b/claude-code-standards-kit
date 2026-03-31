@@ -120,8 +120,8 @@ Both methods trigger a **MAJOR** SemVer increment.
 ```bash
 # Feature
 feat(auth): add Google OAuth2 login
-feat(dashboard): display listing view counter for Client B
-feat(agents): integrate GPT-4 Turbo for Client A agent planning
+feat(dashboard): display listing view counter for [ClientApp]
+feat(agents): integrate GPT-4 Turbo for [YourProject] agent planning
 
 # Fix
 fix(button): fix hover state on Safari mobile

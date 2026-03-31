@@ -1,0 +1,51 @@
+{
+  "_comment": "LEGACY — For projects not using the plugin system. If using the plugin (recommended), hooks are auto-discovered from .claude-plugin/plugin.json via hooks/hooks.json. This file is kept for backwards compatibility with manual installations.",
+  "_instructions": "Copy to .claude/settings.json in your project. Replace KIT_PATH with the absolute path to your SQWR Project Kit. For plugin-based installations, use hooks/hooks.json instead.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash KIT_PATH/hooks/scripts/hook-no-secrets.sh",
+            "_comment": "CONTRACT-SECURITY §2 — blocks committing secrets (OWASP A02, NIST SP 800-63B)"
+          },
+          {
+            "type": "command",
+            "command": "bash KIT_PATH/hooks/scripts/hook-build-before-commit.sh",
+            "_comment": "AUDIT-DEPLOYMENT — blocks push if lint/build fails (pre-push only). Bypass: SQWR_SKIP_BUILD_CHECK=1",
+            "match": "git push"
+          },
+          {
+            "type": "command",
+            "command": "bash KIT_PATH/hooks/scripts/hook-audit-before-push.sh",
+            "_comment": "AUDIT-INDEX — reminds to run audit before push (advisory, never blocks)"
+          }
+        ]
+      },
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash KIT_PATH/hooks/scripts/hook-no-dangerous-html.sh",
+            "_comment": "CONTRACT-SECURITY §2 — warns on unsafe HTML injection without sanitization (OWASP A03: XSS)"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash KIT_PATH/hooks/scripts/hook-contract-compliance.sh",
+            "_comment": "All active contracts — warns on: excessive any types, @ts-ignore without comment, console.log, missing img alt, TODO/FIXME/HACK"
+          }
+        ]
+      }
+    ]
+  }
+}

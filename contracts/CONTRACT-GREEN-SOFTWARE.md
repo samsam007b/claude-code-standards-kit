@@ -2,7 +2,7 @@
 
 > SQWR Project Kit contract module.
 > Sources: ISO/IEC 21031:2024 (SCI), Green Software Foundation, GHG Protocol.
-> Principle: software accounts for 4% of global emissions — every technical decision has a carbon cost.
+> Principle: Le secteur ICT représente 1.8–3.9% des émissions mondiales de GES (IEA 2022 ; Freitag et al., *The Real Climate and Transformative Impact of ICT: A Critique of Common Approaches and Toward New Avenues of Action*, Patterns 2021, DOI:10.1016/j.patter.2021.100340) — every technical decision has a carbon cost.
 
 ---
 
@@ -22,12 +22,14 @@ Functional unit = per request / per user / per transaction
 
 > Source: *ISO/IEC 21031:2024 — Software Carbon Intensity Specification*
 > Source: *Green Software Foundation — SCI Specification (sci.greensoftware.foundation)*
+> Méthode LCA de référence : ISO 14040:2006 + ISO 14044:2006 (référence formelle : ISO 14040:2006 + ISO 14044:2006 — LCA methodology)
+> Standard de calcul : Green Software Foundation SCI Specification v1.0 (Green Software Foundation SCI Specification v1.0 — greensoftware.foundation/articles/software-carbon-intensity)
 
 ---
 
 ## 1. Why This Matters for SQWR
 
-- **4%** of global greenhouse gas emissions come from software and data centers
+- Le secteur ICT représente **1.8–3.9%** des émissions mondiales de GES (IEA 2022 ; Freitag et al., *The Real Climate and Transformative Impact of ICT*, Patterns 2021, DOI:10.1016/j.patter.2021.100340)
 - European B2B clients are beginning to require proof of carbon impact
 - The European Commission is working on carbon reporting obligations for SMEs
 - LLMs have a significant carbon cost — **SCI for AI** (Green Software Foundation, 2025)
@@ -48,7 +50,7 @@ The carbon intensity of electricity varies considerably by region.
 | `us-east-1` (N. Virginia) | ~350 gCO2e/kWh | Coal + gas |
 | `ap-southeast-1` (Singapore) | ~450 gCO2e/kWh | Natural gas |
 
-**Real-time tool:** electricitymap.org — carbon intensity by region/country
+**Real-time tool:** electricitymap.org — carbon intensity by region/country (données opérationnelles temps réel — non certifiées LCA ; utiliser comme estimation advisory, pas comme baseline de recherche)
 
 **SQWR Recommendation:** For Vercel, choose `eu-central-1` or `eu-west-1` by default for European projects — lower latency AND lower emissions.
 
@@ -208,3 +210,8 @@ SCI = (E_vercel × I_region + E_supabase × I_region + E_llm × I_llm_datacenter
 | Electricity Maps | electricitymap.org |
 | Cloud Carbon Footprint | cloudcarbonfootprint.org |
 | Green Software Principles | principles.green |
+| ISO 14040:2006 + ISO 14044:2006 — LCA Methodology | iso.org/standard/37456.html |
+| IEA — Tracking Clean Energy Progress 2022 | iea.org |
+| Freitag et al. 2021 — ICT emissions | doi.org/10.1016/j.patter.2021.100340 |
+
+> **Last validated:** 2026-03-30 — ISO/IEC 21031:2024 (SCI), ISO 14040/44 (LCA), GSF SCI v1.0, IEA 2022, Freitag et al. 2021

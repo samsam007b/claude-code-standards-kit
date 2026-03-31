@@ -27,7 +27,7 @@ The method that produced this kit is itself documented in `METHODOLOGY.md`. It c
 
 ## What you will find in this kit
 
-### 26 Contracts — The rules to follow during construction
+### 38 Contracts — The rules to follow during construction
 
 Contracts are markdown files you copy into your project (or reference in your `CLAUDE.md`). Each contract covers a domain and defines the rules with measurable thresholds and cited sources.
 
@@ -59,6 +59,9 @@ Contracts are markdown files you copy into your project (or reference in your `C
 | `CONTRACT-ANDROID.md` | Jetpack Compose, Material 3, TalkBack, Vitals | Android Developers, m3.material.io |
 | `CONTRACT-MOTION-DESIGN.md` | UI animation, Remotion, easing, prefers-reduced-motion | Material Design 3, Apple HIG, W3C WCAG 2.3 |
 | `CONTRACT-VIDEO-PRODUCTION.md` | Video pipeline, platform export, ElevenLabs, AI studio | Instagram/TikTok/YouTube specs, NN/G |
+| `CONTRACT-API-DESIGN.md` | REST/GraphQL design, versioning, rate limiting | RFC 7231, OpenAPI 3.1.0, OWASP API Security |
+| `CONTRACT-DATABASE-MIGRATIONS.md` | Schema evolution, zero-downtime, rollback | Fowler 2016, PostgreSQL, AWS Well-Architected |
+| `CONTRACT-ERROR-HANDLING.md` | Error boundaries, user messages, retry | Nielsen NN/G, Google SRE Book, React docs |
 
 ### 13 Frameworks — The situational tools
 
@@ -80,7 +83,7 @@ Frameworks are not permanent rules — they are tools to pull out at the right m
 | `UX-RESEARCH.md` | **Before any feature** — JTBD, interviews, usability testing |
 | `SOCIAL-CONTENT.md` | Social presence launch — pillars, calendar, tone, creators |
 
-### 11 Audits — The measurement tools
+### 13 Audits — The measurement tools
 
 Audits allow scoring /100 for each domain at any point in the project.
 
@@ -89,16 +92,18 @@ Audits allow scoring /100 for each domain at any point in the project.
 | Security | 22% | < 70 = blocking |
 | Performance | 18% | < 70 recommended |
 | Code Quality | 18% | < 75 recommended |
-| Observability | 12% | < 70 recommended |
+| Observability | 12% | < 60 recommended |
 | Accessibility | 12% | < 80 recommended (+ EU legal) |
 | Design | 8% | < 70 recommended |
 | AI Governance | 5% | < 80 recommended |
 | Deployment | 5% | Pre-production gate |
 | GDPR | — | ≥80/100 before public prod |
 | Brand Strategy | — | Before launch or repositioning |
+| Resilience | — | ≥70 recommended |
 
-**Average score without this kit: ~51/100**
-**Target score with this kit: ≥85/100**
+**Target score with this kit: ≥85/100** (verify-kit.sh baseline + AGENT-FULL-AUDIT.md)
+
+**SQWR Risk Score (composite):** The `/risk-score` skill computes a weighted composite score (0–100) across all audit dimensions using the formula: `(Security×0.22 + Performance×0.18 + CodeQuality×0.18 + Observability×0.12 + Accessibility×0.12 + Design×0.08 + AIGovernance×0.05 + Deployment×0.05)`. A score below 70 triggers a blocking review before any production deployment.
 
 ### 5 Templates — Files to copy into every project
 
@@ -110,11 +115,52 @@ CHANGELOG.md       → Keep a Changelog 1.1.0 + SemVer 2.0.0
 CONTRIBUTING.md    → Conventional Commits + AI rules
 ```
 
+### 9 Skills — Executable workflows
+
+Slash commands that run complex workflows automatically:
+
+| Skill | Invocation | What it does |
+|-------|-----------|-------------|
+| `new-feature` | `/new-feature [description]` | RESEARCH → CONTRACT → CODE → AUDIT cycle |
+| `pre-deployment` | `/pre-deployment` | All blocking gates before merging to main |
+| `monthly-review` | `/monthly-review` | Full audit + deps + SLO + contract validation |
+| `contract-lookup` | `/contract-lookup [task]` | Finds applicable contracts with exact rules |
+| `audit-runner` | `/audit-runner [domain\|full]` | Runs specific or full audit suite |
+| `project-setup` | `/project-setup [name] [stack] [path]` | Bootstraps new project interactively |
+| `auto-fix` | `/auto-fix` | Automatically fix console.log, alt text, TODO format |
+| `compliance-check` | `/compliance-check [regulation]` | EU regulatory compliance (EAA, GDPR, AI Act) |
+| `risk-score` | `/risk-score [quick\|full]` | Compute composite SQWR Risk Score (0-100) |
+
+## Modular Rules (6)
+
+The `rules/` directory contains contextual rules that Claude Code activates based on file paths:
+
+| Rule | Activated for | Key constraints |
+|------|--------------|-----------------|
+| security-rules.md | src/**, api/**, lib/** | No SQL injection, no hardcoded secrets, input validation |
+| accessibility-rules.md | components/**, pages/**, *.html | Alt text, contrast ≥4.5:1, keyboard nav |
+| performance-rules.md | src/**, next.config.* | LCP ≤2.5s, INP ≤200ms, CLS ≤0.1 |
+| api-rules.md | api/**, src/app/api/** | Rate limiting, auth headers, schema validation |
+| testing-rules.md | __tests__/**, *.test.* | Coverage ≥80%, test pyramid, no mocks of internals |
+| documentation-rules.md | *.md, docs/** | README requirements, link validation, code examples |
+
+### 4 Commands — Slash commands
+
+| Command | What it does |
+|---------|-------------|
+| `/init-project` | Runs `init-project.sh` + validates output |
+| `/full-audit` | Runs `AGENT-FULL-AUDIT.md` |
+| `/verify-kit` | Runs `verify-kit.sh` |
+| `/verify-project` | Validates a project CLAUDE.md |
+
 ### 3 Scripts — Automation
 
 ```bash
-# Full bootstrap of a new project
+# Full bootstrap of a new project (legacy mode)
 bash scripts/init-project.sh --name "mon-projet" --stack "nextjs-supabase" --path "~/Desktop/mon-projet"
+
+# Full bootstrap with plugin mode (copies skills, commands, hooks.json)
+bash scripts/init-project.sh --name "mon-projet" --stack "nextjs-supabase" --path "~/Desktop/mon-projet" --plugin
 
 # Verify kit integrity
 bash scripts/verify-kit.sh --verbose
@@ -154,6 +200,21 @@ That is the difference between "having good practices" and "knowing the professi
 ### Minutes 7-8: Run an audit
 
 Open `audits/AUDIT-INDEX.md`. Follow the sequencing. Run `AUDIT-SECURITY.md` on any existing project.
+
+### Minutes 7-8 (continued): Try a skill
+
+After reading a contract, try the contract lookup skill:
+
+```
+Ask Claude: "/contract-lookup user signup form with email validation"
+```
+
+Observe how it maps your task description to specific contract sections and numerical thresholds.
+
+Then try the audit runner on a test project:
+```
+Ask Claude: "/audit-runner security"
+```
 
 ### Minutes 9-10: Explore the frameworks
 
@@ -198,15 +259,13 @@ Follow the format of existing contracts: introduction → numbered sections → 
 **4. Open/Closed**
 Open to extension (new contracts), closed to unsourced modification (no removal of sources without a replacement).
 
-### Uncovered domains — extension opportunities
+### Potential future domains
 
 | Domain | Priority | Sources to explore |
 |---------|---------|-------------------|
-| Android | P2 | Material Design 3, Android Accessibility advanced (Compose) |
-| Internationalisation (i18n) | P2 | Next.js i18n docs, Unicode CLDR, ICU Message Format |
-| Pricing & monetisation | P2 | Van Westendorp, Price Intelligently, value-based pricing |
-| User research (UX) | P2 | JTBD (Christensen), Nielsen usability testing, Baymard Institute |
-| Android | P3 | Material Design 3, Android Accessibility (WCAG) |
+| WebAssembly | P2 | W3C WASM spec, Emscripten docs, Bytecode Alliance |
+| Monorepo tooling | P2 | Turborepo docs, Nx documentation, pnpm workspaces |
+| Supply chain security | P2 | SLSA framework, SBOM (CycloneDX), CISA guidance |
 
 ---
 
@@ -266,3 +325,106 @@ If you improve it, sharing your improvements benefits everyone.
 **On estimation & project management:**
 - Ryan Singer, *Shape Up* (basecamp.com/shapeup) — free online
 - Daniel Kahneman, *Thinking, Fast and Slow* (2011) — planning bias
+
+---
+
+## Worked Example — Adding a User Signup Form
+
+This is a complete walkthrough of the RESEARCH → CONTRACT → CODE → AUDIT workflow for a real feature.
+
+**Feature**: Add an email + password signup form with validation, error handling, and accessibility.
+
+---
+
+### Step 1 — RESEARCH (20 min)
+
+Before writing a single line of code, identify the applicable standards.
+
+**Contracts to read for this feature:**
+- `docs/contracts/CONTRACT-SECURITY.md` → Input validation (Zod), no plaintext passwords
+- `docs/contracts/CONTRACT-ACCESSIBILITY.md` → Label/input association (WCAG 1.3.1), error message association (WCAG 3.3.1)
+- `docs/contracts/CONTRACT-TYPESCRIPT.md` → Type the form state, use strict types
+- `docs/contracts/CONTRACT-ERROR-HANDLING.md` → Nielsen's 4 error message principles
+
+**Key rules identified:**
+- Passwords must be hashed with bcrypt (cost factor ≥12) — NIST SP 800-63B
+- Email must be validated with Zod before any DB write — OWASP A03
+- Each form field must have a `<label>` associated via `htmlFor` — WCAG 1.3.1
+- Error messages must say what happened + why + solution — Nielsen 1993
+- `@ts-ignore` is forbidden; type the entire form state
+
+---
+
+### Step 2 — CONTRACT (5 min)
+
+Update your project's `CLAUDE.md` to note which contracts are active for this feature:
+
+```
+Active for this sprint: CONTRACT-SECURITY (§3 Input Validation), CONTRACT-ACCESSIBILITY (§2 Forms), CONTRACT-ERROR-HANDLING (§1 User Messages)
+```
+
+---
+
+### Step 3 — CODE (implementation)
+
+With contracts active, Claude Code will apply the rules automatically via hooks:
+
+```typescript
+// Zod schema — CONTRACT-SECURITY §3
+const SignupSchema = z.object({
+  email: z.string().email("Please enter a valid email address"),
+  password: z.string()
+    .min(12, "Password must be at least 12 characters")
+    .regex(/[A-Z]/, "Password must contain at least one uppercase letter"),
+})
+
+// Error messages follow Nielsen's 4 principles
+// "Your password is too short" — what happened
+// "Passwords must be at least 12 characters" — why
+// "Add more characters to continue" — solution
+// (no "Error code: PASS_001" — human language)
+```
+
+The `hook-contract-compliance.sh` will warn if:
+- `any` type is used (>3 times)
+- `console.log` is present in the signup handler
+- `<img>` is added without `alt`
+
+---
+
+### Step 4 — AUDIT (30 min)
+
+After implementing the feature, run the relevant agents:
+
+```
+Ask Claude: "Run .claude/agents/AGENT-SECURITY-AUDIT.md"
+Ask Claude: "Run .claude/agents/AGENT-ACCESSIBILITY-AUDIT.md"
+```
+
+**Sample expected results:**
+
+```
+SQWR SECURITY AUDIT — my-project
+Score   : 84/100    Status: PASS
+Level 1 : 5/6       (middleware missing — add middleware.ts)
+Level 2 : 6/7       (no rate limiting on /api/signup — add Upstash)
+Level 3 : 5/5       ✓
+Level 4 : 4/5       (manual test: CSRF verified via SameSite cookies)
+
+SQWR ACCESSIBILITY AUDIT — my-project
+Score   : 91/100    Status: PASS
+Level 1 : 6/7       (missing skip-to-content link)
+Level 2 : 7/8       (one fieldset/legend missing on address group)
+Level 3 : 5/5       ✓
+Level 4 : 4/5       (screen reader test: passed with VoiceOver)
+```
+
+**Action from audit:**
+- Security 84/100: add rate limiting (`upstash/ratelimit`) to `/api/auth/signup`
+- Accessibility 91/100: add `<fieldset><legend>Account Details</legend>` around email+password fields
+
+After fixing: re-run audit → SECURITY 89/100, ACCESSIBILITY 95/100. Ship.
+
+---
+
+**The complete cycle took:** Research 20min + Contract 5min + Code [variable] + Audit 30min = 55 minutes of overhead for a production-grade, standards-compliant feature.

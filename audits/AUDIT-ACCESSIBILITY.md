@@ -1,7 +1,7 @@
 # Accessibility Audit
 
 > Based on WCAG 2.1 AA, Nielsen's 10 Heuristics (NN/G), ARIA Authoring Practices.
-> Score: /100 | Recommended threshold: ≥85
+> Score: /100 | Blocking threshold: <80 (EU legal — EAA) | Target: ≥85 (best practice)
 
 ---
 

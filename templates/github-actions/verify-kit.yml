@@ -1,0 +1,36 @@
+name: SQWR Kit Verification
+
+# Runs the SQWR Project Kit integrity checker on every PR and push to main.
+# Source: scripts/verify-kit.sh — validates 13 structural dimensions.
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  verify-kit:
+    name: SQWR Kit Integrity Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run verify-kit.sh
+        run: bash scripts/verify-kit.sh --verbose
+
+      - name: Verify plugin manifest is valid JSON
+        run: python3 -m json.tool .claude-plugin/plugin.json > /dev/null
+
+      - name: Verify hooks.json is valid JSON
+        run: python3 -m json.tool hooks/hooks.json > /dev/null
+
+      - name: Count kit files
+        run: |
+          FILE_COUNT=$(find . -type f -not -path './.git/*' | wc -l | tr -d ' ')
+          echo "Kit file count: $FILE_COUNT"
+          if [ "$FILE_COUNT" -lt 100 ]; then
+            echo "Warning: fewer than 100 files in kit (expected ~110+)"
+          fi

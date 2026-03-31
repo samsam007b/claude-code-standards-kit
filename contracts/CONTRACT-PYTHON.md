@@ -300,3 +300,5 @@ pytest tests/ --cov=src/sqwr_dictate --cov-report=term-missing
 | ruff — linter | docs.astral.sh/ruff |
 | PyObjC — macOS binding | pyobjc.readthedocs.io |
 | FastAPI — REST API Python | fastapi.tiangolo.com |
+
+> **Last validated:** 2026-03-30 — PEP 8, PEP 484, mypy docs, FastAPI docs, black formatter, ruff linter

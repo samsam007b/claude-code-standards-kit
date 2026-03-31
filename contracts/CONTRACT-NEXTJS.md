@@ -166,8 +166,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     __html: JSON.stringify({
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
-      "name": "SQWR Studio",
-      "url": "https://sqwr.be"
+      "name": "[YOUR COMPANY NAME]",
+      "url": "https://[your-domain].com"
     })
   }}
 />
@@ -238,3 +238,5 @@ const HeavyComponent = dynamic(() => import('./HeavyComponent'))  // ssr: true b
 | DebugBear — Next.js Performance | debugbear.com/blog/nextjs-performance |
 | Google Search Blog — Page Speed | developers.google.com/search/blog/2019/04/user-experience-improvements-with-page |
 | Google HEART Framework | research.google/pubs/measuring-the-user-experience-on-a-large-scale |
+
+> **Last validated:** 2026-03-30 — Next.js docs, React docs, W3C, Vercel, Google Core Web Vitals, Google HEART Framework

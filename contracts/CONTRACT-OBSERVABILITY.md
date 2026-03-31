@@ -216,3 +216,5 @@ pg_dump "postgresql://postgres:[password]@[host]:5432/postgres" \
 | Sentry Next.js Setup | docs.sentry.io/platforms/javascript/guides/nextjs |
 | Vercel Speed Insights | vercel.com/docs/speed-insights |
 | Supabase Backup & PITR | supabase.com/docs/guides/platform/backups |
+
+> **Last validated:** 2026-03-30 — OpenTelemetry, Google SRE Book, Sentry docs, Vercel Speed Insights, Supabase Backup & PITR

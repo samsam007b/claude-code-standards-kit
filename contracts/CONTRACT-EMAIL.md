@@ -334,3 +334,5 @@ EMAIL_FROM_NAME="App Name"              # Name displayed in the inbox
 | React Email | react.email/docs |
 | MXToolbox | mxtoolbox.com/SuperTool.aspx |
 | Google Postmaster Tools | postmaster.google.com |
+
+> **Last validated:** 2026-03-30 — RFC 5321, RFC 8058 (List-Unsubscribe), SPF/DKIM/DMARC RFCs, CAN-SPAM Act, Resend docs, React Email

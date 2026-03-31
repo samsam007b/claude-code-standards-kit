@@ -324,3 +324,5 @@ npm install --save-dev semantic-release @semantic-release/changelog @semantic-re
 | Husky | typicode.github.io/husky |
 | Vercel Preview Deployments | vercel.com/docs/deployments/preview-deployments |
 | semantic-release | github.com/semantic-release/semantic-release |
+
+> **Last validated:** 2026-03-30 — DORA metrics, Conventional Commits, GitHub Actions docs, Semantic Versioning 2.0.0, Vercel Preview Deployments

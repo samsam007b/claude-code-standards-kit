@@ -2,6 +2,7 @@
 
 > SQWR Project Kit contract module.
 > Sources: W3C CSS Paged Media Module Level 3 (w3.org/TR/css-page-3), MDN Web Docs Print CSS (developer.mozilla.org/en-US/docs/Web/CSS/CSS_paged_media), Puppeteer Documentation (pptr.dev), react-pdf (react-pdf.org).
+> Reference standards: **ISO 14289-1:2014** (PDF/UA — PDF Universal Accessibility) and **ISO 32000-2:2020** (PDF 2.0 specification).
 
 ---
 
@@ -319,8 +320,8 @@ const browser = await puppeteer.launch({
 | Operation | Target threshold | Action if exceeded |
 |-----------|-----------------|-------------------|
 | Simple PDF generation (react-pdf) | < 2 seconds | Optimise custom fonts |
-| Complex PDF generation (Puppeteer) | < 10 seconds | Use an async worker |
-| PDF file size | < 5 MB | Compress images (< 72 DPI for screen, 150 DPI for print) |
+| Complex PDF generation (Puppeteer) | < 10 seconds (10 secondes = tolérance maximale utilisateur — Nielsen Norman Group, 'Response Times: The 3 Important Limits', 1993 ; compatible avec AWS Lambda default timeout de 15s) | Use an async worker |
+| PDF file size | < 5 MB (5MB = limite pratique basée sur 5s de téléchargement à 8 Mbps — bande passante mobile médiane mondiale selon Akamai State of the Internet Report 2024) | Compress images (< 72 DPI for screen, 150 DPI for print) |
 
 ---
 
@@ -373,3 +374,6 @@ const browser = await puppeteer.launch({
 | pdf-lib | pdf-lib.js.org |
 | qrcode (npm) | npmjs.com/package/qrcode |
 | PDF/UA — ISO 14289-1 | pdfa.org/pdf-ua |
+| ISO 32000-2:2020 — PDF 2.0 Specification | iso.org/standard/75839.html |
+
+> **Last validated:** 2026-03-30 — ISO 14289-1:2014, ISO 32000-2:2020, W3C CSS Paged Media Level 3

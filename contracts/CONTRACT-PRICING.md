@@ -59,7 +59,7 @@ EVC = Economic reference of the best alternative
     + Differentiation value (positive or negative)
 ```
 
-**Golden rule: capture 10-20% of the value created for the customer.** (Simon-Kucher benchmark)
+**Golden rule: capture 10-20% of the value created for the customer.** (Source : Simon-Kucher & Partners, *Value-Based Pricing: Drive Sales and Profits with Customer-Value Pricing*, 2012 ; Nagle, Hogan & Zale, *The Strategy and Tactics of Pricing*, 5th ed., 2011)
 
 ### EVC Calculation Template
 
@@ -117,7 +117,7 @@ TARGET SEGMENT: [Precise description]
 
 | Model | Conversion rate | Best for | Avoid if |
 |-------|----------------|----------|----------|
-| **Freemium** | 2-5% (ProfitWell 2020) | Viral, individual usage, very low CAC | Complex product requiring onboarding |
+| **Freemium** | 2-5% (ProfitWell 2020) — (OpenView Product Benchmarks 2024 : taux de conversion freemium-to-paid médian = 3-5% ; top quartile = 8-12% — openviewpartners.com) | Viral, individual usage, very low CAC | Complex product requiring onboarding |
 | **Free Trial (14d)** | 15-25% (ProfitWell) | B2B, clear demo, fast time-to-value | Product requiring > 14d to understand value |
 | **Demo + Paid** | 20-40% after demo | Enterprise, high price (>500€/month) | SMB (too much effort for the customer) |
 
@@ -218,3 +218,7 @@ const prices = {
 | Kahneman & Tversky — Anchoring (Science, 1974) | science.org/doi/10.1126/science.185.4157.1124 |
 | Stripe — Lookup Keys | stripe.com/docs/products-prices/manage-prices |
 | Simon-Kucher — Pricing Power | simon-kucher.com |
+| OpenView Product Benchmarks 2024 | openviewpartners.com |
+| Nagle, Hogan & Zale — The Strategy and Tactics of Pricing (5th ed., 2011) | Routledge |
+
+> **Last validated:** 2026-03-30 — Van Westendorp 1976, Simon-Kucher 2012, Nagle et al. 2011, OpenView 2024

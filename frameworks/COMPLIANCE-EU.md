@@ -12,7 +12,7 @@
 |------|-----------|------------|
 | **28 June 2025** | **EAA in force** — accessibility mandatory for digital products in the EU | All websites delivered to EU clients |
 | **2 August 2025** | EU AI Act — GPAI (General-Purpose AI) obligations | Any project using LLM APIs |
-| **2 August 2026** | EU AI Act — high-risk AI systems (Annex III) | Client B (matching), Client A (agents) |
+| **2 August 2026** | EU AI Act — high-risk AI systems (Annex III) | [ClientApp] (matching), [YourProject] (AI agents) |
 
 ---
 
@@ -24,8 +24,8 @@ Before 2 August 2026, each SQWR AI system must be classified.
 
 | System | Use | Classification | Required Action |
 |--------|-----|---------------|----------------|
-| **Client A agents** | Marketing content generation for clubs | Limited risk | Transparency (indicate AI) |
-| **Client B matching** | Co-living Seekers/Owners matching | To evaluate (Annex III possible) | Compliance assessment |
+| **[YourProject] agents** | Marketing content generation (AI-assisted) | Limited risk | Transparency (indicate AI) |
+| **[ClientApp] matching** | User matching / recommendation | To evaluate (Annex III possible) | Compliance assessment |
 | **Claude Code (dev)** | Internal development tool | Out of scope (professional use) | None |
 | **Client chatbots** | If SQWR develops for clients | Limited risk | AI disclosure mandatory |
 
@@ -160,8 +160,8 @@ Keep this register up to date for each active project:
 | Project | EAA audit | EU AI Act classified | GDPR DPAs signed | NIS2 if applicable |
 |---------|-----------|--------------------|-----------------|--------------------|
 | sqwr-site | [ ] | N/A | Vercel ✅ | N/A |
-| Client B | [ ] | [ ] To evaluate | Vercel ✅ Supabase ✅ | N/A |
-| Client A | [ ] | [ ] Limited risk | Vercel ✅ Supabase ✅ Anthropic ☐ | N/A |
+| [ClientApp] | [ ] | [ ] To evaluate | Vercel ✅ Supabase ✅ | N/A |
+| [your-project] | [ ] | [ ] Limited risk | Vercel ✅ Supabase ✅ Anthropic ☐ | N/A |
 | [Client project] | [ ] | N/A | [ ] | [ ] If regulated sector |
 
 ---

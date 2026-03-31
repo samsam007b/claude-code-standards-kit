@@ -61,6 +61,14 @@
 
 ---
 
+## 2b. Mutation Testing
+
+**Mutation Testing** — Code coverage measures execution, not assertion quality. Mutation testing (Stryker JS, pitest for Java) injects mutations into the code and verifies that tests detect them. **Mutation score ≥60% for critical modules** (Stryker JS docs — "meaningful coverage baseline", stryker-mutator.io); cf. Delahaye et al., IEEE TSE 2015 (mutation testing taxonomy and operator classification — the ≥60% threshold comes from Stryker documentation, not from this academic paper).
+
+**Boundary-Value Analysis (BVA)** : tester systématiquement les valeurs limites pour tous les inputs : min, max, min-1, max+1. C'est la technique de génération de cas de test la plus efficace (Beizer, *Software Testing Techniques*, 2nd ed., 1995 ; IEEE Std 829-2008 — IEEE Standard for Software Test Documentation).
+
+---
+
 ## 3. Definition of Done (Agile Alliance)
 
 > An increment is only "done" if the tests are written AND passing.
@@ -225,3 +233,9 @@ export default defineConfig({
 | React Testing Library | testing-library.com/docs/react-testing-library/intro |
 | Playwright Documentation | playwright.dev |
 | Vitest Documentation | vitest.dev |
+| Stryker — Mutation Testing | stryker-mutator.io |
+| Beizer — Software Testing Techniques (2nd ed., 1995) | ISBN 978-1850328803 |
+| IEEE Std 829-2008 — Software Test Documentation | ieeexplore.ieee.org |
+| Delahaye et al. — IEEE TSE 2015 | ieeexplore.ieee.org |
+
+> **Last validated:** 2026-03-30 — Martin Fowler Test Pyramid, Agile Alliance DoD, ISO/IEC 29119, Stryker JS, Beizer 1995

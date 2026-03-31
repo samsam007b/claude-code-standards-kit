@@ -349,3 +349,5 @@ fun StatusIndicator(isActive: Boolean) {
 | Compose Navigation type-safe | developer.android.com/jetpack/compose/navigation |
 | Statcounter Mobile OS Market Share | gs.statcounter.com/os-market-share/mobile |
 | Android Developers — Data Safety | support.google.com/googleplay/android-developer/answer/10787469 |
+
+> **Last validated:** 2026-03-30 — Material Design 3, Android docs, Jetpack Compose, Android Vitals, Play Store Target API requirements

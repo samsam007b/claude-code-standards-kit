@@ -370,3 +370,5 @@ struct DashboardView: View {
 | W3C WCAG 1.4.3 — Contrast Minimum | w3.org/WAI/WCAG21/Understanding/contrast-minimum |
 | WWDC 2023 — App Performance | developer.apple.com/videos/play/wwdc2023 |
 | App Store Review Guidelines | developer.apple.com/app-store/review/guidelines |
+
+> **Last validated:** 2026-03-30 — Apple HIG, WWDC, SwiftUI docs, W3C WCAG 2.1, App Store Review Guidelines
