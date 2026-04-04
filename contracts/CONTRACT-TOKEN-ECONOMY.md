@@ -2,8 +2,8 @@
 
 > **Claude Code Standards Kit** by [SQWR Studio](https://sqwr.be)
 >
-> **Domain:** Token economy, model delegation, context management
-> **Sources:** Anthropic API pricing (2025), Claude Code docs, empirical testing (3.2x cost reduction validated)
+> **Domain:** Token economy, model delegation, context management, shell output compression
+> **Sources:** Anthropic API pricing (2025), Claude Code docs, empirical testing (3.2x cost reduction validated), RTK empirical data (83.7% shell compression validated)
 
 ---
 
@@ -11,7 +11,7 @@
 
 Claude Code bills per token. **99.4% of cost is input tokens** (context), not output. Every file Claude reads, every CLAUDE.md line, every agent spawn multiplies context. Without optimization, a single session can burn $5-15 in tokens for work that should cost $1-3.
 
-This contract provides measurable thresholds for token economy across 5 domains: model delegation, context reduction, research patterns, output control, and monitoring.
+This contract provides measurable thresholds for token economy across 6 domains: model delegation, context reduction, research patterns, output control, shell output compression, and monitoring.
 
 ---
 
@@ -187,16 +187,90 @@ Thinking tokens and output tokens are billed at output rates (5x input on Opus).
 
 ---
 
-## 5. Monitoring & Enforcement
+## 5. Shell Output Compression (RTK)
+
+### Principle
+
+When Claude Code runs shell commands (`git diff`, `npm run build`, `eslint .`, `cargo test`…), the raw output enters the context window. A single ESLint run on a large project can inject 300k+ tokens. **RTK (Rust Token Killer)** intercepts these commands and compresses output before it reaches the model.
+
+### Validated results (RTK empirical data, 2025)
+
+| Command | Raw tokens | With RTK | Compression |
+|---------|-----------|----------|-------------|
+| `cargo test` (262 tests) | 4,823 | 11 | 99% |
+| `git diff` (large changeset) | 21,500 | 1,259 | 94% |
+| `eslint .` (large project) | ~322,000 | ~400 | 99.9% |
+| 30-minute Claude Code session | ~150,000 | ~45,000 | **70%** |
 
 ### Rules
 
 | ID | Rule | Threshold |
 |----|------|-----------|
-| TE-5.1 | **PostToolUse hook on Agent matcher** to monitor subagent output | Alert if subagent output > 800 words |
-| TE-5.2 | **Compact instructions in CLAUDE.md** to survive compaction | Section header: `# Compact instructions` |
-| TE-5.3 | **Memory system documents the pattern** for cross-session persistence | Feedback memory with validated test results |
-| TE-5.4 | **Measure cost weekly** with `ccusage daily --breakdown` | Target: 30-50% reduction from baseline |
+| TE-5.1 | **RTK MUST be installed** on any machine using Claude Code for development | `brew install rtk-ai/tap/rtk` or `cargo install rtk` |
+| TE-5.2 | **RTK hook MUST be registered** as PreToolUse Bash hook | After security hooks, before execution |
+| TE-5.3 | **RTK telemetry SHOULD be disabled** | `RTK_TELEMETRY_DISABLED=1` in env |
+| TE-5.4 | **Measure savings weekly** | `rtk gain --history` |
+
+### Installation
+
+```bash
+# Install
+brew install rtk-ai/tap/rtk
+
+# Initialize for Claude Code (creates hook file)
+rtk init -g
+
+# Add to ~/.claude/settings.json PreToolUse hooks:
+# { "type": "command", "command": "~/.claude/hooks/rtk-rewrite.sh" }
+
+# Verify
+rtk gain
+```
+
+### Hook order (important)
+
+```
+Bash command → [1] security-validate.sh → [2] rtk-rewrite.sh → Claude Code
+```
+
+Security check runs first. RTK compression runs second on the validated command.
+
+### RTK + opusplan mode
+
+The recommended full setup uses three models in sequence:
+
+```
+User request
+  → Phase 1: Haiku subagent (web/doc research, max 400 tokens)
+  → Phase 2: Opus (reads summary, writes plan)
+  → Phase 3: Sonnet (executes plan — code, edits, shell commands)
+        ↳ Shell commands → RTK compression before entering context
+```
+
+**Settings to activate this pipeline:**
+
+```json
+{
+  "model": "opusplan",
+  "env": {
+    "CLAUDE_CODE_SUBAGENT_MODEL": "haiku",
+    "RTK_TELEMETRY_DISABLED": "1"
+  }
+}
+```
+
+---
+
+## 6. Monitoring & Enforcement
+
+### Rules
+
+| ID | Rule | Threshold |
+|----|------|-----------|
+| TE-6.1 | **PostToolUse hook on Agent matcher** to monitor subagent output | Alert if subagent output > 800 words |
+| TE-6.2 | **Compact instructions in CLAUDE.md** to survive compaction | Section header: `# Compact instructions` |
+| TE-6.3 | **Memory system documents the pattern** for cross-session persistence | Feedback memory with validated test results |
+| TE-6.4 | **Measure cost weekly** with `ccusage daily --breakdown` + `rtk gain --history` | Target: 30-50% reduction from baseline |
 
 ### Recommended settings.json
 
@@ -229,6 +303,7 @@ Thinking tokens and output tokens are billed at output rates (5x input on Opus).
 | .claudeignore on all projects | 20% | 0-100 |
 | CLAUDE.md under 400 lines with skills migration | 15% | 0-100 |
 | Output controls configured | 10% | 0-100 |
+| RTK installed and hooked | 15% | 0-100 |
 | Monitoring hooks active | 10% | 0-100 |
 
 **Delivery threshold: >= 85/100**
