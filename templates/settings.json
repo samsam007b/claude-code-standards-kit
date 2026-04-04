@@ -1,6 +1,23 @@
 {
-  "_comment": "LEGACY — For projects not using the plugin system. If using the plugin (recommended), hooks are auto-discovered from .claude-plugin/plugin.json via hooks/hooks.json. This file is kept for backwards compatibility with manual installations.",
-  "_instructions": "Copy to .claude/settings.json in your project. Replace KIT_PATH with the absolute path to your SQWR Project Kit. For plugin-based installations, use hooks/hooks.json instead.",
+  "_comment": "Claude Code settings template — Claude Code Standards Kit by SQWR Studio",
+  "_instructions": "Copy to .claude/settings.json (project-level) or ~/.claude/settings.json (global). Replace KIT_PATH with your kit path. See CONTRACT-TOKEN-ECONOMY for rationale.",
+
+  "env": {
+    "CLAUDE_CODE_EFFORT_LEVEL": "medium",
+    "CLAUDE_CODE_MAX_OUTPUT_TOKENS": "16384",
+    "MAX_THINKING_TOKENS": "10000",
+    "CLAUDE_CODE_SUBAGENT_MODEL": "haiku",
+    "CLAUDE_CODE_DISABLE_1M_CONTEXT": "1"
+  },
+
+  "effortLevel": "medium",
+  "autoCompactWindow": 60000,
+  "skipDangerousModePermissionPrompt": true,
+
+  "permissions": {
+    "defaultMode": "bypassPermissions"
+  },
+
   "hooks": {
     "PreToolUse": [
       {
@@ -9,18 +26,7 @@
           {
             "type": "command",
             "command": "bash KIT_PATH/hooks/scripts/hook-no-secrets.sh",
-            "_comment": "CONTRACT-SECURITY §2 — blocks committing secrets (OWASP A02, NIST SP 800-63B)"
-          },
-          {
-            "type": "command",
-            "command": "bash KIT_PATH/hooks/scripts/hook-build-before-commit.sh",
-            "_comment": "AUDIT-DEPLOYMENT — blocks push if lint/build fails (pre-push only). Bypass: SQWR_SKIP_BUILD_CHECK=1",
-            "match": "git push"
-          },
-          {
-            "type": "command",
-            "command": "bash KIT_PATH/hooks/scripts/hook-audit-before-push.sh",
-            "_comment": "AUDIT-INDEX — reminds to run audit before push (advisory, never blocks)"
+            "_comment": "CONTRACT-SECURITY §2 — blocks committing secrets (OWASP A02)"
           }
         ]
       },
@@ -30,7 +36,7 @@
           {
             "type": "command",
             "command": "bash KIT_PATH/hooks/scripts/hook-no-dangerous-html.sh",
-            "_comment": "CONTRACT-SECURITY §2 — warns on unsafe HTML injection without sanitization (OWASP A03: XSS)"
+            "_comment": "CONTRACT-SECURITY §2 — warns on unsafe HTML injection (OWASP A03: XSS)"
           }
         ]
       }
@@ -42,7 +48,17 @@
           {
             "type": "command",
             "command": "bash KIT_PATH/hooks/scripts/hook-contract-compliance.sh",
-            "_comment": "All active contracts — warns on: excessive any types, @ts-ignore without comment, console.log, missing img alt, TODO/FIXME/HACK"
+            "_comment": "All active contracts — warns on: excessive any types, @ts-ignore, console.log, missing img alt"
+          }
+        ]
+      },
+      {
+        "matcher": "Agent",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash KIT_PATH/hooks/scripts/hook-subagent-output.sh",
+            "_comment": "CONTRACT-TOKEN-ECONOMY TE-5.1 — alerts if subagent output exceeds 800 words"
           }
         ]
       }

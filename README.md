@@ -5,7 +5,7 @@
 **Professional standards for Claude Code — grounded in science, not opinions.**
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![141 files](https://img.shields.io/badge/141%20files-organised-green.svg)]()
+[![151+ files](https://img.shields.io/badge/151%2B%20files-organised-green.svg)]()
 [![Self-audit](https://img.shields.io/badge/self--audit-91%2F100-brightgreen.svg)]()
 [![Made for Claude Code](https://img.shields.io/badge/made%20for-Claude%20Code-orange.svg)]()
 [![By SQWR Studio](https://img.shields.io/badge/by-SQWR%20Studio-black.svg)](https://sqwr.be)
@@ -67,7 +67,7 @@ bash ~/sqwr-standards-kit/scripts/verify-project.sh --path ~/Desktop/my-project
 | Backend API or data pipeline | `python` |
 | Native iPhone / iPad app | `ios` |
 | Native Android app | `android` |
-| Full platform — all 38 contract domains | `fullstack` |
+| Full platform — all 40 contract domains | `fullstack` |
 
 ---
 
@@ -83,7 +83,7 @@ bash ~/sqwr-standards-kit/scripts/verify-project.sh --path ~/Desktop/my-project
   topic?"
 ```
 
-Claude Code does not start from opinions. It looks up existing standards, synthesises them into actionable rules, then applies them. This kit structures that workflow across 38 contract domains.
+Claude Code does not start from opinions. It looks up existing standards, synthesises them into actionable rules, then applies them. This kit structures that workflow across 40 contract domains.
 
 Read [`METHODOLOGY.md`](METHODOLOGY.md) for the full method.
 
@@ -93,15 +93,15 @@ Read [`METHODOLOGY.md`](METHODOLOGY.md) for the full method.
 
 | Category | Files | Role |
 |-----------|---------|------|
-| **Contracts** | 39 | Business rules with numerical thresholds — copy into `CLAUDE.md` |
+| **Contracts** | 40 | Business rules with numerical thresholds — copy into `CLAUDE.md` |
 | **Frameworks** | 13 | Situational tools (branding, estimation, incident, campaign…) |
 | **Audits** | 14 | Scoring /100 per domain — run before each delivery |
-| **Agents** | 12 | Automated audit agents with 4-level verification — place in `.claude/agents/` |
+| **Agents** | 14 | Automated audit agents + Haiku research subagents — place in `.claude/agents/` |
 | **Skills** | 10 | Slash-command workflows — `/new-feature`, `/brainstorm`, `/pre-deployment`, `/monthly-review`, `/audit-runner`, `/contract-lookup`, `/project-setup`, `/auto-fix`, `/compliance-check`, `/risk-score` |
 | **Commands** | 4 | Slash commands — `/init-project`, `/full-audit`, `/verify-kit`, `/verify-project` |
-| **Hooks** | 21 | Claude Code compliance hooks — enforcement + session management (21 hook scripts) |
+| **Hooks** | 22 | Claude Code compliance hooks — enforcement + session management + token economy monitoring (22 hook scripts) |
 | **Workflows** | 3 | Structured process templates (RESEARCH → CONTRACT → CODE → AUDIT) |
-| **Templates** | 5 | `CLAUDE.md`, `settings.json`, `CHANGELOG.md`, `CONTRIBUTING.md`, `github-actions/verify-kit.yml` |
+| **Templates** | 6 | `CLAUDE.md`, `settings.json`, `.claudeignore`, `CHANGELOG.md`, `CONTRIBUTING.md`, `github-actions/verify-kit.yml` |
 | **Scripts** | 5 | `install.sh`, `init-project.sh`, `verify-kit.sh`, `verify-project.sh`, `validate-claude-md.sh` |
 
 ---
@@ -164,6 +164,7 @@ These papers independently validate the core hypothesis: structured, sourced con
 | [`CONTRACT-AI-SAFETY.md`](contracts/CONTRACT-AI-SAFETY.md) | AI Safety & Agentic Security | OWASP Agentic AI Top 10 2025, NIST AI 600-1 |
 | [`CONTRACT-DORA-METRICS.md`](contracts/CONTRACT-DORA-METRICS.md) | DORA DevOps Metrics | DORA State of DevOps 2024, Accelerate (Forsgren et al.) |
 | [`CONTRACT-ANTI-PATTERNS.md`](contracts/CONTRACT-ANTI-PATTERNS.md) | AI Coding Anti-Patterns | Fowler (2018), Martin (2008), OWASP Agentic AI 2025, DORA 2024 |
+| [`CONTRACT-TOKEN-ECONOMY.md`](contracts/CONTRACT-TOKEN-ECONOMY.md) | Token Economy & Cost Optimization | Anthropic Pricing 2025, arXiv 2601.08815, Empirical (3.2x validated) |
 
 ---
 
@@ -235,7 +236,7 @@ The kit ships with a Claude Code–native automation layer inspired by [GSD](htt
 |-----------|-------------------|------------|-------------|
 | Pre-implementation guard | `/brainstorm` skill + AGENT-BRAINSTORM | ✓ (behavioral) | ✓ (workflow) |
 | Anti-patterns standard | 10 patterns, cited sources | ✗ | ✗ |
-| Contracts / standards | **39 domains** | 3 contracts | 3 contracts |
+| Contracts / standards | **40 domains** | 3 contracts | 3 contracts |
 | Hook coverage | **21 scripts, 18 events** | ✗ | ✗ |
 | Audit system | **14 audits, /100 per domain** | 30 behavioral evals | ✗ |
 | EU compliance | EAA + GDPR + EU AI Act | ✗ | ✗ |
@@ -314,6 +315,7 @@ Self-audit: **91/100**. `bash scripts/verify-kit.sh --verbose` → 0 errors.
 | Brand | Sinek (2009), Jung/Mark & Pearson (2001), Donald Miller (2017) |
 | Estimation | PERT (1957), Kahneman & Tversky (Nobel 2002) |
 | AI / LLM | Anthropic docs, Lakera, Nature 2025 |
+| Token Economy | Anthropic Pricing 2025, arXiv 2601.08815, Empirical (3.2x validated) |
 | EU Legal | Regulation EU 2024/1689, EAA, ENISA NIS2 |
 
 ---
@@ -327,10 +329,10 @@ project-kit/
 ├── IDENTITY-TEMPLATE.md    → Identity sheet to personalise
 ├── METHODOLOGY.md          → Full method (read first)
 ├── DISCOVERY-GUIDE.md      → 10-Minute kit tour, PDF-ready
-├── contracts/              → 38 contracts (thresholds + sources)
+├── contracts/              → 40 contracts (thresholds + sources)
 ├── frameworks/             → 13 situational tools
 ├── audits/                 → 13 audits scoring /100
-├── agents/                 → 11 audit agents (model/effort/color frontmatter)
+├── agents/                 → 14 agents (audit agents + Haiku research subagents)
 ├── skills/                 → 9 skills (/new-feature, /pre-deployment, /monthly-review, /compliance-check, /risk-score…)
 ├── commands/               → 4 slash commands (/init-project, /full-audit…)
 ├── hooks/                  → Plugin hooks

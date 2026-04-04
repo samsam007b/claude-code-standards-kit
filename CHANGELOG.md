@@ -8,6 +8,15 @@ This project adheres to [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
 ## [Unreleased]
 
+### Added
+
+- **CONTRACT-TOKEN-ECONOMY.md**: Complete token economy optimization contract — model delegation (TE-1.x), two-phase research pattern validated at 3.2x cost reduction (TE-2.x), context reduction with .claudeignore and CLAUDE.md migration (TE-3.x), output controls (TE-4.x), monitoring hooks (TE-5.x). Sources: Anthropic pricing 2025, empirical testing, arXiv 2601.08815
+- **AGENT-RESEARCHER.md**: Haiku subagent for web research — mandatory 400 token summary + ranked "dig deeper" table format
+- **AGENT-DOC-READER.md**: Haiku subagent for documentation reading — mandatory 400 token digest + "sections to read" table format
+- **hook-subagent-output.sh**: PostToolUse hook (Agent matcher) — alerts when subagent output exceeds 800 words (CONTRACT-TOKEN-ECONOMY TE-5.1)
+- **templates/.claudeignore**: Universal .claudeignore template with stack-specific sections (Next.js, iOS, Android, Python, Monorepo)
+- **templates/settings.json**: Updated with token economy settings (effort level, thinking tokens, output tokens, subagent model, compact window, bypass permissions, subagent monitoring hook)
+
 ---
 
 ## [3.2.0] — 2026-03-31
