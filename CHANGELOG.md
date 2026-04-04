@@ -10,12 +10,17 @@ This project adheres to [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
 ### Added
 
-- **CONTRACT-TOKEN-ECONOMY.md**: Complete token economy optimization contract — model delegation (TE-1.x), two-phase research pattern validated at 3.2x cost reduction (TE-2.x), context reduction with .claudeignore and CLAUDE.md migration (TE-3.x), output controls (TE-4.x), monitoring hooks (TE-5.x). Sources: Anthropic pricing 2025, empirical testing, arXiv 2601.08815
-- **AGENT-RESEARCHER.md**: Haiku subagent for web research — mandatory 400 token summary + ranked "dig deeper" table format
-- **AGENT-DOC-READER.md**: Haiku subagent for documentation reading — mandatory 400 token digest + "sections to read" table format
-- **hook-subagent-output.sh**: PostToolUse hook (Agent matcher) — alerts when subagent output exceeds 800 words (CONTRACT-TOKEN-ECONOMY TE-5.1)
+- **CONTRACT-TOKEN-ECONOMY.md**: Complete token economy optimization contract — 7 domains: model delegation (TE-1.x), two-phase research pattern 3.2x cheaper (TE-2.x), context reduction .claudeignore + CLAUDE.md migration (TE-3.x), output controls (TE-4.x), RTK shell compression 70-99% (TE-5.x), MCP server hygiene 50-100K tokens/session (TE-6.x), monitoring (TE-7.x). Sources: Anthropic pricing 2025, empirical testing, RTK Issue #690, arXiv 2601.08815
+- **AGENT-RESEARCHER.md**: Haiku subagent for web research — mandatory 400 token summary + ranked "dig deeper" table
+- **AGENT-DOC-READER.md**: Haiku subagent for documentation reading — mandatory 400 token digest + "sections to read" table
+- **hook-subagent-output.sh**: PostToolUse hook (Agent matcher) — alerts when subagent output exceeds 800 words (CONTRACT-TOKEN-ECONOMY TE-7.1)
 - **templates/.claudeignore**: Universal .claudeignore template with stack-specific sections (Next.js, iOS, Android, Python, Monorepo)
-- **templates/settings.json**: Updated with token economy settings (effort level, thinking tokens, output tokens, subagent model, compact window, bypass permissions, subagent monitoring hook)
+- **templates/settings.json**: Full token economy config — `model: opusplan` (Haiku research → Opus plan → Sonnet execute, 68% savings), env vars, bypass permissions, RTK telemetry disabled, subagent monitoring hook
+- **templates/rtk-filters.toml**: RTK user-global filters — bypass compression for all test commands (npm test, pytest, cargo test, xcodebuild, gradle) to prevent Issue #690 debug loops. Documents which commands RTK should compress vs pass raw.
+
+### Insights (validated, no action required)
+
+- **Prompt caching**: Claude Code caches automatically. Manual breakpoints are API-only, not configurable in Claude Code. Optimal caching is achieved by keeping CLAUDE.md short + stable + minimal MCP servers — all already covered by TE-3.x and TE-6.x.
 
 ---
 

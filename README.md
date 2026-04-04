@@ -5,7 +5,7 @@
 **Professional standards for Claude Code — grounded in science, not opinions.**
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![151+ files](https://img.shields.io/badge/151%2B%20files-organised-green.svg)]()
+[![160+ files](https://img.shields.io/badge/160%2B%20files-organised-green.svg)]()
 [![Self-audit](https://img.shields.io/badge/self--audit-91%2F100-brightgreen.svg)]()
 [![Made for Claude Code](https://img.shields.io/badge/made%20for-Claude%20Code-orange.svg)]()
 [![By SQWR Studio](https://img.shields.io/badge/by-SQWR%20Studio-black.svg)](https://sqwr.be)
@@ -101,7 +101,7 @@ Read [`METHODOLOGY.md`](METHODOLOGY.md) for the full method.
 | **Commands** | 4 | Slash commands — `/init-project`, `/full-audit`, `/verify-kit`, `/verify-project` |
 | **Hooks** | 22 | Claude Code compliance hooks — enforcement + session management + token economy monitoring (22 hook scripts) |
 | **Workflows** | 3 | Structured process templates (RESEARCH → CONTRACT → CODE → AUDIT) |
-| **Templates** | 6 | `CLAUDE.md`, `settings.json`, `.claudeignore`, `CHANGELOG.md`, `CONTRIBUTING.md`, `github-actions/verify-kit.yml` |
+| **Templates** | 7 | `CLAUDE.md`, `settings.json`, `.claudeignore`, `rtk-filters.toml`, `CHANGELOG.md`, `CONTRIBUTING.md`, `github-actions/verify-kit.yml` |
 | **Scripts** | 5 | `install.sh`, `init-project.sh`, `verify-kit.sh`, `verify-project.sh`, `validate-claude-md.sh` |
 
 ---

@@ -1,0 +1,46 @@
+schema_version = 1
+
+# RTK User-Global Filters — SQWR Standards Kit
+# Place at: ~/.config/rtk/filters.toml (macOS/Linux)
+#            %APPDATA%\rtk\filters.toml (Windows)
+#
+# These filters override RTK's default compression for specific commands.
+# See CONTRACT-TOKEN-ECONOMY §5 and github.com/rtk-ai/rtk/issues/690
+#
+# IMPORTANT: Test output compression is the #1 RTK footgun.
+# Issue #690: RTK strips DOM snapshots, assertion diffs, retry traces.
+# Result: agents spend 170+ tool calls debugging a truncated output.
+# Fix: set max_lines = -1 on all test commands (pass through raw).
+
+# === TEST COMMANDS — NO COMPRESSION ===
+
+[filters.test-bypass-npm]
+description = "Pass npm/npx test output raw — compression causes debug loops (Issue #690)"
+match_command = "^(npm|npx)\\s+(run\\s+)?(test|e2e|jest|vitest|cypress|playwright)"
+max_lines = -1
+
+[filters.test-bypass-pytest]
+description = "Pass pytest output raw — assertion diffs are critical for debugging"
+match_command = "^pytest\\b"
+max_lines = -1
+
+[filters.test-bypass-cargo]
+description = "Pass cargo test raw — Rust assertion output must be uncompressed"
+match_command = "^cargo\\s+test\\b"
+max_lines = -1
+
+[filters.test-bypass-xcode]
+description = "Pass xcodebuild test raw — iOS test output must be uncompressed"
+match_command = "^xcodebuild\\s+test\\b"
+max_lines = -1
+
+[filters.test-bypass-gradle]
+description = "Pass gradle test raw — Android test output must be uncompressed"
+match_command = "^(./)?gradlew?\\s+(test|connectedAndroidTest)\\b"
+max_lines = -1
+
+# === KEEP COMPRESSED (RTK defaults — good) ===
+# git status, git log, git diff  → compressed by default, works well
+# ls, find, cat                  → compressed by default, works well
+# eslint, tsc, ruff              → compressed by default, works well
+# docker ps, kubectl get         → compressed by default, works well
