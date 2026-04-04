@@ -1,13 +1,17 @@
 {
   "_comment": "Claude Code settings template — Claude Code Standards Kit by SQWR Studio",
-  "_instructions": "Copy to .claude/settings.json (project-level) or ~/.claude/settings.json (global). Replace KIT_PATH with your kit path. See CONTRACT-TOKEN-ECONOMY for rationale.",
+  "_instructions": "Copy to ~/.claude/settings.json (global) or .claude/settings.json (project). Replace KIT_PATH with your kit path. See CONTRACT-TOKEN-ECONOMY for full rationale.",
+
+  "model": "opusplan",
+  "_model_comment": "opusplan = Opus for planning/reasoning, Sonnet for execution. Haiku handles research via CLAUDE_CODE_SUBAGENT_MODEL. 68% cost reduction vs all-Opus (validated). Fallback: 'claude-opus-4-6' if Sonnet unavailable.",
 
   "env": {
     "CLAUDE_CODE_EFFORT_LEVEL": "medium",
     "CLAUDE_CODE_MAX_OUTPUT_TOKENS": "16384",
     "MAX_THINKING_TOKENS": "10000",
     "CLAUDE_CODE_SUBAGENT_MODEL": "haiku",
-    "CLAUDE_CODE_DISABLE_1M_CONTEXT": "1"
+    "CLAUDE_CODE_DISABLE_1M_CONTEXT": "1",
+    "RTK_TELEMETRY_DISABLED": "1"
   },
 
   "effortLevel": "medium",
@@ -15,7 +19,8 @@
   "skipDangerousModePermissionPrompt": true,
 
   "permissions": {
-    "defaultMode": "bypassPermissions"
+    "defaultMode": "bypassPermissions",
+    "_defaultMode_comment": "bypassPermissions = no confirmation prompts. Protected paths (.git, .claude, .vscode) are always protected regardless. VS Code: set claudeCode.initialPermissionMode = 'plan' in settings.json to start in plan mode."
   },
 
   "hooks": {
@@ -27,6 +32,12 @@
             "type": "command",
             "command": "bash KIT_PATH/hooks/scripts/hook-no-secrets.sh",
             "_comment": "CONTRACT-SECURITY §2 — blocks committing secrets (OWASP A02)"
+          },
+          {
+            "type": "command",
+            "command": "bash KIT_PATH/hooks/scripts/hook-build-before-commit.sh",
+            "_comment": "AUDIT-DEPLOYMENT — blocks push if lint/build fails. Bypass: SQWR_SKIP_BUILD_CHECK=1",
+            "match": "git push"
           }
         ]
       },
@@ -58,7 +69,7 @@
           {
             "type": "command",
             "command": "bash KIT_PATH/hooks/scripts/hook-subagent-output.sh",
-            "_comment": "CONTRACT-TOKEN-ECONOMY TE-5.1 — alerts if subagent output exceeds 800 words"
+            "_comment": "CONTRACT-TOKEN-ECONOMY TE-7.1 — alerts if subagent output exceeds 800 words (two-phase research enforcement)"
           }
         ]
       }
