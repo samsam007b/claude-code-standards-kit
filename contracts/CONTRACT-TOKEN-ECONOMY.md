@@ -11,7 +11,7 @@
 
 Claude Code bills per token. **99.4% of cost is input tokens** (context), not output. Every file Claude reads, every CLAUDE.md line, every agent spawn multiplies context. Without optimization, a single session can burn $5-15 in tokens for work that should cost $1-3.
 
-This contract provides measurable thresholds for token economy across 6 domains: model delegation, context reduction, research patterns, output control, shell output compression, and monitoring.
+This contract provides measurable thresholds for token economy across 7 domains: model delegation, context reduction, research patterns, output control, shell output compression, MCP server hygiene, and monitoring.
 
 ---
 
@@ -261,16 +261,56 @@ User request
 
 ---
 
-## 6. Monitoring & Enforcement
+## 6. MCP Server Hygiene
+
+### Principle
+
+Every active MCP server loads its tool definitions into every session's context. With 5+ MCP servers active, this overhead can reach 50-100K tokens before you write a single line of code — and RTK cannot compress this overhead (it's context, not shell output).
 
 ### Rules
 
 | ID | Rule | Threshold |
 |----|------|-----------|
-| TE-6.1 | **PostToolUse hook on Agent matcher** to monitor subagent output | Alert if subagent output > 800 words |
-| TE-6.2 | **Compact instructions in CLAUDE.md** to survive compaction | Section header: `# Compact instructions` |
-| TE-6.3 | **Memory system documents the pattern** for cross-session persistence | Feedback memory with validated test results |
-| TE-6.4 | **Measure cost weekly** with `ccusage daily --breakdown` + `rtk gain --history` | Target: 30-50% reduction from baseline |
+| TE-6.1 | **Disable MCP servers not used in daily workflow** | Each unused MCP = 10-20K tokens overhead per session |
+| TE-6.2 | **Never configure cloud MCP servers (Gmail, Notion, Calendar) locally** if they duplicate integrations already in your primary MCP hub | One integration platform is sufficient |
+| TE-6.3 | **Audit active MCP servers monthly** | `claude mcp list` → disable unused |
+| TE-6.4 | **Never store API keys in mcp.json** | Use environment variables or secret managers |
+
+### MCP server cost model
+
+```
+Session cost = base context + (N_mcp × 10-20K tokens) + conversation
+```
+
+With 5 MCP servers: +50-100K tokens before any work = +$0.75-1.50/session on Opus.
+
+### Recommended: minimal MCP config
+
+Keep only what you use daily. Prefer one MCP hub that aggregates multiple integrations (e.g. Composio, RUBE) over many individual MCP servers.
+
+### RTK bypass for test commands (Critical)
+
+RTK over-compresses test output (Issue #690 — 3.6M tokens wasted in one session). **Add bypass rules for all test commands:**
+
+```toml
+# ~/.config/rtk/filters.toml or equivalent
+[filters.test-bypass]
+match_command = "^(npm|npx)\\s+(run\\s+)?(test|e2e|playwright|jest|vitest)"
+max_lines = -1  # No compression on test output
+```
+
+---
+
+## 7. Monitoring & Enforcement
+
+### Rules
+
+| ID | Rule | Threshold |
+|----|------|-----------|
+| TE-7.1 | **PostToolUse hook on Agent matcher** to monitor subagent output | Alert if subagent output > 800 words |
+| TE-7.2 | **Compact instructions in CLAUDE.md** to survive compaction | Section header: `# Compact instructions` |
+| TE-7.3 | **Memory system documents the pattern** for cross-session persistence | Feedback memory with validated test results |
+| TE-7.4 | **Measure cost weekly** with `ccusage daily --breakdown` + `rtk gain --history` | Target: 30-50% reduction from baseline |
 
 ### Recommended settings.json
 
@@ -303,8 +343,9 @@ User request
 | .claudeignore on all projects | 20% | 0-100 |
 | CLAUDE.md under 400 lines with skills migration | 15% | 0-100 |
 | Output controls configured | 10% | 0-100 |
-| RTK installed and hooked | 15% | 0-100 |
-| Monitoring hooks active | 10% | 0-100 |
+| RTK installed, hooked, and test bypass configured | 15% | 0-100 |
+| MCP servers audited (only essentials active) | 10% | 0-100 |
+| Monitoring hooks active | 5% | 0-100 |
 
 **Delivery threshold: >= 85/100**
 
