@@ -1,0 +1,95 @@
+# === .claudeignore template ===
+# CONTRACT-TOKEN-ECONOMY TE-3.3 — Every project MUST have a .claudeignore
+# Copy to your project root and customize for your stack.
+#
+# Principle: exclude everything Claude cannot meaningfully process
+# (binaries, generated code, dependencies, build artifacts).
+
+# === UNIVERSAL (all projects) ===
+
+# Dependencies (largest single source of token waste)
+node_modules/
+.pnpm-store/
+vendor/
+Pods/
+.build/
+
+# Build outputs
+.next/
+dist/
+build/
+out/
+DerivedData/
+*.xcarchive
+
+# Lock files (huge, zero information value for Claude)
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+Gemfile.lock
+poetry.lock
+composer.lock
+
+# Test artifacts
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+__pycache__/
+.pytest_cache/
+
+# Binary assets
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.ico
+*.webp
+*.mp4
+*.mp3
+*.wav
+*.pdf
+*.zip
+*.tar.gz
+*.woff
+*.woff2
+*.ttf
+*.eot
+
+# Caches
+.turbo/
+.cache/
+.DS_Store
+*.tsbuildinfo
+
+# === STACK-SPECIFIC (uncomment as needed) ===
+
+# --- Next.js ---
+# .vercel/
+
+# --- iOS ---
+# *.ipa
+# *.dSYM
+# *.car
+# *.xcodeproj/xcuserdata/
+# *.xcworkspace/xcuserdata/
+# SourcePackages/
+
+# --- Android ---
+# .gradle/
+# *.apk
+# *.aab
+
+# --- Python ---
+# .venv/
+# *.egg-info/
+# .mypy_cache/
+# .ruff_cache/
+
+# --- Monorepo ---
+# **/node_modules/
+# **/dist/
+# **/build/
+
+# === PROJECT-SPECIFIC ===
+# Add patterns unique to your project below:
