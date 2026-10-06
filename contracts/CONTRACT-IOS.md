@@ -70,7 +70,7 @@ Text("Hello")
 
 // ✅ Design system tokens
 Text("Hello")
-    .foregroundColor(AppColors.ownerPrimary)
+    .foregroundColor(AppColors.primary)
     .font(AppTypography.heading2)
 ```
 
@@ -227,7 +227,7 @@ Button(action: { dismiss() }) {
 
 // ✅ Group related elements
 VStack {
-    Text("Jane Doe")
+    Text("Alice Martin")
     Text("Fondateur")
 }
 .accessibilityElement(children: .combine)  // Announced as a single element
@@ -256,8 +256,8 @@ HStack {
 // Threshold: 3:1 (large text ≥18pt or 14pt bold)
 
 // ✅ Text color on background — always verify
-// Example Client B: Searcher-500 (#FFB10B) on white = insufficient contrast
-// → Use Searcher-700 (#B37A07) for text
+// Example: brand-500 (#FFB10B) on white = insufficient contrast
+// → Use brand-700 (#B37A07) for text
 ```
 
 ---
@@ -296,7 +296,7 @@ Text("Hello")
 ```swift
 // ✅ Never hardcode strings in the UI
 // ❌
-Text("Bonjour Jane")
+Text("Hello Alice")
 
 // ✅ Localizable.strings
 Text("greeting", tableName: "Localizable")

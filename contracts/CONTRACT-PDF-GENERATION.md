@@ -332,7 +332,7 @@ const browser = await puppeteer.launch({
 ```typescript
 // react-pdf — Always add accessibility metadata
 <Document
-  title="Compliance Report — Agoria Scan"
+  title="Compliance Report: Example Scan"
   author="Your Organisation"
   subject="Compliance diagnostic report"
   language="en"

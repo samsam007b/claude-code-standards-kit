@@ -1,7 +1,9 @@
 ---
 name: doc-reader
 model: haiku
-description: "Lecteur de documentation et codebase — utilise Haiku pour explorer sans consommer de tokens Opus/Sonnet"
+effort: low
+permissionMode: default
+description: "Documentation and codebase reader. Runs on Haiku to explore without spending Opus/Sonnet tokens."
 tools: [WebFetch, Read, Grep, Glob]
 ---
 

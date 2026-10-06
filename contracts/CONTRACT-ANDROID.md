@@ -213,10 +213,10 @@ Icon(
 
 // ✅ Group related elements for TalkBack
 Column(modifier = Modifier.semantics(mergeDescendants = true) {}) {
-    Text(text = "Jane Doe")
+    Text(text = "Alice Martin")
     Text(text = "Developer", color = MaterialTheme.colorScheme.onSurfaceVariant)
 }
-// TalkBack reads "Jane Doe, Developer" as a single element
+// TalkBack reads "Alice Martin, Developer" as a single element
 
 // ✅ Add context for actions
 Button(

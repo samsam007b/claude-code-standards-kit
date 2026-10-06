@@ -1,0 +1,26 @@
+{
+  "_comment": "User-level ~/.claude/settings.json base. install-global.sh merges global/hooks/settings-hooks.json into the 'hooks' key. Review every value before use.",
+  "permissions": {
+    "defaultMode": "auto",
+    "allow": [
+      "Read",
+      "Glob",
+      "Grep",
+      "WebSearch",
+      "WebFetch",
+      "Skill"
+    ]
+  },
+  "env": {
+    "CLAUDE_CODE_EFFORT_LEVEL": "medium",
+    "CLAUDE_CODE_MAX_OUTPUT_TOKENS": "16384",
+    "MAX_THINKING_TOKENS": "5000",
+    "CLAUDE_CODE_SUBAGENT_MODEL": "sonnet",
+    "RTK_TELEMETRY_DISABLED": "1"
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "$HOME/.claude/scripts/statusline-ccusage.sh"
+  },
+  "cleanupPeriodDays": 365
+}

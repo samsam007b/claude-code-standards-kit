@@ -271,7 +271,7 @@ Open to extension (new contracts), closed to unsourced modification (no removal 
 
 ## About this kit
 
-This kit was developed by **[SQWR Studio](https://sqwr.be)** (Brussels) from 2024, refined across dozens of real projects — websites, SaaS applications, academic projects, brand identities.
+This kit was developed by **[SQWR Studio](https://sqwr.be)**, refined across dozens of real projects — websites, SaaS applications, academic projects, brand identities.
 
 It is the public method of SQWR Studio — the studio that created it, maintains it, and applies it as a delivery baseline on every project.
 

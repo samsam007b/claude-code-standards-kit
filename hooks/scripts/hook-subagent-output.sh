@@ -17,3 +17,4 @@ fi
 
 # Always return valid JSON to not block the pipeline
 echo "{}"
+exit 0

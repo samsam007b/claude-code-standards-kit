@@ -1,0 +1,11 @@
+# Allowlist for plugin-script-exec-guard.sh (shipped EMPTY on purpose).
+#
+# One script path per line (literal path, $HOME and ~ accepted). Lines starting with # are comments.
+# Only add a line AFTER you have read the script and all of its imports end to end.
+# Suggested comment format, one block per entry:
+#   # <date> | <who reviewed> | <what was checked: network calls, file access, exec/eval>
+#   # sha256 <hash of the reviewed file>
+#   ~/.claude/plugins/cache/<plugin>/<name>/<version>/scripts/<script>
+#
+# An entry allows that exact path only (not its directory, not siblings). A command touching
+# any plugin path that is not listed here still goes through the confirmation dialog.

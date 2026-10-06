@@ -55,6 +55,15 @@ bash ~/sqwr-standards-kit/scripts/verify-kit.sh --verbose
 bash ~/sqwr-standards-kit/scripts/verify-project.sh --path ~/Desktop/my-project
 ```
 
+**New in v4: the user-level layer.** Install the hooks, scripts, skills, commands, agents and global `CLAUDE.md` that run a full-time Claude Code setup into `~/.claude`:
+
+```bash
+bash ~/sqwr-standards-kit/global/install-global.sh --dry-run   # preview
+bash ~/sqwr-standards-kit/global/install-global.sh             # install (backs up, never overwrites without --force)
+```
+
+See [Two layers](#two-layers-project-plugin--user-level-setup) below.
+
 **Available stacks:** `nextjs-supabase` · `nextjs` · `nextjs-supabase-ai` · `python` · `ios` · `android` · `fullstack`
 
 **Which stack should I choose?**
@@ -68,6 +77,36 @@ bash ~/sqwr-standards-kit/scripts/verify-project.sh --path ~/Desktop/my-project
 | Native iPhone / iPad app | `ios` |
 | Native Android app | `android` |
 | Full platform — all 40 contract domains | `fullstack` |
+
+---
+
+## Two layers: project plugin + user-level setup
+
+The kit has two layers that install independently.
+
+| Layer | Where it installs | What it governs |
+|---|---|---|
+| **Project plugin** (`contracts/`, `audits/`, `agents/`, `skills/`, `hooks/`) | the project's `.claude/` or as a plugin | Quality of what you ship: thresholds, audits, scoring |
+| **User-level setup** (`global/`) | `~/.claude/` | How Claude Code itself behaves in every project: safety, cost, memory, session hygiene |
+
+### What the user-level layer contains
+
+| Component | Count | Highlights |
+|---|---|---|
+| Global `CLAUDE.md` | 1 | Self-verification before the final answer, output and context discipline, 2-phase research, CLI over MCP, model delegation (`opusplan` by default), routing measured by real usage, "just content" communication style. Every rule carries its *Why*. |
+| Hooks | 19 | Destructive-command blocker, external-send guard (email/social needs a confirmation typed **in the current turn**), "never a small model for code" gate, force-push and generated-file guards, marketplace and plugin vetting (allowlist + human confirmation + tamper guard), memory novelty gate, Stop hook against uncertainty without a local search, RTK rewrite with integrity check, session lifecycle (pre-compact save, session-end capture, memory context load). See [`global/hooks/README.md`](global/hooks/README.md). |
+| Scripts | 16 | `env-vault` (age-encrypted `.env`), secret scanning, worktree helpers, heartbeat watchdog with a canary on the alert channel itself, cost status line and dashboard, skill/agent usage scan, log and file-history rotation. See [`global/scripts/README.md`](global/scripts/README.md). |
+| Skills | 5 | `engineering-philosophy`, `just-content`, `anti-ai-writing`, `marketplace-vetting`, `pre-design` |
+| Commands | 5 | `/grill`, `/clean-commit`, `/opusplan`, `/fableplan`, `/audit-drift` |
+| Agents | 7 | `researcher` and `doc-reader` (Haiku, 400-token digests), `code-reviewer`, `debug-assistant`, `test-writer`, `pr-describer`, `memory-sync` |
+| Docs | 2 | [`docs/MEMORY-SYSTEM.md`](docs/MEMORY-SYSTEM.md), [`docs/SKILLS-GOVERNANCE.md`](docs/SKILLS-GOVERNANCE.md) |
+
+Design principles of this layer:
+
+- **Hooks over prose.** A rule that matters is enforced by a hook; prose is forgotten under load.
+- **Fail-open by default, fail-closed for security guards.** A broken helper never blocks your work, a broken security guard never lets a risky action through.
+- **Measure before you promise.** Routing rules and skills that never fire are archived (see `docs/SKILLS-GOVERNANCE.md`).
+- **Tested.** `bash ~/.claude/hooks/tests/smoke-test-hooks.sh` and `bash ~/.claude/hooks/tests/test-marketplace-vetting.sh` run in a sandbox.
 
 ---
 
@@ -198,7 +237,7 @@ The kit ships with a Claude Code–native automation layer inspired by [GSD](htt
 
 | Component | Count | What it does |
 |-----------|-------|-------------|
-| **Plugin manifest** | 1 | `.claude-plugin/plugin.json` (v3.2.0) — auto-discovers agents, skills, hooks, commands |
+| **Plugin manifest** | 1 | `.claude-plugin/plugin.json` (v4.0.0) — auto-discovers agents, skills, hooks, commands |
 | **Audit agents** | 12 | Run `agents/AGENT-SECURITY-AUDIT.md` — 4-level verification with enriched frontmatter (`model`, `effort`, `color`) |
 | **Skills** | 10 | `/brainstorm`, `/new-feature`, `/pre-deployment`, `/monthly-review`, `/audit-runner`, `/contract-lookup`, `/project-setup`, `/auto-fix`, `/compliance-check`, `/risk-score` |
 | **Slash commands** | 4 | `/init-project`, `/full-audit`, `/verify-kit`, `/verify-project` |
@@ -340,7 +379,15 @@ project-kit/
 │   └── scripts/            → 21 hook scripts (no-secrets, build-before-commit, session-context…)
 ├── workflows/              → 3 process templates (Observable Truths gates)
 ├── templates/              → CLAUDE.md, settings.json, github-actions/verify-kit.yml…
-└── scripts/                → init-project.sh (--plugin flag), verify-kit.sh, verify-project.sh
+├── scripts/                → init-project.sh (--plugin flag), verify-kit.sh, verify-project.sh
+├── global/                 → User-level layer for ~/.claude (v4)
+│   ├── CLAUDE.md           → Global instructions template
+│   ├── install-global.sh   → Installer (backup, merge, idempotent)
+│   ├── hooks/              → 19 hooks + lib/ + tests/ + settings-hooks.json
+│   ├── scripts/            → 16 ops scripts + lib/ + tests/
+│   ├── skills/ commands/ agents/
+│   └── settings.example.json
+└── docs/                   → MEMORY-SYSTEM.md, SKILLS-GOVERNANCE.md
 ```
 
 ---

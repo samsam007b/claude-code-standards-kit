@@ -361,3 +361,5 @@ max_lines = -1  # No compression on test output
 | Two-phase pattern | Empirical testing, validated 2025-04-04 (3.2x cost reduction) |
 | arXiv 2601.08815 | Contract-based prompting reduces token usage by 90% |
 | DORA State of DevOps 2024 | Efficiency metrics for AI-assisted development |
+
+> **Last validated:** 2026-10-06 (Anthropic models and pricing docs, Claude Code docs, prompt caching docs)

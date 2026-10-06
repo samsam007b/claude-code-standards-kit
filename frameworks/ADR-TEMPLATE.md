@@ -41,7 +41,7 @@
 
 **Date:** [DD/MM/YYYY]
 **Status:** [Proposed | Accepted | Deprecated | Superseded by ADR-XXX]
-**Decider(s):** [Lead / Lead + Partner]
+**Decider(s):** [Lead / Lead + Creative / Lead + Account]
 
 ---
 
@@ -126,7 +126,7 @@ These decisions have already been made implicitly. Documenting them creates inst
 
 **Date:** 15/01/2025
 **Status:** Accepted
-**Decider(s):** Jane Doe
+**Decider(s):** Lead developer
 
 ---
 

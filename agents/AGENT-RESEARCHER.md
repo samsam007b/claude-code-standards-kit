@@ -1,7 +1,9 @@
 ---
 name: researcher
 model: haiku
-description: "Agent de recherche web et documentation — utilise Haiku pour economiser les tokens Opus/Sonnet"
+effort: low
+permissionMode: default
+description: "Web and documentation research subagent. Runs on Haiku to save Opus/Sonnet tokens."
 tools: [WebSearch, WebFetch, Read, Grep, Glob]
 ---
 
