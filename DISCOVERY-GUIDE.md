@@ -271,9 +271,9 @@ Open to extension (new contracts), closed to unsourced modification (no removal 
 
 ## About this kit
 
-This kit was developed by **[SQWR Studio](https://sqwr.be)**, refined across dozens of real projects — websites, SaaS applications, academic projects, brand identities.
+This kit was developed by **[SQWR Studio](https://sqwr.be)** (branding and design) and **[Flows Studio](https://flows-studio.com)** (automation and agentic development), refined across dozens of real projects: websites, SaaS applications, AI agents, brand identities.
 
-It is the public method of SQWR Studio — the studio that created it, maintains it, and applies it as a delivery baseline on every project.
+It is the public method of both studios, which maintain it and apply it as a delivery baseline on every project.
 
 It reflects a conviction: **AI tools like Claude Code are not shortcuts to mediocrity — they are amplifiers of rigour for those who have the method.**
 
@@ -283,14 +283,17 @@ The method is this kit.
 
 ## Want this level of quality without handling it yourself?
 
-**What SQWR Studio offers:**
-- **Project audit** — score your existing codebase against the kit's standards (/100 per domain, PDF report)
-- **Kit setup** — integrate the kit into your stack and train your team
-- **Project delivery** — Next.js / Supabase / iOS development at the standards described here
+This kit is the public method of two sister studios. Each one applies it as a delivery baseline, in its own specialty.
 
-> A score ≥85/100 is not a goal — it is our delivery baseline.
+| | [SQWR Studio](https://sqwr.be) | [Flows Studio](https://flows-studio.com) |
+|---|---|---|
+| **Specialty** | Branding and design | Automation and agentic development |
+| **What they build** | Brand identities, design systems, websites and digital products with a strong visual signature | AI agents for businesses (support, concierge, email, social, SEO), workflow automation, custom agentic systems |
+| **Kit layer they live in** | Design, accessibility, motion and brand contracts, design generation protocol | Agent and AI-safety contracts, the user-level `global/` layer: hooks, memory, cost and governance |
+| **Typical engagements** | Brand strategy, identity, web design and build, design audit /100 | Agent design and deployment, automation audit, Claude Code setup and team training |
+| **Contact** | [studio@sqwr.be](mailto:studio@sqwr.be) | [contact@flows-studio.com](mailto:contact@flows-studio.com) |
 
-**Contact:** [studio@sqwr.be](mailto:studio@sqwr.be) · [sqwr.be](https://sqwr.be)
+> A score of 85/100 or more is not a goal. It is the delivery baseline of both studios.
 
 ---
 
@@ -300,7 +303,7 @@ This kit is free to use, modify, and distribute.
 If you improve it, sharing your improvements benefits everyone.
 
 **Attribution appreciated but not required:**
-> Based on [Claude Code Standards Kit](https://github.com/samsam007b/claude-code-standards-kit) — [SQWR Studio](https://sqwr.be)
+> Based on [Claude Code Standards Kit](https://github.com/samsam007b/claude-code-standards-kit) by [SQWR Studio](https://sqwr.be) and [Flows Studio](https://flows-studio.com)
 
 ---
 

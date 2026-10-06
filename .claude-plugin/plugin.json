@@ -2,7 +2,7 @@
   "name": "sqwr-standards-kit",
   "version": "4.0.0",
   "description": "Professional standards kit for Claude Code: 40 contracts, 14 audits, audit agents, skills and hooks for projects, plus a user-level ~/.claude layer (19 hooks, 16 ops scripts, global CLAUDE.md, skills, commands, agents) for safety, cost and memory discipline.",
-  "author": "SQWR Studio",
+  "author": "SQWR Studio & Flows Studio",
   "homepage": "https://github.com/samsam007b/claude-code-standards-kit",
   "license": "MIT",
   "agents": "agents/",
