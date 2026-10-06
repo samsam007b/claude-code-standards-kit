@@ -27,6 +27,7 @@
 #  16. Version consistency (plugin.json = README.md = CHANGELOG.md)
 #  17. SECURITY.md (Responsible Disclosure policy)
 #  18. CHANGELOG.md (Keep a Changelog format)
+#  19. README number drift (counts recomputed from disk vs README.md)
 #
 # Exit codes:
 #   Exit 0 = kit valid
@@ -747,6 +748,103 @@ else
   else
     pass "Test $test_num: CHANGELOG.md exists ($CHANGELOG_ERRORS format warnings — see above)"
   fi
+fi
+
+# ═══════════════════════════════════════════════════════════════
+# TEST 19: README number drift
+# ═══════════════════════════════════════════════════════════════
+# ─────────────────────────────────────────────────────────────────────────────
+# Test 19: Counts advertised in README.md must match what is on disk.
+# Every "N audit agents" / "N hooks" style claim is recomputed here and
+# compared against every matching mention in README.md. bash 3.2 compatible:
+# counters use x=$((x + 1)), never ((x++)).
+# ─────────────────────────────────────────────────────────────────────────────
+test_num=19
+section "Test $test_num: README number drift"
+
+README_FILE="$KIT_DIR/README.md"
+DRIFT_ERRORS=0
+
+# ── Recompute real counts from disk ──────────────────────────────
+RC_CONTRACTS=$(find "$KIT_DIR/contracts" -maxdepth 1 -type f -name "CONTRACT-*.md" | wc -l | tr -d ' ')
+RC_FRAMEWORKS=$(find "$KIT_DIR/frameworks" -maxdepth 1 -type f -name "*.md" | wc -l | tr -d ' ')
+RC_AUDITS=$(find "$KIT_DIR/audits" -maxdepth 1 -type f -name "*.md" | wc -l | tr -d ' ')
+RC_AGENTS_TOTAL=$(find "$KIT_DIR/agents" -maxdepth 1 -type f -name "*.md" | wc -l | tr -d ' ')
+# Audit agents = total agents minus the non-audit research/brainstorm agents.
+RC_NON_AUDIT_AGENTS=0
+for f in AGENT-BRAINSTORM.md AGENT-DOC-READER.md AGENT-RESEARCHER.md; do
+  if [ -f "$KIT_DIR/agents/$f" ]; then
+    RC_NON_AUDIT_AGENTS=$((RC_NON_AUDIT_AGENTS + 1))
+  fi
+done
+RC_AUDIT_AGENTS=$((RC_AGENTS_TOTAL - RC_NON_AUDIT_AGENTS))
+RC_SKILLS=$(find "$KIT_DIR/skills" -maxdepth 1 -mindepth 1 -type d | wc -l | tr -d ' ')
+RC_COMMANDS=$(find "$KIT_DIR/commands" -maxdepth 1 -type f -name "*.md" | wc -l | tr -d ' ')
+RC_HOOKS=$(find "$KIT_DIR/hooks/scripts" -maxdepth 1 -type f -name "*.sh" | wc -l | tr -d ' ')
+RC_GLOBAL_HOOKS=$(find "$KIT_DIR/global/hooks" -maxdepth 1 -type f \( -name "*.sh" -o -name "*.py" \) | wc -l | tr -d ' ')
+RC_GLOBAL_SCRIPTS=$(find "$KIT_DIR/global/scripts" -maxdepth 1 -type f ! -name "README.md" ! -name "*.example.*" | wc -l | tr -d ' ')
+RC_GLOBAL_SKILLS=$(find "$KIT_DIR/global/skills" -maxdepth 1 -mindepth 1 -type d | wc -l | tr -d ' ')
+RC_GLOBAL_COMMANDS=$(find "$KIT_DIR/global/commands" -maxdepth 1 -type f -name "*.md" | wc -l | tr -d ' ')
+RC_GLOBAL_AGENTS=$(find "$KIT_DIR/global/agents" -maxdepth 1 -type f -name "*.md" | wc -l | tr -d ' ')
+
+# ── Compare every README mention against the real count ─────────
+# check_drift <label> <expected> <grep -E pattern matching short snippets,
+#             each snippet must contain exactly one number>
+check_drift() {
+  local label="$1"
+  local expected="$2"
+  local pattern="$3"
+  local matches
+  matches=$(grep -oE "$pattern" "$README_FILE" 2>/dev/null || true)
+  if [ -z "$matches" ]; then
+    warn "Test $test_num: no README mention found for '$label' (nothing to check)"
+    return
+  fi
+  local mismatch=0
+  while IFS= read -r snippet; do
+    [ -z "$snippet" ] && continue
+    local n
+    n=$(echo "$snippet" | grep -oE '[0-9]+' | head -1)
+    if [ "$n" != "$expected" ]; then
+      fail "Test $test_num: README claims '$snippet' but $label on disk = $expected"
+      mismatch=1
+    fi
+  done <<EOF
+$matches
+EOF
+  if [ "$mismatch" -eq 0 ]; then
+    pass "Test $test_num: $label count consistent in README ($expected)"
+  else
+    DRIFT_ERRORS=$((DRIFT_ERRORS + 1))
+  fi
+}
+
+check_drift "contracts"            "$RC_CONTRACTS"        '\*\*Contracts\*\*[^|]*\|[^0-9]*[0-9]+'
+check_drift "frameworks"           "$RC_FRAMEWORKS"       '\*\*Frameworks\*\*[^|]*\|[^0-9]*[0-9]+'
+check_drift "audits"               "$RC_AUDITS"           '\*\*Audits\*\*[^|]*\|[^0-9]*[0-9]+'
+check_drift "audits"               "$RC_AUDITS"           '[0-9]+ audits? scoring'
+check_drift "agents (total)"       "$RC_AGENTS_TOTAL"      '\*\*Agents\*\*[^|]*\|[^0-9]*[0-9]+'
+check_drift "agents (total)"       "$RC_AGENTS_TOTAL"      '[0-9]+ agents \(audit agents'
+check_drift "audit agents"         "$RC_AUDIT_AGENTS"      '\*\*Audit agents\*\*[^|]*\|[^0-9]*[0-9]+'
+check_drift "audit agents"         "$RC_AUDIT_AGENTS"      '[0-9]+ audit agents'
+check_drift "audit agents"         "$RC_AUDIT_AGENTS"      'all [0-9]+ audit agents'
+check_drift "skills (project)"     "$RC_SKILLS"            '\*\*Skills\*\*[^|]*\|[^0-9]*[0-9]+'
+check_drift "skills (project)"     "$RC_SKILLS"            '[0-9]+ skills \('
+check_drift "commands (project)"   "$RC_COMMANDS"          '\*\*Slash commands\*\*[^|]*\|[^0-9]*[0-9]+'
+check_drift "hooks (project)"      "$RC_HOOKS"             '\*\*Compliance hooks\*\*[^|]*\|[^0-9]*[0-9]+'
+check_drift "hooks (project)"      "$RC_HOOKS"             '[0-9]+ compliance hook scripts'
+check_drift "hooks (project)"      "$RC_HOOKS"             '[0-9]+ hook scripts \(no-secrets'
+check_drift "hooks (project, global table)" "$RC_HOOKS"     '\*\*Hooks\*\*[^|]*\|[^0-9]*[0-9]+'
+check_drift "hooks (global layer)" "$RC_GLOBAL_HOOKS"       '\| Hooks \| [0-9]+ \|'
+check_drift "hooks (global layer)" "$RC_GLOBAL_HOOKS"       '[0-9]+ hooks \+ lib/'
+check_drift "scripts (global layer)" "$RC_GLOBAL_SCRIPTS"   '\| Scripts \| [0-9]+ \|'
+check_drift "scripts (global layer)" "$RC_GLOBAL_SCRIPTS"   '[0-9]+ ops scripts \+ lib/'
+check_drift "skills (global layer)"  "$RC_GLOBAL_SKILLS"    '\| Skills \| [0-9]+ \|'
+check_drift "commands (global layer)" "$RC_GLOBAL_COMMANDS" '\| Commands \| [0-9]+ \|'
+check_drift "agents (global layer)"  "$RC_GLOBAL_AGENTS"    '\| Agents \| [0-9]+ \|'
+
+if [ "$DRIFT_ERRORS" -eq 0 ]; then
+  info "Test $test_num: all recomputed counts match README (contracts=$RC_CONTRACTS, frameworks=$RC_FRAMEWORKS, audits=$RC_AUDITS, agents=$RC_AGENTS_TOTAL, audit_agents=$RC_AUDIT_AGENTS, skills=$RC_SKILLS, commands=$RC_COMMANDS, hooks=$RC_HOOKS, global_hooks=$RC_GLOBAL_HOOKS, global_scripts=$RC_GLOBAL_SCRIPTS, global_skills=$RC_GLOBAL_SKILLS, global_commands=$RC_GLOBAL_COMMANDS, global_agents=$RC_GLOBAL_AGENTS)"
 fi
 
 # ═══════════════════════════════════════════════════════════════

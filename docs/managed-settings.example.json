@@ -1,0 +1,29 @@
+{
+  "_comment": "Example organization-level managed settings for Claude Code. Copy to the OS-specific path below, review every value, then lock down write access with your OS's normal file permissions (this file is enforced, not a suggestion the person running Claude Code can override from their own settings.json).",
+  "permissions": {
+    "deny": [
+      "Bash(rm -rf /*)",
+      "Bash(git push --force*)",
+      "Bash(git reset --hard*)",
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(**/secrets/**)",
+      "Read(~/.ssh/**)",
+      "Read(~/.aws/credentials)"
+    ]
+  },
+  "sandbox": {
+    "enabled": true,
+    "allowUnsandboxedCommands": false,
+    "network": {
+      "allowedDomains": ["github.com", "*.npmjs.org"]
+    },
+    "credentials": {
+      "files": [
+        { "path": "~/.ssh", "mode": "deny" },
+        { "path": "~/.aws/credentials", "mode": "deny" }
+      ]
+    }
+  },
+  "cleanupPeriodDays": 365
+}

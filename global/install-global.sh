@@ -25,6 +25,17 @@ done
 
 command -v jq >/dev/null || { echo "ERROR: jq is required (brew install jq / apt install jq)." >&2; exit 1; }
 
+if ! command -v node >/dev/null; then
+  echo "WARNING: node was not found on PATH." >&2
+  echo "         global/hooks/validate-command.js (the main destructive-command guard: blocks" >&2
+  echo "         hard reset, recursive force delete, force push, DROP TABLE and friends) is a" >&2
+  echo "         Node script. Without node it will be silently inactive: the hook entry stays" >&2
+  echo "         in settings.json but every PreToolUse call for it fails and Claude Code treats" >&2
+  echo "         a failing hook as non-blocking, so the command runs anyway." >&2
+  echo "         Install node (brew install node / apt install nodejs), then re-run this script" >&2
+  echo "         or just re-check: command -v node." >&2
+fi
+
 STAMP="$(date +%Y%m%d-%H%M%S)"
 BACKUP="$DEST/backups/kit-install-$STAMP"
 run() { if [ "$DRY" = 1 ]; then echo "  [dry-run] $*"; else "$@"; fi; }
@@ -92,5 +103,7 @@ echo
 echo "Next steps:"
 echo "  1. Read $DEST/hooks/README.md and disable any hook you do not want (settings.json > hooks)."
 echo "  2. Merge CLAUDE.kit.md into your CLAUDE.md, replace the <PLACEHOLDERS>."
-echo "  3. Optional tools the layer expects: rtk, ccusage, age (env-vault), jq, node, python3."
+echo "  3. Required: jq (already checked above), node (runs validate-command.js, the main"
+echo "     destructive-command guard: without it that hook is inactive). Optional: rtk, ccusage,"
+echo "     age (env-vault), python3 (several hooks/scripts)."
 echo "  4. Run: bash $DEST/hooks/tests/smoke-test-hooks.sh"
