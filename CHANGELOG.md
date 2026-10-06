@@ -8,6 +8,10 @@ This project adheres to [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
 ## [Unreleased]
 
+### Fixed
+- `global/hooks/validate-command.js`: the database guard now reads the working directory from the hook payload (`cwd`), so it follows `cd` inside a session instead of the process directory. Before this, `CLAUDE_DB_PROTECT_DIRS` could silently never match.
+- `global/hooks/validate-command.js`: the untracked-file cleanup rule now catches combined flags (`-fd`, `-xdf`, `-n -d -f`) and no longer matches unrelated text later in the command.
+
 ## [4.0.0] - 2026-10-06
 
 ### Added

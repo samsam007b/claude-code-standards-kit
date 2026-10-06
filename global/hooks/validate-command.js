@@ -203,7 +203,7 @@ class CommandValidator {
   /**
    * Main validation function
    */
-  validate(command, toolName = "Unknown") {
+  validate(command, toolName = "Unknown", cwdHint = null) {
     const result = {
       isValid: true,
       severity: "LOW",
@@ -323,7 +323,7 @@ class CommandValidator {
       { pattern: /git\s+reset\s+--hard\b/i, label: 'git reset --hard (discards uncommitted changes)' },
       { pattern: /git\s+push\s+.*--force(?!-with-lease)\b/i, label: 'git push --force (can overwrite upstream history)' },
       { pattern: /git\s+push\s+.*-f\b(?!-with-lease)/i, label: 'git push -f (can overwrite upstream history)' },
-      { pattern: /git\s+clean\s+.*-f\b/i, label: 'git clean -f (permanently deletes untracked files)' },
+      { pattern: /git\s+clean\s+(-\S+\s+)*-[a-zA-Z]*f/i, label: 'git clean -f (permanently deletes untracked files)' },
       { pattern: /git\s+checkout\s+--\s+\./i, label: 'git checkout -- . (discards all working tree changes)' },
       { pattern: /git\s+restore\s+\.\b/i, label: 'git restore . (discards all working tree changes)' },
       { pattern: /git\s+branch\s+-D\b/i, label: 'git branch -D (force-deletes branch without merge check)' },
@@ -376,7 +376,7 @@ class CommandValidator {
     ];
 
     // Scope: DB protection is opt-in. Sandboxes and unrelated repos do not need a blanket block.
-    const cwd = process.cwd();
+    const cwd = cwdHint || process.cwd(); // payload cwd follows `cd` inside the session
     let dbProtected = process.env.CLAUDE_DB_PROTECT === "1";
     if (!dbProtected && process.env.CLAUDE_DB_PROTECT_DIRS) {
       try {
@@ -504,7 +504,7 @@ async function main() {
     }
 
     // Validate the command
-    const result = validator.validate(command, toolName);
+    const result = validator.validate(command, toolName, hookData.cwd);
 
     // Log the security event
     validator.logSecurityEvent(command, toolName, result, sessionId);
