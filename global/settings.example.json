@@ -49,8 +49,7 @@
     "CLAUDE_CODE_SUBAGENT_MODEL": "sonnet",
     "RTK_TELEMETRY_DISABLED": "1",
     "CLAUDE_DB_PROTECT_DIRS": "/my-saas(/|$|-)",
-    "CLAUDE_DB_PROTECT": "1",
-    "CLAUDE_DB_SAFE_TOOL": "global/scripts/safe-db-operation.js"
+    "CLAUDE_DB_SAFE_TOOL": "node ~/.claude/scripts/safe-db-operation.js"
   },
   "statusLine": {
     "type": "command",
