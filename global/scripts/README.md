@@ -24,10 +24,13 @@ Install to `$HOME/.claude/scripts/` (keep the `lib/` and `tests/` subfolders). A
 | `auto-format.sh` | PostToolUse hook (fails open): runs the matching formatter on the edited file. Bypass `AUTO_FORMAT_DISABLE=1` | hook on `Edit\|Write\|MultiEdit` | python3, optional formatters |
 | `check-subagent-output.sh` | PostToolUse hook on `Agent` (fails open, never blocks): warns on oversized subagent output | hook on `Agent` | jq |
 | `audit-page-overflow.mjs` | Detects content cut off at the bottom of paginated HTML via headless Chrome. Exit 2 if cut, 3 if inconclusive | `node audit-page-overflow.mjs doc.html` | node, Chrome |
+| `safe-db-operation.js` | The sanctioned way to run a destructive DB operation (delete a record and its cascading rows). Dry-run by default, config-driven (no hardcoded schema), confirmation code required before `--execute` deletes anything, every call logged. This is what `validate-command.js` points `CLAUDE_DB_SAFE_TOOL` at when it blocks a raw destructive DB command. | `CLAUDE_DB_SAFE_CONFIG=./safe-db-operation.config.json node safe-db-operation.js delete-account user@example.com --execute` | node, `@supabase/supabase-js` (or swap `createClient()` for your own driver) |
+| `safe-db-operation.config.example.json` | Example config for `safe-db-operation.js`: copy, rename, describe your own tables | copy and edit | none |
 
 ## Tests
 
 ```
 bash tests/test-heartbeat-watchdog.sh
 python3 tests/test-cron-eval.py
+bash tests/test-safe-db-operation.sh
 ```

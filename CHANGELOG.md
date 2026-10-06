@@ -8,9 +8,23 @@ This project adheres to [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
 ## [Unreleased]
 
+## [4.1.0] - 2026-10-06
+
 ### Fixed
 - `global/hooks/validate-command.js`: the database guard now reads the working directory from the hook payload (`cwd`), so it follows `cd` inside a session instead of the process directory. Before this, `CLAUDE_DB_PROTECT_DIRS` could silently never match.
 - `global/hooks/validate-command.js`: the untracked-file cleanup rule now catches combined flags (`-fd`, `-xdf`, `-n -d -f`) and no longer matches unrelated text later in the command.
+- `README.md`: every count it advertises (audit agents, hook scripts for both the project and the user-level layer, skills, audits) was drifted from what is actually on disk (for example "11/12" audit agents depending on the section, "21/22/19/18" hooks). Recounted every figure from the filesystem and corrected the mismatches.
+- Removed the unverifiable "self-audit 91/100" badge and claim; the CI badge for the `verify-kit.yml` GitHub Actions workflow is now the only quality badge.
+- Replaced the comparison table against "dev-skills" and "hotl-plugin" (two kits that could not be found/verified) with a factual "Positionnement" paragraph against three real, checkable projects (`claude-code-templates`, `SuperClaude_Framework`, `get-shit-done`).
+- `global/install-global.sh` and `README.md`: `jq` and `node` are required, not optional (`node` runs `validate-command.js`, the main destructive-command guard). The installer now warns clearly if `node` is missing instead of listing it as optional.
+
+### Added
+- `scripts/verify-kit.sh`: Test 19 recomputes every count README.md advertises (audit agents, hooks, scripts, skills, commands, agents, both project-level and user-level) straight from the filesystem and fails if any of them drift. bash 3.2 and bash 5 compatible.
+- `global/settings.example.json`: a `permissions.deny` block for obviously destructive commands and sensitive file reads, and an opt-in `sandbox` block (filesystem/network/credentials), following the official Claude Code settings and sandboxing documentation.
+- `global/hooks/README.md`: a "Layered defense" section explaining the native-deny > sandbox > hooks strategy, with the documentation sources cited.
+- `docs/managed-settings.example.json` and `docs/TEAM-MANAGED-SETTINGS.md`: organization-level managed settings for teams, with the exact file path per OS from the official documentation.
+- `global/scripts/safe-db-operation.js` and `global/scripts/safe-db-operation.config.example.json`: a generic, config-driven version of the project-specific "safe DB operation" script (no hardcoded schema). Dry-run by default, explicit confirmation code required for `--execute`, every call logged. Documented in `global/scripts/README.md` and `global/settings.example.json` (`CLAUDE_DB_PROTECT_DIRS`, `CLAUDE_DB_PROTECT`, `CLAUDE_DB_SAFE_TOOL`). Tested in `global/scripts/tests/test-safe-db-operation.sh`.
+- README.md: a documented alternative to `curl | bash` (clone a tagged release, read `scripts/install.sh` before running it).
 
 ## [4.0.0] - 2026-10-06
 

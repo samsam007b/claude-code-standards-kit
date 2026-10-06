@@ -86,6 +86,32 @@ bash global/hooks/tests/test-marketplace-vetting.sh    # 24 checks for the four 
 Tests run against temp dirs and env overrides, they never touch your real `~/.claude`.
 If you edit `rtk-rewrite.sh`, refresh the sidecar: `shasum -a 256 rtk-rewrite.sh > .rtk-hook.sha256`.
 
+## Layered defense: native deny > sandbox > hooks
+
+Three layers, in the order Claude Code actually evaluates them (source: the official docs at
+https://code.claude.com/docs/en/settings and https://code.claude.com/docs/en/sandboxing):
+
+1. **`permissions.deny` in `settings.json`** (native, non-bypassable). Evaluated before any hook
+   runs, before `ask` and before `allow`. This is where an obviously destructive command or an
+   obviously sensitive read belongs: `Bash(git push --force*)`, `Bash(git reset --hard*)`,
+   `Read(./.env)`, `Read(**/secrets/**)`. See `global/settings.example.json`. A `Read` deny rule
+   also blocks `Edit`/`Write` on the same path. No regex to maintain, nothing for a hook to parse.
+2. **Sandbox** (`sandbox.*` in `settings.json`, opt-in). Confines what a Bash command can actually
+   reach: filesystem (`allowRead`/`denyRead`/`allowWrite`), network (`allowedDomains`), and
+   credential files/env vars it should never see even if a command tries. It covers cases `deny`
+   cannot express cleanly, such as "no network except these domains" or "no write outside this
+   directory", regardless of how the command is phrased. See the `sandbox` block in
+   `global/settings.example.json`.
+3. **Hooks** (this directory). Everything `deny` and the sandbox cannot express: pattern families
+   that need judgement (`validate-command.js`'s destructive-shell patterns, the DB-protect rules),
+   a human-in-the-loop confirmation (`external-send-guard.sh`, the marketplace-vetting dialogs),
+   or a pedagogical message pointing the model at the safe alternative (e.g. `CLAUDE_DB_SAFE_TOOL`
+   instead of a raw `DROP TABLE`). Hooks are the right layer when the rule needs context or a
+   message, the wrong layer when a flat deny rule would already do the job.
+
+Rule of thumb: if you can write it as a `deny` pattern, write it there first, a hook is one more
+moving part that can crash or be out of date. Reserve hooks for what the native layers cannot say.
+
 ## Honest limits
 
 - The tamper guard is a speed bump, not a sandbox: a determined shell can still edit files through

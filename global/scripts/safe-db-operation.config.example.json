@@ -1,0 +1,14 @@
+{
+  "operations": {
+    "delete-account": {
+      "table": "users",
+      "idColumn": "id",
+      "lookupColumn": "email",
+      "relatedTables": [
+        { "name": "orders", "column": "user_id" },
+        { "name": "sessions", "column": "user_id" },
+        { "name": "profiles", "column": "user_id" }
+      ]
+    }
+  }
+}

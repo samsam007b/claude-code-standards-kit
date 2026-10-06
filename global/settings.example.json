@@ -9,14 +9,48 @@
       "WebSearch",
       "WebFetch",
       "Skill"
+    ],
+    "deny": [
+      "Bash(rm -rf /*)",
+      "Bash(git push --force*)",
+      "Bash(git reset --hard*)",
+      "Bash(git clean -f*)",
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(**/secrets/**)",
+      "Read(~/.ssh/**)",
+      "Read(~/.aws/credentials)"
     ]
+  },
+  "_comment_permissions_deny": "Native, non-bypassable layer (evaluated before 'ask'/'allow' and before any hook runs). See the layered strategy in global/hooks/README.md. Source: https://code.claude.com/docs/en/settings",
+  "sandbox": {
+    "enabled": false,
+    "_comment": "Opt-in. Flip to true once you have validated allowRead/allowWrite/allowedDomains for your own workflow. Source: https://code.claude.com/docs/en/sandboxing",
+    "allowUnsandboxedCommands": false,
+    "filesystem": {
+      "allowRead": ["."],
+      "denyRead": ["~/"],
+      "allowWrite": ["/tmp"]
+    },
+    "network": {
+      "allowedDomains": ["github.com", "*.npmjs.org"]
+    },
+    "credentials": {
+      "files": [
+        { "path": "~/.ssh", "mode": "deny" },
+        { "path": "~/.aws/credentials", "mode": "deny" }
+      ]
+    }
   },
   "env": {
     "CLAUDE_CODE_EFFORT_LEVEL": "medium",
     "CLAUDE_CODE_MAX_OUTPUT_TOKENS": "16384",
     "MAX_THINKING_TOKENS": "5000",
     "CLAUDE_CODE_SUBAGENT_MODEL": "sonnet",
-    "RTK_TELEMETRY_DISABLED": "1"
+    "RTK_TELEMETRY_DISABLED": "1",
+    "CLAUDE_DB_PROTECT_DIRS": "/my-saas(/|$|-)",
+    "CLAUDE_DB_PROTECT": "1",
+    "CLAUDE_DB_SAFE_TOOL": "global/scripts/safe-db-operation.js"
   },
   "statusLine": {
     "type": "command",

@@ -6,7 +6,6 @@
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![160+ files](https://img.shields.io/badge/160%2B%20files-organised-green.svg)]()
-[![Self-audit](https://img.shields.io/badge/self--audit-91%2F100-brightgreen.svg)]()
 [![Made for Claude Code](https://img.shields.io/badge/made%20for-Claude%20Code-orange.svg)]()
 [![By SQWR Studio](https://img.shields.io/badge/by-SQWR%20Studio-black.svg)](https://sqwr.be)
 [![By Flows Studio](https://img.shields.io/badge/by-Flows%20Studio-black.svg)](https://flows-studio.com)
@@ -34,10 +33,29 @@ Run `bash scripts/verify-kit.sh --verbose` to see the kit score its own componen
 
 ## Quick start
 
+**Requirements:** `jq` and `node` are required, not optional. `jq` is enforced by the installer
+(it exits if missing); `node` runs `global/hooks/validate-command.js`, the main destructive-command
+guard, and without it that guard is silently inactive. `bash` and `python3` are also used by
+several hooks and scripts. `rtk` is the only genuinely optional tool (its hook is a no-op without
+it).
+
 ```bash
 # One-command install
 curl -sL https://raw.githubusercontent.com/samsam007b/claude-code-standards-kit/main/scripts/install.sh | bash
 ```
+
+`curl | bash` runs a remote script sight-unseen. If that is not acceptable for your setup, clone a
+tagged release and read `scripts/install.sh` before running it:
+
+```bash
+git clone --branch v4.1.0 --depth 1 https://github.com/samsam007b/claude-code-standards-kit ~/sqwr-standards-kit
+less ~/sqwr-standards-kit/scripts/install.sh   # read it
+bash ~/sqwr-standards-kit/scripts/install.sh    # run it once you are satisfied
+```
+
+There is no code-signing or checksum to verify here (the kit does not publish one); cloning a
+pinned tag and reading the script first is the verifiable alternative to piping an unread stream
+into a shell.
 
 Or manually:
 
@@ -95,12 +113,12 @@ The kit has two layers that install independently.
 | Component | Count | Highlights |
 |---|---|---|
 | Global `CLAUDE.md` | 1 | Self-verification before the final answer, output and context discipline, 2-phase research, CLI over MCP, model delegation (`opusplan` by default), routing measured by real usage, "just content" communication style. Every rule carries its *Why*. |
-| Hooks | 19 | Destructive-command blocker, external-send guard (email/social needs a confirmation typed **in the current turn**), "never a small model for code" gate, force-push and generated-file guards, marketplace and plugin vetting (allowlist + human confirmation + tamper guard), memory novelty gate, Stop hook against uncertainty without a local search, RTK rewrite with integrity check, session lifecycle (pre-compact save, session-end capture, memory context load). See [`global/hooks/README.md`](global/hooks/README.md). |
-| Scripts | 16 | `env-vault` (age-encrypted `.env`), secret scanning, worktree helpers, heartbeat watchdog with a canary on the alert channel itself, cost status line and dashboard, skill/agent usage scan, log and file-history rotation. See [`global/scripts/README.md`](global/scripts/README.md). |
+| Hooks | 18 | Destructive-command blocker, external-send guard (email/social needs a confirmation typed **in the current turn**), "never a small model for code" gate, force-push and generated-file guards, marketplace and plugin vetting (allowlist + human confirmation + tamper guard), memory novelty gate, Stop hook against uncertainty without a local search, RTK rewrite with integrity check, session lifecycle (pre-compact save, session-end capture, memory context load). See [`global/hooks/README.md`](global/hooks/README.md). |
+| Scripts | 17 | `env-vault` (age-encrypted `.env`), secret scanning, worktree helpers, heartbeat watchdog with a canary on the alert channel itself, cost status line and dashboard, skill/agent usage scan, log and file-history rotation. See [`global/scripts/README.md`](global/scripts/README.md). |
 | Skills | 5 | `engineering-philosophy`, `just-content`, `anti-ai-writing`, `marketplace-vetting`, `pre-design` |
 | Commands | 5 | `/grill`, `/clean-commit`, `/opusplan`, `/fableplan`, `/audit-drift` |
 | Agents | 7 | `researcher` and `doc-reader` (Haiku, 400-token digests), `code-reviewer`, `debug-assistant`, `test-writer`, `pr-describer`, `memory-sync` |
-| Docs | 2 | [`docs/MEMORY-SYSTEM.md`](docs/MEMORY-SYSTEM.md), [`docs/SKILLS-GOVERNANCE.md`](docs/SKILLS-GOVERNANCE.md) |
+| Docs | 3 | [`docs/MEMORY-SYSTEM.md`](docs/MEMORY-SYSTEM.md), [`docs/SKILLS-GOVERNANCE.md`](docs/SKILLS-GOVERNANCE.md), [`docs/TEAM-MANAGED-SETTINGS.md`](docs/TEAM-MANAGED-SETTINGS.md) |
 
 Design principles of this layer:
 
@@ -238,11 +256,11 @@ The kit ships with a Claude Code–native automation layer inspired by [GSD](htt
 
 | Component | Count | What it does |
 |-----------|-------|-------------|
-| **Plugin manifest** | 1 | `.claude-plugin/plugin.json` (v4.0.0) — auto-discovers agents, skills, hooks, commands |
-| **Audit agents** | 12 | Run `agents/AGENT-SECURITY-AUDIT.md` — 4-level verification with enriched frontmatter (`model`, `effort`, `color`) |
+| **Plugin manifest** | 1 | `.claude-plugin/plugin.json` (v4.1.0) — auto-discovers agents, skills, hooks, commands |
+| **Audit agents** | 11 | Run `agents/AGENT-SECURITY-AUDIT.md` — 4-level verification with enriched frontmatter (`model`, `effort`, `color`) |
 | **Skills** | 10 | `/brainstorm`, `/new-feature`, `/pre-deployment`, `/monthly-review`, `/audit-runner`, `/contract-lookup`, `/project-setup`, `/auto-fix`, `/compliance-check`, `/risk-score` |
 | **Slash commands** | 4 | `/init-project`, `/full-audit`, `/verify-kit`, `/verify-project` |
-| **Compliance hooks** | 21 | `hooks/hooks.json` — 21 hook scripts: secrets, build, XSS, contract compliance, session context, post-response, session-end, and more |
+| **Compliance hooks** | 22 | `hooks/hooks.json` — 22 hook scripts: secrets, build, XSS, contract compliance, session context, post-response, session-end, and more |
 | **Workflow templates** | 3 | `WORKFLOW-NEW-FEATURE.md` — 5 gates with Observable Truths |
 
 **`init-project.sh` provisions:**
@@ -270,23 +288,11 @@ The kit ships with a Claude Code–native automation layer inspired by [GSD](htt
 
 ---
 
-## SQWR vs other Claude Code kits
+## Positionnement
 
-| Dimension | SQWR Standards Kit | dev-skills | hotl-plugin |
-|-----------|-------------------|------------|-------------|
-| Pre-implementation guard | `/brainstorm` skill + AGENT-BRAINSTORM | ✓ (behavioral) | ✓ (workflow) |
-| Anti-patterns standard | 10 patterns, cited sources | ✗ | ✗ |
-| Contracts / standards | **40 domains** | 3 contracts | 3 contracts |
-| Hook coverage | **21 scripts, 18 events** | ✗ | ✗ |
-| Audit system | **14 audits, /100 per domain** | 30 behavioral evals | ✗ |
-| EU compliance | EAA + GDPR + EU AI Act | ✗ | ✗ |
-| Scientific citations | arXiv + OWASP + NIST | ✗ | ✗ |
-| Risk Score formula | Weighted, verifiable | ✗ | ✗ |
-| One-command install | `curl \| bash` | npx | install.sh |
-| Self-verifying | `verify-kit.sh` 18 tests | 98 assertions | ✗ |
-| Regulatory compliance | OWASP, WCAG, Core Web Vitals, EU AI Act | ✗ | ✗ |
+Dans l'écosystème des outils communautaires pour Claude Code, trois projets couvrent des besoins voisins mais distincts : [`davila7/claude-code-templates`](https://github.com/davila7/claude-code-templates) (32k+ étoiles) est un CLI de configuration et de monitoring, avec un catalogue de templates et un dashboard d'analytics. [`SuperClaude-Org/SuperClaude_Framework`](https://github.com/SuperClaude-Org/SuperClaude_Framework) (23k+ étoiles) ajoute des commandes spécialisées, des "personas" cognitives et des méthodologies de développement. [`get-shit-done` par TÂCHES](https://github.com/glittercowboy/get-shit-done) (64k+ étoiles, qui a inspiré la couche d'automatisation de ce kit, voir plus haut) propose un système de meta-prompting et de développement piloté par les specs.
 
-**The key difference:** SQWR provides *industry-standard, source-cited thresholds* — not behavioral rules. Every threshold (`LCP ≤2.5s`, `Security < 70 = BLOCKED`) has a verifiable source. Other kits enforce workflow; SQWR enforces standards.
+Ce kit se positionne différemment : ce n'est pas un gestionnaire de templates, un système de personas, ou une méthodologie de planification, mais un corpus de standards vérifiables. Chaque contrat (`contracts/`) cite une source Tier 1 ou Tier 2 (OWASP, WCAG, NIST, Nielsen NN/G...) et porte un seuil numérique ; chaque audit (`audits/`) transforme ces seuils en score sur 100 ; les hooks (`hooks/`, `global/hooks/`) et `scripts/verify-kit.sh` font respecter ces seuils de façon automatique plutôt que déclarative. Les chiffres exacts (contrats, audits, agents, hooks, scripts, skills) sont listés dans les tableaux ci-dessus et recomptés à chaque exécution de `verify-kit.sh`.
 
 ---
 
@@ -307,10 +313,10 @@ OWASP, WCAG, Google SRE, NIST, Nielsen NN/G, W3C. No "it is recommended to".
 EAA (active since June 2025), EU AI Act, GDPR. See [`frameworks/COMPLIANCE-EU.md`](frameworks/COMPLIANCE-EU.md).
 
 **5. The kit applies itself**
-Self-audit: **91/100**. `bash scripts/verify-kit.sh --verbose` → 0 errors.
+`bash scripts/verify-kit.sh --verbose` runs the kit's own integrity checks (file presence, sourced contracts, numeric thresholds, number drift between README and the filesystem) and must report 0 errors. The GitHub Actions badge above runs the same check on every push.
 
 **6. Active enforcement, not passive checklists**
-11 audit agents, 21 compliance hook scripts, 3 workflow templates. Standards that are checked automatically, not discovered in post-mortems.
+11 audit agents, 22 compliance hook scripts, 3 workflow templates. Standards that are checked automatically, not discovered in post-mortems.
 
 **7. The only kit with API design + database migrations + error handling standards in one place**
 `CONTRACT-API-DESIGN.md` (RFC 7231, OpenAPI 3.1.0), `CONTRACT-DATABASE-MIGRATIONS.md` (Fowler Expand-Contract, PostgreSQL), and `CONTRACT-ERROR-HANDLING.md` (Nielsen NN/G, Google SRE) cover the three most common sources of silent production failures.
@@ -371,21 +377,21 @@ project-kit/
 ├── DISCOVERY-GUIDE.md      → 10-Minute kit tour, PDF-ready
 ├── contracts/              → 40 contracts (thresholds + sources)
 ├── frameworks/             → 13 situational tools
-├── audits/                 → 13 audits scoring /100
+├── audits/                 → 14 audits scoring /100
 ├── agents/                 → 14 agents (audit agents + Haiku research subagents)
-├── skills/                 → 9 skills (/new-feature, /pre-deployment, /monthly-review, /compliance-check, /risk-score…)
+├── skills/                 → 10 skills (/new-feature, /pre-deployment, /monthly-review, /compliance-check, /risk-score…)
 ├── commands/               → 4 slash commands (/init-project, /full-audit…)
 ├── hooks/                  → Plugin hooks
 │   ├── hooks.json          → Declarative hook config (SessionStart, PreCompact, etc.)
-│   └── scripts/            → 21 hook scripts (no-secrets, build-before-commit, session-context…)
+│   └── scripts/            → 22 hook scripts (no-secrets, build-before-commit, session-context…)
 ├── workflows/              → 3 process templates (Observable Truths gates)
 ├── templates/              → CLAUDE.md, settings.json, github-actions/verify-kit.yml…
 ├── scripts/                → init-project.sh (--plugin flag), verify-kit.sh, verify-project.sh
 ├── global/                 → User-level layer for ~/.claude (v4)
 │   ├── CLAUDE.md           → Global instructions template
 │   ├── install-global.sh   → Installer (backup, merge, idempotent)
-│   ├── hooks/              → 19 hooks + lib/ + tests/ + settings-hooks.json
-│   ├── scripts/            → 16 ops scripts + lib/ + tests/
+│   ├── hooks/              → 18 hooks + lib/ + tests/ + settings-hooks.json
+│   ├── scripts/            → 17 ops scripts + lib/ + tests/
 │   ├── skills/ commands/ agents/
 │   └── settings.example.json
 └── docs/                   → MEMORY-SYSTEM.md, SKILLS-GOVERNANCE.md
