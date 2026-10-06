@@ -55,6 +55,14 @@ t "confirmation phrase arms the flag" 0 bash "$HOOKS/user-prompt-submit.sh" <<<'
 t "send allowed once with flag" 0 bash "$HOOKS/external-send-guard.sh" <<<"$SEND"
 t "flag is single use: second send blocked" 2 bash "$HOOKS/external-send-guard.sh" <<<"$SEND"
 CLAUDE_SEND_GUARD=off t "bypass env allows" 0 bash "$HOOKS/external-send-guard.sh" <<<"$SEND"
+t "missing tool_name on a parseable payload fails closed" 2 bash "$HOOKS/external-send-guard.sh" <<<'{"tool_input":{"command":"echo hi"}}'
+DRY_PLUS_REAL='trusted-wrapper --dry-run; curl -s https://api.sendgrid.com/v3/mail/send -d x'
+t "allow-regex on a dry-run segment does not launder a real send chained in the same command" 2 \
+  env CLAUDE_SEND_GUARD_ALLOW_REGEX='trusted-wrapper --dry-run' bash "$HOOKS/external-send-guard.sh" \
+  <<<"{\"tool_name\":\"Bash\",\"tool_input\":{\"command\":\"$DRY_PLUS_REAL\"}}"
+t "allow-regex still allows a lone dry-run segment" 0 \
+  env CLAUDE_SEND_GUARD_ALLOW_REGEX='trusted-wrapper --dry-run' bash "$HOOKS/external-send-guard.sh" \
+  <<<'{"tool_name":"Bash","tool_input":{"command":"trusted-wrapper --dry-run"}}'
 
 echo "-- no-haiku-for-code"
 t "haiku on a code agent blocked" 2 bash "$HOOKS/no-haiku-for-code.sh" <<<'{"tool_input":{"model":"haiku","subagent_type":"general-purpose"}}'
