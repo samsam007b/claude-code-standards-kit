@@ -62,8 +62,8 @@ NC='\033[0m'
 
 # ─── Helpers ────────────────────────────────────────────────────
 pass()    { echo -e "  ${GREEN}✓${NC} $1"; }
-fail()    { echo -e "  ${RED}✗${NC} $1"; ((ERRORS++)); }
-warn()    { echo -e "  ${YELLOW}⚠${NC} $1"; ((WARNINGS++)); }
+fail()    { echo -e "  ${RED}✗${NC} $1"; ERRORS=$((ERRORS + 1)); }
+warn()    { echo -e "  ${YELLOW}⚠${NC} $1"; WARNINGS=$((WARNINGS + 1)); }
 info()    { $VERBOSE && echo -e "  ${GRAY}→${NC} $1" || true; }
 section() { echo -e "\n${BLUE}▸ $1${NC}"; }
 
