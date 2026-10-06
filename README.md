@@ -9,9 +9,10 @@
 [![Self-audit](https://img.shields.io/badge/self--audit-91%2F100-brightgreen.svg)]()
 [![Made for Claude Code](https://img.shields.io/badge/made%20for-Claude%20Code-orange.svg)]()
 [![By SQWR Studio](https://img.shields.io/badge/by-SQWR%20Studio-black.svg)](https://sqwr.be)
+[![By Flows Studio](https://img.shields.io/badge/by-Flows%20Studio-black.svg)](https://flows-studio.com)
 [![SQWR Kit Verification](https://github.com/samsam007b/claude-code-standards-kit/actions/workflows/verify-kit.yml/badge.svg)](https://github.com/samsam007b/claude-code-standards-kit/actions/workflows/verify-kit.yml)
 
-<sub>Designed and maintained by <a href="https://sqwr.be"><strong>SQWR Studio</strong></a> — Branding & Web · <a href="https://sqwr.be">sqwr.be</a> · <a href="mailto:studio@sqwr.be">studio@sqwr.be</a></sub>
+<sub>Designed and maintained by <a href="https://sqwr.be"><strong>SQWR Studio</strong></a> (branding &amp; design) and <a href="https://flows-studio.com"><strong>Flows Studio</strong></a> (automation &amp; agentic development)</sub>
 
 </div>
 
@@ -402,16 +403,17 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ## Want this level of quality without handling it yourself?
 
-This kit is the public method of **[SQWR Studio](https://sqwr.be)** — the studio that created it, refined it across dozens of real projects, and applies it to every delivery.
+This kit is the public method of two sister studios. Each one applies it as a delivery baseline, in its own specialty.
 
-**What SQWR Studio offers:**
-- **Project audit** — score your existing codebase against the kit's standards (/100 per domain, PDF report)
-- **Kit setup** — integrate the kit into your stack and train your team
-- **Project delivery** — Next.js / Supabase / iOS development at the standards described here
+| | [SQWR Studio](https://sqwr.be) | [Flows Studio](https://flows-studio.com) |
+|---|---|---|
+| **Specialty** | Branding and design | Automation and agentic development |
+| **What they build** | Brand identities, design systems, websites and digital products with a strong visual signature | AI agents for businesses (support, concierge, email, social, SEO), workflow automation, custom agentic systems |
+| **Kit layer they live in** | Design, accessibility, motion and brand contracts, design generation protocol | Agent and AI-safety contracts, the user-level `global/` layer: hooks, memory, cost and governance |
+| **Typical engagements** | Brand strategy, identity, web design and build, design audit /100 | Agent design and deployment, automation audit, Claude Code setup and team training |
+| **Contact** | [studio@sqwr.be](mailto:studio@sqwr.be) | [contact@flows-studio.com](mailto:contact@flows-studio.com) |
 
-> A score ≥85/100 is not a goal — it is our delivery baseline.
-
-**Contact:** [studio@sqwr.be](mailto:studio@sqwr.be) · [sqwr.be](https://sqwr.be)
+> A score of 85/100 or more is not a goal. It is the delivery baseline of both studios.
 
 ---
 
@@ -423,6 +425,6 @@ MIT — free to use, modify, and distribute.
 
 <div align="center">
 <sub>
-<a href="METHODOLOGY.md">Methodology</a> · <a href="DISCOVERY-GUIDE.md">10-Minute Tour</a> · <a href="audits/AUDIT-INDEX.md">Run an audit</a> · <a href="https://sqwr.be">SQWR Studio</a> · <a href="mailto:studio@sqwr.be">studio@sqwr.be</a>
+<a href="METHODOLOGY.md">Methodology</a> · <a href="DISCOVERY-GUIDE.md">10-Minute Tour</a> · <a href="audits/AUDIT-INDEX.md">Run an audit</a> · <a href="https://sqwr.be">SQWR Studio</a> · <a href="https://flows-studio.com">Flows Studio</a>
 </sub>
 </div>
