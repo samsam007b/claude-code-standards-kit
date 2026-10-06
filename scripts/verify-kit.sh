@@ -381,10 +381,10 @@ if [ -d "$AGENTS_DIR" ]; then
       continue
     else
       LEVELS_FOUND=0
-      grep -q "Level 1" "$agent" && ((LEVELS_FOUND++))
-      grep -q "Level 2" "$agent" && ((LEVELS_FOUND++))
-      grep -q "Level 3" "$agent" && ((LEVELS_FOUND++))
-      grep -q "Level 4" "$agent" && ((LEVELS_FOUND++))
+      grep -q "Level 1" "$agent" && LEVELS_FOUND=$((LEVELS_FOUND + 1))
+      grep -q "Level 2" "$agent" && LEVELS_FOUND=$((LEVELS_FOUND + 1))
+      grep -q "Level 3" "$agent" && LEVELS_FOUND=$((LEVELS_FOUND + 1))
+      grep -q "Level 4" "$agent" && LEVELS_FOUND=$((LEVELS_FOUND + 1))
       if [ "$LEVELS_FOUND" -eq 4 ]; then
         pass "$agent_name → 4-level verification structure"
       else

@@ -34,8 +34,8 @@ ERRORS=0
 WARNINGS=0
 
 pass() { echo -e "  ${GREEN}✓${NC} $1"; }
-fail() { echo -e "  ${RED}✗${NC} $1"; ((ERRORS++)); }
-warn() { echo -e "  ${YELLOW}⚠${NC} $1"; ((WARNINGS++)); }
+fail() { echo -e "  ${RED}✗${NC} $1"; ERRORS=$((ERRORS + 1)); }
+warn() { echo -e "  ${YELLOW}⚠${NC} $1"; WARNINGS=$((WARNINGS + 1)); }
 
 # ─── Locate the file ─────────────────────────────────────────────
 CLAUDE_FILE="${1:-$(pwd)/CLAUDE.md}"
