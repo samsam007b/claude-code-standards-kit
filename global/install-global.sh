@@ -84,7 +84,7 @@ else
 fi
 if [ -f "$HOOKS_JSON" ]; then
   MERGED="$(jq -s '
-    (.[0] | del(._comment)) as $base | (.[1].hooks // .[1]) as $new
+    (.[0] | walk(if type == "object" then with_entries(select(.key | startswith("_comment") | not)) else . end)) as $base | (.[1].hooks // .[1]) as $new
     | $base * {hooks: (
         reduce ($new | keys[]) as $ev (($base.hooks // {});
           .[$ev] = ((.[$ev] // []) as $cur
