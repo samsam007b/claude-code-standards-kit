@@ -326,7 +326,7 @@ class CommandValidator {
       { pattern: /git\s+clean\s+(-\S+\s+)*-[a-zA-Z]*f/i, label: 'git clean -f (permanently deletes untracked files)' },
       { pattern: /git\s+checkout\s+--\s+\./i, label: 'git checkout -- . (discards all working tree changes)' },
       { pattern: /git\s+restore\s+\.\b/i, label: 'git restore . (discards all working tree changes)' },
-      { pattern: /git\s+branch\s+-D\b/i, label: 'git branch -D (force-deletes branch without merge check)' },
+      { pattern: /git\s+branch\s+(\S+\s+)*(-D\b|--delete\s+--force\b|--force\s+--delete\b)/, label: 'git branch -D (force-deletes branch without merge check)' },
       { pattern: /git\s+rebase\s+.*--onto\b/i, label: 'git rebase --onto (rewrites branch history)' },
       { pattern: /git\s+filter-branch\b/i, label: 'git filter-branch (rewrites entire repo history)' },
     ];

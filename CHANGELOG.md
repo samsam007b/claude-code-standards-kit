@@ -13,6 +13,7 @@ This project adheres to [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 ### Fixed
 - `global/hooks/validate-command.js`: the database guard now reads the working directory from the hook payload (`cwd`), so it follows `cd` inside a session instead of the process directory. Before this, `CLAUDE_DB_PROTECT_DIRS` could silently never match.
 - `global/hooks/validate-command.js`: the untracked-file cleanup rule now catches combined flags (`-fd`, `-xdf`, `-n -d -f`) and no longer matches unrelated text later in the command.
+- `global/hooks/validate-command.js`: the force branch delete rule was case-insensitive, so the safe `git branch -d` (refuses unmerged branches) was blocked like `-D`. The rule is now case-sensitive and also catches `--delete --force`.
 - `global/hooks/lib/external-send-classify.py`: a payload without a string `tool_name` is now refused (exit 3) instead of being classified as harmless.
 - `global/hooks/lib/external-send-classify.py`: `CLAUDE_SEND_GUARD_ALLOW_REGEX` now only exempts the command segments it matches (split on newlines and `;`). Before this, one allowed segment exempted a whole chained command, including a real send after it.
 - `global/install-global.sh`: every `_comment*` key from `settings.example.json` is stripped at install time (nested ones too), so the installed `settings.json` only holds keys Claude Code knows.

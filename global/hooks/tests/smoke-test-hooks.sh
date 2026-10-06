@@ -41,6 +41,8 @@ GIT="git"; PUSH="push"; FORCE="--force"
 echo "-- validate-command.js"
 t "git reset --hard blocked" 2 node "$HOOKS/validate-command.js" <<<'{"tool_name":"Bash","tool_input":{"command":"git reset --hard HEAD~3"},"cwd":"/tmp"}'
 t "plain ls allowed" 0 node "$HOOKS/validate-command.js" <<<'{"tool_name":"Bash","tool_input":{"command":"ls -la"},"cwd":"/tmp"}'
+t "safe branch delete (lowercase -d) allowed" 0 node "$HOOKS/validate-command.js" <<<'{"tool_name":"Bash","tool_input":{"command":"git branch -d merged-feature"},"cwd":"/tmp"}'
+t "force branch delete (-D) blocked" 2 node "$HOOKS/validate-command.js" <<<'{"tool_name":"Bash","tool_input":{"command":"git branch -D old-feature"},"cwd":"/tmp"}'
 CLAUDE_SECURITY_LOG=off t "non-JSON input: non-blocking error (exit 1, never 2)" 1 node "$HOOKS/validate-command.js" <<<'garbage'
 
 echo "-- external-send-guard + user-prompt-submit (confirmation flag flow)"
