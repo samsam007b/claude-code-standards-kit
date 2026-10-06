@@ -136,7 +136,7 @@ export default function DashboardPage() {
   return (
     <main>
       <h1>{t('title')}</h1>
-      <p>{t('welcome', { name: 'Samuel' })}</p>
+      <p>{t('welcome', { name: 'Alice' })}</p>
       <p>{t('items_count', { count: 5 })}</p>
     </main>
   )

@@ -49,7 +49,7 @@ This contract applies to any project containing factual data: prices, contacts, 
 
 1. **Screenshots or text provided directly** in the conversation
 2. **Content scraped live** from the official source (`WebFetch`)
-3. **Explicit verbal confirmation** from Samuel in the current conversation
+3. **Explicit verbal confirmation** from the user in the current conversation
 
 ## Invalid Sources
 

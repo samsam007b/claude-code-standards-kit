@@ -8,6 +8,29 @@ This project adheres to [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
 ## [Unreleased]
 
+## [4.0.0] - 2026-10-06
+
+### Added
+
+- **User-level layer (`global/`)**: everything needed to run the same Claude Code setup in `~/.claude`, installable with `global/install-global.sh` (dry-run, timestamped backup, idempotent settings merge).
+- **Global `CLAUDE.md`**: self-verification before the final answer, output and context discipline, design generation protocol, anti-proliferation gate, 2-phase research, CLI over MCP, model delegation (`opusplan` default), usage-measured routing, communication style, memory conventions.
+- **19 hooks** with `settings-hooks.json`: `validate-command.js`, `external-send-guard.sh` (in-turn confirmation flag), `no-haiku-for-code.sh`, `check-force-push.sh`, `check-compiled-files.sh`, `api-key-isolation-guard.sh`, marketplace vetting (`plugin-script-exec-guard.sh`, `marketplace-add-guard.sh`, `mcp-tool-trust-gate.sh`, `guard-file-tamper-guard.sh`), `memory-novelty-gate.py`, `local-search-before-uncertainty.py`, `detect-frustration-pattern.sh`, `rtk-rewrite.sh`, session lifecycle hooks. Tests: smoke test (43 cases) and marketplace vetting suite (24 cases).
+- **16 ops scripts**: `env-vault.sh`, `scan-secrets.sh`, `api-key-guard.sh`, worktree helpers, heartbeat watchdog with alert-channel canary (+ cron evaluator, 40 test cases), cost status line and dashboard, `usage-scan.py`, `skills-index-refresh.py`, rotation and dashboard utilities.
+- **Skills**: `engineering-philosophy`, `just-content`, `anti-ai-writing`, `marketplace-vetting`, `pre-design`. **Commands**: `/grill`, `/clean-commit`, `/opusplan`, `/fableplan`, `/audit-drift`. **Agents**: `researcher`, `doc-reader`, `code-reviewer`, `debug-assistant`, `test-writer`, `pr-describer`, `memory-sync`.
+- **Docs**: `docs/MEMORY-SYSTEM.md`, `docs/SKILLS-GOVERNANCE.md`.
+
+### Changed
+
+- `verify-kit.sh`: utility subagents (`AGENT-RESEARCHER`, `AGENT-DOC-READER`) are no longer checked as audit agents. The kit passes its own check again (0 errors, 0 warnings).
+- `AGENT-RESEARCHER.md`, `AGENT-DOC-READER.md`: English descriptions, `effort` and `permissionMode` frontmatter.
+- Examples in contracts and frameworks use neutral placeholder names.
+
+### Removed
+
+- `IMPROVEMENT-PLAN.md` (internal planning document, superseded).
+
+## [3.3.0] - 2026-04-22
+
 ### Added
 
 - **CONTRACT-TOKEN-ECONOMY.md**: Complete token economy optimization contract — 7 domains: model delegation (TE-1.x), two-phase research pattern 3.2x cheaper (TE-2.x), context reduction .claudeignore + CLAUDE.md migration (TE-3.x), output controls (TE-4.x), RTK shell compression 70-99% (TE-5.x), MCP server hygiene 50-100K tokens/session (TE-6.x), monitoring (TE-7.x). Sources: Anthropic pricing 2025, empirical testing, RTK Issue #690, arXiv 2601.08815

@@ -373,9 +373,12 @@ if [ -d "$AGENTS_DIR" ]; then
     else
       warn "$agent_name → missing 'permissionMode:' frontmatter (recommended: bypassPermissions for read-only audits)"
     fi
-    # Check 4-level verification structure (skip orchestrator)
+    # Check 4-level verification structure (skip orchestrator and utility subagents)
     if [[ "$agent_name" == "AGENT-FULL-AUDIT.md" ]]; then
       pass "$agent_name → orchestrator (delegates 4-level verification to sub-agents)"
+    elif [[ "$agent_name" == "AGENT-RESEARCHER.md" || "$agent_name" == "AGENT-DOC-READER.md" ]]; then
+      pass "$agent_name → utility subagent (no audit levels by design)"
+      continue
     else
       LEVELS_FOUND=0
       grep -q "Level 1" "$agent" && ((LEVELS_FOUND++))

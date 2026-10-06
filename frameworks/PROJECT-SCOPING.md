@@ -167,8 +167,8 @@ identification by 30%**. The mechanism: "prospective hindsight" — imagining fa
    Convert into concrete actions → Risk Register.
 ```
 
-**For SQWR solo:** Do the exercise alone, then repeat with Joakim (for SQWR Studio projects)
-or Alexandre (for [YourProject]). Even solo, the exercise forces the externalization
+**Solo:** Do the exercise alone, then repeat with a creative partner
+or an account lead. Even solo, the exercise forces the externalization
 of concerns that remained implicit.
 
 ### SQWR Pre-mortem Template
@@ -179,7 +179,7 @@ of concerns that remained implicit.
 **Date:** [DD/MM/YYYY]
 **Project:** [short description]
 **Expected delivery:** [DD/MM/YYYY]
-**Participants:** [Samuel / Samuel + Joakim / Samuel + Alexandre]
+**Participants:** [Lead / Lead + Creative / Lead + Account]
 
 ## Scenario
 
@@ -233,9 +233,9 @@ of concerns that remained implicit.
 
 | ID | Risk | P (1-5) | I (1-5) | Score P×I | Mitigation | Owner | Status |
 |----|------|---------|---------|-----------|-----------|-------|--------|
-| R1 | Client scope creep | 4 | 4 | **16** | Pitch validated in writing before start | Samuel | Open |
-| R2 | Joakim availability (creative) | 3 | 3 | 9 | Confirm availability in Part 1 | Samuel | Open |
-| R3 | Third-party API unavailable | 2 | 4 | 8 | Local mock + fallback planned | Samuel | Open |
+| R1 | Client scope creep | 4 | 4 | **16** | Pitch validated in writing before start | Lead | Open |
+| R2 | Creative partner availability | 3 | 3 | 9 | Confirm availability in Part 1 | Lead | Open |
+| R3 | Third-party API unavailable | 2 | 4 | 8 | Local mock + fallback planned | Lead | Open |
 | R4 | | | | | | | |
 
 **SQWR Rule:** Any risk with a score ≥ 15 must have a defined mitigation action

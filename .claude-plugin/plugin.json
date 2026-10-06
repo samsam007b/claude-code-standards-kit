@@ -1,7 +1,7 @@
 {
   "name": "sqwr-standards-kit",
-  "version": "3.2.0",
-  "description": "Professional standards kit — 39 contracts, 14 audits, 12 agents, 10 skills, 21 hook scripts. Includes brainstorm guard, anti-patterns contract, and one-command installer. Enables a solo developer with Claude Code to produce deliverables at the level of expert teams.",
+  "version": "4.0.0",
+  "description": "Professional standards kit for Claude Code: 40 contracts, 14 audits, audit agents, skills and hooks for projects, plus a user-level ~/.claude layer (19 hooks, 16 ops scripts, global CLAUDE.md, skills, commands, agents) for safety, cost and memory discipline.",
   "author": "SQWR Studio",
   "homepage": "https://github.com/samsam007b/claude-code-standards-kit",
   "license": "MIT",
@@ -10,7 +10,16 @@
   "hooks": "hooks/hooks.json",
   "commands": "commands/",
   "rules": "rules/",
-  "keywords": ["standards", "audit", "contracts", "sqwr", "quality", "professional", "compliance", "security"],
+  "keywords": [
+    "standards",
+    "audit",
+    "contracts",
+    "sqwr",
+    "quality",
+    "professional",
+    "compliance",
+    "security"
+  ],
   "userConfig": {
     "audit_threshold": {
       "description": "Global minimum score threshold for SQWR audits (0-100)",

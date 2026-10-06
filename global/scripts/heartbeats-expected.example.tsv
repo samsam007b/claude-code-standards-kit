@@ -1,0 +1,10 @@
+# Expected-jobs registry for heartbeat-watchdog.sh
+# Copy to $HOME/.claude/state/heartbeats-expected.tsv (or $HEARTBEAT_STATE_DIR).
+# Columns (TAB separated): job <TAB> max_age_seconds <TAB> description
+# job must match the name the job passes to lib/heartbeat.sh.
+# Declare each job's REAL frequency; the watchdog floors short thresholds itself.
+nightly-backup	129600	Nightly backup, 36 h tolerance
+db-dump-weekly	691200	Weekly database dump, 8 days tolerance
+sync-calendar	3600	Calendar sync every 30 min, 1 h tolerance
+log-rotation	172800	Daily log rotation, 48 h tolerance
+cost-report	93600	Daily cost report, 26 h tolerance

@@ -35,7 +35,7 @@ mypy src/ --strict
 
 ```python
 # Variables and functions: snake_case
-user_name = "samuel"
+user_name = "alice"
 def get_user_profile(): ...
 
 # Classes: PascalCase

@@ -147,7 +147,7 @@ Every project collaborating with Claude Code must have a `CLAUDE.md` including:
 
 | Section | Mandatory? | Content |
 |---------|--------------|--------|
-| Who works with you | ✅ | Samuel's identity + contacts |
+| Who works with you | ✅ | The user's identity + contacts |
 | This project | ✅ | Name, description, stack, status |
 | Architecture | ✅ | Directory tree + critical files |
 | Active contracts | ✅ | List of contracts to read |

@@ -376,7 +376,7 @@ const transition = shouldReduceMotion
 ## 10. Color Scale — Perceptual Consistency
 
 > Source: Fairchild, M.D. — *Color Appearance Models*, 3rd ed. (Wiley, 2013) — CIECAM02/CIELAB
-> Source: Izzico Design System (field — role colors, validated with WCAG AA)
+> Source: field-tested design system (role colours, validated WCAG AA)
 
 ### ΔE — Perceptual Distinction Threshold
 

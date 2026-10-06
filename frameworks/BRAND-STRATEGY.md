@@ -169,7 +169,7 @@ our process integrates both from the very first brief.
 ```
 
 **The most common mistake:**
-> "We are the most award-winning creative agency in Brussels." → The brand puts itself as the hero. The client wonders what's in it for them.
+> "We are the most award-winning creative agency in town." → The brand puts itself as the hero. The client wonders what's in it for them.
 
 **The correction:**
 > "Your business deserves an identity worthy of your ambition. We guide creators and entrepreneurs in building a presence that reflects who they are." → Client = Hero. Brand = Guide.
