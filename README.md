@@ -118,7 +118,7 @@ The kit has two layers that install independently.
 | Skills | 5 | `engineering-philosophy`, `just-content`, `anti-ai-writing`, `marketplace-vetting`, `pre-design` |
 | Commands | 5 | `/grill`, `/clean-commit`, `/opusplan`, `/fableplan`, `/audit-drift` |
 | Agents | 7 | `researcher` and `doc-reader` (Haiku, 400-token digests), `code-reviewer`, `debug-assistant`, `test-writer`, `pr-describer`, `memory-sync` |
-| Docs | 3 | [`docs/MEMORY-SYSTEM.md`](docs/MEMORY-SYSTEM.md), [`docs/SKILLS-GOVERNANCE.md`](docs/SKILLS-GOVERNANCE.md), [`docs/TEAM-MANAGED-SETTINGS.md`](docs/TEAM-MANAGED-SETTINGS.md) |
+| Docs | 4 | [`docs/EXFILTRATION-DEFENSE.md`](docs/EXFILTRATION-DEFENSE.md), [`docs/MEMORY-SYSTEM.md`](docs/MEMORY-SYSTEM.md), [`docs/SKILLS-GOVERNANCE.md`](docs/SKILLS-GOVERNANCE.md), [`docs/TEAM-MANAGED-SETTINGS.md`](docs/TEAM-MANAGED-SETTINGS.md) |
 
 Design principles of this layer:
 
@@ -394,7 +394,7 @@ project-kit/
 │   ├── scripts/            → 17 ops scripts + lib/ + tests/
 │   ├── skills/ commands/ agents/
 │   └── settings.example.json
-└── docs/                   → MEMORY-SYSTEM.md, SKILLS-GOVERNANCE.md
+└── docs/                   → EXFILTRATION-DEFENSE.md, MEMORY-SYSTEM.md, SKILLS-GOVERNANCE.md
 ```
 
 ---
