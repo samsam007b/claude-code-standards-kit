@@ -86,7 +86,7 @@ curl -sL https://raw.githubusercontent.com/samsam007b/claude-code-standards-kit/
 tagged release and read `scripts/install.sh` before running it:
 
 ```bash
-git clone --branch v4.1.0 --depth 1 https://github.com/samsam007b/claude-code-standards-kit ~/sqwr-standards-kit
+git clone --branch v5.0.0 --depth 1 https://github.com/samsam007b/claude-code-standards-kit ~/sqwr-standards-kit
 less ~/sqwr-standards-kit/scripts/install.sh   # read it
 bash ~/sqwr-standards-kit/scripts/install.sh    # run it once you are satisfied
 ```

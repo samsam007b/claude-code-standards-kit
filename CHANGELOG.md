@@ -11,7 +11,7 @@ This project adheres to [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 ### Added
 - `docs/EXFILTRATION-DEFENSE.md`: a layered checklist against data exfiltration (secrets, supply chain, egress, database RLS audit, backups), with the allowlist pitfalls found in practice: variables such as `${CLAUDE_SKILL_DIR:-...}` are not expanded by `plugin-allowlist-check.py`, wildcard `git fetch` rules allow `--upload-pack` injection, interpreters and package runners must never be allowlisted, Docker published ports bypass ufw.
 
-## [5.0.0] - unreleased
+## [5.0.0] - 2026-11-14
 
 A beginner layer on top of the unchanged standards kit. Contracts, audits and the 18 global hooks are untouched (still the "advanced" tier).
 
