@@ -201,7 +201,8 @@ main() {
         message+="3. If already committed, rotate the exposed credentials\n"
 
         # Output JSON for Claude Code hook
-        echo "{\"decision\": \"block\", \"reason\": \"$(echo -e "$message" | head -20 | tr '\n' ' ' | sed 's/"/\\"/g')\"}"
+        printf '%b' "$message" | head -20 >&2
+        exit 2
         exit 0
     fi
 

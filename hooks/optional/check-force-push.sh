@@ -5,7 +5,7 @@
 INPUT=$(cat)
 CMD=$(echo "$INPUT" | python3 -c "import json,sys; print(json.load(sys.stdin).get('tool_input',{}).get('command',''))" 2>/dev/null)
 
-if echo "$CMD" | grep -qE "git\s+push" && echo "$CMD" | grep -qE "\-\-force|\-f(\s|$)"; then
+if echo "$CMD" | grep -qE "git\s+push" && echo "$CMD" | grep -qE "\-\-force|\s-[a-zA-Z]*f[a-zA-Z]*(\s|$)|\s\+[A-Za-z0-9_/.-]+"; then
   echo "🔴 BLOQUÉ — git push --force est interdit"
   echo "   Risque : écrasement irréversible de l'historique en production."
   echo "   Si vraiment nécessaire : demander confirmation explicite à l'utilisateur."

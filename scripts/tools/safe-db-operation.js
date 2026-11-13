@@ -33,7 +33,7 @@ const CODE_LENGTH = 6;
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
 function generateCode() {
-  return Math.random().toString().slice(2, 2 + CODE_LENGTH);
+  return Array.from({ length: CODE_LENGTH }, () => require('node:crypto').randomInt(10)).join('');
 }
 
 function log(entry) {
@@ -164,7 +164,7 @@ async function deleteUser(identifier) {
   console.log(`To confirm, type this code: \x1b[1m\x1b[33m${code}\x1b[0m`);
   console.log(`(You have 30 seconds)\n`);
 
-  log({ action: 'DELETE_USER_REQUESTED', email: user.email, userId: user.id, totalRows, code });
+  log({ action: 'DELETE_USER_REQUESTED', email: user.email, userId: user.id, totalRows });
 
   const answer = await askUser('Confirmation code: ');
 
