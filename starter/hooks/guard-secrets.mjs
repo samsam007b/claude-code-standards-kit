@@ -19,7 +19,7 @@ export const PATTERNS = [
 // Files where secrets are expected to live.
 export function isSecretsFile(path) {
   const n = basename(path || '');
-  return /^\.env(\..+)?$/.test(n) && !/\.(example|sample|template)$/.test(n);
+  return /^\.env(\.(local|development|production|test|staging)(\.local)?)?$/.test(n);
 }
 
 export function check(path, content) {
@@ -40,9 +40,10 @@ function main() {
   let input = {};
   try { input = JSON.parse(readFileSync(0, 'utf8')); } catch { process.exit(0); }
   const ti = input?.tool_input ?? {};
-  const content = [ti.content, ti.new_string].filter((x) => typeof x === 'string').join('\n');
+  const edits = Array.isArray(ti.edits) ? ti.edits.map((e) => e?.new_string) : [];
+  const content = [ti.content, ti.new_string, ti.new_source, ...edits].filter((x) => typeof x === 'string').join('\n');
   if (!content) process.exit(0);
-  const hit = check(ti.file_path, content);
+  const hit = check(ti.file_path ?? ti.notebook_path, content);
   if (!hit) process.exit(0);
   const msg = language() === 'fr'
     ? `Écriture bloquée (${hit.id}) : le texte ressemble à un vrai secret. Rangez-le dans un fichier .env listé dans .gitignore et lisez-le depuis une variable d'environnement. Voir /explain guardrail.`

@@ -7,7 +7,7 @@ import { homedir } from 'node:os';
 import { join } from 'node:path';
 
 export const RULES = [
-  { id: 'rm-root-home', re: /\brm\s+(-[a-zA-Z]*[rf][a-zA-Z]*\s+)+(\/|~|\$HOME|\*)(\s|$|\/\*)/,
+  { id: 'rm-root-home', re: /\brm\s+(-[a-zA-Z]*[rf][a-zA-Z]*\s+)+(\/|~|\$HOME|\*)\/?\*?(\s|$)/,
     en: 'Deleting the root, your home folder or everything in the current folder.',
     fr: "Suppression de la racine, de votre dossier personnel ou de tout le dossier courant." },
   { id: 'git-force-main', re: /\bgit\s+push\b[^\n]*(--force\b|-f\b)[^\n]*\b(main|master)\b|\bgit\s+push\b[^\n]*\b(main|master)\b[^\n]*(--force\b|\s-f\b)/,
@@ -33,8 +33,20 @@ export const RULES = [
     fr: "Effacement d'un lecteur ou d'une arborescence Windows." },
 ];
 
+// Normalise so quoting, ${HOME} and long options do not slip past the patterns.
+export function normalize(command) {
+  return command
+    .replace(/["']/g, '')
+    .replace(/\$\{HOME\}/g, '$HOME')
+    .replace(/--recursive\b/g, '-r')
+    .replace(/--force\b/g, '-f')
+    .replace(/(\bgit\s+push\b[^\n]*\s)\+(\S*\b(main|master)\b)/g, '$1-f $2')
+    .replace(/refs\/heads\//g, '');
+}
+
 export function check(command) {
-  for (const r of RULES) if (r.re.test(command)) return r;
+  const norm = normalize(command);
+  for (const r of RULES) if (r.re.test(command) || r.re.test(norm)) return r;
   return null;
 }
 

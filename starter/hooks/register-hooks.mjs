@@ -17,7 +17,7 @@ const here = dirname(fileURLToPath(import.meta.url));
 const q = (p) => `"${p.replace(/"/g, '\\"')}"`;
 const entries = [
   { matcher: 'Bash', file: 'guard-destructive.mjs' },
-  { matcher: 'Write|Edit', file: 'guard-secrets.mjs' },
+  { matcher: 'Write|Edit|MultiEdit|NotebookEdit', file: 'guard-secrets.mjs' },
 ].map((e) => ({ matcher: e.matcher, command: `node ${q(join(here, e.file))}`, file: e.file }));
 
 let settings = {};
