@@ -1,30 +1,30 @@
 #!/usr/bin/env python3
 """
-usage-scan.py — mesure quels agents, skills et commandes servent reellement.
+usage-scan.py: measures which agents, skills and commands are actually used.
 
-Pourquoi ce script existe
--------------------------
-L'audit du 21/07 a compte a la main 28 agents sur 53 jamais invoques. Celui du
-18/08 a constate que ce chiffre n'avait jamais ete remesure : on auditait tous
-les six mois ce qu'il fallait mesurer en continu. Les setups publics de
-reference, y compris ceux a 229 skills, ne mesurent rien du tout. C'est donc le
-point ou ce setup peut passer devant, et il coute une centaine de lignes.
-
-Pourquoi lire les transcripts plutot que poser un hook
------------------------------------------------------
-Un hook PostToolUse aurait demande d'editer settings.json, qui porte un
-chflags uchg volontaire et exige une manipulation physique. Surtout, un hook ne
-sait rien du passe : il faudrait attendre trois mois pour obtenir le premier
-chiffre. Les transcripts de session contiennent deja tout l'historique, donc la
-mesure est disponible retroactivement et sans toucher a la configuration.
-
-Cout et incrementalite
+Why this script exists
 ----------------------
-Le corpus fait 7 Gio. Deux precautions rendent le passage quotidien negligeable :
-un cache (chemin, taille, mtime) qui saute tout fichier deja lu et inchange, et
-un pre-filtre par sous-chaine avant tout json.loads, parce que decoder chaque
-ligne de chaque session couterait des minutes pour quelques milliers de lignes
-reellement utiles.
+The 07/21 audit counted by hand 28 agents out of 53 never invoked. The
+08/18 one found that this figure had never been re-measured: we audited every
+six months what should have been measured continuously. Public reference
+setups, including those with 229 skills, measure nothing at all. This is
+therefore the point where this setup can pull ahead, and it costs about a hundred lines.
+
+Why read transcripts rather than add a hook
+-------------------------------------------
+A PostToolUse hook would have required editing settings.json, which carries a
+deliberate chflags uchg and requires a physical manipulation. Above all, a hook
+knows nothing about the past: we would have to wait three months to get the first
+number. Session transcripts already contain the whole history, so the
+measurement is available retroactively and without touching the configuration.
+
+Cost and incrementality
+-----------------------
+The corpus is 7 GiB. Two precautions make the daily pass negligible:
+a cache (path, size, mtime) that skips any file already read and unchanged, and
+a substring pre-filter before any json.loads, because decoding every
+line of every session would cost minutes for a few thousand really useful
+lines.
 """
 import json
 import os
@@ -37,8 +37,8 @@ ETAT = Path.home() / ".claude" / "state" / "usage.json"
 CACHE = Path.home() / ".claude" / "state" / "usage-cache.json"
 FENETRE_JOURS = int(os.environ.get("USAGE_FENETRE", "180"))
 
-# Pre-filtre : une ligne qui ne contient aucun de ces marqueurs ne peut pas
-# porter d'invocation, on evite de la decoder.
+# Pre-filter: a line containing none of these markers cannot
+# carry an invocation, so we avoid decoding it.
 MARQUEURS = (b'"Agent"', b'"Skill"', b'"Task"')
 
 
@@ -129,22 +129,22 @@ def rapport(etat):
     utilises = set(etat["agents"])
     jamais = sorted(definis - utilises)
 
-    print(f"fichiers lus {etat['fichiers_lus']}, deja connus {etat['fichiers_deja_connus']}")
-    print(f"\nagents definis {len(definis)}, invoques au moins une fois {len(definis & utilises)}, "
-          f"jamais invoques {len(jamais)}")
-    print("\ntop agents :")
+    print(f"files read {etat['fichiers_lus']}, already known {etat['fichiers_deja_connus']}")
+    print(f"\nagents defined {len(definis)}, invoked at least once {len(definis & utilises)}, "
+          f"never invoked {len(jamais)}")
+    print("\ntop agents:")
     for k, v in sorted(etat["agents"].items(), key=lambda x: -x[1]["n"])[:10]:
-        marque = "" if k in definis else "   (non defini localement)"
-        print(f"  {v['n']:5d}  {k:32s} dernier {v['dernier']}{marque}")
-    print("\ntop skills :")
+        marque = "" if k in definis else "   (not defined locally)"
+        print(f"  {v['n']:5d}  {k:32s} last {v['dernier']}{marque}")
+    print("\ntop skills:")
     for k, v in sorted(etat["skills"].items(), key=lambda x: -x[1]["n"])[:10]:
-        print(f"  {v['n']:5d}  {k:32s} dernier {v['dernier']}")
-    print(f"\njamais invoques ({len(jamais)}) :")
-    print("  " + ", ".join(jamais) if jamais else "  aucun")
+        print(f"  {v['n']:5d}  {k:32s} last {v['dernier']}")
+    print(f"\nnever invoked ({len(jamais)}):")
+    print("  " + ", ".join(jamais) if jamais else "  none")
 
 
 if __name__ == "__main__":
     t0 = time.time()
     e = scanner()
     rapport(e)
-    print(f"\nduree {time.time() - t0:.1f}s")
+    print(f"\nduration {time.time() - t0:.1f}s")

@@ -1,24 +1,24 @@
 #!/usr/bin/env node
 /**
- * audit-page-overflow.mjs — Détecte le contenu tronqué par le bas de page dans un HTML paginé
- * Usage : node audit-page-overflow.mjs <document.html> [--json] [--min=20] [--chrome=<path>]
+ * audit-page-overflow.mjs: detects content truncated at the bottom of the page in a paginated HTML
+ * Usage: node audit-page-overflow.mjs <document.html> [--json] [--min=20] [--chrome=<path>]
  *
- * Pourquoi ce script existe
- * -------------------------
- * Les templates documentaires posent le conteneur de contenu en `flex:1; overflow:hidden`
- * et sortent le pied de page de ce conteneur. Conséquence : tout ce qui dépasse est coupé
- * SANS AUCUN SIGNE. Le pied de page reste parfaitement rendu, les scores restent au vert,
- * et pdftotext extrait parfois quand même le texte coupé. Un contrôle par présence de texte
- * sees nothing.
+ * Why this script exists
+ * ----------------------
+ * Document templates set the content container to `flex:1; overflow:hidden`
+ * and place the page footer outside that container. As a result, anything that overflows is cut
+ * WITHOUT ANY SIGN. The footer still renders perfectly, scores stay green,
+ * and pdftotext sometimes still extracts the cut text. A text-presence check
+ * therefore sees nothing wrong.
  *
- * La seule mesure fiable est géométrique, dans le moteur de rendu :
- *   - troncature dure  : scrollHeight > clientHeight sur le conteneur qui clippe
- *   - page trop serrée : distance entre le bas du dernier enfant et le bas du conteneur
+ * The only reliable measure is geometric, inside the rendering engine:
+ *   - hard truncation: scrollHeight > clientHeight on the clipping container
+ *   - page too tight: distance between the bottom of the last child and the bottom of the container
  *
- * Zéro dépendance npm : injecte une sonde dans une copie temporaire du HTML, la fait mesurer
- * par Chrome headless, et récupère le résultat via le <title> avec --dump-dom.
+ * Zero npm dependencies: injects a probe into a temporary copy of the HTML, has it measured
+ * by headless Chrome, and retrieves the result via the <title> with --dump-dom.
  *
- * Codes de sortie : 0 = aucune page coupée · 2 = au moins une page coupée
+ * Exit codes: 0 = no page cut · 2 = at least one page cut
  */
 
 import { readFileSync, writeFileSync, existsSync, rmSync } from 'fs'
@@ -37,7 +37,7 @@ if (!file) {
 }
 const filePath = resolve(file)
 if (!existsSync(filePath)) {
-  console.error(`Fichier introuvable : ${filePath}`)
+  console.error(`File not found: ${filePath}`)
   process.exit(1)
 }
 
@@ -50,13 +50,13 @@ const CHROMES = [
 ].filter(Boolean)
 const chrome = CHROMES.find((p) => existsSync(p))
 if (!chrome) {
-  console.error('Chrome/Chromium introuvable. Contrôle de troncature IMPOSSIBLE, ne pas conclure au vert.')
+  console.error('Chrome/Chromium not found. Truncation check IMPOSSIBLE, do not conclude it is green.')
   process.exit(3)
 }
 
-// ── Sonde injectée dans la page ────────────────────────────────────────────
-// Mesure chaque conteneur qui clippe (overflow != visible) et assez grand pour
-// être une zone de contenu de page. Retourne troncature dure + marge résiduelle.
+// ── Probe injected into the page ───────────────────────────────────────────
+// Measures each container that clips (overflow != visible) and is large enough to
+// be a page content area. Returns hard truncation + residual margin.
 const PROBE = `
 <script>
 (function () {
@@ -68,10 +68,10 @@ const PROBE = `
       var cs = getComputedStyle(el);
       var oy = cs.overflowY;
       if (oy === 'visible') continue;
-      if (el.clientHeight < 150) continue;          // trop petit pour être une zone de page
+      if (el.clientHeight < 150) continue;          // too small to be a page area
       if (!el.children.length) continue;
 
-      // index de page : rang du conteneur de page le plus proche
+      // page index: rank of the nearest page container
       var page = el.closest('[class*="page"], [class*="sheet"], [class*="a4"]') || el;
       var siblings = page.parentElement
         ? Array.prototype.filter.call(page.parentElement.children, function (n) {
@@ -85,7 +85,7 @@ const PROBE = `
       var padBottom = parseFloat(cs.paddingBottom) || 0;
       var clipped = Math.max(0, el.scrollHeight - el.clientHeight);
 
-      // marge résiduelle : bas du conteneur moins bas du dernier enfant visible
+      // residual margin: container bottom minus bottom of the last visible child
       var box = el.getBoundingClientRect();
       var lastBottom = -Infinity;
       for (var k = 0; k < el.children.length; k++) {
@@ -105,16 +105,16 @@ const PROBE = `
         height: Math.round(el.clientHeight)
       });
     }
-    // ne garder que le conteneur le plus interne : le wrapper de page englobe
-    // la zone de contenu et produirait une seconde mesure, toujours à zéro
+    // keep only the innermost container: the page wrapper encloses
+    // the content area and would produce a second measurement, always zero
     var inner = out.filter(function (r) {
       return !out.some(function (o) { return o !== r && r.el.contains(o.el); });
     }).map(function (r) { delete r.el; return r; });
     document.title = '__OVF__' + JSON.stringify({ fontsReady: !!fontsReady, rows: inner }) + '__END__';
   }
   function go() {
-    // Mesurer AVANT le chargement des polices web fausse tout le calcul de hauteur :
-    // on n'écrit le résultat qu'une fois document.fonts.ready résolu.
+    // Measuring BEFORE web fonts load skews the whole height calculation:
+    // the result is only written once document.fonts.ready has resolved.
     var f = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
     f.then(function () { measure(true); }, function () { measure(false); });
   }
@@ -124,7 +124,7 @@ const PROBE = `
 </script>
 `
 
-// ── Copie sondée, dans le dossier source pour garder les chemins relatifs ──
+// ── Probed copy, in the source folder to keep relative paths ──
 const dir = dirname(filePath)
 const probedPath = join(dir, `.ovf-probe-${process.pid}-${basename(filePath)}`)
 let html = readFileSync(filePath, 'utf-8')
@@ -158,7 +158,7 @@ try {
 
 const m = dom.match(/__OVF__(.*?)__END__/s)
 if (!m) {
-  console.error('Sonde non exécutée (Chrome n\'a pas rendu la page). Contrôle NON concluant.')
+  console.error('Probe not executed (Chrome did not render the page). Check INCONCLUSIVE.')
   process.exit(3)
 }
 
@@ -166,16 +166,16 @@ let payload
 try {
   payload = JSON.parse(m[1].replace(/&quot;/g, '"').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>'))
 } catch {
-  console.error('Résultat de sonde illisible. Contrôle NON concluant.')
+  console.error('Unreadable probe result. Check INCONCLUSIVE.')
   process.exit(3)
 }
 const rows = payload.rows || []
 if (!payload.fontsReady) {
-  console.error('Polices web non chargées au moment de la mesure : hauteurs non fiables, contrôle NON concluant.')
+  console.error('Web fonts not loaded at measurement time: unreliable heights, check INCONCLUSIVE.')
   process.exit(3)
 }
 
-// Une seule ligne par page : le conteneur le plus contraint
+// One row per page: the most constrained container
 const byPage = new Map()
 for (const r of rows) {
   const prev = byPage.get(r.page)
@@ -183,15 +183,15 @@ for (const r of rows) {
 }
 const pages = [...byPage.values()].sort((a, b) => a.page - b.page)
 
-// Seuil de marge : plancher absolu, relevé au quart de la réserve prévue par la page.
-// Une page paysage réserve moins qu'une page portrait, le seuil suit.
+// Margin threshold: absolute floor, raised to a quarter of the reserve planned by the page.
+// A landscape page reserves less than a portrait page, the threshold follows.
 const threshold = (p) => Math.max(minSlack, Math.round(p.padBottom * 0.25))
 
-// slack < 0  = contenu réellement hors feuille, coupé par overflow:hidden  → BLOQUANT
-// eaten > 0  = contenu descendu dans la réserve de bas de page             → information
+// slack < 0  = content really off the sheet, cut by overflow:hidden  → BLOCKING
+// eaten > 0  = content that has moved into the bottom-of-page reserve → information
 const cut = pages.filter((p) => p.slack !== null && p.slack < 0)
-// padBottom === 0 : mise en page pleine page (couverture, planche), le contenu touche
-// le bord par construction, pas de marge à exiger.
+// padBottom === 0: full-page layout (cover, plate), the content touches
+// the edge by design, no margin to require.
 const tight = pages.filter((p) => p.slack !== null && p.padBottom > 0 && p.slack >= 0 && p.slack < threshold(p))
 
 if (asJson) {
@@ -202,45 +202,45 @@ if (asJson) {
 const name = basename(filePath)
 console.log('')
 console.log('╔══════════════════════════════════════════════════════════════════')
-console.log(`║  BAS DE PAGE — ${name}`)
-console.log(`║  ${pages.length} page(s) mesurée(s) · plancher de marge : ${minSlack}px, relevé au quart de la réserve`)
+console.log(`║  PAGE BOTTOM: ${name}`)
+console.log(`║  ${pages.length} page(s) measured · margin floor: ${minSlack}px, raised to a quarter of the reserve`)
 console.log('╠══════════════════════════════════════════════════════════════════')
 
 if (cut.length) {
   console.log('║')
-  console.log(`║  CONTENU COUPÉ (${cut.length}) — BLOQUANT :`)
+  console.log(`║  CUT CONTENT (${cut.length}), BLOCKING:`)
   for (const p of cut) {
-    console.log(`║  ✗ page ${p.page} : ${-p.slack}px hors feuille, coupés sans trace (${p.tag})`)
+    console.log(`║  ✗ page ${p.page}: ${-p.slack}px off the sheet, cut without a trace (${p.tag})`)
   }
-  console.log('║    → raccourcir la page, ou desserrer la densité (padding des cellules, interlignes).')
-  console.log('║      Vérifier la présence du texte dans le PDF ne prouve RIEN : overflow:hidden coupe')
-  console.log('║      à l\'affichage alors que pdftotext extrait encore le texte.')
+  console.log('║    → shorten the page, or loosen the density (cell padding, line spacing).')
+  console.log('║      Checking that the text is present in the PDF proves NOTHING: overflow:hidden cuts')
+  console.log('║      at display time while pdftotext still extracts the text.')
 }
 
 if (tight.length) {
   console.log('║')
-  console.log(`║  MARGE TROP FAIBLE (${tight.length}) — le dernier bloc touche presque le pied de page :`)
+  console.log(`║  MARGIN TOO SMALL (${tight.length}): the last block almost touches the page footer:`)
   for (const p of tight) {
-    console.log(`║  ⚠ page ${p.page} : ${p.slack}px sous le dernier bloc, seuil ${threshold(p)}px (réserve prévue ${p.padBottom}px)`)
+    console.log(`║  ⚠ page ${p.page}: ${p.slack}px below the last block, threshold ${threshold(p)}px (planned reserve ${p.padBottom}px)`)
   }
 }
 
 const ok = pages.filter((p) => !cut.includes(p) && !tight.includes(p))
 if (ok.length) {
   console.log('║')
-  console.log(`║  PAGES SAINES (${ok.length}) :`)
+  console.log(`║  HEALTHY PAGES (${ok.length}):`)
   console.log(`║  ✓ ${ok.map((p) => `${p.page}:${p.slack === null ? '-' : p.slack + 'px'}`).join('  ')}`)
 }
 
 const eaten = pages.filter((p) => p.clipped > 0 && !cut.includes(p))
 if (eaten.length) {
   console.log('║')
-  console.log(`║  Pour information, pages qui descendent dans la réserve de bas de page :`)
+  console.log(`║  For information, pages that extend into the bottom-of-page reserve:`)
   console.log(`║    ${eaten.map((p) => `${p.page} (${p.clipped}px)`).join(', ')}`)
 }
 
 console.log('║')
-console.log(`║  VERDICT : ${cut.length ? 'BLOQUANT, page(s) coupée(s)' : tight.length ? 'PASSE, marges à resserrer' : 'PASSE'}`)
+console.log(`║  VERDICT: ${cut.length ? 'BLOCKING, page(s) cut' : tight.length ? 'PASS, margins to tighten' : 'PASS'}`)
 console.log('║')
 console.log('╚══════════════════════════════════════════════════════════════════')
 console.log('')

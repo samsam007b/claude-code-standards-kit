@@ -1,41 +1,40 @@
 #!/usr/bin/env python3
-"""Stop hook — local-search-before-uncertainty
+"""Stop hook: local-search-before-uncertainty
 
-Bloque la fin du tour si le dernier message assistant contient un marqueur
-d'incertitude ("[À CONFIRMER]", "je n'ai pas cette info", etc.) sans qu'une
-recherche locale ciblée sur le sujet en question (Grep/Glob/find/grep sur
-~/Desktop, ~/Projects, ~/.claude, ou Agent Explore/memory search_nodes)
-n'ait été faite dans ce même tour.
+Blocks the end of the turn if the last assistant message contains an uncertainty
+marker ("[À CONFIRMER]", "je n'ai pas cette info", etc.) and no targeted local
+search on the subject in question (Grep/Glob/find/grep on
+~/Desktop, ~/Projects, ~/.claude, or Agent Explore/memory search_nodes)
+was done in that same turn.
 
-Incident déclencheur : Claude a marqué un nom de client comme [À CONFIRMER] et a
-proposé de demander à l'utilisateur, alors que l'info existait déjà dans un fichier
-local du projet. Règle
-CLAUDE.md "chercher avant de demander" existait déjà en prose mais n'était
-pas garantie — converti en hook déterministe.
+Triggering incident: Claude marked a client name as [À CONFIRMER] and
+offered to ask the user, even though the information already existed in a local
+project file. The CLAUDE.md rule "search before asking" already existed in prose
+but was not guaranteed, so it was converted into a deterministic hook.
 
-v2 (même jour) : la v1 acceptait n'importe quelle commande mentionnant
-"grep"/"~/Desktop" comme preuve de recherche, même sans rapport avec le
-sujet incertain (ex: un `cat ~/Desktop/foo.md` déjà lancé pour autre chose
-suffisait à débloquer). v2 exige un chevauchement de mots-clés entre le
-texte autour du marqueur d'incertitude et la requête de recherche
-(pattern grep, nom du Glob, query memory, prompt de l'agent Explore).
-Fallback lenient (n'importe quelle recherche locale suffit) uniquement si
-aucun terme distinctif n'a pu être extrait du texte incertain.
+v2 (same day): v1 accepted any command mentioning
+"grep"/"~/Desktop" as proof of a search, even when unrelated to the
+uncertain subject (e.g. a `cat ~/Desktop/foo.md` already run for something else
+was enough to unblock). v2 requires a keyword overlap between the
+text around the uncertainty marker and the search query
+(grep pattern, Glob name, memory query, Explore agent prompt).
+Lenient fallback (any local search is enough) only if
+no distinctive term could be extracted from the uncertain text.
 
-v3 (même jour, faux positif réel en prod) : deux bugs trouvés en se faisant
-bloquer soi-même. (1) Les lignes de tableau markdown citant les marqueurs
-en exemple ("Élargie (à confirmer, pas certain...)") étaient matchées
-comme si c'était une vraie déclaration d'incertitude — les tableaux/blocs
-de code sont maintenant exclus du texte scanné. (2) extract_turn_entries
-s'arrêtait au premier bloc role=="user" en remontant, mais un tool_result
-(réponse d'un appel d'outil) a aussi role=="user" dans le format API —
-un tour avec plusieurs allers-retours d'outils était donc tronqué avant
-d'avoir vu toutes les recherches faites plus tôt dans le même tour. Ne
-s'arrête plus que sur un vrai message humain (bloc de type "text", pas
+v3 (same day, real false positive in prod): two bugs found by getting
+blocked by our own hook. (1) Markdown table rows quoting the markers
+as examples ("Élargie (à confirmer, pas certain...)") were matched
+as if they were a real statement of uncertainty. Tables and code blocks
+are now excluded from the scanned text. (2) extract_turn_entries
+stopped at the first role=="user" block when walking backwards, but a tool_result
+(response to a tool call) also has role=="user" in the API format,
+so a turn with several tool round trips was truncated before
+seeing all the searches made earlier in the same turn. It now
+stops only on a real human message (block of type "text", not
 "tool_result").
 
-Non-bloquant au-delà de 8 blocages consécutifs (comportement Claude Code
-natif, cf. doc officielle "Stop hook").
+Non-blocking beyond 8 consecutive blocks (native Claude Code behavior,
+see the official "Stop hook" doc).
 """
 import sys
 import json
@@ -84,9 +83,9 @@ WORD_RE = re.compile(r"[A-Za-zÀ-ÿ0-9_\-]{4,}")
 
 
 def is_genuine_human_message(msg):
-    """Un message role=='user' peut être soit le vrai humain, soit un tool_result
-    relayé par l'API (même role côté format Anthropic). Seul le premier doit
-    marquer la limite du tour."""
+    """A role=='user' message can be either the real human or a tool_result
+    relayed by the API (same role in the Anthropic format). Only the first
+    should mark the turn boundary."""
     content = msg.get("content")
     if isinstance(content, str):
         return True
@@ -105,9 +104,9 @@ def is_genuine_human_message(msg):
 
 
 def extract_turn_entries(lines):
-    """Retourne les entrées assistant du tour courant (depuis le dernier vrai
-    message humain — pas les tool_result intermédiaires, qui ont aussi
-    role=='user' dans le format API)."""
+    """Return the assistant entries of the current turn (since the last real
+    human message, not the intermediate tool_results, which also have
+    role=='user' in the API format)."""
     turn = []
     for line in reversed(lines):
         line = line.strip()
@@ -129,9 +128,9 @@ def extract_turn_entries(lines):
 
 
 def strip_meta_text(text):
-    """Retire les lignes de tableau markdown et les blocs de code avant de
-    chercher les marqueurs d'incertitude — évite de matcher une ligne qui
-    *cite* les tournures en exemple plutôt que de les affirmer réellement."""
+    """Remove markdown table rows and code blocks before
+    looking for uncertainty markers, to avoid matching a line that
+    *quotes* the phrasings as examples rather than actually asserting them."""
     kept = []
     in_fence = False
     for line in text.split("\n"):
@@ -156,7 +155,7 @@ def keywords(text):
 
 
 def context_around_markers(text):
-    """Retourne le texte dans une fenêtre de ~120 caractères autour de chaque marqueur trouvé."""
+    """Return the text in a ~120-character window around each marker found."""
     windows = []
     for m in UNCERTAINTY_MARKERS.finditer(text):
         start = max(0, m.start() - 120)
@@ -166,7 +165,7 @@ def context_around_markers(text):
 
 
 def extract_search_query(name, inp):
-    """Extrait la chaîne de requête d'un tool_use de recherche, pour comparaison de mots-clés."""
+    """Extract the query string from a search tool_use, for keyword comparison."""
     if name in ("Grep", "Glob"):
         return " ".join(str(inp.get(k, "")) for k in ("pattern", "path", "glob"))
     if name == "Bash":
@@ -234,25 +233,25 @@ def main():
 
     if not any_local_search:
         print(
-            "BLOQUÉ (Stop hook local-search-before-uncertainty) : ta réponse marque une "
-            "incertitude ([À CONFIRMER], 'je n'ai pas cette info'...) mais aucune recherche "
-            "locale n'a été faite dans ce tour (Grep/Glob, grep/find sur ~/Desktop ou "
-            "~/Projects, Agent Explore, ou mcp__memory__search_nodes). Cherche d'abord en "
-            "local (mémoire MCP, hub, dossiers projet) avant de marquer l'info comme "
-            "inconnue ou de demander à l'utilisateur — l'info est probablement déjà quelque part "
-            "sur la machine.",
+            "BLOCKED (Stop hook local-search-before-uncertainty): your reply marks an "
+            "uncertainty ([À CONFIRMER], 'je n'ai pas cette info'...) but no local search "
+            "was done in this turn (Grep/Glob, grep/find on ~/Desktop or "
+            "~/Projects, Agent Explore, or mcp__memory__search_nodes). Search locally "
+            "first (MCP memory, hub, project folders) before marking the info as "
+            "unknown or asking the user: the info is probably already somewhere "
+            "on the machine.",
             file=sys.stderr,
         )
         sys.exit(2)
 
-    # Recherche(s) locale(s) présente(s) — vérifier qu'au moins une cible bien le sujet
-    # évoqué autour du marqueur d'incertitude (évite qu'une recherche sans rapport,
-    # lancée pour autre chose plus tôt dans le tour, serve de caution).
+    # Local search(es) present: check that at least one properly targets the subject
+    # mentioned around the uncertainty marker (prevents an unrelated search,
+    # launched for something else earlier in the turn, from serving as a pass).
     subject_kw = keywords(context_around_markers(scan_text))
 
     if not subject_kw:
-        # Impossible d'extraire un terme distinctif (texte trop générique) —
-        # fallback lenient, la présence d'une recherche locale suffit.
+        # Cannot extract a distinctive term (text too generic):
+        # lenient fallback, the presence of a local search is enough.
         sys.exit(0)
 
     for name, inp in search_calls:
@@ -262,11 +261,11 @@ def main():
             sys.exit(0)
 
     print(
-        "BLOQUÉ (Stop hook local-search-before-uncertainty) : une recherche locale a bien "
-        "eu lieu ce tour, mais aucune ne semble cibler le sujet marqué incertain "
-        f"(mots-clés attendus : {', '.join(sorted(subject_kw))[:200]}). "
-        "Relance une recherche qui porte spécifiquement sur ce sujet (nom, projet, terme) "
-        "avant de conclure que l'info est indisponible.",
+        "BLOCKED (Stop hook local-search-before-uncertainty): a local search did "
+        "take place this turn, but none seems to target the subject marked uncertain "
+        f"(expected keywords: {', '.join(sorted(subject_kw))[:200]}). "
+        "Run a search that specifically targets this subject (name, project, term) "
+        "before concluding the info is unavailable.",
         file=sys.stderr,
     )
     sys.exit(2)

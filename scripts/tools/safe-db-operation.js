@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Safe Database Operation Script — Data Protection Layer 1
+ * Safe Database Operation Script: Data Protection Layer 1
  *
  * This script is the ONLY sanctioned way to perform destructive database
  * operations (delete user, drop table, etc.) from the terminal.
@@ -11,7 +11,7 @@
  *   2. Generates a random 6-digit confirmation code
  *   3. Requires the user to type the code to proceed
  *   4. Logs everything to ~/.claude/data-operations.log
- *   5. 30-second timeout — if no confirmation, operation is cancelled
+ *   5. 30-second timeout: if no confirmation, operation is cancelled
  *
  * Usage:
  *   node ~/.claude/scripts/safe-db-operation.js delete-user <email>
@@ -72,7 +72,7 @@ async function askUser(question) {
   const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
   return new Promise((resolve) => {
     const timer = setTimeout(() => {
-      console.log('\n\x1b[31mTimeout — operation cancelled for safety.\x1b[0m');
+      console.log('\n\x1b[31mTimeout: operation cancelled for safety.\x1b[0m');
       log({ action: 'TIMEOUT', question });
       rl.close();
       process.exit(1);
@@ -169,7 +169,7 @@ async function deleteUser(identifier) {
   const answer = await askUser('Confirmation code: ');
 
   if (answer !== code) {
-    console.log('\n\x1b[32mWrong code — operation CANCELLED. No data was modified.\x1b[0m');
+    console.log('\n\x1b[32mWrong code: operation CANCELLED. No data was modified.\x1b[0m');
     log({ action: 'DELETE_USER_CANCELLED', email: user.email, reason: 'wrong_code' });
     process.exit(0);
   }

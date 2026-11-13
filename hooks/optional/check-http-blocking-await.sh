@@ -1,13 +1,13 @@
 #!/bin/bash
 # Hook: check-http-blocking-await
-# Détecte les awaits Supabase bloquants avant le return de la réponse HTTP
-# dans les routes track/* (open, click, unsubscribe, bounce).
-# Ces awaits retardent le retour du pixel/redirect → tracking incomplet.
-# Bug-07 audit mai 2026.
+# Detects blocking Supabase awaits before the HTTP response is returned
+# in track/* routes (open, click, unsubscribe, bounce).
+# These awaits delay the pixel/redirect response, so tracking is incomplete.
+# Bug-07 from the May 2026 audit.
 #
-# Volontairement PostToolUse : lit `git diff --cached` (état de staging git), pas `tool_input`.
-# Ce n'est pas le même bug que les hooks migrés vers PreToolUse (audit 2026-07-10, Tier 1-3) —
-# c'est un garde-fou post-commit légitime, pas un hook Claude Code cassé. Ne pas re-signaler.
+# Deliberately PostToolUse: reads `git diff --cached` (git staging state), not `tool_input`.
+# This is not the same bug as the hooks migrated to PreToolUse (audit 2026-07-10, Tier 1-3):
+# it is a legitimate post-commit safeguard, not a broken Claude Code hook. Do not re-report.
 
 set -euo pipefail
 
@@ -27,9 +27,9 @@ fi
 for file in $TRACK_FILES; do
   [ -f "$file" ] || continue
 
-  # Cherche: await supabase.(...) avant return new Response(
-  # dans la même fonction GET/POST — signal que la réponse HTTP est bloquée
-  python3 - "$file" <<'PYEOF' 2>/dev/null && ERRORS+=("HTTP-BLOCKING-AWAIT: $file — await supabase.* bloquant avant return Response() dans route track. Utiliser fire-and-forget: void (async () => { await supabase... })().catch(console.error). Bug-07 audit mai 2026.")
+  # Looks for: await supabase.(...) before return new Response(
+  # in the same GET/POST function, a sign that the HTTP response is blocked
+  python3 - "$file" <<'PYEOF' 2>/dev/null && ERRORS+=("HTTP-BLOCKING-AWAIT: $file - blocking await supabase.* before return Response() in a track route. Use fire-and-forget: void (async () => { await supabase... })().catch(console.error). Bug-07 May 2026 audit.")
 import sys, re
 
 content = open(sys.argv[1]).read()
@@ -88,16 +88,16 @@ done
 if [ ${#ERRORS[@]} -gt 0 ]; then
   echo ""
   echo "╔══════════════════════════════════════════════════════════════════╗"
-  echo "║  check-http-blocking-await — AWAIT BLOQUANT DANS TRACK ROUTE    ║"
+  echo "║  check-http-blocking-await: BLOCKING AWAIT IN TRACK ROUTE      ║"
   echo "╚══════════════════════════════════════════════════════════════════╝"
   echo ""
   for err in "${ERRORS[@]}"; do
     echo "  ✗ $err"
     echo ""
   done
-  echo "  Pattern correct :"
+  echo "  Correct pattern:"
   echo "  void (async () => { await supabase.from(...).update(...); })().catch(console.error);"
-  echo "  return new Response(GIF_1X1, { ... }); // retourné immédiatement"
+  echo "  return new Response(GIF_1X1, { ... }); // returned immediately"
   echo ""
   echo "  Reference: avoid blocking awaits in request handlers"
   echo ""

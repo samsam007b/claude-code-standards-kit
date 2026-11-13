@@ -1,6 +1,6 @@
 #!/bin/bash
-# hooks-dashboard.sh — Visibilité temps réel sur les hooks configurés et leur activité récente.
-# Pattern repris de experiments/team-coordination/team-status.sh (lecture d'état, zéro dépendance).
+# hooks-dashboard.sh: real-time view of configured hooks and their recent activity.
+# Pattern taken from experiments/team-coordination/team-status.sh (state reading, zero dependencies).
 # Usage: ~/.claude/scripts/hooks-dashboard.sh
 
 SETTINGS="$HOME/.claude/settings.json"
@@ -11,11 +11,11 @@ echo "=================="
 echo ""
 
 if [ ! -f "$SETTINGS" ]; then
-  echo "Status: settings.json introuvable ($SETTINGS)"
+  echo "Status: settings.json not found ($SETTINGS)"
   exit 1
 fi
 
-echo "📋 Hooks configurés par événement"
+echo "📋 Hooks configured per event"
 echo "----------------------------------"
 python3 - "$SETTINGS" <<'PYEOF'
 import json, sys, os
@@ -27,7 +27,7 @@ for event in ["UserPromptSubmit", "PreToolUse", "PostToolUse", "SessionStart", "
     entries = hooks.get(event, [])
     if not entries:
         continue
-    print(f"\n{event} ({len(entries)} groupe(s))")
+    print(f"\n{event} ({len(entries)} group(s))")
     for entry in entries:
         matcher = entry.get("matcher", "*")
         for h in entry.get("hooks", []):
@@ -39,33 +39,33 @@ for event in ["UserPromptSubmit", "PreToolUse", "PostToolUse", "SessionStart", "
             else:
                 name = cmd[:40] if cmd else "?"
                 blocking = False
-            tag = "🛑 bloquant" if blocking else "ℹ️  informatif"
+            tag = "🛑 blocking" if blocking else "ℹ️  informational"
             print(f"  [{matcher:20s}] {name:40s} {tag}")
 
 total = sum(len(v) for v in hooks.values())
-print(f"\nTotal : {total} groupe(s) de hooks sur {len(hooks)} événement(s)")
+print(f"\nTotal: {total} hook group(s) across {len(hooks)} event(s)")
 PYEOF
 
 echo ""
-echo "📊 Activité récente"
+echo "📊 Recent activity"
 echo "--------------------"
 
 FRUSTRATION_LOG="$LOG_DIR/frustration-signals.jsonl"
 if [ -f "$FRUSTRATION_LOG" ]; then
   COUNT=$(wc -l < "$FRUSTRATION_LOG" | tr -d ' ')
-  LAST=$(tail -1 "$FRUSTRATION_LOG" | python3 -c "import json,sys; e=json.load(sys.stdin); print(f\"{e['timestamp']} (score {e['score']}) — {e['signals'].strip()}\")" 2>/dev/null)
-  echo "Signaux de frustration capturés : $COUNT"
-  [ -n "$LAST" ] && echo "  Dernier : $LAST"
+  LAST=$(tail -1 "$FRUSTRATION_LOG" | python3 -c "import json,sys; e=json.load(sys.stdin); print(f\"{e['timestamp']} (score {e['score']}): {e['signals'].strip()}\")" 2>/dev/null)
+  echo "Frustration signals captured: $COUNT"
+  [ -n "$LAST" ] && echo "  Latest: $LAST"
 else
-  echo "Signaux de frustration capturés : 0 (aucun log)"
+  echo "Frustration signals captured: 0 (no log)"
 fi
 
 MEMORY_SYNC_LOG="$LOG_DIR/memory-sync-cron.log"
 if [ -f "$MEMORY_SYNC_LOG" ]; then
   LAST_RUN=$(grep "démarré" "$MEMORY_SYNC_LOG" | tail -1)
-  echo "memory-sync — dernier run : ${LAST_RUN:-jamais}"
+  echo "memory-sync: last run: ${LAST_RUN:-never}"
 else
-  echo "memory-sync — dernier run : jamais (log absent, cron pas encore déclenché)"
+  echo "memory-sync: last run: never (log missing, cron not triggered yet)"
 fi
 
 echo ""

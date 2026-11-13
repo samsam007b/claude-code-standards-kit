@@ -1,5 +1,5 @@
 #!/bin/bash
-# auto-format.sh — PostToolUse(Edit/Write) hook
+# auto-format.sh: PostToolUse(Edit/Write) hook
 # Runs the appropriate formatter on the file just edited.
 # Fails gracefully: exit 0 always so it never blocks Claude.
 

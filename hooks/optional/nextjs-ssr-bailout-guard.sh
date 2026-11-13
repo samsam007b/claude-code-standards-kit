@@ -1,15 +1,15 @@
 #!/bin/bash
-# PreToolUse hook — nextjs-ssr-bailout-guard
-# Détecte `dynamic(..., { ssr: false })` appliqué à un composant qui wrappe {children}.
-# Un tel composant ne peut pas être rendu côté serveur, donc Next.js bail-out le rendu
-# serveur de TOUT ce qu'il contient (pas seulement lui-même) — le contenu devient
-# invisible aux crawlers qui n'exécutent pas le JS (bug réel observé : homepage +
-# toutes les pages livraient 63 caractères de HTML visible au lieu de plusieurs milliers,
-# cause = un provider de suivi d'erreurs chargé en client-only).
+# PreToolUse hook: nextjs-ssr-bailout-guard
+# Detects `dynamic(..., { ssr: false })` applied to a component that wraps {children}.
+# Such a component cannot be server-rendered, so Next.js bails out of server rendering
+# for EVERYTHING it contains (not just itself), and the content becomes invisible to
+# crawlers that do not run JS (real bug observed: the homepage and all pages shipped
+# 63 characters of visible HTML instead of several thousand, caused by an error-tracking
+# provider loaded client-only).
 #
-# Avisory, non-bloquant (exit 0 + warning stderr) : le pattern légitime (modal/carte/graphique
-# en feuille, sans {children}) est bien plus fréquent que le bug réel, un hard block créerait
-# trop de faux positifs sur un pattern par ailleurs correct à 95% des usages ssr:false du repo.
+# Advisory, non-blocking (exit 0 + stderr warning): the legitimate pattern (leaf modal/map/chart,
+# without {children}) is far more common than the real bug, so a hard block would create
+# too many false positives on a pattern that is otherwise correct in 95% of the repo's ssr:false uses.
 
 INPUT=$(cat)
 
@@ -27,7 +27,7 @@ file_path = tool_input.get('file_path', '')
 if not re.search(r'\.(tsx|ts)$', file_path):
     sys.exit(0)
 
-# Contenu à inspecter : Write -> content, Edit -> new_string (+ ancien fichier si dispo pour contexte)
+# Content to inspect: Write -> content, Edit -> new_string (+ existing file if available for context)
 new_content = tool_input.get('content') or tool_input.get('new_string') or ''
 
 full_content = new_content
@@ -41,7 +41,7 @@ except Exception:
 if 'ssr: false' not in full_content and 'ssr:false' not in full_content:
     sys.exit(0)
 
-# Variables assignées via dynamic(...) avec ssr:false dans leur config
+# Variables assigned via dynamic(...) with ssr:false in their config
 risky_names = []
 for m in re.finditer(r'const\s+(\w+)\s*=\s*(?:nextDynamic|dynamic)\s*\(', full_content):
     name = m.group(1)
@@ -54,11 +54,11 @@ if not risky_names:
 
 flagged = []
 for name in risky_names:
-    # Wrapping direct : {children} doit être le tout premier enfant JSX rencontré
-    # juste après la balise ouvrante (espaces/retours à la ligne tolérés, rien d'autre) —
-    # évite les faux positifs où {children} apparaît plus loin dans le fichier pour
-    # un tout autre composant.
-    # (?<!/) exclut les balises auto-fermantes <Name ... />
+    # Direct wrapping: {children} must be the very first JSX child found
+    # right after the opening tag (whitespace/newlines tolerated, nothing else),
+    # which avoids false positives where {children} appears further down the file for
+    # a completely different component.
+    # (?<!/) excludes self-closing tags <Name ... />
     wrap_pattern = re.compile(r'<' + re.escape(name) + r'(?:\s[^>]*)?(?<!/)>\s*\{children\}')
     if wrap_pattern.search(full_content):
         flagged.append(name)
@@ -70,18 +70,18 @@ if flagged:
 if [[ "$RESULT" == FLAGGED:* ]]; then
   NAMES="${RESULT#FLAGGED:}"
   echo "" >&2
-  echo "⚠️  nextjs-ssr-bailout-guard — dynamic(..., { ssr: false }) semble wrapper {children}" >&2
+  echo "⚠️  nextjs-ssr-bailout-guard: dynamic(..., { ssr: false }) appears to wrap {children}" >&2
   echo "" >&2
-  echo "  Composant(s) concerné(s) : $NAMES" >&2
-  echo "  Un composant ssr:false qui enveloppe {children} bloque le rendu serveur de TOUT ce" >&2
-  echo "  qu'il contient — pas seulement lui-même. Si ce composant wrappe une partie de l'app" >&2
-  echo "  (provider, layout), les pages en dessous deviennent invisibles aux crawlers non-JS." >&2
-  echo "  Bug réel déjà rencontré : un provider de suivi d'erreurs chargé en client-only" >&2
-  echo "  (cause de pages non indexées par Google)." >&2
+  echo "  Affected component(s): $NAMES" >&2
+  echo "  An ssr:false component that wraps {children} blocks server rendering of EVERYTHING it" >&2
+  echo "  contains, not just itself. If this component wraps part of the app" >&2
+  echo "  (provider, layout), the pages below become invisible to non-JS crawlers." >&2
+  echo "  Real bug already encountered: an error-tracking provider loaded client-only" >&2
+  echo "  (cause of pages not indexed by Google)." >&2
   echo "" >&2
-  echo "  Si ce composant n'a pas de raison objective d'être client-only (pas d'API navigateur" >&2
-  echo "  au niveau module, pas de lib incompatible SSR), retire ssr:false — dynamic() sans" >&2
-  echo "  ssr:false code-split quand même le JS, juste sans bloquer le SSR." >&2
+  echo "  If this component has no objective reason to be client-only (no browser API" >&2
+  echo "  at module level, no SSR-incompatible lib), remove ssr:false. dynamic() without" >&2
+  echo "  ssr:false still code-splits the JS, just without blocking SSR." >&2
   echo "" >&2
 fi
 

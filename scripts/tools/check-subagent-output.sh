@@ -1,22 +1,22 @@
 #!/bin/bash
-# Hook PostToolUse pour Agent : avertit si un subagent retourne un résultat trop long
-# Objectif : empêcher les dumps bruts qui polluent le contexte Opus
+# PostToolUse hook for Agent: warns if a subagent returns an overly long result
+# Goal: prevent raw dumps that pollute the main model's context
 
 input=$(cat)
 tool_name=$(echo "$input" | jq -r '.tool_name // empty')
 
-# Ne s'applique qu'aux appels Agent
+# Only applies to Agent calls
 if [ "$tool_name" = "Agent" ]; then
   output=$(echo "$input" | jq -r '.tool_output // empty')
   if [ -n "$output" ]; then
-    # Compter les mots approximativement (proxy pour les tokens)
+    # Count words approximately (proxy for tokens)
     word_count=$(echo "$output" | wc -w | tr -d ' ')
 
     if [ "$word_count" -gt 800 ]; then
-      echo "⚠️ ALERTE TOKEN-ECONOMY : Le subagent a retourné ~${word_count} mots (~$((word_count * 4 / 3)) tokens). Le pattern 2 phases impose max 400 tokens. Rappel : résumé court + tableau 'à approfondir', pas de dump complet." >&2
+      echo "⚠️ TOKEN-ECONOMY ALERT: the subagent returned ~${word_count} words (~$((word_count * 4 / 3)) tokens). The 2-phase pattern caps output at 400 tokens. Reminder: short summary + 'to dig deeper' table, no full dump." >&2
     fi
   fi
 fi
 
-# Toujours laisser passer (informatif, pas bloquant)
+# Always let it through (informational, non-blocking)
 echo "{}"
