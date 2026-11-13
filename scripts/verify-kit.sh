@@ -848,6 +848,32 @@ if [ "$DRIFT_ERRORS" -eq 0 ]; then
 fi
 
 # ═══════════════════════════════════════════════════════════════
+# i18n parity (English source, French mirror)
+# ═══════════════════════════════════════════════════════════════
+if [ -x "$KIT_DIR/scripts/check-i18n.sh" ]; then
+  echo ""
+  echo -e "${BLUE}▸ i18n parity (EN source, FR mirror)${NC}"
+  if I18N_OUT=$(bash "$KIT_DIR/scripts/check-i18n.sh" 2>&1); then
+    info "i18n: English and French starter content in parity"
+  else
+    echo "$I18N_OUT" | grep '✗'
+    ERRORS=$((ERRORS + 1))
+  fi
+fi
+
+# Starter guardrails (plain Node): unit and end-to-end tests
+if [ -f "$KIT_DIR/starter/hooks/test-hooks.mjs" ] && command -v node >/dev/null 2>&1; then
+  echo ""
+  echo -e "${BLUE}▸ Starter guardrails tests${NC}"
+  if HOOK_OUT=$(node "$KIT_DIR/starter/hooks/test-hooks.mjs" 2>&1); then
+    info "starter guardrails: all tests passed"
+  else
+    echo "$HOOK_OUT" | grep '✗'
+    ERRORS=$((ERRORS + 1))
+  fi
+fi
+
+# ═══════════════════════════════════════════════════════════════
 # SUMMARY
 # ═══════════════════════════════════════════════════════════════
 echo ""

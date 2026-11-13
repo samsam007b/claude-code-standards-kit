@@ -11,6 +11,28 @@ This project adheres to [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 ### Added
 - `docs/EXFILTRATION-DEFENSE.md`: a layered checklist against data exfiltration (secrets, supply chain, egress, database RLS audit, backups), with the allowlist pitfalls found in practice: variables such as `${CLAUDE_SKILL_DIR:-...}` are not expanded by `plugin-allowlist-check.py`, wildcard `git fetch` rules allow `--upload-pack` injection, interpreters and package runners must never be allowlisted, Docker published ports bypass ufw.
 
+## [5.0.0] - unreleased
+
+A beginner layer on top of the unchanged standards kit. Contracts, audits and the 18 global hooks are untouched (still the "advanced" tier).
+
+### Added
+- `setup.sh` (macOS, Linux) and `setup.ps1` (Windows, native via winget): detect the machine, explain each missing tool (Homebrew or winget, Git, Node.js, Python, Claude Code), install only after a yes. Never overwrite existing files. `--dry-run`, `--lang en|fr`.
+- Skill `/welcome`: 6-question onboarding, level (Discovery, Practice, Autonomous), tools proposed one by one from needs (Playwright, Composio, guardrails), local profile in `~/.claude/kit/profile.json`.
+- Skill `/explain`: on-demand explanations of Claude Code terms at the person's level, backed by a 22-card glossary.
+- Skill `/pro-samuel`: explicit maintainer mode (direct tone, one recap, one confirmation). Never auto-detected, no personal data in the kit.
+- `starter/hooks/`: two guardrails in plain Node (`guard-destructive`, `guard-secrets`), `register-hooks.mjs` (backup, merge, idempotent, `--remove`) and 25 tests.
+- English source with French mirror (`SKILL.fr.md`, `docs/glossary/fr/`, `README.fr.md`); `scripts/check-i18n.sh` fails when the mirror drifts.
+- `docs/WINDOWS.md`: native starter tier, advanced tier through WSL2 only.
+
+### Changed
+- `README.md`: new "Start here" section before the technical README; skill count 10 to 13.
+- `scripts/verify-kit.sh`: also runs the i18n parity check and the starter guardrail tests.
+- `.claude-plugin/plugin.json`: version 5.0.0.
+
+### Known limits
+- `setup.ps1` has not been run on a real Windows machine yet.
+- Real package installs (`brew`, `winget`, `npm`) were exercised only through refusal and dry-run paths.
+
 ## [4.1.0] - 2026-10-06
 
 ### Fixed

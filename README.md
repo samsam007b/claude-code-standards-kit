@@ -17,6 +17,44 @@
 
 ---
 
+## Start here (new to Claude Code?)
+
+**Français :** [README.fr.md](README.fr.md)
+
+This kit has two layers. Most people only need the first one.
+
+| Tier | For whom | What you get |
+|---|---|---|
+| **1. Starter** | Anyone starting with Claude Code | A guided install, a short questionnaire, and an assistant that explains every tool in plain words before using it |
+| **2. Tools** | When you know what you need | Playwright (Claude drives Chrome), Composio (connects Claude to your apps), safeguards, more skills |
+| **Advanced** | Developers shipping real products | The full standards kit described below: contracts, audits, 18 global hooks |
+
+### Install the starter
+
+```bash
+git clone https://github.com/samsam007b/claude-code-standards-kit ~/claude-starter
+cd ~/claude-starter
+./setup.sh            # macOS or Linux      (add --lang fr for French)
+```
+
+On Windows, open PowerShell: `powershell -ExecutionPolicy Bypass -File .\setup.ps1`. The advanced tier on Windows needs WSL2: see [docs/WINDOWS.md](docs/WINDOWS.md).
+
+The script checks your machine, explains each missing tool (Homebrew or winget, Git, Node.js, Python, Claude Code), and installs it only if you say yes. Then run `claude` and type **`/welcome`**.
+
+### What happens next
+
+1. `/welcome` asks 6 short questions and sets your level: **Discovery**, **Practice** or **Autonomous**.
+2. It proposes tools from your needs, one at a time: what it is, why it helps you, how to remove it. Nothing is installed without your yes.
+3. At any moment, type **`/explain <term>`** (skill, hook, workflow, script, MCP, Composio...). The [glossary](docs/glossary/en/README.md) has 22 cards.
+
+Setting this up for someone else, in a hurry? Run `./setup.sh --pro-samuel`, then `/pro-samuel` (maintainer shortcut: direct tone, one recap, one confirmation).
+
+Nothing is sent anywhere. Your profile is a local file: `~/.claude/kit/profile.json`.
+
+---
+
+## The advanced tier
+
 A solo developer with Claude Code can write code. But does that code comply with OWASP? WCAG 2.1? Core Web Vitals? AWS Well-Architected standards?
 
 **Most of the time: no.** Not for lack of talent — for lack of method.
@@ -155,7 +193,7 @@ Read [`METHODOLOGY.md`](METHODOLOGY.md) for the full method.
 | **Frameworks** | 13 | Situational tools (branding, estimation, incident, campaign…) |
 | **Audits** | 14 | Scoring /100 per domain — run before each delivery |
 | **Agents** | 14 | Automated audit agents + Haiku research subagents — place in `.claude/agents/` |
-| **Skills** | 10 | Slash-command workflows — `/new-feature`, `/brainstorm`, `/pre-deployment`, `/monthly-review`, `/audit-runner`, `/contract-lookup`, `/project-setup`, `/auto-fix`, `/compliance-check`, `/risk-score` |
+| **Skills** | 13 | Slash-command workflows — `/new-feature`, `/brainstorm`, `/pre-deployment`, `/monthly-review`, `/audit-runner`, `/contract-lookup`, `/project-setup`, `/auto-fix`, `/compliance-check`, `/risk-score`, `/welcome`, `/explain`, `/pro-samuel` |
 | **Commands** | 4 | Slash commands — `/init-project`, `/full-audit`, `/verify-kit`, `/verify-project` |
 | **Hooks** | 22 | Claude Code compliance hooks — enforcement + session management + token economy monitoring (22 hook scripts) |
 | **Workflows** | 3 | Structured process templates (RESEARCH → CONTRACT → CODE → AUDIT) |
@@ -256,9 +294,9 @@ The kit ships with a Claude Code–native automation layer inspired by [GSD](htt
 
 | Component | Count | What it does |
 |-----------|-------|-------------|
-| **Plugin manifest** | 1 | `.claude-plugin/plugin.json` (v4.1.0) — auto-discovers agents, skills, hooks, commands |
+| **Plugin manifest** | 1 | `.claude-plugin/plugin.json` (v5.0.0) — auto-discovers agents, skills, hooks, commands |
 | **Audit agents** | 11 | Run `agents/AGENT-SECURITY-AUDIT.md` — 4-level verification with enriched frontmatter (`model`, `effort`, `color`) |
-| **Skills** | 10 | `/brainstorm`, `/new-feature`, `/pre-deployment`, `/monthly-review`, `/audit-runner`, `/contract-lookup`, `/project-setup`, `/auto-fix`, `/compliance-check`, `/risk-score` |
+| **Skills** | 13 | `/brainstorm`, `/new-feature`, `/pre-deployment`, `/monthly-review`, `/audit-runner`, `/contract-lookup`, `/project-setup`, `/auto-fix`, `/compliance-check`, `/risk-score`, `/welcome`, `/explain`, `/pro-samuel` |
 | **Slash commands** | 4 | `/init-project`, `/full-audit`, `/verify-kit`, `/verify-project` |
 | **Compliance hooks** | 22 | `hooks/hooks.json` — 22 hook scripts: secrets, build, XSS, contract compliance, session context, post-response, session-end, and more |
 | **Workflow templates** | 3 | `WORKFLOW-NEW-FEATURE.md` — 5 gates with Observable Truths |
@@ -379,7 +417,7 @@ project-kit/
 ├── frameworks/             → 13 situational tools
 ├── audits/                 → 14 audits scoring /100
 ├── agents/                 → 14 agents (audit agents + Haiku research subagents)
-├── skills/                 → 10 skills (/new-feature, /pre-deployment, /monthly-review, /compliance-check, /risk-score…)
+├── skills/                 → 13 skills (/new-feature, /pre-deployment, /monthly-review, /compliance-check, /risk-score…)
 ├── commands/               → 4 slash commands (/init-project, /full-audit…)
 ├── hooks/                  → Plugin hooks
 │   ├── hooks.json          → Declarative hook config (SessionStart, PreCompact, etc.)
