@@ -99,7 +99,7 @@ if [ ${#ERRORS[@]} -gt 0 ]; then
   echo "  void (async () => { await supabase.from(...).update(...); })().catch(console.error);"
   echo "  return new Response(GIF_1X1, { ... }); // retourné immédiatement"
   echo ""
-  echo "  Référence : feedback_b2b_code_patterns.md (bug 07)"
+  echo "  Reference: avoid blocking awaits in request handlers"
   echo ""
   exit 2
 fi

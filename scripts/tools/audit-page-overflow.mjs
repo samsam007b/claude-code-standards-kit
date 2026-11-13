@@ -9,7 +9,7 @@
  * et sortent le pied de page de ce conteneur. Conséquence : tout ce qui dépasse est coupé
  * SANS AUCUN SIGNE. Le pied de page reste parfaitement rendu, les scores restent au vert,
  * et pdftotext extrait parfois quand même le texte coupé. Un contrôle par présence de texte
- * ne voit donc rien (incident CG-PAID-002, pages 3, 12 et 17, septembre 2026).
+ * sees nothing.
  *
  * La seule mesure fiable est géométrique, dans le moteur de rendu :
  *   - troncature dure  : scrollHeight > clientHeight sur le conteneur qui clippe
