@@ -20,7 +20,7 @@ Generate a PR description ready to paste into GitHub. Use this structure:
 ```markdown
 ## Summary
 
-[1-3 bullet points: what changed and why — focus on the WHY, not the what]
+[1-3 bullet points: what changed and why: focus on the WHY, not the what]
 
 ## Changes
 
@@ -43,7 +43,7 @@ Generate a PR description ready to paste into GitHub. Use this structure:
 - **Summary = why** (motivation, ticket context, business reason)
 - **Changes = what** (files, functions, behavior)
 - **No filler phrases**: no "This PR implements...", no "I have added..."
-- **Max 10 bullets** in Changes — group related files
+- **Max 10 bullets** in Changes: group related files
 - Skip Notes section if there's nothing meaningful to say
 - If there are breaking changes, flag them with ⚠️
 

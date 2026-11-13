@@ -1,73 +1,73 @@
 ---
 name: accessibility-review
-description: Audit accessibilité WCAG 2.1 — contrastes, navigation clavier, ARIA, lecteurs d'écran, formulaires. Sources : W3C WCAG 2.1 AA, Nielsen 10 heuristics, ARIA Authoring Practices Guide.
+description: WCAG 2.1 accessibility audit: contrast, keyboard navigation, ARIA, screen readers, forms. Sources: W3C WCAG 2.1 AA, Nielsen 10 heuristics, ARIA Authoring Practices Guide.
 tags: [accessibility, wcag, aria, keyboard, screen-reader, a11y]
 model: sonnet
 ---
 
-# /accessibility-review — Audit Accessibilité WCAG 2.1
+# /accessibility-review: WCAG 2.1 Accessibility Audit
 
-## Quand utiliser
+## When to use
 
-- Audit d'un composant ou page (conformité WCAG 2.1 AA)
-- Review avant lancement d'une feature publique
-- Vérification d'un formulaire ou flow critique
-- Correction d'erreurs axe/Lighthouse accessibility
+- Audit of a component or page (WCAG 2.1 AA conformance)
+- Review before launching a public feature
+- Verification of a critical form or flow
+- Fixing axe/Lighthouse accessibility errors
 
-## Critères WCAG 2.1 AA
+## WCAG 2.1 AA criteria
 
-### Perceptibilité
-- [ ] Contraste texte : 4.5:1 minimum (3:1 pour texte large)
-- [ ] Contraste UI non-texte (icônes, bordures focus) : 3:1
-- [ ] Pas d'information transmise uniquement par la couleur
-- [ ] Alt text sur toutes les images non-décoratives (`alt=""` si décorative)
+### Perceivable
+- [ ] Text contrast: 4.5:1 minimum (3:1 for large text)
+- [ ] Non-text UI contrast (icons, focus borders): 3:1
+- [ ] No information conveyed by color alone
+- [ ] Alt text on all non-decorative images (`alt=""` if decorative)
 
-> Piège de comptage (un run précédent avait compté 87 violations à tort) : un grep `<Image` sur un projet Next.js matche aussi bien le composant `next/image` (a besoin d'`alt`) que l'icône `Image`/`ImageIcon`/`ImagePlus` importée de `lucide-react` (n'en a pas besoin, ce n'est pas une balise `<img>`). Toujours vérifier la source de l'import (`from 'next/image'` vs `from 'lucide-react'`) avant de compter un hit comme violation — ne pas se fier à un grep sur `<Image` seul.
-- [ ] Captions sur les vidéos, transcription pour l'audio
-- [ ] Contenu zoom 200% sans perte d'information
+> Counting pitfall (a previous run wrongly counted 87 violations): a grep for `<Image` in a Next.js project matches both the `next/image` component (needs `alt`) and the `Image`/`ImageIcon`/`ImagePlus` icon imported from `lucide-react` (does not need one, it is not an `<img>` tag). Always check the import source (`from 'next/image'` vs `from 'lucide-react'`) before counting a hit as a violation. Do not rely on a grep for `<Image` alone.
+- [ ] Captions on videos, transcript for audio
+- [ ] Content zooms to 200% without loss of information
 
-### Opérabilité (navigation clavier)
-- [ ] Tous les éléments interactifs accessibles au clavier (Tab, Shift+Tab)
-- [ ] Focus visible sur tous les éléments (outline CSS non supprimé)
-- [ ] Ordre de tabulation logique (suit le flux visuel)
-- [ ] Pas de piège clavier (modal ferme avec Escape)
-- [ ] Skip links ("Aller au contenu" en premier élément)
-- [ ] Shortcut clavier pour les fonctions répétitives
+### Operable (keyboard navigation)
+- [ ] All interactive elements reachable by keyboard (Tab, Shift+Tab)
+- [ ] Focus visible on all elements (CSS outline not removed)
+- [ ] Logical tab order (follows the visual flow)
+- [ ] No keyboard trap (modal closes with Escape)
+- [ ] Skip links ("Skip to content" as the first element)
+- [ ] Keyboard shortcut for repetitive functions
 
-### Compréhensibilité
-- [ ] `lang` sur `<html>` (et sur les changements de langue inline)
-- [ ] Labels explicites sur tous les inputs (pas uniquement placeholder)
-- [ ] Messages d'erreur associés via `aria-describedby`
-- [ ] Pas de timeout sans avertissement (WCAG 2.2.1)
-- [ ] Confirmation avant actions irréversibles
+### Understandable
+- [ ] `lang` on `<html>` (and on inline language changes)
+- [ ] Explicit labels on all inputs (not placeholder only)
+- [ ] Error messages associated via `aria-describedby`
+- [ ] No timeout without warning (WCAG 2.2.1)
+- [ ] Confirmation before irreversible actions
 
-### Robustesse (ARIA)
-- [ ] ARIA uniquement si HTML sémantique insuffisant
-- [ ] `role`, `aria-label`, `aria-describedby` cohérents
-- [ ] Live regions (`aria-live="polite"`) pour les mises à jour dynamiques
-- [ ] `aria-expanded`, `aria-selected`, `aria-checked` sur les composants custom
-- [ ] IDs uniques dans la page (jamais de duplicats)
+### Robust (ARIA)
+- [ ] ARIA only if semantic HTML is insufficient
+- [ ] `role`, `aria-label`, `aria-describedby` consistent
+- [ ] Live regions (`aria-live="polite"`) for dynamic updates
+- [ ] `aria-expanded`, `aria-selected`, `aria-checked` on custom components
+- [ ] Unique IDs in the page (never duplicates)
 
-### Composants custom (ARIA Authoring Practices)
-| Composant | Pattern ARIA requis |
+### Custom components (ARIA Authoring Practices)
+| Component | Required ARIA pattern |
 |-----------|-------------------|
 | Modal | `role="dialog"`, `aria-modal="true"`, focus trap, close on Escape |
 | Dropdown | `role="listbox"` + `role="option"`, `aria-selected` |
 | Tabs | `role="tablist"`, `role="tab"`, `aria-selected`, `role="tabpanel"` |
-| Toast | `role="status"` ou `role="alert"`, `aria-live` |
+| Toast | `role="status"` or `role="alert"`, `aria-live` |
 | Accordion | `aria-expanded`, controls/labelledby |
 
-## Format de sortie
+## Output format
 
 ```
-## Accessibility Review — [composant/page]
+## Accessibility Review: [component/page]
 
-### Score WCAG 2.1 AA : [X/100]
+### WCAG 2.1 AA score: [X/100]
 
-### 🔴 Non-conformité critique (bloquant légalement EAA 2025)
-### 🟡 Non-conformité AA à corriger
+### 🔴 Critical non-conformance (legally blocking, EAA 2025)
+### 🟡 AA non-conformance to fix
 ### 🟢 AAA (bonus)
 
-### Corrections code
-[JSX/HTML corrigé avec ARIA]
+### Code fixes
+[Fixed JSX/HTML with ARIA]
 ```

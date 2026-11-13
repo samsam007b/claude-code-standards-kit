@@ -1,35 +1,35 @@
 # Clean Commit
 
-Prépare un commit propre en nettoyant le code avant de committer.
+Prepares a clean commit by cleaning up the code before committing.
 
-## Étapes
+## Steps
 
-### 1. Analyse des fichiers modifiés
-Regarde les fichiers staged et unstaged avec `git status` et `git diff`.
+### 1. Analyze modified files
+Look at staged and unstaged files with `git status` and `git diff`.
 
-### 2. Nettoyage automatique
-Retire automatiquement :
-- `console.log()`, `console.debug()`, `console.warn()` de debug (garde ceux intentionnels avec commentaire `// keep`)
-- `print()` de debug en Python
+### 2. Automatic cleanup
+Automatically remove:
+- Debug `console.log()`, `console.debug()`, `console.warn()` (keep intentional ones marked with a `// keep` comment)
+- Debug `print()` in Python
 - `debugger;` statements
-- Commentaires temporaires (`// TODO: remove`, `// FIXME`, `// DEBUG`, `// test`)
-- Fichiers `.DS_Store`, `*.log`, `*.tmp`
-- Code commenté en bloc (plus de 5 lignes consécutives commentées)
+- Temporary comments (`// TODO: remove`, `// FIXME`, `// DEBUG`, `// test`)
+- `.DS_Store`, `*.log`, `*.tmp` files
+- Commented-out code blocks (more than 5 consecutive commented lines)
 
-### 3. Vérification des imports
-- Retire les imports non utilisés
-- Vérifie qu'il n'y a pas de `import ... from './test'` ou chemins de debug
+### 3. Import check
+- Remove unused imports
+- Check that there is no `import ... from './test'` or debug path
 
-### 4. Documentation si nécessaire
-Si une solution technique non-évidente a été implémentée durant cette session :
-- Crée un fichier `docs/decisions/YYYY-MM-DD-description.md` expliquant le contexte et la solution
-- N'ajoute cette doc que si c'est vraiment nécessaire pour la compréhension future
+### 4. Documentation if needed
+If a non-obvious technical solution was implemented during this session:
+- Create a file `docs/decisions/YYYY-MM-DD-description.md` explaining the context and the solution
+- Only add this doc if it is really needed for future understanding
 
-### 5. Résumé
-Affiche un résumé de ce qui a été nettoyé et demande confirmation avant de stage les changements.
+### 5. Summary
+Show a summary of what was cleaned up and ask for confirmation before staging the changes.
 
-## Options utilisateur
-Après le nettoyage, demande :
-- Voulez-vous voir le diff des changements ?
-- Voulez-vous que je stage et commit directement ?
-- Message de commit suggéré ?
+## User options
+After the cleanup, ask:
+- Do you want to see the diff of the changes?
+- Do you want me to stage and commit directly?
+- Suggested commit message?

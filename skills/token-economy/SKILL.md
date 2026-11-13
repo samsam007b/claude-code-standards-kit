@@ -1,82 +1,82 @@
 ---
 name: token-economy
-description: Optimise les coûts et la délégation de modèles Claude Code — RTK compression shell, délégation Haiku/Sonnet/Opus, stratégie de contexte, réduction 3x validée empiriquement.
+description: Optimizes Claude Code costs and model delegation: RTK shell compression, Haiku/Sonnet/Opus delegation, context strategy, 3x reduction empirically validated.
 tags: [tokens, cost, optimization, delegation, haiku, claude-code, rtk]
 model: haiku
 ---
 
-# /token-economy — Optimisation Tokens & Coûts Claude Code
+# /token-economy: Claude Code Token & Cost Optimization
 
-## Quand utiliser
+## When to use
 
-- Analyser les coûts d'une session ou d'un workflow
-- Décider quel modèle déléguer pour quelle tâche
-- Réduire les tokens d'une commande ou d'un prompt
-- Auditer l'usage RTK et les gains de compression
+- Analyze the costs of a session or workflow
+- Decide which model to delegate for which task
+- Reduce the tokens of a command or prompt
+- Audit RTK usage and compression gains
 
-## Hiérarchie de délégation (empirique — réduction 3.2x validée)
+## Delegation hierarchy (empirical, 3.2x reduction validated)
 
-| Tâche | Modèle | Pourquoi |
+| Task | Model | Why |
 |-------|--------|---------|
-| Recherche web, résumés, lire des docs | **Haiku** | 20x moins cher, suffisant pour la synthèse |
-| Écriture de code, modifications | **Sonnet** | Rapport qualité/coût optimal |
-| Architecture, plans complexes, raisonnement | **Opus** | Quand Sonnet est insuffisant |
-| Jamais Haiku pour : écriture de code critique | — | Qualité insuffisante, économie illusoire |
+| Web research, summaries, reading docs | **Haiku** | 20x cheaper, sufficient for synthesis |
+| Writing code, modifications | **Sonnet** | Optimal quality/cost ratio |
+| Architecture, complex plans, reasoning | **Opus** | When Sonnet is insufficient |
+| Never Haiku for: writing critical code | N/A | Insufficient quality, illusory savings |
 
-## RTK — Rust Token Killer (83.7% compression shell)
+## RTK: Rust Token Killer (83.7% shell compression)
 
-RTK intercepte les sorties de commandes shell et compresse avant injection dans le contexte :
-- `git status` → RTK filtre les fichiers non pertinents
-- `npm test` → RTK extrait uniquement les échecs
-- `git log` → RTK résume les commits
+RTK intercepts shell command outputs and compresses them before injection into the context:
+- `git status` → RTK filters out irrelevant files
+- `npm test` → RTK extracts only the failures
+- `git log` → RTK summarizes the commits
 
 ```bash
-rtk gain              # analytics de compression
-rtk gain --history    # historique des commandes et gains
-rtk discover          # analyse l'historique Claude pour opportunités manquées
+rtk gain              # compression analytics
+rtk discover          # analyzes Claude history for missed opportunities
+rtk gain --history    # command history and gains
 ```
 
-## Stratégie de contexte
+## Context strategy
 
-### Ce qui consomme le plus
-1. Fichiers lus entiers non nécessaires (utiliser `Read` avec `offset/limit`)
-2. Résultats de commandes shell verbeux (→ RTK)
-3. Recherches larges sans filtrage (→ subagent Haiku d'abord)
-4. Conversations longues sans compaction (→ `/compact`)
+### What consumes the most
+1. Unnecessary whole files read (use `Read` with `offset/limit`)
+2. Verbose shell command results (→ RTK)
+3. Broad searches without filtering (→ Haiku subagent first)
+4. Long conversations without compaction (→ `/compact`)
 
-### Règle 2 phases (obligatoire dans ce setup)
-1. **Phase 1** : Subagent Haiku → résumé max 400 tokens
-2. **Phase 2** : Opus lit le résumé → deep-dive sélectif sur 1-3 URLs
+### 2-phase rule (mandatory in this setup)
+1. **Phase 1**: Haiku subagent → summary of max 400 tokens
+2. **Phase 2**: Opus reads the summary → selective deep-dive on 1-3 URLs
 
 ### Prompt caching
-- Le cache Anthropic a un TTL de 5 minutes
-- Pour les boucles `/loop` : délai < 300s pour rester dans le cache
-- `CLAUDE_CODE_MAX_OUTPUT_TOKENS=128000` dans .zshrc pour les outputs longs
+- The Anthropic cache has a 5-minute TTL
+- For `/loop` loops: delay < 300s to stay within the cache
+- `CLAUDE_CODE_MAX_OUTPUT_TOKENS=128000` in .zshrc for long outputs
 
-## Audit d'un workflow
+## Auditing a workflow
 
-Pour analyser le coût réel d'une session :
+To analyze the real cost of a session:
 ```bash
-ccusage daily          # coût du jour
-ccusage session        # coût de la session courante
-rtk gain --history     # commandes compressées par RTK
+ccusage daily          # today's cost
+ccusage session        # cost of the current session
+rtk gain --history     # commands compressed by RTK
 ```
 
-## Format de sortie
+## Output format
 
 ```
-## Token Economy Audit — [workflow/session]
+## Token Economy Audit: [workflow/session]
 
-### Coût actuel : $X.XX
-### Coût optimisé estimé : $X.XX (-XX%)
+### Current cost: $X.XX
+### Estimated optimized cost: $X.XX (-XX%)
 
-### Délégations à revoir
-| Tâche | Modèle actuel | Modèle recommandé | Économie |
+### Delegations to review
+| Task | Current model | Recommended model | Savings |
 |-------|-------------|------------------|---------|
 
-### Compressions RTK manquées
-[commandes qui auraient dû passer par RTK]
+### Missed RTK compressions
+[commands that should have gone through RTK]
 
 ### Actions
-1. [action spécifique]
+1. [specific action]
 ```

@@ -1,6 +1,6 @@
 ---
 name: ux-progressive-disclosure
-description: Appliquer le pattern Progressive Disclosure à un composant complexe — réorganise en 3 niveaux hiérarchiques (Essentiel / Avancé / Expert).
+description: Apply the Progressive Disclosure pattern to a complex component, reorganizing it into 3 hierarchical levels (Essential / Advanced / Expert).
 tags: [ux, frontend, progressive-disclosure, information-architecture]
 model: sonnet
 ---
@@ -8,7 +8,7 @@ model: sonnet
 # UX Progressive Disclosure Skill
 
 ## Description
-Applique le pattern Progressive Disclosure à un composant complexe. Réorganise l'information en niveaux hiérarchiques (Niveau 1: Essentiel, Niveau 2: Avancé, Niveau 3: Expert) selon principes scientifiques.
+Applies the Progressive Disclosure pattern to a complex component. Reorganizes information into hierarchical levels (Level 1: Essential, Level 2: Advanced, Level 3: Expert) according to scientific principles.
 
 ## Usage
 ```
@@ -17,37 +17,37 @@ Applique le pattern Progressive Disclosure à un composant complexe. Réorganise
 
 ## Workflow
 
-1. **Analyse du Composant Actuel**
-   - Compte le nombre d'éléments visibles
-   - Identifie la complexité (nombre d'options, inputs, sections)
-   - Détecte violations Miller's Law (> 7±2)
+1. **Analysis of the Current Component**
+   - Counts the number of visible elements
+   - Identifies complexity (number of options, inputs, sections)
+   - Detects Miller's Law violations (> 7±2)
 
-2. **Catégorisation par Niveau**
-   - **Niveau 1 (Always Visible)**: 5-7 éléments essentiels
-     - Critères: Utilisés par 80%+ des users, critiques pour tâche
-   - **Niveau 2 (On Demand)**: Fonctionnalités avancées
-     - Critères: Utilisés par 20-50% des users, optionnels
-   - **Niveau 3 (Expert)**: Configurations fines
-     - Critères: Utilisés par < 20% des users, power features
+2. **Categorization by Level**
+   - **Level 1 (Always Visible)**: 5-7 essential elements
+     - Criteria: Used by 80%+ of users, critical for the task
+   - **Level 2 (On Demand)**: Advanced features
+     - Criteria: Used by 20-50% of users, optional
+   - **Level 3 (Expert)**: Fine-grained configuration
+     - Criteria: Used by < 20% of users, power features
 
-3. **Génération du Code Refactoré**
-   - Crée sections collapsibles (Accordion pattern)
-   - Ajoute expand/collapse logic
-   - Préserve toutes les fonctionnalités (rien supprimé)
+3. **Refactored Code Generation**
+   - Creates collapsible sections (Accordion pattern)
+   - Adds expand/collapse logic
+   - Preserves all functionality (nothing removed)
 
-4. **Ajout des Affordances UI**
-   - Indicateurs "Plus d'options" (+)
-   - Tooltips explicatifs
-   - Animations smooth (Framer Motion)
+4. **Adding UI Affordances**
+   - "More options" indicators (+)
+   - Explanatory tooltips
+   - Smooth animations (Framer Motion)
 
-## Exemples
+## Examples
 
-### Exemple 1: FilterSidebar avec 30+ options
+### Example 1: FilterSidebar with 30+ options
 
 **Before**:
 ```tsx
 <FilterSidebar>
-  {/* 30 checkboxes visibles en même temps */}
+  {/* 30 checkboxes visible at the same time */}
   <Checkbox label="WiFi" />
   <Checkbox label="Parking" />
   <Checkbox label="Elevator" />
@@ -55,33 +55,33 @@ Applique le pattern Progressive Disclosure à un composant complexe. Réorganise
 </FilterSidebar>
 ```
 
-**After** (avec `/ux-progressive-disclosure`):
+**After** (with `/ux-progressive-disclosure`):
 ```tsx
 <FilterSidebar>
-  {/* Niveau 1: Toujours visible (5 essentiels) */}
-  <FilterSection title="💰 Prix" expanded={true}>
+  {/* Level 1: Always visible (5 essentials) */}
+  <FilterSection title="💰 Price" expanded={true}>
     <RangeSlider />
   </FilterSection>
   <FilterSection title="🏠 Type" expanded={true}>
     <ButtonGroup options={['Apartment', 'House']} />
   </FilterSection>
 
-  {/* Niveau 2: Collapsed par défaut */}
-  <FilterSection title="⚡ Équipements" expanded={false}>
+  {/* Level 2: Collapsed by default */}
+  <FilterSection title="⚡ Amenities" expanded={false}>
     <CheckboxGroup
-      visible={['WiFi', 'Parking', 'Meublé']} // 3 visibles
-      hidden={[...27 autres]} // Révélés sur "Voir plus"
+      visible={['WiFi', 'Parking', 'Furnished']} // 3 visible
+      hidden={[...27 others]} // Revealed on "See more"
     />
   </FilterSection>
 
-  {/* Niveau 3: Modal expert */}
-  <FilterSection title="👥 Colocataires" expanded={false}>
-    <Button onClick={openModal}>+ Configurer</Button>
+  {/* Level 3: Expert modal */}
+  <FilterSection title="👥 Roommates" expanded={false}>
+    <Button onClick={openModal}>+ Configure</Button>
   </FilterSection>
 </FilterSidebar>
 ```
 
-### Exemple 2: Complex Settings Page
+### Example 2: Complex Settings Page
 
 **Command**:
 ```bash
@@ -89,15 +89,15 @@ Applique le pattern Progressive Disclosure à un composant complexe. Réorganise
 ```
 
 **Output**:
-- Réorganise settings en 3 tabs (Account, Preferences, Advanced)
-- Chaque tab avec max 7 options visibles
-- Options dangereuses (delete account) cachées dans Advanced
+- Reorganizes settings into 3 tabs (Account, Preferences, Advanced)
+- Each tab with max 7 visible options
+- Dangerous options (delete account) hidden in Advanced
 
 ## Output
 
-Le skill génère :
-1. **Code refactoré** (avec progressive disclosure appliqué)
-2. **Rapport d'analyse** :
+The skill generates:
+1. **Refactored code** (with progressive disclosure applied)
+2. **Analysis report**:
    ```markdown
    # Progressive Disclosure Analysis
 
@@ -120,13 +120,13 @@ Le skill génère :
 ## Configuration
 
 Options:
-- `--levels=N` : Nombre de niveaux (default: 3)
-- `--preview` : Génère mockup visuel (ASCII art) sans modifier code
-- `--preserve-state` : Garde les expand/collapse states en localStorage
+- `--levels=N` : Number of levels (default: 3)
+- `--preview` : Generates visual mockup (ASCII art) without modifying code
+- `--preserve-state` : Keeps expand/collapse states in localStorage
 
-## Références
+## References
 
-Basé sur:
-- **Hick's Law**: Réduire choix visibles → décision plus rapide
-- **Miller's Law**: Max 7±2 éléments → charge cognitive gérable
+Based on:
+- **Hick's Law**: Reduce visible choices → faster decision
+- **Miller's Law**: Max 7±2 elements → manageable cognitive load
 - **Progressive Disclosure Pattern**: [NN/g Research](https://www.nngroup.com/articles/progressive-disclosure/)

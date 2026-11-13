@@ -1,17 +1,17 @@
 ---
 name: performance-deep-audit
-description: "Audit performance approfondi : Core Web Vitals, bundle size, query optimization, React re-renders. Standards Google/Vercel."
+description: "In-depth performance audit: Core Web Vitals, bundle size, query optimization, React re-renders. Google/Vercel standards."
 tags: [performance, optimization, web-vitals, latency]
 version: 1.0.0
 ---
 
 # ⚡ Performance Deep Audit
 
-Audit exhaustif des performances basé sur les standards Google (Core Web Vitals), Vercel, et les meilleures pratiques Next.js 14/15.
+Exhaustive performance audit based on Google standards (Core Web Vitals), Vercel, and Next.js 14/15 best practices.
 
 ---
 
-## Objectifs Mesurables
+## Measurable Objectives
 
 ### Core Web Vitals (Google Standard)
 
@@ -21,7 +21,7 @@ Audit exhaustif des performances basé sur les standards Google (Core Web Vitals
 | **INP** (Interaction to Next Paint) | < 200ms | < 500ms | [__ms] |
 | **CLS** (Cumulative Layout Shift) | < 0.1 | < 0.25 | [__] |
 
-**75th percentile** de TOUS les users doit être dans "Good".
+The **75th percentile** of ALL users must be in "Good".
 
 ### Application Metrics
 
@@ -35,27 +35,27 @@ Audit exhaustif des performances basé sur les standards Google (Core Web Vitals
 
 ---
 
-## Phase 1 : Bundle Analysis (10 min)
+## Phase 1: Bundle Analysis (10 min)
 
 ### 1.1 Build Analysis
 
 ```bash
-# Activer analyzer
+# Enable analyzer
 ANALYZE=true npm run build
 
-# Output : bundle-analyzer.html
-# Ouvrir dans browser pour visualiser
+# Output: bundle-analyzer.html
+# Open in browser to visualize
 ```
 
-**Check** :
+**Check**:
 - [ ] First Load JS < 200 KB
 - [ ] Shared chunks < 150 KB
 - [ ] Page-specific chunks < 50 KB
-- [ ] Zéro duplication de code entre chunks
+- [ ] Zero code duplication between chunks
 
 ### 1.2 Heavy Imports
 
-**Recherche** :
+**Search**:
 ```bash
 # framer-motion usage
 grep -r "from 'framer-motion'" app/ components/ | wc -l
@@ -63,24 +63,24 @@ grep -r "from 'framer-motion'" app/ components/ | wc -l
 # recharts usage
 grep -r "from 'recharts'" app/ components/ | wc -l
 
-# lucide-react (combien d'icônes ?)
+# lucide-react (how many icons?)
 grep -r "from 'lucide-react'" app/ components/ | grep -o "{\s*[^}]*}" | tr ',' '\n' | wc -l
 ```
 
-**Problèmes fréquents** :
-- framer-motion (~60 KB) importé sur toutes pages
-- recharts (~120 KB) chargé même si pas utilisé
-- 30+ icônes lucide importées individuellement
+**Frequent problems**:
+- framer-motion (~60 KB) imported on every page
+- recharts (~120 KB) loaded even when unused
+- 30+ lucide icons imported individually
 
-**Fixes** :
+**Fixes**:
 ```typescript
-// ❌ Import lourd
+// ❌ Heavy import
 import { motion, AnimatePresence, useAnimation } from 'framer-motion';
 
 // ✅ Dynamic import
 const motion = dynamic(() => import('framer-motion').then(mod => mod.motion), { ssr: false });
 
-// ❌ 30 icônes
+// ❌ 30 icons
 import { Home, User, Settings, ... } from 'lucide-react';
 
 // ✅ Icon component wrapper
@@ -90,13 +90,13 @@ import Icon from '@/components/ui/Icon';
 
 ### 1.3 Tree-Shaking Verification
 
-**Recherche barrel exports** :
+**Search for barrel exports**:
 ```bash
-# index.ts qui re-exportent tout
+# index.ts files that re-export everything
 find components -name "index.ts" -exec grep -l "export.*from" {} \;
 ```
 
-**❌ Anti-pattern** :
+**❌ Anti-pattern**:
 ```typescript
 // components/ui/index.ts
 export { Button } from './button';
@@ -105,41 +105,41 @@ export { Select } from './select';
 // ... 20 exports
 
 // Usage
-import { Button } from '@/components/ui'; // Importe TOUT le barrel
+import { Button } from '@/components/ui'; // Imports the WHOLE barrel
 ```
 
-**✅ Fix** :
+**✅ Fix**:
 ```typescript
-// Import direct
+// Direct import
 import { Button } from '@/components/ui/button';
 ```
 
 ---
 
-## Phase 2 : Image Optimization (5 min)
+## Phase 2: Image Optimization (5 min)
 
 ### 2.1 Image Audit
 
 ```bash
-# <img> au lieu de <Image>
+# <img> instead of <Image>
 grep -r "<img" app/ components/ --include="*.tsx" | grep -v "\.svg"
 
-# Images sans width/height
+# Images without width/height
 grep -r "<Image" app/ components/ | grep -v "width=\|fill"
 
-# Images non lazy-loaded
+# Images not lazy-loaded
 grep -r "<Image" app/ components/ | grep -v "loading="
 ```
 
-**Checklist** :
-- [ ] Toutes images en `<Image>` (sauf SVG)
-- [ ] `width` et `height` définis (évite CLS)
-- [ ] `loading="lazy"` sur images below-the-fold
-- [ ] Formats modernes (WebP, AVIF) configurés
+**Checklist**:
+- [ ] All images use `<Image>` (except SVG)
+- [ ] `width` and `height` defined (avoids CLS)
+- [ ] `loading="lazy"` on below-the-fold images
+- [ ] Modern formats (WebP, AVIF) configured
 
 ### 2.2 Image Compression
 
-**Target sizes** :
+**Target sizes**:
 | Type | Max Size | Format |
 |------|----------|--------|
 | Hero image | 200 KB | WebP 85% |
@@ -147,7 +147,7 @@ grep -r "<Image" app/ components/ | grep -v "loading="
 | Avatar | 30 KB | WebP 80% |
 | Icon | 10 KB | SVG |
 
-**Check actual sizes** :
+**Check actual sizes**:
 ```bash
 # Images > 200 KB
 find public -name "*.jpg" -o -name "*.png" | xargs du -k | awk '$1 > 200'
@@ -155,7 +155,7 @@ find public -name "*.jpg" -o -name "*.png" | xargs du -k | awk '$1 > 200'
 
 ### 2.3 Next.js Image Config
 
-**Vérifier `next.config.js`** :
+**Check `next.config.js`**:
 ```javascript
 images: {
   domains: [
@@ -165,44 +165,44 @@ images: {
   formats: ['image/avif', 'image/webp'], // ✅
   deviceSizes: [640, 750, 828, 1080, 1200, 1920],
   imageSizes: [16, 32, 48, 64, 96, 128, 256],
-  minimumCacheTTL: 31536000, // 1 an
+  minimumCacheTTL: 31536000, // 1 year
 }
 ```
 
 ---
 
-## Phase 3 : Query Optimization (10 min)
+## Phase 3: Query Optimization (10 min)
 
 ### 3.1 SELECT * Abuse
 
 ```bash
-# Count queries avec SELECT *
+# Count queries using SELECT *
 grep -r "select('\*')" app/ lib/ --include="*.ts" | wc -l
 ```
 
-**✅ PASS** : 0 occurrences (sauf `.from('table').select('*').single()` légitime)
-**🔴 FAIL** : > 5 occurrences
+**✅ PASS**: 0 occurrences (except the legitimate `.from('table').select('*').single()`)
+**🔴 FAIL**: > 5 occurrences
 
-**Fix** :
+**Fix**:
 ```typescript
-// ❌ SELECT * pour count
+// ❌ SELECT * for count
 .select('*', { count: 'exact', head: true })
 
-// ✅ SELECT id uniquement
+// ✅ SELECT id only
 .select('id', { count: 'exact', head: true })
 
-// Gain : 30-50% plus rapide
+// Gain: 30-50% faster
 ```
 
 ### 3.2 N+1 Queries
 
-**Recherche** :
+**Search**:
 ```bash
-# Loops avec queries
+# Loops containing queries
 grep -rA 10 "for.*of\|\.map(" lib/services/ | grep "await.*supabase"
 ```
 
-**❌ Anti-pattern** :
+**❌ Anti-pattern**:
 ```typescript
 for (const conv of conversations) {
   const { data: participants } = await supabase
@@ -213,15 +213,15 @@ for (const conv of conversations) {
 // 10 conversations = 11 queries (1 + 10)
 ```
 
-**✅ Fix** :
+**✅ Fix**:
 ```typescript
-// 1 query pour TOUTES conversations
+// 1 query for ALL conversations
 const { data: allParticipants } = await supabase
   .from('participants')
   .select('*')
   .in('conversation_id', conversations.map(c => c.id));
 
-// Puis group by conversation_id
+// Then group by conversation_id
 const byConv = groupBy(allParticipants, 'conversation_id');
 // 10 conversations = 1 query
 ```
@@ -229,36 +229,36 @@ const byConv = groupBy(allParticipants, 'conversation_id');
 ### 3.3 Missing LIMIT
 
 ```bash
-# List queries sans .limit()
+# List queries without .limit()
 grep -r "\.from.*\.select" lib/services/ app/api/ \
   | grep -v "\.limit(\|\.single()"
 ```
 
-**Fix** : Ajouter `.limit(100)` sur toutes list queries.
+**Fix**: Add `.limit(100)` on all list queries.
 
 ---
 
-## Phase 4 : React Performance (10 min)
+## Phase 4: React Performance (10 min)
 
 ### 4.1 Unnecessary Re-renders
 
-**Recherche** :
+**Search**:
 ```bash
-# Components exportés sans memo
+# Exported components without memo
 grep -r "^export.*function.*Props" components/ | grep -v "memo("
 
-# Inline callbacks dans render
+# Inline callbacks in render
 grep -r "onClick={() =>\|onChange={() =>" app/ components/
 ```
 
-**❌ Anti-pattern** :
+**❌ Anti-pattern**:
 ```tsx
 <SwipeCard
-  onSwipe={(dir) => { handleSwipe(dir); }} // Inline = new function chaque render
+  onSwipe={(dir) => { handleSwipe(dir); }} // Inline = new function on every render
 />
 ```
 
-**✅ Fix** :
+**✅ Fix**:
 ```tsx
 const handleSwipeAction = useCallback((dir) => {
   handleSwipe(dir);
@@ -269,16 +269,16 @@ const handleSwipeAction = useCallback((dir) => {
 
 ### 4.2 Expensive Calculations
 
-**Recherche** :
+**Search**:
 ```bash
-# .filter/.map/.reduce sans useMemo
+# .filter/.map/.reduce without useMemo
 grep -rB 5 "\.filter(\|\.map(\|\.reduce(" app/ \
   | grep -v "useMemo"
 ```
 
-**Fix** :
+**Fix**:
 ```typescript
-// ❌ Filtre à chaque render
+// ❌ Filters on every render
 const filtered = properties.filter(p => p.city === filters.city);
 
 // ✅ Memoized
@@ -290,54 +290,54 @@ const filtered = useMemo(
 
 ### 4.3 Context Overuse
 
-**Recherche** :
+**Search**:
 ```bash
-# Contexts avec beaucoup de state
+# Contexts holding a lot of state
 find contexts -name "*.tsx" -exec wc -l {} \; | awk '$1 > 200'
 ```
 
-**Anti-pattern** : Context avec 10+ states → chaque update re-render TOUS consommateurs.
+**Anti-pattern**: A context with 10+ states → every update re-renders ALL consumers.
 
-**Fix** : Split contexts par domaine (auth, theme, data, etc.).
+**Fix**: Split contexts by domain (auth, theme, data, etc.).
 
 ---
 
-## Phase 5 : Network Optimization (5 min)
+## Phase 5: Network Optimization (5 min)
 
 ### 5.1 API Calls
 
-**Waterfall analysis** (Chrome DevTools Network tab) :
-- Éviter cascades (fetch A → fetch B → fetch C)
-- Paralléliser avec `Promise.all()`
-- Prefetch data avec Server Components
+**Waterfall analysis** (Chrome DevTools Network tab):
+- Avoid cascades (fetch A → fetch B → fetch C)
+- Parallelize with `Promise.all()`
+- Prefetch data with Server Components
 
-**Checklist** :
-- [ ] Données critiques fetched en Server Components
-- [ ] React Query pour caching (5 min staleTime)
-- [ ] Prefetch sur hover (next/link)
+**Checklist**:
+- [ ] Critical data fetched in Server Components
+- [ ] React Query for caching (5 min staleTime)
+- [ ] Prefetch on hover (next/link)
 
 ### 5.2 Third-Party Scripts
 
-**Recherche** :
+**Search**:
 ```bash
-# Scripts tiers qui bloquent rendering
+# Third-party scripts that block rendering
 grep -r "<script" app/ | grep -v "async\|defer"
 ```
 
-**Checklist** :
-- [ ] Google Analytics : script async
-- [ ] Stripe : script defer
-- [ ] Tous scripts non-critiques : defer OU async
+**Checklist**:
+- [ ] Google Analytics: async script
+- [ ] Stripe: defer script
+- [ ] All non-critical scripts: defer OR async
 
 ---
 
-## Phase 6 : Database Performance (10 min)
+## Phase 6: Database Performance (10 min)
 
 ### 6.1 Index Coverage
 
-**SQL à exécuter** :
+**SQL to run**:
 ```sql
--- Queries sans index (Seq Scan = mauvais)
+-- Queries without an index (Seq Scan = bad)
 SELECT
   schemaname,
   tablename,
@@ -347,7 +347,7 @@ FROM pg_stat_user_indexes
 WHERE idx_scan = 0
   AND indexrelname NOT LIKE '%pkey';
 
--- Queries lentes
+-- Slow queries
 SELECT
   calls,
   mean_exec_time,
@@ -360,7 +360,7 @@ LIMIT 20;
 
 ### 6.2 Query Plan Analysis
 
-**Pour queries critiques** :
+**For critical queries**:
 ```sql
 EXPLAIN ANALYZE
 SELECT p.*, u.full_name
@@ -372,18 +372,18 @@ ORDER BY p.created_at DESC
 LIMIT 50;
 ```
 
-**Chercher** :
-- Seq Scan → ajouter index
-- Nested Loop → vérifier jointure
-- Sort sur disk → augmenter work_mem
+**Look for**:
+- Seq Scan → add an index
+- Nested Loop → check the join
+- Sort on disk → increase work_mem
 
 ---
 
-## Phase 7 : Caching Strategy (5 min)
+## Phase 7: Caching Strategy (5 min)
 
 ### 7.1 Cache Headers
 
-**Vérifier** :
+**Check**:
 ```typescript
 // next.config.js
 async headers() {
@@ -395,7 +395,7 @@ async headers() {
       ]
     },
     {
-      source: '/api/properties', // API publique
+      source: '/api/properties', // Public API
       headers: [
         { key: 'Cache-Control', value: 'public, s-maxage=3600, stale-while-revalidate=7200' }
       ]
@@ -406,23 +406,23 @@ async headers() {
 
 ### 7.2 ISR (Incremental Static Regeneration)
 
-**Pages candidates** :
-- Landing page : `revalidate: 3600` (1h)
-- Property listings : `revalidate: 1800` (30min)
-- Blog posts : `revalidate: 86400` (24h)
+**Candidate pages**:
+- Landing page: `revalidate: 3600` (1h)
+- Property listings: `revalidate: 1800` (30min)
+- Blog posts: `revalidate: 86400` (24h)
 
-**Checklist** :
-- [ ] Pages publiques en ISR
-- [ ] `revalidate` configuré
-- [ ] On-demand revalidation pour updates urgentes
+**Checklist**:
+- [ ] Public pages use ISR
+- [ ] `revalidate` configured
+- [ ] On-demand revalidation for urgent updates
 
 ---
 
-## Phase 8 : Monitoring Setup (5 min)
+## Phase 8: Monitoring Setup (5 min)
 
 ### 8.1 Vercel Analytics
 
-**Activer** :
+**Enable**:
 ```typescript
 // app/layout.tsx
 import { Analytics } from '@vercel/analytics/react';
@@ -439,7 +439,7 @@ export default function RootLayout({ children }) {
 }
 ```
 
-**Métriques collectées** :
+**Metrics collected**:
 - Real User Monitoring (RUM)
 - Core Web Vitals
 - Page views
@@ -447,7 +447,7 @@ export default function RootLayout({ children }) {
 
 ### 8.2 Web Vitals Tracking
 
-**Custom tracking** :
+**Custom tracking**:
 ```typescript
 // lib/monitoring/web-vitals.ts
 import { onCLS, onINP, onLCP } from 'web-vitals';
@@ -467,12 +467,12 @@ onLCP(sendToAnalytics);
 
 ### 8.3 Slow Query Detection
 
-**Supabase** :
+**Supabase**:
 ```sql
--- Activer pg_stat_statements
+-- Enable pg_stat_statements
 CREATE EXTENSION IF NOT EXISTS pg_stat_statements;
 
--- Dashboard query pour queries lentes
+-- Dashboard query for slow queries
 SELECT
   substring(query, 1, 100) as query_preview,
   calls,
@@ -485,83 +485,83 @@ ORDER BY mean_exec_time DESC;
 
 ---
 
-## Phase 9 : Latency Sources (10 min)
+## Phase 9: Latency Sources (10 min)
 
 ### 9.1 Network Latency
 
-**Mesurer** :
+**Measure**:
 ```bash
 # Ping Supabase
 ping your-project.supabase.co
 
-# Latence réseau moyenne :
-# - EU → EU Supabase : 10-30ms
-# - US → EU Supabase : 80-150ms
+# Average network latency:
+# - EU → EU Supabase: 10-30ms
+# - US → EU Supabase: 80-150ms
 ```
 
-**Optimisations** :
-- [ ] Supabase region proche des users (EU pour des users européens)
-- [ ] Vercel edge functions si ultra-low latency requis
-- [ ] CDN pour assets statiques
+**Optimizations**:
+- [ ] Supabase region close to users (EU for European users)
+- [ ] Vercel edge functions if ultra-low latency is required
+- [ ] CDN for static assets
 
 ### 9.2 Database Latency
 
-**Composants** :
-1. Network : 10-50ms
-2. Query execution : 10-100ms
-3. RLS overhead : 5-20ms
-4. JSON serialization : 5-10ms
+**Components**:
+1. Network: 10-50ms
+2. Query execution: 10-100ms
+3. RLS overhead: 5-20ms
+4. JSON serialization: 5-10ms
 
-**Total typique** : 30-180ms
+**Typical total**: 30-180ms
 
-**Réductions possibles** :
-- Connection pooling (économise 20-50ms cold start)
+**Possible reductions**:
+- Connection pooling (saves 20-50ms on cold start)
 - Prepared statements (cache query plan)
-- Index sur colonnes filtrées
+- Indexes on filtered columns
 
 ### 9.3 API Route Latency
 
-**Breakdown** :
+**Breakdown**:
 ```
-Total p95 : 450ms
-├─ Cold start : 100ms (1ère req après inactivité)
-├─ Auth check : 50ms (Supabase getUser)
-├─ Business logic : 50ms
-├─ Database query : 150ms
-└─ Response serialization : 100ms
+Total p95: 450ms
+├─ Cold start: 100ms (1st request after inactivity)
+├─ Auth check: 50ms (Supabase getUser)
+├─ Business logic: 50ms
+├─ Database query: 150ms
+└─ Response serialization: 100ms
 ```
 
-**Optimisations** :
+**Optimizations**:
 - Minimize cold starts (keep functions warm)
 - Cache auth session (5 min)
 - Optimize queries (index, LIMIT)
-- Stream responses pour gros datasets
+- Stream responses for large datasets
 
 ---
 
-## Phase 10 : React Profiling (15 min)
+## Phase 10: React Profiling (15 min)
 
 ### 10.1 React DevTools Profiler
 
-**Steps** :
-1. Ouvrir Chrome DevTools
-2. Onglet "Profiler"
-3. Record interaction (ex: filter properties)
-4. Analyser flamegraph
+**Steps**:
+1. Open Chrome DevTools
+2. "Profiler" tab
+3. Record an interaction (e.g. filter properties)
+4. Analyze the flamegraph
 
-**Chercher** :
-- Components rendus > 10× pour 1 action
+**Look for**:
+- Components rendered > 10× for 1 action
 - Long render times (> 16ms = dropped frame)
 - Unexpected renders
 
 ### 10.2 Why Did You Render (Dev Tool)
 
-**Installation** :
+**Installation**:
 ```bash
 npm install --save-dev @welldone-software/why-did-you-render
 ```
 
-**Config** :
+**Config**:
 ```typescript
 // pages/_app.tsx (dev only)
 if (process.env.NODE_ENV === 'development') {
@@ -574,7 +574,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 ```
 
-**Output** : Console logs expliquant POURQUOI chaque component re-render.
+**Output**: Console logs explaining WHY each component re-renders.
 
 ### 10.3 Common Re-render Causes
 
@@ -588,55 +588,55 @@ if (process.env.NODE_ENV === 'development') {
 
 ---
 
-## Phase 11 : Server-Side Performance (10 min)
+## Phase 11: Server-Side Performance (10 min)
 
 ### 11.1 API Route Optimization
 
-**Checklist** :
+**Checklist**:
 ```typescript
 // ✅ Stateless (scalable)
 export async function GET(request: Request) {
-  // Pas de state global, pas de closure sur variables externes
+  // No global state, no closure over external variables
 }
 
-// ✅ Timeout configuré
+// ✅ Timeout configured
 export const maxDuration = 10; // 10s max
 
 // ✅ Memory limit
 export const config = {
-  runtime: 'nodejs', // OU 'edge' pour ultra-low latency
-  regions: ['fra1'], // Region proche users
+  runtime: 'nodejs', // OR 'edge' for ultra-low latency
+  regions: ['fra1'], // Region close to users
 };
 
 // ✅ Caching
-export const revalidate = 3600; // ISR : 1h cache
+export const revalidate = 3600; // ISR: 1h cache
 ```
 
 ### 11.2 Database Connection Pooling
 
-**Supabase config** :
+**Supabase config**:
 ```typescript
-// ❌ Chaque API route crée sa connection
+// ❌ Each API route creates its own connection
 const supabase = createClient(URL, KEY);
 
-// ✅ Connection pooling (dans connection string)
+// ✅ Connection pooling (in the connection string)
 const DATABASE_URL = "postgresql://...?pgbouncer=true&connection_limit=10";
 ```
 
-**Monitoring** :
+**Monitoring**:
 ```sql
--- Connections actives
+-- Active connections
 SELECT count(*) FROM pg_stat_activity;
 
--- Connections idle
+-- Idle connections
 SELECT count(*) FROM pg_stat_activity WHERE state = 'idle';
 ```
 
-**Target** : < 50 connections actives
+**Target**: < 50 active connections
 
 ---
 
-## Phase 12 : Lighthouse Audit (5 min)
+## Phase 12: Lighthouse Audit (5 min)
 
 ### 12.1 Running Lighthouse
 
@@ -645,7 +645,7 @@ SELECT count(*) FROM pg_stat_activity WHERE state = 'idle';
 npm install -g lighthouse
 lighthouse https://example.com --output=html --output-path=./lighthouse-report.html
 
-# OU Chrome DevTools → Lighthouse tab
+# OR Chrome DevTools → Lighthouse tab
 ```
 
 ### 12.2 Score Targets
@@ -669,14 +669,14 @@ lighthouse https://example.com --output=html --output-path=./lighthouse-report.h
 
 ---
 
-## Rapport de Performance - Template
+## Performance Report: Template
 
 ```markdown
-# PERFORMANCE AUDIT - [Project Name]
+# PERFORMANCE AUDIT: [Project Name]
 
-**Date** : [YYYY-MM-DD]
-**Tool** : Lighthouse 11.x + Custom scripts
-**Environment** : Production
+**Date**: [YYYY-MM-DD]
+**Tool**: Lighthouse 11.x + Custom scripts
+**Environment**: Production
 
 ---
 
@@ -688,46 +688,46 @@ lighthouse https://example.com --output=html --output-path=./lighthouse-report.h
 | INP | 150ms | < 200ms | ✅ GOOD |
 | CLS | 0.05 | < 0.1 | ✅ GOOD |
 
-**Overall** : ✅ PASS (all metrics in "Good")
+**Overall**: ✅ PASS (all metrics in "Good")
 
 ---
 
 ## Lighthouse Scores
 
-- Performance : **92**/100 ✅
-- Accessibility : **98**/100 ✅
-- Best Practices : **100**/100 ✅
-- SEO : **100**/100 ✅
+- Performance: **92**/100 ✅
+- Accessibility: **98**/100 ✅
+- Best Practices: **100**/100 ✅
+- SEO: **100**/100 ✅
 
 ---
 
 ## Bundle Analysis
 
-- First Load JS : **185 KB** (target < 200 KB) ✅
-- Total Bundle : **420 KB** (target < 500 KB) ✅
-- Largest chunk : **recharts** (120 KB)
+- First Load JS: **185 KB** (target < 200 KB) ✅
+- Total Bundle: **420 KB** (target < 500 KB) ✅
+- Largest chunk: **recharts** (120 KB)
 
-**Recommendation** : Dynamic import recharts
+**Recommendation**: Dynamic import recharts
 
 ---
 
 ## Query Performance
 
-- SELECT * count : **0** ✅
-- N+1 queries : **0** ✅
-- Queries sans LIMIT : **0** ✅
-- Avg query time : **78ms** (p95: 145ms) ✅
+- SELECT * count: **0** ✅
+- N+1 queries: **0** ✅
+- Queries without LIMIT: **0** ✅
+- Avg query time: **78ms** (p95: 145ms) ✅
 
 ---
 
 ## React Performance
 
-- Unnecessary re-renders : **3 components** 🟡
+- Unnecessary re-renders: **3 components** 🟡
   - SwipeCard (parent callbacks not memoized)
   - PropertyList (filter without useMemo)
   - SearchBar (onChange inline)
 
-**Recommendation** : Add useCallback/useMemo (effort: 30 min)
+**Recommendation**: Add useCallback/useMemo (effort: 30 min)
 
 ---
 
@@ -749,9 +749,9 @@ lighthouse https://example.com --output=html --output-path=./lighthouse-report.h
 
 ## Performance Score: 92/100 ✅
 
-**Status** : EXCELLENT
-**Production Ready** : YES
-**Estimated improvement with P0 fixes** : +5 points (→ 97/100)
+**Status**: EXCELLENT
+**Production Ready**: YES
+**Estimated improvement with P0 fixes**: +5 points (→ 97/100)
 ```
 
 ---
@@ -793,6 +793,6 @@ echo "✅ Check complete"
 
 ---
 
-**Execution time** : 30-45 min (full audit)
-**Tools required** : Lighthouse, Chrome DevTools, Supabase Dashboard
-**Recommended frequency** : Mensuel OU avant chaque release majeure
+**Execution time**: 30-45 min (full audit)
+**Tools required**: Lighthouse, Chrome DevTools, Supabase Dashboard
+**Recommended frequency**: Monthly OR before every major release

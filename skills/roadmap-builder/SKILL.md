@@ -5,7 +5,7 @@ description: Builds product roadmap with Impact vs Effort matrix, prioritizes re
 
 # Roadmap Builder
 
-You are a ruthless product prioritization machine for YourProduct. Your job: separate what matters from what doesn't.
+You are a ruthless product prioritization machine for the product described in the project context. Your job: separate what matters from what doesn't.
 
 ## Core Philosophy
 
@@ -320,7 +320,7 @@ Immediately reject features that:
 4. **Copy Other Platforms**
    - "Airbnb has this..."
    - "Zillow does it this way..."
-   - YourProduct is not Airbnb. Different scale, different users.
+   - Your product is not Airbnb. Different scale, different users.
 
 5. **Technology for Technology's Sake**
    - Blockchain
@@ -376,7 +376,7 @@ Does this fit the current priority?
 - [ ] Add to "Later" (this quarter)
 - [ ] Reject and document why
 
-## Real Examples from YourProduct
+## Worked Examples
 
 ### Example 1: Saved Searches
 **Category:** Retention
@@ -425,7 +425,7 @@ Does this fit the current priority?
 Use this template every 3 months:
 
 ```markdown
-# YourProduct Roadmap - Q1 2024
+# Product Roadmap - Q1 2024
 
 ## Goals
 1. Retention: Increase 7-day return rate from 40% to 60%

@@ -1,74 +1,74 @@
 ---
 name: nextjs-review
-description: Audit Next.js App Router — Core Web Vitals (LCP/CLS/FID), Server vs Client Components, caching stratégie, bundle size, image optimization, SEO metadata. Sources : Google web.dev, Next.js Production Checklist.
+description: Next.js App Router audit: Core Web Vitals (LCP/CLS/FID), Server vs Client Components, caching strategy, bundle size, image optimization, SEO metadata. Sources: Google web.dev, Next.js Production Checklist.
 tags: [nextjs, performance, web-vitals, seo, react, app-router]
 model: sonnet
 ---
 
-# /nextjs-review — Audit Next.js App Router
+# /nextjs-review: Next.js App Router Audit
 
-## Quand utiliser
+## When to use
 
-- Avant une mise en production
-- Audit de performance (LCP > 2.5s, CLS > 0.1)
-- Review d'une nouvelle page ou feature
-- Optimisation bundle size
+- Before a production release
+- Performance audit (LCP > 2.5s, CLS > 0.1)
+- Review of a new page or feature
+- Bundle size optimization
 
-## Critères (Google HEART + Core Web Vitals)
+## Criteria (Google HEART + Core Web Vitals)
 
 ### Server vs Client Components
-- [ ] Par défaut Server Component — `"use client"` uniquement si nécessaire
-- [ ] Raisons valides de `"use client"` : hooks React, événements browser, state local
-- [ ] Jamais de fetch dans un Client Component si évitable
-- [ ] `Suspense` + `loading.tsx` sur toutes les routes avec data fetching
+- [ ] Server Component by default: `"use client"` only when necessary
+- [ ] Valid reasons for `"use client"`: React hooks, browser events, local state
+- [ ] Never fetch in a Client Component if avoidable
+- [ ] `Suspense` + `loading.tsx` on all routes with data fetching
 
-### Core Web Vitals cibles
-| Métrique | Cible | Critique |
+### Core Web Vitals targets
+| Metric | Target | Critical |
 |---------|-------|---------|
 | LCP (Largest Contentful Paint) | < 2.5s | > 4s |
 | CLS (Cumulative Layout Shift) | < 0.1 | > 0.25 |
 | FID/INP (Interaction to Next Paint) | < 200ms | > 500ms |
 
 ### Images
-- [ ] `next/image` sur toutes les images — jamais `<img>` natif
-- [ ] `priority` sur le LCP image (above the fold)
-- [ ] `sizes` configuré selon le layout réel
-- [ ] Format WebP/AVIF (auto via Next.js)
-- [ ] `placeholder="blur"` sur les images non-critiques
+- [ ] `next/image` on all images, never native `<img>`
+- [ ] `priority` on the LCP image (above the fold)
+- [ ] `sizes` configured according to the actual layout
+- [ ] WebP/AVIF format (automatic via Next.js)
+- [ ] `placeholder="blur"` on non-critical images
 
 ### Caching
-- [ ] `fetch` avec `{ cache: 'force-cache' }` pour les données statiques
-- [ ] `revalidate` configuré pour les données semi-dynamiques
-- [ ] `unstable_cache` pour les requêtes DB coûteuses
-- [ ] Pas de `no-store` par défaut sauf si vraiment dynamique
+- [ ] `fetch` with `{ cache: 'force-cache' }` for static data
+- [ ] `revalidate` configured for semi-dynamic data
+- [ ] `unstable_cache` for expensive DB queries
+- [ ] No `no-store` by default unless truly dynamic
 
 ### Metadata & SEO
-- [ ] `generateMetadata()` sur chaque page (title + description uniques)
-- [ ] `opengraph-image.tsx` ou `og.png` pour les social cards
-- [ ] `sitemap.ts` généré dynamiquement
-- [ ] `robots.ts` configuré
-- [ ] Structured data (JSON-LD) sur les pages produit/article
+- [ ] `generateMetadata()` on every page (unique title + description)
+- [ ] `opengraph-image.tsx` or `og.png` for social cards
+- [ ] `sitemap.ts` generated dynamically
+- [ ] `robots.ts` configured
+- [ ] Structured data (JSON-LD) on product/article pages
 
 ### Bundle & Performance
-- [ ] `next/dynamic` pour les composants lourds (éditeurs, charts, maps)
-- [ ] `next/font` pour les fonts (pas Google Fonts CDN externe)
-- [ ] Bundle analyzer lancé (`ANALYZE=true npm run build`) si bundle > 500KB
-- [ ] Tree shaking vérifié sur les gros packages (lodash → lodash-es, etc.)
+- [ ] `next/dynamic` for heavy components (editors, charts, maps)
+- [ ] `next/font` for fonts (no external Google Fonts CDN)
+- [ ] Bundle analyzer run (`ANALYZE=true npm run build`) if bundle > 500KB
+- [ ] Tree shaking verified on large packages (lodash → lodash-es, etc.)
 
-## Format de sortie
+## Output format
 
 ```
-## Next.js Review — [page/feature]
+## Next.js Review: [page/feature]
 
-### Core Web Vitals estimés
-- LCP : [valeur / cible]
-- CLS : [valeur / cible]
-- INP : [valeur / cible]
+### Estimated Core Web Vitals
+- LCP: [value / target]
+- CLS: [value / target]
+- INP: [value / target]
 
-### 🔴 Bloquant
+### 🔴 Blocking
 ### 🟡 Important
 ### 🟢 Suggestions
 
-### Optimisations code
-[extraits de code corrigés]
+### Code optimizations
+[corrected code excerpts]
 ```

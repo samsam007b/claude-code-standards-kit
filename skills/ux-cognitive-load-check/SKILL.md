@@ -1,6 +1,6 @@
 ---
 name: ux-cognitive-load-check
-description: Analyser la charge cognitive d'un composant ou page UI. Score basé sur Miller's Law, Hick's Law, complexité visuelle.
+description: Analyze the cognitive load of a UI component or page. Score based on Miller's Law, Hick's Law, and visual complexity.
 tags: [ux, audit, frontend, cognitive]
 model: sonnet
 ---
@@ -8,7 +8,7 @@ model: sonnet
 # UX Cognitive Load Check Skill
 
 ## Description
-Analyse la charge cognitive d'un composant ou page. Calcule un score basé sur Miller's Law, Hick's Law, et complexité visuelle. Suggère optimisations si charge trop élevée.
+Analyzes the cognitive load of a component or page. Computes a score based on Miller's Law, Hick's Law, and visual complexity. Suggests optimizations if the load is too high.
 
 ## Usage
 ```
@@ -17,12 +17,12 @@ Analyse la charge cognitive d'un composant ou page. Calcule un score basé sur M
 
 ## Workflow
 
-1. **Analyse des Éléments Visibles**
-   - Compte tous les éléments interactifs (buttons, inputs, links)
-   - Compte les sections/groupes visuels
-   - Identifie les choix à faire (checkboxes, selects, radios)
+1. **Analysis of Visible Elements**
+   - Counts all interactive elements (buttons, inputs, links)
+   - Counts visual sections/groups
+   - Identifies the choices to be made (checkboxes, selects, radios)
 
-2. **Calcul du Score Cognitive Load**
+2. **Cognitive Load Score Calculation**
    ```
    Cognitive Load Score (0-100) :
 
@@ -32,27 +32,27 @@ Analyse la charge cognitive d'un composant ou page. Calcule un score basé sur M
      (visual_complexity) × 2          // Aesthetic penalty
    )
 
-   où :
-   - visible_elements = nombre d'éléments distincts
-   - choices = nombre de décisions à prendre
+   where:
+   - visible_elements = number of distinct elements
+   - choices = number of decisions to make
    - visual_complexity = score 0-10 (colors, fonts, spacing)
    ```
 
 3. **Classification**
-   - **0-30**: 🔴 CRITICAL - Refonte majeure requise
-   - **31-50**: 🟠 HIGH - Optimisations nécessaires
-   - **51-70**: 🟡 MEDIUM - Améliorations recommandées
-   - **71-85**: 🟢 GOOD - Charge acceptable
+   - **0-30**: 🔴 CRITICAL - Major redesign required
+   - **31-50**: 🟠 HIGH - Optimizations needed
+   - **51-70**: 🟡 MEDIUM - Improvements recommended
+   - **71-85**: 🟢 GOOD - Acceptable load
    - **86-100**: ✅ EXCELLENT - Optimal
 
-4. **Recommandations Spécifiques**
-   - Si > 7 éléments visibles → Chunking ou Progressive Disclosure
-   - Si > 9 choix → Réduire options ou étapes
-   - Si complexité visuelle élevée → Simplifier design
+4. **Specific Recommendations**
+   - If > 7 visible elements → Chunking or Progressive Disclosure
+   - If > 9 choices → Reduce options or steps
+   - If visual complexity is high → Simplify the design
 
-## Exemples
+## Examples
 
-### Exemple 1: Page de recherche surchargée
+### Example 1: Overloaded search page
 
 ```bash
 /ux-cognitive-load-check app/seeker/explore/page.tsx
@@ -107,7 +107,7 @@ RECOMMENDATIONS (Priority Order)
 │  └─ Estimated impact: Score 28 → 65 (+37)
 │
 └─ Chunk filters into categories
-   └─ Group by: Prix, Type, Équipements, Rules, Match
+   └─ Group by: Price, Type, Amenities, Rules, Match
    └─ Estimated impact: Score 65 → 72 (+7)
 
 🟠 P1 - High Priority
@@ -117,7 +117,7 @@ RECOMMENDATIONS (Priority Order)
 │  └─ Estimated impact: Score 72 → 78 (+6)
 │
 └─ Add "Quick Filters" preset buttons
-   └─ Example: "Meublé < 1000€", "2ch WiFi"
+   └─ Example: "Furnished < 1000€", "2 bed WiFi"
    └─ Reduces choices from 35 to 5-8
    └─ Estimated impact: Score 78 → 85 (+7)
 
@@ -132,7 +132,7 @@ After P1: 85/100 ✅ EXCELLENT
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
-### Exemple 2: Dashboard avec charge acceptable
+### Example 2: Dashboard with acceptable load
 
 ```bash
 /ux-cognitive-load-check app/seeker/page.tsx
@@ -177,21 +177,21 @@ MINOR IMPROVEMENTS (Optional)
 
 ## Output Files
 
-Le skill génère:
-1. **Terminal output** (score + recommandations)
+The skill generates:
+1. **Terminal output** (score + recommendations)
 2. **Report file**: `docs/ux-audits/cognitive-load-[component]-[date].md`
-3. **Heatmap visual** (optional): ASCII art montrant les zones d'attention
+3. **Heatmap visual** (optional): ASCII art showing attention zones
 
 ## Configuration
 
-Flags disponibles:
-- `--strict`: Mode strict (pénalités doublées)
-- `--export=pdf`: Exporte le rapport en PDF
-- `--compare=[other_file]`: Compare avec un autre composant
+Available flags:
+- `--strict`: Strict mode (doubled penalties)
+- `--export=pdf`: Exports the report as PDF
+- `--compare=[other_file]`: Compares with another component
 
-## Références
+## References
 
-Basé sur:
+Based on:
 - [Miller's Law](https://lawsofux.com/millers-law/)
 - [Hick's Law](https://lawsofux.com/hicks-law/)
 - [Cognitive Load Theory](https://www.nngroup.com/articles/minimize-cognitive-load/)

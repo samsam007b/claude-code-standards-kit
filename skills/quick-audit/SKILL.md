@@ -1,21 +1,21 @@
 ---
 name: quick-audit
-description: "Audit rapide pré-commit : vérifie les 10 checks critiques en < 2 min. À lancer avant chaque commit important."
+description: "Quick pre-commit audit: runs the 10 critical checks in < 2 min. Run before every important commit."
 tags: [audit, quick, pre-commit, ci-cd]
 version: 1.0.0
 ---
 
 # ⚡ Quick Audit (< 2 min)
 
-Audit rapide des 10 checks les plus critiques. À lancer **avant chaque commit** ou **avant chaque PR**.
+Quick audit of the 10 most critical checks. Run **before every commit** or **before every PR**.
 
 ---
 
-## Exécution Automatique
+## Automatic Execution
 
 ```bash
 # Via pre-commit hook
-.git/hooks/pre-commit → lance /quick-audit
+.git/hooks/pre-commit → runs /quick-audit
 
 # Via Claude Code
 /quick-audit
@@ -27,7 +27,7 @@ Audit rapide des 10 checks les plus critiques. À lancer **avant chaque commit**
 
 ---
 
-## Les 10 Checks Critiques
+## The 10 Critical Checks
 
 ### 1. TypeScript (5s)
 
@@ -35,8 +35,8 @@ Audit rapide des 10 checks les plus critiques. À lancer **avant chaque commit**
 npx tsc --noEmit 2>&1 | grep "error TS" | wc -l
 ```
 
-**✅ PASS** : 0 erreurs
-**🔴 FAIL** : > 0 erreurs
+**✅ PASS** : 0 errors
+**🔴 FAIL** : > 0 errors
 
 ---
 
@@ -58,16 +58,16 @@ grep -r "console\.\(log\|error\|warn\)" app/ lib/ components/ contexts/ \
 ### 3. Exposed API Keys (3s)
 
 ```bash
-# Check 1 : NEXT_PUBLIC_ pour secrets
+# Check 1 : NEXT_PUBLIC_ for secrets
 grep -r "NEXT_PUBLIC_.*KEY\|NEXT_PUBLIC_.*SECRET" .env* app/ components/ \
   | grep -v "NEXT_PUBLIC_SUPABASE_URL\|NEXT_PUBLIC_SUPABASE_ANON_KEY\|NEXT_PUBLIC_STRIPE_PUBLISHABLE"
 
-# Check 2 : Service role en client
+# Check 2 : Service role on the client
 grep -r "SERVICE_ROLE_KEY" app/ components/
 ```
 
-**✅ PASS** : 0 résultats
-**🔴 FAIL** : > 0 résultats
+**✅ PASS** : 0 results
+**🔴 FAIL** : > 0 results
 
 ---
 
@@ -77,15 +77,15 @@ grep -r "SERVICE_ROLE_KEY" app/ components/
 find app/api/debug -type f 2>/dev/null | wc -l
 ```
 
-**✅ PASS** : 0 fichiers
-**🔴 FAIL** : > 0 fichiers
+**✅ PASS** : 0 files
+**🔴 FAIL** : > 0 files
 
 ---
 
 ### 5. Unprotected API Routes (10s)
 
 ```bash
-# Routes publiques sensibles sans rate limit
+# Sensitive public routes without rate limit
 grep -L "ratelimit\|RateLimit" app/api/auth/*/route.ts app/api/upload/*/route.ts 2>/dev/null | wc -l
 ```
 
@@ -98,53 +98,53 @@ grep -L "ratelimit\|RateLimit" app/api/auth/*/route.ts app/api/upload/*/route.ts
 ### 6. Hardcoded Secrets (5s)
 
 ```bash
-# Passwords, tokens, keys hardcodés
+# Hardcoded passwords, tokens, keys
 grep -rn "password.*=.*['\"].\{8,\}['\"]" app/ lib/ \
   | grep -v "placeholder\|example\|test"
 ```
 
-**✅ PASS** : 0 résultats
-**🔴 FAIL** : > 0 résultats
+**✅ PASS** : 0 results
+**🔴 FAIL** : > 0 results
 
 ---
 
 ### 7. SQL Injection Risk (5s)
 
 ```bash
-# String concatenation dans SQL
+# String concatenation in SQL
 grep -rn "EXECUTE.*||" supabase/migrations/
 grep -rn "\${.*}" supabase/migrations/ | grep -v "^--"
 ```
 
-**✅ PASS** : 0 résultats
-**🔴 FAIL** : > 0 résultats
+**✅ PASS** : 0 results
+**🔴 FAIL** : > 0 results
 
 ---
 
 ### 8. XSS Risk (5s)
 
 ```bash
-# dangerouslySetInnerHTML sans sanitization
+# dangerouslySetInnerHTML without sanitization
 grep -r "dangerouslySetInnerHTML" app/ components/ | grep -v "DOMPurify"
 ```
 
-**✅ PASS** : 0 résultats
-**🟡 WARN** : < 3 avec DOMPurify
-**🔴 FAIL** : > 0 sans DOMPurify
+**✅ PASS** : 0 results
+**🟡 WARN** : < 3 with DOMPurify
+**🔴 FAIL** : > 0 without DOMPurify
 
 ---
 
 ### 9. Error Information Disclosure (5s)
 
 ```bash
-# Stack traces dans responses
+# Stack traces in responses
 grep -r "error\.stack\|error\.message" app/api/ \
   | grep "Response.json\|NextResponse.json"
 ```
 
-**✅ PASS** : 0 résultats
-**🟡 WARN** : < 5 résultats
-**🔴 FAIL** : > 5 résultats
+**✅ PASS** : 0 results
+**🟡 WARN** : < 5 results
+**🔴 FAIL** : > 5 results
 
 ---
 
@@ -159,7 +159,7 @@ npm run build 2>&1 | grep -E "Compiled successfully|Build failed"
 
 ---
 
-## Format de Sortie
+## Output Format
 
 ```
 ⚡ QUICK AUDIT RESULTS ────────────────────
@@ -178,7 +178,7 @@ npm run build 2>&1 | grep -E "Compiled successfully|Build failed"
 Score: 95/100 ─ PASS ✅
 
 Warnings:
-- 2 API routes sans rate limit (non-critical)
+- 2 API routes without rate limit (non-critical)
 
 Recommendation: SAFE TO COMMIT
 
@@ -194,19 +194,19 @@ Time: 1m 23s
 /quick-audit --auto-fix
 ```
 
-Si activé, propose de corriger automatiquement :
-- Ajouter imports React manquants
-- Remplacer console.log par logger.debug
-- Ajouter rate limiting sur routes sensibles
+If enabled, offers to fix automatically:
+- Add missing React imports
+- Replace console.log with logger.debug
+- Add rate limiting on sensitive routes
 
 ---
 
-## Intégration Git Hooks
+## Git Hooks Integration
 
 ### Installation
 
 ```bash
-# Créer pre-commit hook
+# Create pre-commit hook
 cat > .git/hooks/pre-commit << 'EOF'
 #!/bin/bash
 echo "🔍 Running Quick Audit..."
@@ -216,11 +216,11 @@ EOF
 chmod +x .git/hooks/pre-commit
 ```
 
-### Comportement
+### Behavior
 
-- **Score ≥ 90%** : Commit autorisé ✅
-- **Score 75-89%** : Warning mais commit autorisé 🟡
-- **Score < 75%** : Commit bloqué 🔴 (--no-verify pour bypasser)
+- **Score ≥ 90%** : Commit allowed ✅
+- **Score 75-89%** : Warning but commit allowed 🟡
+- **Score < 75%** : Commit blocked 🔴 (--no-verify to bypass)
 
 ---
 
@@ -253,4 +253,4 @@ jobs:
 
 **Execution time** : 1-2 minutes
 **False positive rate** : < 5%
-**Recommended usage** : Avant chaque commit > 50 lignes modifiées
+**Recommended usage** : Before every commit with > 50 changed lines

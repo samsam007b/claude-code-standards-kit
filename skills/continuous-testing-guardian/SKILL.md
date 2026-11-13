@@ -1,30 +1,30 @@
 ---
 name: continuous-testing-guardian
-description: Implémente un système de continuous testing avec chaos engineering pour détecter automatiquement les régressions introduites par des modifications de code (IA ou humaines)
+description: Implements a continuous testing system with chaos engineering to automatically detect regressions introduced by code changes (AI or human)
 tags: [testing, chaos-engineering, continuous, monitoring]
 ---
 
 # Continuous Testing Guardian - "Mais Codeur" System
 
-## Objectif
+## Goal
 
-Créer un système de tests continus qui :
-1. **Emprunte automatiquement tous les user flows critiques**
-2. **Détecte les régressions invisibles** introduites par Claude Code
-3. **Alerte immédiatement** quand un changement brise une chaîne fonctionnelle
-4. **Prévient la dette technique** avant qu'elle s'accumule
+Build a continuous testing system that:
+1. **Automatically walks through all critical user flows**
+2. **Detects invisible regressions** introduced by Claude Code
+3. **Alerts immediately** when a change breaks a functional chain
+4. **Prevents technical debt** before it accumulates
 
-## Concept : Le "Mais Codeur"
+## Concept: The "Mais Codeur"
 
-Inspiré de **Chaos Engineering** (Netflix Chaos Monkey) mais adapté pour la **dette technique du code IA**.
+Inspired by **Chaos Engineering** (Netflix Chaos Monkey) but adapted to the **technical debt of AI-generated code**.
 
-### Problème Identifié
-- Claude Code modifie du code rapidement
-- Une modification dans `FileA.ts` peut casser `FileB.tsx` qui l'utilisait
-- L'erreur n'est pas visible immédiatement
-- **Accumulation de dette technique invisible**
+### Identified Problem
+- Claude Code modifies code quickly
+- A change in `FileA.ts` can break `FileB.tsx`, which depended on it
+- The error is not immediately visible
+- **Accumulation of invisible technical debt**
 
-### Solution : Testing en Boucle Continue
+### Solution: Continuous Loop Testing
 ```
 ┌─────────────────────────────────────┐
 │  1. Code Change (Claude ou Human)   │
@@ -54,11 +54,11 @@ Inspiré de **Chaos Engineering** (Netflix Chaos Monkey) mais adapté pour la **
 
 ---
 
-## PHASE 1 : Test Suite Setup (4h)
+## PHASE 1: Test Suite Setup (4h)
 
 ### 1.1 Identify Critical User Flows
 
-**Pour votre projet (exemple à adapter)** :
+**For your project (example to adapt)**:
 
 | Role | Flow | Priority | Test Frequency |
 |------|------|----------|----------------|
@@ -73,7 +73,7 @@ Inspiré de **Chaos Engineering** (Netflix Chaos Monkey) mais adapté pour la **
 
 ### 1.2 E2E Test Structure
 
-**Framework** : Playwright (already in package.json)
+**Framework**: Playwright (already in package.json)
 
 ```typescript
 // tests/e2e/critical-flows/seeker-signup-to-match.spec.ts
@@ -166,14 +166,14 @@ test.describe('Seeker Critical Flow: Signup → Match', () => {
     await page.click('[data-testid="send-message"]');
 
     // Verify sent
-    await expect(page.locator('text=Message envoyé')).toBeVisible();
+    await expect(page.locator('text=Message sent')).toBeVisible();
   });
 });
 ```
 
 ### 1.3 API Contract Tests
 
-**Objectif** : Détecter breaking changes dans les API routes.
+**Goal**: Detect breaking changes in API routes.
 
 ```typescript
 // tests/api/contracts/auth.contract.spec.ts
@@ -287,11 +287,11 @@ test.describe('Database Integrity Checks', () => {
 
 ---
 
-## PHASE 2 : Chaos Engineering (3h)
+## PHASE 2: Chaos Engineering (3h)
 
 ### 2.1 Fault Injection
 
-**Concept** : Injecter des failures aléatoires pour tester la résilience.
+**Concept**: Inject random failures to test resilience.
 
 ```typescript
 // tests/chaos/api-failure-injection.spec.ts
@@ -388,7 +388,7 @@ test.describe('Performance Regression Detection', () => {
     await page.goto('/search');
 
     const startTime = Date.now();
-    await page.fill('[name="location"]', 'Bruxelles');
+    await page.fill('[name="location"]', 'Brussels');
     await page.click('[data-testid="search-submit"]');
 
     await page.waitForSelector('[data-testid="property-card"]');
@@ -475,7 +475,7 @@ test.describe('Security Regression Detection', () => {
 
 ---
 
-## PHASE 3 : CI/CD Integration (2h)
+## PHASE 3: CI/CD Integration (2h)
 
 ### 3.1 GitHub Actions Workflow
 
@@ -643,7 +643,7 @@ echo "✅ All pre-commit tests passed!"
 
 ---
 
-## PHASE 4 : Monitoring & Alerting (2h)
+## PHASE 4: Monitoring & Alerting (2h)
 
 ### 4.1 Real-time Flow Monitoring
 
@@ -788,7 +788,7 @@ detectRegressions().then((regressions) => {
 
 ---
 
-## PHASE 5 : Dashboard & Reporting (2h)
+## PHASE 5: Dashboard & Reporting (2h)
 
 ### 5.1 Test Status Dashboard
 
@@ -867,7 +867,7 @@ export default function TestingDashboard() {
 
 ---
 
-## PHASE 6 : Automated Fixes (Advanced)
+## PHASE 6: Automated Fixes (Advanced)
 
 ### 6.1 Self-Healing Tests
 
@@ -941,31 +941,31 @@ async function attemptHeal(error: Error) {
 ## Benefits & ROI
 
 ### Problem Solved
-- ✅ Détection immédiate des régressions
-- ✅ Prévention de la dette technique
-- ✅ Confiance dans les modifications IA
-- ✅ Documentation vivante (tests = specs)
+- ✅ Immediate detection of regressions
+- ✅ Prevention of technical debt
+- ✅ Confidence in AI-generated changes
+- ✅ Living documentation (tests = specs)
 
 ### Metrics to Track
-- **Mean Time to Detection** (MTTD) : Temps entre introduction du bug et détection
-- **Regression Rate** : % de commits qui introduisent une régression
-- **Test Coverage** : % des flows critiques couverts
-- **False Positive Rate** : Tests qui échouent sans raison
+- **Mean Time to Detection** (MTTD): Time between the bug being introduced and its detection
+- **Regression Rate**: % of commits that introduce a regression
+- **Test Coverage**: % of critical flows covered
+- **False Positive Rate**: Tests that fail for no reason
 
 ---
 
 ## Continuous Improvement
 
-1. **Add tests for each bug found** : Chaque bug devient un nouveau test
-2. **Refine chaos scenarios** : Ajouter de nouveaux failure modes
-3. **Monitor test performance** : Tests trop lents = tech debt
-4. **Review test relevance** : Supprimer tests obsolètes
+1. **Add tests for each bug found**: Every bug becomes a new test
+2. **Refine chaos scenarios**: Add new failure modes
+3. **Monitor test performance**: Tests that are too slow = tech debt
+4. **Review test relevance**: Remove obsolete tests
 
 ---
 
 ## Sources
 
-- Netflix Chaos Engineering : https://netflixtechblog.com/tagged/chaos-engineering
-- Playwright Best Practices : https://playwright.dev/docs/best-practices
-- Continuous Testing Guide : https://www.qatouch.com/blog/chaos-testing/
-- Google Testing Blog : https://testing.googleblog.com/
+- Netflix Chaos Engineering: https://netflixtechblog.com/tagged/chaos-engineering
+- Playwright Best Practices: https://playwright.dev/docs/best-practices
+- Continuous Testing Guide: https://www.qatouch.com/blog/chaos-testing/
+- Google Testing Blog: https://testing.googleblog.com/

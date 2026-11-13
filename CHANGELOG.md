@@ -11,12 +11,21 @@ This project adheres to [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 ### Added
 - `docs/EXFILTRATION-DEFENSE.md`: a layered checklist against data exfiltration (secrets, supply chain, egress, database RLS audit, backups), with the allowlist pitfalls found in practice: variables such as `${CLAUDE_SKILL_DIR:-...}` are not expanded by `plugin-allowlist-check.py`, wildcard `git fetch` rules allow `--upload-pack` injection, interpreters and package runners must never be allowlisted, Docker published ports bypass ufw.
 
+## [5.0.1] - 2026-11-14
+
+### Changed
+- Advanced layer (skills, commands, extra agents, optional hooks and tools) translated to English.
+
+### Fixed
+- Removed a stray `README.md-E` backup file.
+- Removed a private product name and a private project host from example text in three skills.
+
 ## [5.0.0] - 2026-11-14
 
 A beginner layer on top of the unchanged standards kit. Contracts, audits and the 18 global hooks are untouched (still the "advanced" tier).
 
 ### Added
-- Advanced layer (generic, reusable mechanics): 20 review and audit skills (code, API, security, performance, accessibility, UX, SEO, testing, roadmap), 4 extra agents in `agents/extras/` (code reviewer, test writer, PR describer, debugger), commands `/clean-commit`, `/grill`, `/update-audit`, 6 optional hooks in `hooks/optional/` (not wired by default) and 12 utility scripts in `scripts/tools/`. These files are in French and have no English mirror yet.
+- Advanced layer (generic, reusable mechanics): 20 review and audit skills (code, API, security, performance, accessibility, UX, SEO, testing, roadmap), 4 extra agents in `agents/extras/` (code reviewer, test writer, PR describer, debugger), commands `/clean-commit`, `/grill`, `/update-audit`, 6 optional hooks in `hooks/optional/` (not wired by default) and 12 utility scripts in `scripts/tools/`. These files were first published in French.
 - `setup.sh` (macOS, Linux) and `setup.ps1` (Windows, native via winget): detect the machine, explain each missing tool (Homebrew or winget, Git, Node.js, Python, Claude Code), install only after a yes. Never overwrite existing files. `--dry-run`, `--lang en|fr`.
 - Skill `/welcome`: 6-question onboarding, level (Discovery, Practice, Autonomous), tools proposed one by one from needs (Playwright, Composio, guardrails), local profile in `~/.claude/kit/profile.json`.
 - Skill `/explain`: on-demand explanations of Claude Code terms at the person's level, backed by a 22-card glossary.

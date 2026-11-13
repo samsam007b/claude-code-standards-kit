@@ -1,52 +1,52 @@
 ---
-description: Interroge l'utilisateur avant de coder une feature complexe — clarifier scope, ambiguïtés, langage partagé, critères de succès. Pattern Matt Pocock /grill-with-docs.
+description: Interviews the user before coding a complex feature: clarify scope, ambiguities, shared language, success criteria. Matt Pocock /grill-with-docs pattern.
 ---
 
-# /grill — Interview avant implémentation
+# /grill: Interview before implementation
 
-Avant de coder, poser les questions suivantes dans l'ordre. Arrêter dès que tout est clair.
+Before coding, ask the following questions in order. Stop as soon as everything is clear.
 
-## Phase 1 — Scope & contexte
+## Phase 1: Scope & context
 
-1. Quel est le **résultat visible** attendu une fois la feature terminée ?
-2. Qu'est-ce qui est **explicitement hors scope** ?
-3. Est-ce que cette feature existe ailleurs dans le codebase ou a déjà été tentée ?
+1. What is the expected **visible result** once the feature is done?
+2. What is **explicitly out of scope**?
+3. Does this feature already exist elsewhere in the codebase, or has it already been attempted?
 
-## Phase 2 — Utilisateurs & cas limites
+## Phase 2: Users & edge cases
 
-4. Qui utilise cette feature et dans quel contexte exact ?
-5. Quels sont les 2-3 cas limites à gérer absolument ?
-6. Qu'est-ce qui doit se passer si ça échoue ?
+4. Who uses this feature, and in exactly what context?
+5. What are the 2-3 edge cases that absolutely must be handled?
+6. What should happen if it fails?
 
-## Phase 3 — Critères de succès
+## Phase 3: Success criteria
 
-7. Comment savoir que c'est **fini** ? Quel test ou comportement observable ?
-8. Y a-t-il des contraintes techniques non-négociables (perf, sécu, compatibilité) ?
+7. How do we know it is **done**? Which test or observable behavior?
+8. Are there non-negotiable technical constraints (performance, security, compatibility)?
 
-## Phase 4 — Langage partagé
+## Phase 4: Shared language
 
-9. Y a-t-il des termes métier spécifiques à ce projet que je dois connaître ?
-10. Y a-t-il une doc, un ticket ou un exemple existant à suivre ?
+9. Are there business terms specific to this project that I should know?
+10. Is there an existing doc, ticket or example to follow?
 
 ---
 
-## Règles d'utilisation
+## Usage rules
 
-- Poser max **3 questions par tour** — ne pas tout dumper d'un coup
-- Si l'utilisateur dit "vas-y" sans tout clarifier → noter les hypothèses explicitement avant de coder
-- Résumer le plan en **5 bullets max** avant d'écrire la première ligne de code
-- Créer un critère de succès vérifiable avant de commencer
+- Ask at most **3 questions per turn**, do not dump everything at once
+- If the user says "go ahead" without clarifying everything, write down the assumptions explicitly before coding
+- Summarize the plan in **5 bullets max** before writing the first line of code
+- Define a verifiable success criterion before starting
 
-## Quand l'utiliser
+## When to use it
 
-| Situation | Grill ? |
+| Situation | Grill? |
 |-----------|---------|
-| Feature nouvelle, scope flou | ✅ Obligatoire |
-| Bug fix isolé | ❌ Non |
-| Refactor >3 fichiers | ✅ Recommandé |
-| "Fais X rapidement" avec contexte clair | ❌ Non |
-| Feature cross-projet ou avec impact client | ✅ Obligatoire |
+| New feature, unclear scope | ✅ Mandatory |
+| Isolated bug fix | ❌ No |
+| Refactor >3 files | ✅ Recommended |
+| "Quickly do X" with clear context | ❌ No |
+| Cross-project feature or one with client impact | ✅ Mandatory |
 
 ---
 
-*Inspiré de mattpocock/skills — /grill-with-docs (56K stars)*
+*Inspired by mattpocock/skills, /grill-with-docs (56K stars)*

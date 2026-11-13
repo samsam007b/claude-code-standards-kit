@@ -1,155 +1,155 @@
 ---
-description: Recalcule le score 1000 points de l'audit système, met à jour AUDIT-1000.md et enregistre l'historique. Usage: /update-audit
+description: Recomputes the 1000-point system audit score, updates AUDIT-1000.md and records the history. Usage: /update-audit
 ---
 
-# Skill : Update Audit — Recalcul Score 1000 Points
+# Skill: Update Audit, 1000-Point Score Recalculation
 
 ## Mission
 
-Évaluer objectivement l'état actuel du système contre les 8 dimensions de l'audit,
-produire un score mis à jour, identifier les gains réalisés et les prochaines priorités.
+Objectively evaluate the current state of the system against the 8 audit dimensions,
+produce an updated score, identify the gains achieved and the next priorities.
 
 ---
 
-## PROTOCOLE D'ÉVALUATION
+## EVALUATION PROTOCOL
 
-### Étape 1 — Inventaire du système
+### Step 1: System inventory
 
-Lire et lister :
+Read and list:
 ```
-1. knowledge-base/ → Compter les modules, évaluer la profondeur
-2. ~/.claude/commands/ → Skills disponibles
-3. ~/.claude/agents/ → Agents spécialisés
+1. knowledge-base/ → Count the modules, assess the depth
+2. ~/.claude/commands/ → Available skills
+3. ~/.claude/agents/ → Specialized agents
 4. perso/investissements/predictions/predictions-log.json → Track record
-5. CLAUDE.md → Règles et gouvernance
+5. CLAUDE.md → Rules and governance
 ```
 
-### Étape 2 — Scoring par dimension
+### Step 2: Scoring per dimension
 
-Pour chaque dimension, évaluer **objectivement** (ne pas gonfler les scores) :
+For each dimension, evaluate **objectively** (do not inflate scores):
 
-#### Grille d'évaluation par critère
+#### Evaluation grid per criterion
 
 ```
-DIMENSION 1 — Rigueur Analytique (200 pts)
-  1.1 Profondeur des thèses         /40
-      → Y-a-t-il des modèles quantitatifs (DCF, comps) ? [pts ×0 si absent]
-      → Le GuruPanel est-il fonctionnel ? [+32 si oui]
-  1.2 Sources primaires             /40
-      → Combien de papiers académiques cités avec vérification ?
-      → Accès à des données live ? [+15 si oui, +0 si uniquement statiques]
-  1.3 Rigueur quantitative          /40
-      → Les calculs sont-ils faits sur données réelles ou estimées ?
-      → [+5 bonus si données live intégrées]
-  1.4 Couverture économique         /40
-      → Compter les modules KB existants / 12 modules cibles
-  1.5 Calibration Tetlock           /40
-      → Nombre de prédictions loggées (0=2pts, 10=10pts, 50=25pts, 100+=35pts)
-      → Brier score calculé ? (+5 si oui)
+DIMENSION 1: Analytical Rigor (200 pts)
+  1.1 Depth of theses               /40
+      → Are there quantitative models (DCF, comps)? [pts ×0 if absent]
+      → Is the GuruPanel functional? [+32 if yes]
+  1.2 Primary sources               /40
+      → How many academic papers cited with verification?
+      → Access to live data? [+15 if yes, +0 if static only]
+  1.3 Quantitative rigor            /40
+      → Are calculations done on real or estimated data?
+      → [+5 bonus if live data integrated]
+  1.4 Economic coverage             /40
+      → Count existing KB modules / 12 target modules
+  1.5 Tetlock calibration           /40
+      → Number of logged predictions (0=2pts, 10=10pts, 50=25pts, 100+=35pts)
+      → Brier score computed? (+5 if yes)
 
-DIMENSION 2 — Architecture (150 pts)
-  2.1 Modularité                    /30
-  2.2 Persistance mémoire           /30
+DIMENSION 2: Architecture (150 pts)
+  2.1 Modularity                    /30
+  2.2 Memory persistence            /30
   2.3 Multi-agents                  /30
-  2.4 Données live intégrées        /30
-  2.5 RAG sur KB                    /30
+  2.4 Live data integrated          /30
+  2.5 RAG on KB                     /30
 
-DIMENSION 3 — Gestion du Risque (150 pts)
-  3.1 Métriques documentées         /30
+DIMENSION 3: Risk Management (150 pts)
+  3.1 Documented metrics            /30
   3.2 Position sizing               /30
   3.3 Stress testing                /30
-  3.4 Corrélations dynamiques       /30
-  3.5 Vue portefeuille live         /30
+  3.4 Dynamic correlations          /30
+  3.5 Live portfolio view           /30
 
-DIMENSION 4 — Qualité Données (150 pts)
-  4.1 Fraîcheur KB                  /30
-  4.2 Sources institutionnelles     /30
+DIMENSION 4: Data Quality (150 pts)
+  4.1 KB freshness                  /30
+  4.2 Institutional sources         /30
   4.3 Alternative data              /30
-  4.4 Données financières           /30
-  4.5 Macro temps réel              /30
+  4.4 Financial data                /30
+  4.5 Real-time macro               /30
 
-DIMENSION 5 — Processus (100 pts)
-  5.1 Anti-biais                    /25
+DIMENSION 5: Process (100 pts)
+  5.1 Anti-bias                     /25
   5.2 Audit trail                   /25
-  5.3 Processus documenté           /25
+  5.3 Documented process            /25
   5.4 Feedback loop                 /25
 
-DIMENSION 6 — Couverture Marchés (100 pts)
-  6.1 Classes d'actifs              /25
-  6.2 Géographie                    /25
-  6.3 Secteurs                      /25
-  6.4 Temporalité                   /25
+DIMENSION 6: Market Coverage (100 pts)
+  6.1 Asset classes                 /25
+  6.2 Geography                     /25
+  6.3 Sectors                       /25
+  6.4 Time horizons                 /25
 
-DIMENSION 7 — Standards Professionnels (100 pts)
+DIMENSION 7: Professional Standards (100 pts)
   7.1 CFA Standards                 /25
   7.2 Bridgewater                   /25
   7.3 Goldman Sachs                 /25
   7.4 MiFID II                      /25
 
-DIMENSION 8 — Validation & Track Record (100 pts)
-  8.1 Track record (N prédictions)  /25
-      → Formule : min(25, N × 0.5) où N = prédictions résolues
+DIMENSION 8: Validation & Track Record (100 pts)
+  8.1 Track record (N predictions)  /25
+      → Formula: min(25, N × 0.5) where N = resolved predictions
   8.2 Walk-forward                  /25
   8.3 Out-of-sample                 /25
   8.4 Brier score                   /25
-      → Si Brier < 0.15 : 25/25 | < 0.25 : 18/25 | < 0.40 : 10/25 | > 0.40 : 2/25
+      → If Brier < 0.15: 25/25 | < 0.25: 18/25 | < 0.40: 10/25 | > 0.40: 2/25
 ```
 
-### Étape 3 — Produire le Dashboard
+### Step 3: Produce the Dashboard
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📊 AUDIT SYSTÈME — MISE À JOUR [DATE]
+📊 SYSTEM AUDIT: UPDATE [DATE]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-SCORE GLOBAL
-[SCORE]/1000 → [NIVEAU]
-Gain vs audit précédent : [+/-N] pts
+OVERALL SCORE
+[SCORE]/1000 → [LEVEL]
+Gain vs previous audit: [+/-N] pts
 
-TABLEAU PAR DIMENSION
+TABLE PER DIMENSION
 ┌─────────────────────────────────┬──────┬──────┬──────┬─────────────────┐
-│ Dimension                       │ Max  │ Avant│ Après│ Δ              │
+│ Dimension                       │ Max  │Before│After │ Δ               │
 ├─────────────────────────────────┼──────┼──────┼──────┼─────────────────┤
-│ 1. Rigueur Analytique           │ 200  │ [X]  │ [X]  │ [+/-N]          │
-│ 2. Architecture Système         │ 150  │ [X]  │ [X]  │ [+/-N]          │
-│ 3. Gestion du Risque            │ 150  │ [X]  │ [X]  │ [+/-N]          │
-│ 4. Qualité des Données          │ 150  │ [X]  │ [X]  │ [+/-N]          │
-│ 5. Processus Décisionnel        │ 100  │ [X]  │ [X]  │ [+/-N]          │
-│ 6. Couverture Marchés           │ 100  │ [X]  │ [X]  │ [+/-N]          │
-│ 7. Standards Professionnels     │ 100  │ [X]  │ [X]  │ [+/-N]          │
+│ 1. Analytical Rigor             │ 200  │ [X]  │ [X]  │ [+/-N]          │
+│ 2. System Architecture          │ 150  │ [X]  │ [X]  │ [+/-N]          │
+│ 3. Risk Management              │ 150  │ [X]  │ [X]  │ [+/-N]          │
+│ 4. Data Quality                 │ 150  │ [X]  │ [X]  │ [+/-N]          │
+│ 5. Decision Process             │ 100  │ [X]  │ [X]  │ [+/-N]          │
+│ 6. Market Coverage              │ 100  │ [X]  │ [X]  │ [+/-N]          │
+│ 7. Professional Standards       │ 100  │ [X]  │ [X]  │ [+/-N]          │
 │ 8. Validation & Track Record    │ 100  │ [X]  │ [X]  │ [+/-N]          │
 ├─────────────────────────────────┼──────┼──────┼──────┼─────────────────┤
 │ TOTAL                           │ 1000 │ [X]  │ [X]  │ [+/-N]          │
 └─────────────────────────────────┴──────┴──────┴──────┴─────────────────┘
 
-NIVEAU ACTUEL
-< 300  : 🔴 Débutant
-300-450: 🟠 Apprenti
-450-600: 🟡 Junior Analyst    ← Départ : 510
-600-750: 🟢 Senior Analyst    ← Objectif 12 mois
-750-850: 🔵 Professionnel
+CURRENT LEVEL
+< 300  : 🔴 Beginner
+300-450: 🟠 Apprentice
+450-600: 🟡 Junior Analyst    ← Start: 510
+600-750: 🟢 Senior Analyst    ← 12-month goal
+750-850: 🔵 Professional
 850+   : ⭐ Elite
 
-TOP 3 GAINS RÉALISÉS DEPUIS DERNIER AUDIT
-  1. [Gain] : +[N] pts (Dim [X])
-  2. [Gain] : +[N] pts
-  3. [Gain] : +[N] pts
+TOP 3 GAINS ACHIEVED SINCE LAST AUDIT
+  1. [Gain]: +[N] pts (Dim [X])
+  2. [Gain]: +[N] pts
+  3. [Gain]: +[N] pts
 
-TOP 3 PROCHAINES PRIORITÉS (ratio impact/effort)
-  1. [Gap] : +[N] pts estimés → /enrich-system [commande]
-  2. [Gap] : +[N] pts estimés
-  3. [Gap] : +[N] pts estimés
+TOP 3 NEXT PRIORITIES (impact/effort ratio)
+  1. [Gap]: +[N] estimated pts → /enrich-system [command]
+  2. [Gap]: +[N] estimated pts
+  3. [Gap]: +[N] estimated pts
 
-TRAJECTOIRE VERS 750
-  Points manquants : [N]
-  À raison de [N] pts/mois → objectif atteint en [date]
+TRAJECTORY TO 750
+  Missing points: [N]
+  At [N] pts/month → goal reached on [date]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
-### Étape 4 — Sauvegarder
+### Step 4: Save
 
-1. Mettre à jour `knowledge-base/AUDIT-1000.md` avec les nouveaux scores
-2. Ajouter une entrée dans `system/audit-history.json` :
+1. Update `knowledge-base/AUDIT-1000.md` with the new scores
+2. Add an entry in `system/audit-history.json`:
 ```json
 {
   "date": "YYYY-MM-DD",
@@ -162,8 +162,8 @@ TRAJECTOIRE VERS 750
 
 ---
 
-## Fréquence recommandée
+## Recommended frequency
 
-- **Mensuel** : Après chaque mois actif d'utilisation du système
-- **Ad hoc** : Après chaque `/enrich-system` ou `/track-predictions resolve`
-- **Obligatoire** : Avant toute décision d'investissement majeure (>500 EUR)
+- **Monthly**: After each active month of using the system
+- **Ad hoc**: After each `/enrich-system` or `/track-predictions resolve`
+- **Mandatory**: Before any major investment decision (>500 EUR)

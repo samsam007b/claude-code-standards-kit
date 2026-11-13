@@ -1,85 +1,85 @@
 ---
 name: seo-audit
-description: Audit SEO technique complet — Core Web Vitals, metadata Open Graph, structured data JSON-LD, sitemap, robots.txt, crawlabilité. Sources : Google Search Central, schema.org, OGP.
+description: Complete technical SEO audit: Core Web Vitals, Open Graph metadata, JSON-LD structured data, sitemap, robots.txt, crawlability. Sources: Google Search Central, schema.org, OGP.
 tags: [seo, metadata, performance, structured-data, sitemap, nextjs]
 model: sonnet
 ---
 
-# /seo-audit — Audit SEO Technique
+# /seo-audit: Technical SEO Audit
 
-## Quand utiliser
+## When to use
 
-- Avant une mise en production d'une page ou site
-- Audit SEO complet d'un projet Next.js
-- Vérification Open Graph pour les partages sociaux
-- Implémentation de structured data
+- Before putting a page or site into production
+- Complete SEO audit of a Next.js project
+- Open Graph verification for social sharing
+- Implementing structured data
 
-## Critères d'audit
+## Audit criteria
 
-### Metadata (par page)
-- [ ] `<title>` unique, 50–60 caractères, mot-clé principal en premier
-- [ ] `<meta description>` unique, 150–160 caractères, call-to-action
+### Metadata (per page)
+- [ ] Unique `<title>`, 50-60 characters, main keyword first
+- [ ] Unique `<meta description>`, 150-160 characters, call-to-action
 - [ ] `og:title`, `og:description`, `og:image` (1200×630px min), `og:url`
 - [ ] `twitter:card`, `twitter:title`, `twitter:description`, `twitter:image`
-- [ ] `canonical` URL pour éviter le contenu dupliqué
-- [ ] `hreflang` si multilingue
+- [ ] `canonical` URL to avoid duplicate content
+- [ ] `hreflang` if multilingual
 
 ### Structured Data (schema.org + JSON-LD)
-Types prioritaires selon le contenu :
-- Pages produit/service → `Product`, `Service`, `Organization`
+Priority types depending on content:
+- Product/service pages → `Product`, `Service`, `Organization`
 - Articles/blog → `Article`, `BlogPosting`
 - FAQ → `FAQPage` + `Question` + `Answer`
-- Profils → `Person`
-- Listes → `ItemList`
+- Profiles → `Person`
+- Lists → `ItemList`
 
 ### Core Web Vitals (Google ranking factor)
-- LCP < 2.5s : image hero avec `priority`, fonts preload
-- CLS < 0.1 : dimensions explicites sur images, pas d'injection DOM asynchrone
-- INP < 200ms : événements non-bloquants, defer JS non-critique
+- LCP < 2.5s: hero image with `priority`, fonts preload
+- CLS < 0.1: explicit dimensions on images, no asynchronous DOM injection
+- INP < 200ms: non-blocking events, defer non-critical JS
 
-### Crawlabilité
-- [ ] `robots.txt` : `Allow: /` + `Disallow` sur les pages privées + `Sitemap:` pointeur
-- [ ] `sitemap.xml` généré dynamiquement, soumis dans Search Console
-- [ ] Pas de `noindex` sur des pages qui doivent être indexées
-- [ ] Liens internes sur toutes les pages orphelines
-- [ ] URL slug en kebab-case, descriptif, sans stopwords
+### Crawlability
+- [ ] `robots.txt`: `Allow: /` + `Disallow` on private pages + `Sitemap:` pointer
+- [ ] `sitemap.xml` generated dynamically, submitted in Search Console
+- [ ] No `noindex` on pages that must be indexed
+- [ ] Internal links to all orphan pages
+- [ ] URL slug in kebab-case, descriptive, without stopwords
 
-### HTML réel livré au crawler (Next.js App Router — CRITIQUE)
-Le sitemap/robots.txt/meta peuvent être parfaits et la page rester invisible si le HTML
-serveur ne contient pas le contenu réel — un crawler sans JS (et la première passe de
-Googlebot) ne voit que ce qui est dans le DOM, pas ce qui attend d'être hydraté.
+### Actual HTML delivered to the crawler (Next.js App Router, CRITICAL)
+The sitemap/robots.txt/meta can be perfect and the page can still remain invisible if the
+server HTML does not contain the actual content. A crawler without JS (and Googlebot's
+first pass) only sees what is in the DOM, not what is waiting to be hydrated.
 
-Incident réel (projet Next.js) : un provider chargé via
-`dynamic(() => import(...), { ssr: false })` enveloppait `{children}` dans le layout
-racine → tout le contenu de l'app (homepage + pages profondes) bail-out du rendu serveur,
-sitemap/robots pourtant nickel, indexation quasi nulle pendant des mois.
+Real incident (Next.js project): a provider loaded via
+`dynamic(() => import(...), { ssr: false })` wrapped `{children}` in the root layout
+→ all of the app's content (homepage + deep pages) bailed out of server rendering,
+with a flawless sitemap/robots, yet near-zero indexing for months.
 
-- [ ] `curl -s <url> | grep -A2 '<body'` → le texte visible (hors `<script>`/`<style>`)
-      doit correspondre au contenu réel de la page, pas à un skeleton/loading state
-- [ ] Compter les `<a href=` réels dans le body (hors script tags) — doit refléter la nav
-      réelle, pas juste 0-1 lien (skip-link)
-- [ ] Chercher `BAILOUT_TO_CLIENT_SIDE_RENDERING` dans le HTML brut — si présent
-      immédiatement après l'ouverture de `<body>` ou avant `<main>`, un `ssr:false` en
-      amont bloque tout ce qui suit
-- [ ] Auditer tout `dynamic(..., { ssr: false })` qui accepte des `children` et vérifier
-      qu'il ne les enveloppe pas (`<Comp>{children}</Comp>`) — seuls les composants
-      feuilles (modales, cartes, graphiques, sans enfants passés par le parent) doivent
-      utiliser `ssr:false`
-- [ ] Comparer taille HTML avec UA navigateur vs `curl` sans UA — doivent être identiques
-      (un shell minimal servi aux bots = red flag)
+- [ ] `curl -s <url> | grep -A2 '<body'` → the visible text (outside `<script>`/`<style>`)
+      must match the actual page content, not a skeleton/loading state
+- [ ] Count the actual `<a href=` in the body (outside script tags): it must reflect the real
+      navigation, not just 0-1 links (skip-link)
+- [ ] Look for `BAILOUT_TO_CLIENT_SIDE_RENDERING` in the raw HTML: if present
+      right after the opening `<body>` or before `<main>`, an upstream `ssr:false`
+      blocks everything that follows
+- [ ] Audit every `dynamic(..., { ssr: false })` that accepts `children` and check
+      that it does not wrap them (`<Comp>{children}</Comp>`): only leaf components
+      (modals, maps, charts, with no children passed by the parent) should
+      use `ssr:false`
+- [ ] Compare HTML size with a browser UA vs `curl` without UA: they must be identical
+      (a minimal shell served to bots is a red flag)
 
-### Internationalisation
-- [ ] `lang` sur `<html>` (ex: `lang="fr-BE"`)
-- [ ] `hreflang` sur chaque variante linguistique
-- [ ] URLs de type `/fr/page` ou `fr.domain.com`
+### Internationalization
+- [ ] `lang` on `<html>` (e.g. `lang="fr-BE"`)
+- [ ] `hreflang` on each language variant
+- [ ] URLs like `/fr/page` or `fr.domain.com`
 
-## Format de sortie (Next.js)
+## Output format (Next.js)
 
 ```typescript
 // generateMetadata example
 export async function generateMetadata({ params }): Promise<Metadata> {
   return {
-    title: '[Titre 50-60 chars]',
+    title: '[Title 50-60 chars]',
     description: '[Description 150-160 chars]',
     openGraph: {
       title: '[OG Title]',
@@ -91,10 +91,10 @@ export async function generateMetadata({ params }): Promise<Metadata> {
 ```
 
 ```
-## SEO Audit — [page/site]
+## SEO Audit: [page/site]
 
 ### Score : [0-100]
-### 🔴 Bloquant | 🟡 Important | 🟢 Suggestion
-### JSON-LD à ajouter
-[code structured data]
+### 🔴 Blocking | 🟡 Important | 🟢 Suggestion
+### JSON-LD to add
+[structured data code]
 ```

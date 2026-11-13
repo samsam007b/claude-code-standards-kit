@@ -1,6 +1,6 @@
 ---
 name: ux-heuristic-audit
-description: Auditer une interface selon les heuristiques Nielsen et Laws of UX. Rapport priorisé avec problèmes et recommandations.
+description: Audit an interface using Nielsen heuristics and Laws of UX. Prioritized report with issues and recommendations.
 tags: [ux, audit, frontend, heuristics, nielsen]
 model: sonnet
 ---
@@ -8,7 +8,7 @@ model: sonnet
 # UX Heuristic Audit Skill
 
 ## Description
-Audite une interface ou composant selon les principes scientifiques UX (Nielsen Heuristics + Laws of UX). Génère un rapport avec problèmes identifiés et recommandations priorisées.
+Audits an interface or component according to scientific UX principles (Nielsen Heuristics + Laws of UX). Generates a report with identified issues and prioritized recommendations.
 
 ## Usage
 ```
@@ -17,12 +17,12 @@ Audite une interface ou composant selon les principes scientifiques UX (Nielsen 
 
 ## Workflow
 
-1. **Lecture du Composant/Page**
-   - Lit le code source
-   - Analyse structure, props, states
-   - Identifie éléments UI (buttons, inputs, cards, etc.)
+1. **Reading the Component/Page**
+   - Reads the source code
+   - Analyzes structure, props, states
+   - Identifies UI elements (buttons, inputs, cards, etc.)
 
-2. **Audit Selon Nielsen's 10 Heuristics**
+2. **Audit According to Nielsen's 10 Heuristics**
    - #1 Visibility of System Status
    - #2 Match Between System & Real World
    - #3 User Control & Freedom
@@ -34,18 +34,18 @@ Audite une interface ou composant selon les principes scientifiques UX (Nielsen 
    - #9 Help Users Recognize, Diagnose & Recover from Errors
    - #10 Help & Documentation
 
-3. **Audit Selon Laws of UX**
-   - Miller's Law (7±2 éléments visibles)
-   - Hick's Law (nombre de choix)
-   - Fitts's Law (taille cibles interactives)
-   - Tesler's Law (distribution complexité)
-   - Information Scent (labels descriptifs)
+3. **Audit According to Laws of UX**
+   - Miller's Law (7±2 visible elements)
+   - Hick's Law (number of choices)
+   - Fitts's Law (size of interactive targets)
+   - Tesler's Law (distribution of complexity)
+   - Information Scent (descriptive labels)
 
-4. **Génération du Rapport**
-   - Liste problèmes par sévérité (Critical, High, Medium, Low)
-   - Recommandations spécifiques
-   - Exemples de code avant/après
-   - Score UX global (0-100)
+4. **Report Generation**
+   - Lists issues by severity (Critical, High, Medium, Low)
+   - Specific recommendations
+   - Before/after code examples
+   - Overall UX score (0-100)
 
 ## Output Format
 
@@ -54,30 +54,30 @@ Audite une interface ou composant selon les principes scientifiques UX (Nielsen 
 
 **Date**: [Date]
 **Auditor**: Claude (Scientific UX Framework)
-**Score UX Global**: [X]/100
+**Overall UX Score**: [X]/100
 
 ---
 
 ## Executive Summary
 
-[Résumé des findings principaux]
+[Summary of the main findings]
 
 ---
 
 ## Critical Issues (Severity 5/5)
 
-### Issue #1: [Titre]
+### Issue #1: [Title]
 - **Heuristic Violated**: Nielsen #X or Law of UX
-- **Current State**: [Description du problème]
-- **User Impact**: [Impact sur l'utilisateur]
-- **Recommendation**: [Solution proposée]
+- **Current State**: [Description of the problem]
+- **User Impact**: [Impact on the user]
+- **Recommendation**: [Proposed solution]
 - **Code Example**:
   ```tsx
   // Before (problematic)
-  [code actuel]
+  [current code]
 
   // After (fixed)
-  [code corrigé]
+  [corrected code]
   ```
 
 ---
@@ -102,7 +102,7 @@ Audite une interface ou composant selon les principes scientifiques UX (Nielsen 
 
 ## Strengths (What works well)
 
-- [Points forts identifiés]
+- [Identified strengths]
 
 ---
 
@@ -116,43 +116,43 @@ Audite une interface ou composant selon les principes scientifiques UX (Nielsen 
 
 ## Next Steps
 
-1. [Action prioritaire]
-2. [Action suivante]
+1. [Priority action]
+2. [Next action]
 ```
 
-## Exemples
+## Examples
 
-### Exemple 1: Audit d'une sidebar de filtres
+### Example 1: Audit of a filter sidebar
 
 ```bash
 /ux-heuristic-audit components/explore/FilterSidebar.tsx
 ```
 
 **Findings**:
-- ❌ Miller's Law violated: 25+ checkboxes visibles (> 7±2)
-- ❌ Information Scent weak: Label "Options" trop vague
-- ✅ Consistency good: Icons uniformes
+- ❌ Miller's Law violated: 25+ checkboxes visible (> 7±2)
+- ❌ Information Scent weak: Label "Options" too vague
+- ✅ Consistency good: Uniform icons
 
-### Exemple 2: Audit d'une page complète
+### Example 2: Audit of a full page
 
 ```bash
 /ux-heuristic-audit app/seeker/explore/page.tsx
 ```
 
 **Findings**:
-- ❌ Visibility: Pas de feedback sur nombre de résultats
-- ❌ Hick's Law: Trop de choix simultanés (paralysie)
-- ✅ Aesthetic & Minimalist: Design épuré
+- ❌ Visibility: No feedback on the number of results
+- ❌ Hick's Law: Too many simultaneous choices (paralysis)
+- ✅ Aesthetic & Minimalist: Clean design
 
 ## Configuration
 
-Le skill utilise les références dans `docs/ux-guidelines/`:
+The skill uses the references in `docs/ux-guidelines/`:
 - `ux-checklist-before-feature.md`
 - `ux-scientific-research-complex-interfaces.md`
 
 ## Output Location
 
-Les rapports sont sauvegardés dans :
+Reports are saved in:
 ```
 docs/ux-audits/[component-name]-audit-[date].md
 ```

@@ -1,6 +1,6 @@
 ---
 name: perfection-audit
-description: "Audit complet de perfection : sécurité, performance, qualité code, type safety - Standard enterprise"
+description: "Full perfection audit: security, performance, code quality, type safety - Enterprise standard"
 tags: [audit, security, performance, quality, enterprise]
 version: 1.0.0
 author: Claude Opus 4.6
@@ -8,202 +8,202 @@ author: Claude Opus 4.6
 
 # 🏆 Perfection Audit - Enterprise Grade
 
-Audit exhaustif basé sur les standards des meilleures entreprises tech (Google, Vercel, AWS) et cabinets de sécurité (Cure53, Trail of Bits, NCC Group).
+Exhaustive audit based on the standards of the best tech companies (Google, Vercel, AWS) and security firms (Cure53, Trail of Bits, NCC Group).
 
-## Objectif
+## Objective
 
-Vérifier qu'une application Next.js/Supabase atteint les standards de **perfection** sur :
-- ✅ Sécurité (OWASP Top 10, ASVS Level 2)
+Verify that a Next.js/Supabase application reaches **perfection** standards on:
+- ✅ Security (OWASP Top 10, ASVS Level 2)
 - ✅ Performance (Core Web Vitals, load testing)
-- ✅ Qualité code (TypeScript strict, zero console, logger centralisé)
-- ✅ Type safety (zero `any`, interfaces complètes)
-- ✅ Scalabilité (100+ utilisateurs concurrents)
+- ✅ Code quality (TypeScript strict, zero console, centralized logger)
+- ✅ Type safety (zero `any`, complete interfaces)
+- ✅ Scalability (100+ concurrent users)
 
 ---
 
-## Phase 1 : TypeScript Health (5 min)
+## Phase 1: TypeScript Health (5 min)
 
-### Exécution
+### Execution
 ```bash
 npx tsc --noEmit --pretty
 ```
 
-### Métriques
-- **Target** : 0 erreurs
-- **Acceptable** : < 5 erreurs non-critiques
-- **Bloquant** : > 10 erreurs OU 1+ erreur critique
+### Metrics
+- **Target**: 0 errors
+- **Acceptable**: < 5 non-critical errors
+- **Blocking**: > 10 errors OR 1+ critical error
 
 ### Check
-- [ ] 0 erreurs TypeScript
-- [ ] `strict: true` dans `tsconfig.json`
+- [ ] 0 TypeScript errors
+- [ ] `strict: true` in `tsconfig.json`
 - [ ] `noImplicitAny: true`
 - [ ] `strictNullChecks: true`
-- [ ] Pas de `@ts-ignore` sauf cas justifiés
+- [ ] No `@ts-ignore` except justified cases
 
 ---
 
-## Phase 2 : Sécurité Critique (20 min)
+## Phase 2: Critical Security (20 min)
 
 ### 2.1 API Keys & Secrets
 
-**Recherche automatique** :
+**Automatic search**:
 ```bash
-# Keys exposées au client
+# Keys exposed to the client
 grep -r "NEXT_PUBLIC_.*KEY\|NEXT_PUBLIC_.*SECRET" .env* app/ components/
 
-# Service role keys en client-side
+# Service role keys client-side
 grep -r "SERVICE_ROLE_KEY" app/ components/ lib/
 ```
 
-**Checklist** :
-- [ ] Zéro `NEXT_PUBLIC_` pour API keys (sauf Maps, Analytics)
-- [ ] `SUPABASE_SERVICE_ROLE_KEY` uniquement server-side
-- [ ] Stripe secret key jamais exposé
-- [ ] `.env` dans `.gitignore`
+**Checklist**:
+- [ ] Zero `NEXT_PUBLIC_` for API keys (except Maps, Analytics)
+- [ ] `SUPABASE_SERVICE_ROLE_KEY` server-side only
+- [ ] Stripe secret key never exposed
+- [ ] `.env` in `.gitignore`
 
 ### 2.2 Debug Endpoints
 
-**Recherche** :
+**Search**:
 ```bash
 find app/api/debug -type f
 grep -r "/api/test\|/api/debug" app/api/
 ```
 
-**Checklist** :
-- [ ] Zéro endpoint `/api/debug/`
-- [ ] Zéro endpoint `/api/test/`
-- [ ] Endpoints admin protégés par `is_admin` check
+**Checklist**:
+- [ ] Zero `/api/debug/` endpoints
+- [ ] Zero `/api/test/` endpoints
+- [ ] Admin endpoints protected by an `is_admin` check
 
 ### 2.3 Rate Limiting
 
-**Recherche** :
+**Search**:
 ```bash
-# Routes publiques sans rate limit
+# Public routes without rate limit
 find app/api -name "route.ts" -exec grep -L "ratelimit\|RateLimit" {} \;
 ```
 
-**Checklist** :
-- [ ] Toutes routes publiques rate-limitées
-- [ ] Login : 5/min per IP
-- [ ] Signup : 3/hour per IP
-- [ ] Upload : 10/hour per user
-- [ ] Password reset : 3/hour per email
+**Checklist**:
+- [ ] All public routes rate-limited
+- [ ] Login: 5/min per IP
+- [ ] Signup: 3/hour per IP
+- [ ] Upload: 10/hour per user
+- [ ] Password reset: 3/hour per email
 
 ### 2.4 RLS (Row Level Security)
 
-**SQL à exécuter** :
+**SQL to run**:
 ```sql
--- Tables sans RLS
+-- Tables without RLS
 SELECT tablename
 FROM pg_tables
 WHERE schemaname = 'public'
   AND rowsecurity = false;
 
--- Policies suspectes
+-- Suspicious policies
 SELECT tablename, policyname, definition
 FROM pg_policies
 WHERE definition NOT LIKE '%auth.uid()%';
 ```
 
-**Checklist** :
-- [ ] RLS activé sur toutes tables sensibles
-- [ ] Policies testées avec différents users
-- [ ] Service role usage justifié (webhooks, cron)
+**Checklist**:
+- [ ] RLS enabled on all sensitive tables
+- [ ] Policies tested with different users
+- [ ] Service role usage justified (webhooks, cron)
 
 ### 2.5 Authentication
 
-**Recherche** :
+**Search**:
 ```bash
-# API routes sans auth
+# API routes without auth
 find app/api -name "route.ts" -exec grep -L "session\|getUser\|auth" {} \;
 ```
 
-**Checklist** :
-- [ ] Auth check sur toutes routes protégées
-- [ ] Session timeout configuré et APPLIQUÉ
-- [ ] Password hashing bcrypt/Argon2 (PAS SHA256)
-- [ ] MFA disponible pour comptes critiques
+**Checklist**:
+- [ ] Auth check on all protected routes
+- [ ] Session timeout configured and ENFORCED
+- [ ] Password hashing bcrypt/Argon2 (NOT SHA256)
+- [ ] MFA available for critical accounts
 
 ---
 
-## Phase 3 : Performance & Scalabilité (15 min)
+## Phase 3: Performance & Scalability (15 min)
 
 ### 3.1 Database Query Optimization
 
-**Recherche anti-patterns** :
+**Anti-pattern search**:
 ```bash
-# SELECT * au lieu de colonnes spécifiques
+# SELECT * instead of specific columns
 grep -r "select('\*')" app/ lib/ --include="*.ts"
 
-# Queries sans .limit()
+# Queries without .limit()
 grep -r "\.from(" app/ lib/ | grep -v "\.limit(" | grep -v "\.single()"
 
-# N+1 queries (loop avec query)
+# N+1 queries (loop with query)
 grep -rA 10 "for.*of\|\.map(" lib/services/ | grep "supabase.from"
 ```
 
-**Checklist** :
-- [ ] Zéro `SELECT *` count queries
-- [ ] `.limit()` sur toutes list queries
-- [ ] Zéro N+1 queries
-- [ ] Index créés sur colonnes filtrées
+**Checklist**:
+- [ ] Zero `SELECT *` count queries
+- [ ] `.limit()` on all list queries
+- [ ] Zero N+1 queries
+- [ ] Indexes created on filtered columns
 
 ### 3.2 Image Optimization
 
-**Recherche** :
+**Search**:
 ```bash
-# <img> au lieu de <Image>
+# <img> instead of <Image>
 grep -r "<img" app/ components/ --include="*.tsx"
 ```
 
-**Checklist** :
-- [ ] Next.js `<Image>` partout (sauf SVG)
-- [ ] Lazy loading activé
-- [ ] `next.config.js` domains configurés
-- [ ] Formats WebP/AVIF activés
+**Checklist**:
+- [ ] Next.js `<Image>` everywhere (except SVG)
+- [ ] Lazy loading enabled
+- [ ] `next.config.js` domains configured
+- [ ] WebP/AVIF formats enabled
 
 ### 3.3 React Performance
 
-**Recherche** :
+**Search**:
 ```bash
-# Components sans memo
+# Components without memo
 grep -r "export.*function.*Props" components/ | grep -v "memo"
 
-# Callbacks inline dans props
+# Inline callbacks in props
 grep -r "onClick={() =>" app/ components/
 ```
 
-**Checklist** :
-- [ ] Components fréquents wrapped in `memo()`
+**Checklist**:
+- [ ] Frequently rendered components wrapped in `memo()`
 - [ ] Callbacks wrapped in `useCallback`
 - [ ] Expensive calculations in `useMemo`
-- [ ] Context providers memoizés
+- [ ] Context providers memoized
 
 ### 3.4 Load Testing Readiness
 
-**Questions** :
-- Combien de connexions simultanées Supabase peut gérer ?
-- Combien de requêtes/seconde les API routes supportent ?
-- Le CDN Vercel est-il activé ?
+**Questions**:
+- How many simultaneous connections can Supabase handle?
+- How many requests/second do the API routes support?
+- Is the Vercel CDN enabled?
 
-**Checklist** :
-- [ ] Supabase connection pooling configuré
-- [ ] API routes stateless (scalable horizontalement)
-- [ ] Cache headers corrects (`Cache-Control`)
-- [ ] Rate limiting empêche DoS
+**Checklist**:
+- [ ] Supabase connection pooling configured
+- [ ] API routes stateless (horizontally scalable)
+- [ ] Correct cache headers (`Cache-Control`)
+- [ ] Rate limiting prevents DoS
 
-**Benchmark targets** :
-- 100 utilisateurs simultanés : < 500ms p95
-- 1000 req/sec : API routes doivent tenir
-- Core Web Vitals : LCP < 2.5s, FID < 100ms, CLS < 0.1
+**Benchmark targets**:
+- 100 simultaneous users: < 500ms p95
+- 1000 req/sec: API routes must hold
+- Core Web Vitals: LCP < 2.5s, FID < 100ms, CLS < 0.1
 
 ---
 
-## Phase 4 : Code Quality (10 min)
+## Phase 4: Code Quality (10 min)
 
 ### 4.1 Console Statements
 
-**Recherche** :
+**Search**:
 ```bash
 grep -r "console\.\(log\|error\|warn\)" app/ lib/ components/ contexts/ \
   --include="*.ts" --include="*.tsx" \
@@ -211,17 +211,17 @@ grep -r "console\.\(log\|error\|warn\)" app/ lib/ components/ contexts/ \
   | wc -l
 ```
 
-**Target** : 0 console statements en production
+**Target**: 0 console statements in production
 
-**Checklist** :
-- [ ] Zéro `console.log`
-- [ ] Zéro `console.error`
-- [ ] Logger centralisé utilisé partout
-- [ ] Logs dev-only wrapped dans `if (process.env.NODE_ENV === 'development')`
+**Checklist**:
+- [ ] Zero `console.log`
+- [ ] Zero `console.error`
+- [ ] Centralized logger used everywhere
+- [ ] Dev-only logs wrapped in `if (process.env.NODE_ENV === 'development')`
 
 ### 4.2 Type Safety
 
-**Recherche** :
+**Search**:
 ```bash
 # as any
 grep -r "as any" app/ lib/ components/ --include="*.ts" --include="*.tsx" | wc -l
@@ -230,89 +230,89 @@ grep -r "as any" app/ lib/ components/ --include="*.ts" --include="*.tsx" | wc -
 grep -r "@ts-ignore\|@ts-expect-error" app/ lib/ components/
 ```
 
-**Checklist** :
-- [ ] < 50 `as any` (aucun dans code critique)
-- [ ] < 5 `@ts-ignore` (tous justifiés)
-- [ ] Interfaces pour toutes data structures
-- [ ] Type guards pour unions
+**Checklist**:
+- [ ] < 50 `as any` (none in critical code)
+- [ ] < 5 `@ts-ignore` (all justified)
+- [ ] Interfaces for all data structures
+- [ ] Type guards for unions
 
 ### 4.3 Error Handling
 
-**Recherche** :
+**Search**:
 ```bash
-# Catch silencieux
+# Silent catch
 grep -rA 3 "} catch" app/ lib/ | grep -B 3 "^$"
 
 # Error boundaries
 find app -name "error.tsx"
 ```
 
-**Checklist** :
-- [ ] Error boundary sur chaque segment (owner, seeker, resident, etc.)
-- [ ] Tous les catch loggent via logger
-- [ ] Errors UI-friendly pour users
-- [ ] Stack traces jamais exposées
+**Checklist**:
+- [ ] Error boundary on each segment (owner, seeker, resident, etc.)
+- [ ] All catch blocks log via the logger
+- [ ] User-friendly UI errors
+- [ ] Stack traces never exposed
 
 ### 4.4 Dead Code
 
-**Recherche** :
+**Search**:
 ```bash
-# Fichiers archivés
+# Archived files
 find app lib components -name "*OLD*" -o -name "*BACKUP*" -o -name "_archived"
 
-# Imports inutilisés
+# Unused imports
 npx eslint . --ext .ts,.tsx --rule 'no-unused-vars: error' 2>&1 | grep "is defined but never used"
 ```
 
-**Checklist** :
-- [ ] Zéro fichier `*-OLD.tsx`
-- [ ] Zéro dossier `_archived/`
-- [ ] Imports nettoyés (ESLint)
+**Checklist**:
+- [ ] Zero `*-OLD.tsx` files
+- [ ] Zero `_archived/` folders
+- [ ] Imports cleaned up (ESLint)
 
 ---
 
-## Phase 5 : Supabase Specifics (10 min)
+## Phase 5: Supabase Specifics (10 min)
 
 ### 5.1 Connection Pooling
 
-**Check `DATABASE_URL`** :
+**Check `DATABASE_URL`**:
 ```
 postgresql://[user]:[password]@[host]:6543/postgres?pgbouncer=true&connection_limit=10
 ```
 
-**Limites Supabase** :
-- Free tier : 60 connections max
-- Pro tier : 200 connections max
-- Enterprise : illimité
+**Supabase limits**:
+- Free tier: 60 connections max
+- Pro tier: 200 connections max
+- Enterprise: unlimited
 
-**Pour 100 users simultanés** :
-- Connection pooling REQUIS
-- `pgbouncer=true` dans connection string
-- `connection_limit=10` par instance
+**For 100 simultaneous users**:
+- Connection pooling REQUIRED
+- `pgbouncer=true` in the connection string
+- `connection_limit=10` per instance
 
 ### 5.2 Realtime Limits
 
-**Free tier** :
+**Free tier**:
 - 200 concurrent connections
 - 2 concurrent channels
 
-**Si > 200 users simultanés** :
-- Upgrade vers Pro ($25/mois)
-- Ou désactiver realtime non-essentiel
+**If > 200 simultaneous users**:
+- Upgrade to Pro ($25/month)
+- Or disable non-essential realtime
 
 ### 5.3 Storage Limits
 
-**Free tier** :
+**Free tier**:
 - 1 GB storage
-- 2 GB bandwidth/mois
+- 2 GB bandwidth/month
 
-**Si app avec photos** :
-- Surveiller usage actuel
-- Prévoir upgrade ou compression agressive
+**If the app handles photos**:
+- Monitor current usage
+- Plan an upgrade or aggressive compression
 
 ---
 
-## Phase 6 : Build & Deployment (5 min)
+## Phase 6: Build & Deployment (5 min)
 
 ### 6.1 Build Verification
 
@@ -320,15 +320,15 @@ postgresql://[user]:[password]@[host]:6543/postgres?pgbouncer=true&connection_li
 npm run build
 ```
 
-**Checklist** :
-- [ ] Build passe sans erreur
-- [ ] Zéro warning TypeScript
-- [ ] Bundle size raisonnable (< 500KB First Load JS)
-- [ ] Source maps désactivées en production
+**Checklist**:
+- [ ] Build passes without errors
+- [ ] Zero TypeScript warnings
+- [ ] Reasonable bundle size (< 500KB First Load JS)
+- [ ] Source maps disabled in production
 
 ### 6.2 Vercel Configuration
 
-**`vercel.json` requis** :
+**Required `vercel.json`**:
 ```json
 {
   "headers": [
@@ -347,99 +347,99 @@ npm run build
 }
 ```
 
-**Checklist** :
-- [ ] Security headers configurés
-- [ ] Environment variables définies sur Vercel
-- [ ] Domaine custom avec HTTPS
-- [ ] Edge config si besoin (rate limiting, feature flags)
+**Checklist**:
+- [ ] Security headers configured
+- [ ] Environment variables defined on Vercel
+- [ ] Custom domain with HTTPS
+- [ ] Edge config if needed (rate limiting, feature flags)
 
 ---
 
-## Phase 7 : Monitoring & Observability (5 min)
+## Phase 7: Monitoring & Observability (5 min)
 
 ### 7.1 Error Tracking
 
-**Checklist** :
-- [ ] Sentry configuré et fonctionne
-- [ ] Source maps uploadées (Vercel + Sentry)
-- [ ] Error boundaries capturent et loggent
-- [ ] Alertes configurées (Slack, email)
+**Checklist**:
+- [ ] Sentry configured and working
+- [ ] Source maps uploaded (Vercel + Sentry)
+- [ ] Error boundaries capture and log
+- [ ] Alerts configured (Slack, email)
 
 ### 7.2 Performance Monitoring
 
-**Core Web Vitals** :
+**Core Web Vitals**:
 - [ ] LCP < 2.5s (75th percentile)
 - [ ] FID < 100ms
 - [ ] CLS < 0.1
 
-**API Performance** :
-- [ ] p95 < 500ms sur routes critiques
-- [ ] Timeout configurés (10s max)
+**API Performance**:
+- [ ] p95 < 500ms on critical routes
+- [ ] Timeouts configured (10s max)
 - [ ] Slow query logging
 
 ---
 
-## Phase 8 : Compliance & Legal (5 min)
+## Phase 8: Compliance & Legal (5 min)
 
-### RGPD (si utilisateurs EU)
+### GDPR (if EU users)
 
-**Checklist** :
+**Checklist**:
 - [ ] Cookie consent banner
 - [ ] Privacy policy accessible
-- [ ] User data export disponible
-- [ ] Right to be forgotten implémenté
-- [ ] Data retention policy documentée
+- [ ] User data export available
+- [ ] Right to be forgotten implemented
+- [ ] Data retention policy documented
 
-### PCI DSS (si paiements)
+### PCI DSS (if payments)
 
-**Checklist** :
-- [ ] PAS de stockage carte bancaire
-- [ ] Stripe Checkout OU Elements (PCI compliant)
-- [ ] HTTPS obligatoire
-- [ ] Logs ne contiennent PAS card numbers
+**Checklist**:
+- [ ] NO credit card storage
+- [ ] Stripe Checkout OR Elements (PCI compliant)
+- [ ] HTTPS mandatory
+- [ ] Logs do NOT contain card numbers
 
 ---
 
-## Rapport d'Audit - Template
+## Audit Report - Template
 
 ```markdown
-# AUDIT DE PERFECTION - [Project Name]
+# PERFECTION AUDIT - [Project Name]
 
-**Date** : [YYYY-MM-DD]
-**Durée** : [Xh]
-**Auditor** : Claude Opus 4.6 Perfection Audit
+**Date**: [YYYY-MM-DD]
+**Duration**: [Xh]
+**Auditor**: Claude Opus 4.6 Perfection Audit
 
 ---
 
-## 📊 RÉSULTATS GLOBAUX
+## 📊 OVERALL RESULTS
 
 | Phase | Score | Status |
 |-------|-------|--------|
 | TypeScript | X/100 | [✅ PASS / 🔴 FAIL] |
-| Sécurité | X/100 | [✅ PASS / 🔴 FAIL] |
+| Security | X/100 | [✅ PASS / 🔴 FAIL] |
 | Performance | X/100 | [✅ PASS / 🔴 FAIL] |
 | Code Quality | X/100 | [✅ PASS / 🔴 FAIL] |
-| Scalabilité | X/100 | [✅ PASS / 🔴 FAIL] |
+| Scalability | X/100 | [✅ PASS / 🔴 FAIL] |
 
-**Score global** : XX/100
+**Overall score**: XX/100
 
-**Verdict** :
-- ≥ 95% : 🏆 PERFECTION - Production ready
-- 85-94% : ✅ EXCELLENT - Minor improvements
-- 75-84% : 🟡 BON - Fix non-critical issues
-- < 75% : 🔴 INSUFFISANT - Blocking issues
+**Verdict**:
+- ≥ 95%: 🏆 PERFECTION - Production ready
+- 85-94%: ✅ EXCELLENT - Minor improvements
+- 75-84%: 🟡 GOOD - Fix non-critical issues
+- < 75%: 🔴 INSUFFICIENT - Blocking issues
 
 ---
 
 ## 🔴 CRITICAL FINDINGS
 
 ### [CRIT-001] [Title]
-- **Severity** : CRITICAL
-- **Location** : `[file:line]`
-- **Issue** : [Description]
-- **Impact** : [Security/Performance consequence]
-- **Fix** : [Action required]
-- **Effort** : [Xh]
+- **Severity**: CRITICAL
+- **Location**: `[file:line]`
+- **Issue**: [Description]
+- **Impact**: [Security/Performance consequence]
+- **Fix**: [Action required]
+- **Effort**: [Xh]
 
 ---
 
@@ -457,9 +457,9 @@ npm run build
 
 ## ✅ PASSED CHECKS
 
-- TypeScript : 0 errors
-- console.log : 0 statements
-- API keys : Secured
+- TypeScript: 0 errors
+- console.log: 0 statements
+- API keys: Secured
 - [etc.]
 
 ---
@@ -484,7 +484,7 @@ TypeScript errors:        0
 console.log:              0
 console.error:            0
 as any:                   XX
-Sécurité critique:        0 issues
+Critical security:        0 issues
 Rate limiting:            100%
 Error boundaries:         6
 Logger usage:             XXX occurrences
@@ -503,32 +503,32 @@ Build:                    CLEAN
 
 ---
 
-## Utilisation
+## Usage
 
-### Audit complet
+### Full audit
 ```bash
 /perfection-audit
 ```
 
-### Audit ciblé (sécurité uniquement)
+### Targeted audit (security only)
 ```bash
 /perfection-audit --security-only
 ```
 
-### Audit avec auto-fix
+### Audit with auto-fix
 ```bash
 /perfection-audit --auto-fix
 ```
 
 ---
 
-## Intégration Continue
+## Continuous Integration
 
-Ce skill peut être :
-- Exécuté manuellement avant chaque release
-- Intégré dans CI/CD (GitHub Actions)
-- Déclenché automatiquement après gros refactoring
-- Utilisé pour audits trimestriels
+This skill can be:
+- Run manually before each release
+- Integrated into CI/CD (GitHub Actions)
+- Triggered automatically after a major refactoring
+- Used for quarterly audits
 
 ---
 
@@ -545,5 +545,5 @@ Ce skill peut être :
 
 ---
 
-**Mis à jour** : 2026-02-13
-**Basé sur** : un audit réel (65 erreurs → 0, 2663 console → 0)
+**Updated**: 2026-02-13
+**Based on**: a real audit (65 errors → 0, 2663 console → 0)

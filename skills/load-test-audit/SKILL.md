@@ -1,19 +1,19 @@
 ---
 name: load-test-audit
-description: "Audit de scalabilité : peut l'app gérer 100+ utilisateurs simultanés ? Analyse limits Supabase, Next.js, Vercel"
+description: "Scalability audit: can the app handle 100+ simultaneous users? Analyzes Supabase, Next.js, Vercel limits"
 tags: [performance, scalability, load-testing, infrastructure]
 version: 1.0.0
 ---
 
 # ⚡ Load Test & Scalability Audit
 
-Vérifier si l'application peut gérer une charge importante (100+ utilisateurs concurrents) sans crasher ni ralentir.
+Check whether the application can handle a heavy load (100+ concurrent users) without crashing or slowing down.
 
 ---
 
-## 🎯 Objectifs de Performance
+## 🎯 Performance Objectives
 
-| Métrique | Target | Acceptable | Critique |
+| Metric | Target | Acceptable | Critical |
 |----------|--------|------------|----------|
 | **Concurrent users** | 100 | 50 | < 20 |
 | **API response (p95)** | < 300ms | < 500ms | > 1s |
@@ -24,130 +24,130 @@ Vérifier si l'application peut gérer une charge importante (100+ utilisateurs 
 
 ---
 
-## Phase 1 : Supabase Limits Analysis
+## Phase 1: Supabase Limits Analysis
 
 ### 1.1 Connection Pooling
 
-**Check configuration** :
+**Check configuration**:
 ```typescript
-// Vérifier DATABASE_URL dans .env
-// Doit contenir : ?pgbouncer=true&connection_limit=10
+// Check DATABASE_URL in .env
+// Must contain: ?pgbouncer=true&connection_limit=10
 ```
 
-**Supabase Plans** :
+**Supabase Plans**:
 | Plan | Max Connections | Simultaneous Requests | Storage |
 |------|-----------------|----------------------|---------|
 | Free | 60 | 500 req/sec | 500 MB |
 | Pro | 200 | 2000 req/sec | 8 GB |
 | Team | 400 | 5000 req/sec | 100 GB |
 
-**Calcul pour 100 users** :
-- Si chaque user fait 2 queries/sec → 200 queries/sec
-- Free tier : OK (500 req/sec max)
-- Mais connexions : 100 users × 1 connexion = 100 connections
-- Free tier limite : 60 connections → **UPGRADE REQUIS** pour 100 users
+**Calculation for 100 users**:
+- If each user makes 2 queries/sec → 200 queries/sec
+- Free tier: OK (500 req/sec max)
+- But connections: 100 users × 1 connection = 100 connections
+- Free tier limit: 60 connections → **UPGRADE REQUIRED** for 100 users
 
-**Action** :
-- [ ] Vérifier plan Supabase actuel
-- [ ] Si Free + > 60 users attendus → Upgrade Pro
-- [ ] Connection pooling activé
+**Action**:
+- [ ] Check the current Supabase plan
+- [ ] If Free + > 60 users expected → Upgrade to Pro
+- [ ] Connection pooling enabled
 
 ### 1.2 Realtime Limits
 
-**Supabase Realtime** :
+**Supabase Realtime**:
 | Plan | Concurrent Connections | Concurrent Channels |
 |------|------------------------|---------------------|
 | Free | 200 | 2 |
 | Pro | 500 | 100 |
 
-**Si utilisation realtime** (messages, notifications) :
-- [ ] 100 users = 100 connections → OK sur Free
-- [ ] Mais si > 2 channels différents → Pro requis
+**If realtime is used** (messages, notifications):
+- [ ] 100 users = 100 connections → OK on Free
+- [ ] But if > 2 different channels → Pro required
 
 ### 1.3 Storage & Bandwidth
 
-**Free tier** :
+**Free tier**:
 - 1 GB storage
-- 2 GB bandwidth/mois
+- 2 GB bandwidth/month
 
-**Calcul** :
-- 100 users × 5 photos (2 MB) = 1 GB → **limite atteinte**
-- 100 users × 10 MB download/mois = 1 GB/mois → OK
+**Calculation**:
+- 100 users × 5 photos (2 MB) = 1 GB → **limit reached**
+- 100 users × 10 MB download/month = 1 GB/month → OK
 
-**Action** :
-- [ ] Compression agressive (WebP, quality 85%)
-- [ ] CDN cache (réduire bandwidth)
-- [ ] Monitorer usage actuel
+**Action**:
+- [ ] Aggressive compression (WebP, quality 85%)
+- [ ] CDN cache (reduce bandwidth)
+- [ ] Monitor current usage
 
 ---
 
-## Phase 2 : Next.js / Vercel Limits
+## Phase 2: Next.js / Vercel Limits
 
 ### 2.1 Vercel Plan Limits
 
 | Plan | Bandwidth | Executions | Execution Duration |
 |------|-----------|------------|-------------------|
-| Hobby | 100 GB/mois | 100k/mois | 10s |
-| Pro | 1 TB/mois | 1M/mois | 300s |
+| Hobby | 100 GB/month | 100k/month | 10s |
+| Pro | 1 TB/month | 1M/month | 300s |
 
-**Pour 100 users** :
-- 100 users × 100 pages/mois × 1 MB/page = 10 GB → OK Hobby
-- 100 users × 100 API calls/mois = 10k calls → OK Hobby
+**For 100 users**:
+- 100 users × 100 pages/month × 1 MB/page = 10 GB → OK Hobby
+- 100 users × 100 API calls/month = 10k calls → OK Hobby
 
-**Mais** :
+**But**:
 - Hobby = 1 concurrent build
-- Hobby = pas de team collaboration
-- **Si projet pro → Pro tier recommandé**
+- Hobby = no team collaboration
+- **If professional project → Pro tier recommended**
 
 ### 2.2 Edge Functions vs Serverless
 
-**Next.js API Routes** (Serverless par défaut) :
-- Cold start : 100-300ms
-- Timeout : 10s (Hobby), 300s (Pro)
-- Concurrent : Illimité (auto-scale)
+**Next.js API Routes** (Serverless by default):
+- Cold start: 100-300ms
+- Timeout: 10s (Hobby), 300s (Pro)
+- Concurrent: Unlimited (auto-scale)
 
-**Edge Functions** (pour ultra-low latency) :
-- Cold start : < 50ms
-- Timeout : 30s max
-- Mais limitations : pas de fs, crypto limité
+**Edge Functions** (for ultra-low latency):
+- Cold start: < 50ms
+- Timeout: 30s max
+- But limitations: no fs, limited crypto
 
-**Recommandation** :
-- API routes standards → Serverless (auto-scale)
-- Auth, redirects → Edge si besoin
+**Recommendation**:
+- Standard API routes → Serverless (auto-scale)
+- Auth, redirects → Edge if needed
 
 ### 2.3 ISR & Caching
 
-**Incremental Static Regeneration** :
+**Incremental Static Regeneration**:
 ```typescript
 export const revalidate = 3600; // 1 hour
 
-// OU
+// OR
 export async function generateStaticParams() {
   // Pre-render top 100 properties
 }
 ```
 
-**Checklist** :
-- [ ] Pages publiques (landing, listings) en ISR
-- [ ] `Cache-Control` headers corrects
-- [ ] CDN activé sur Vercel
+**Checklist**:
+- [ ] Public pages (landing, listings) on ISR
+- [ ] Correct `Cache-Control` headers
+- [ ] CDN enabled on Vercel
 
 ---
 
-## Phase 3 : Database Query Performance
+## Phase 3: Database Query Performance
 
 ### 3.1 Index Analysis
 
-**SQL à exécuter** :
+**SQL to run**:
 ```sql
--- Tables sans index
+-- Tables without indexes
 SELECT tablename, indexname
 FROM pg_indexes
 WHERE schemaname = 'public'
 GROUP BY tablename
-HAVING COUNT(*) <= 1; -- Seulement primary key
+HAVING COUNT(*) <= 1; -- Primary key only
 
--- Queries lentes (activer log_min_duration_statement)
+-- Slow queries (enable log_min_duration_statement)
 SELECT query, mean_exec_time
 FROM pg_stat_statements
 WHERE mean_exec_time > 100
@@ -155,55 +155,55 @@ ORDER BY mean_exec_time DESC
 LIMIT 20;
 ```
 
-**Colonnes devant avoir un index** :
-- `user_id` (presque toutes tables)
-- `property_id` (tables liées aux propriétés)
-- `created_at` (pour ORDER BY)
+**Columns that should have an index**:
+- `user_id` (almost all tables)
+- `property_id` (tables linked to properties)
+- `created_at` (for ORDER BY)
 - Foreign keys
 
 ### 3.2 Query Complexity
 
-**Recherche** :
+**Search**:
 ```bash
-# Queries avec 3+ JOINs
+# Queries with 3+ JOINs
 grep -r "\.select(" lib/services/ | grep -o "," | wc -l
 
-# Queries sans .limit()
+# Queries without .limit()
 grep -r "\.order(" lib/services/ | grep -v "\.limit("
 ```
 
-**Limits recommandées** :
-- List queries : `.limit(100)` max
-- Search results : `.limit(50)`
-- Autocomplete : `.limit(10)`
+**Recommended limits**:
+- List queries: `.limit(100)` max
+- Search results: `.limit(50)`
+- Autocomplete: `.limit(10)`
 
 ---
 
-## Phase 4 : Frontend Performance
+## Phase 4: Frontend Performance
 
 ### 4.1 Bundle Size Analysis
 
 ```bash
-# Analyser bundle
+# Analyze bundle
 ANALYZE=true npm run build
 
-# Vérifier First Load JS
-# Target : < 200 KB
+# Check First Load JS
+# Target: < 200 KB
 ```
 
-**Checklist** :
-- [ ] Dynamic imports pour composants lourds
-- [ ] Tree-shaking activé
-- [ ] Pas de barrel exports (index.ts qui re-exportent tout)
+**Checklist**:
+- [ ] Dynamic imports for heavy components
+- [ ] Tree-shaking enabled
+- [ ] No barrel exports (index.ts files that re-export everything)
 
 ### 4.2 Image Optimization
 
-**Targets** :
-- Total image weight par page : < 1 MB
-- LCP image : < 500 KB
-- Lazy loading sur images below-the-fold
+**Targets**:
+- Total image weight per page: < 1 MB
+- LCP image: < 500 KB
+- Lazy loading on below-the-fold images
 
-**Check** :
+**Check**:
 ```bash
 # Images > 500 KB
 find public -name "*.jpg" -o -name "*.png" | xargs du -h | grep "M$"
@@ -211,26 +211,26 @@ find public -name "*.jpg" -o -name "*.png" | xargs du -h | grep "M$"
 
 ### 4.3 React Re-renders
 
-**Tools** :
+**Tools**:
 - React DevTools Profiler
 - Why Did You Render (dev dependency)
 
-**Targets** :
-- < 10 re-renders par interaction utilisateur
-- Composants `memo()` pour listes > 20 items
+**Targets**:
+- < 10 re-renders per user interaction
+- `memo()` components for lists > 20 items
 
 ---
 
-## Phase 5 : Stress Test Simulation
+## Phase 5: Stress Test Simulation
 
-### 5.1 Tools Recommandés
+### 5.1 Recommended Tools
 
-| Tool | Usage | Prix |
+| Tool | Usage | Price |
 |------|-------|------|
-| **k6** | Open-source, script JS | Free |
-| **Artillery** | YAML config, facile | Free |
-| **Loader.io** | Cloud-based, rapide | $99/mois |
-| **BlazeMeter** | Enterprise, détaillé | $199/mois |
+| **k6** | Open-source, JS script | Free |
+| **Artillery** | YAML config, easy | Free |
+| **Loader.io** | Cloud-based, fast | $99/month |
+| **BlazeMeter** | Enterprise, detailed | $199/month |
 
 ### 5.2 Test Scenario (k6)
 
@@ -270,9 +270,9 @@ export default function () {
 }
 ```
 
-### 5.3 Résultats à Analyser
+### 5.3 Results to Analyze
 
-**k6 Output** :
+**k6 Output**:
 ```
 http_req_duration..............: avg=250ms p(95)=450ms
 http_req_failed................: 0.5%
@@ -280,65 +280,65 @@ http_reqs......................: 15000 (50/s)
 vus............................: 100 (peak)
 ```
 
-**Interprétation** :
+**Interpretation**:
 - ✅ p95 < 500ms → PASS
 - ✅ error rate < 1% → PASS
-- ✅ 50 req/sec soutenu → PASS
+- ✅ 50 req/sec sustained → PASS
 
 ---
 
-## Phase 6 : Infrastructure Readiness
+## Phase 6: Infrastructure Readiness
 
 ### 6.1 Disaster Recovery
 
-**Checklist** :
-- [ ] Backups Supabase activés (daily)
-- [ ] Point-in-time recovery configuré (Pro tier)
-- [ ] Backup restoration testée
+**Checklist**:
+- [ ] Supabase backups enabled (daily)
+- [ ] Point-in-time recovery configured (Pro tier)
+- [ ] Backup restoration tested
 - [ ] RTO (Recovery Time Objective) < 4h
 - [ ] RPO (Recovery Point Objective) < 1h
 
 ### 6.2 Monitoring & Alerting
 
-**Métriques à surveiller** :
+**Metrics to monitor**:
 - CPU usage (Vercel functions)
 - Memory usage
-- Database connections actives
+- Active database connections
 - Error rate (Sentry)
 - Response time p95
 
-**Alertes à configurer** :
-- Error rate > 5% → Slack immédiat
+**Alerts to configure**:
+- Error rate > 5% → immediate Slack
 - Database connections > 80% → Email
 - Response time p95 > 1s → Slack
 
 ### 6.3 Scaling Strategy
 
-**Vertical Scaling** :
+**Vertical Scaling**:
 - Supabase Pro (200 connections)
 - Vercel Pro (300s timeout)
 
-**Horizontal Scaling** :
+**Horizontal Scaling**:
 - Next.js API routes = auto-scale
 - Supabase Read Replicas (Enterprise)
-- CDN pour assets statiques
+- CDN for static assets
 
-**Pour 1000+ users** :
-- Supabase Team plan ($599/mois)
+**For 1000+ users**:
+- Supabase Team plan ($599/month)
 - Vercel Enterprise
 - Dedicated database instance
 
 ---
 
-## Rapport Final - Template
+## Final Report - Template
 
 ```markdown
 # LOAD TEST RESULTS - [Date]
 
 ## Test Configuration
-- **Users** : 100 concurrent
-- **Duration** : 15 minutes
-- **Scenario** : [Login → Browse → Search → View property]
+- **Users**: 100 concurrent
+- **Duration**: 15 minutes
+- **Scenario**: [Login → Browse → Search → View property]
 
 ## Results
 
@@ -360,46 +360,46 @@ vus............................: 100 (peak)
 
 ## Infrastructure Costs (100 users)
 
-- Supabase : $XX/mois (Pro tier recommended)
-- Vercel : $XX/mois (Pro tier)
-- Total : $XX/mois
+- Supabase: $XX/month (Pro tier recommended)
+- Vercel: $XX/month (Pro tier)
+- Total: $XX/month
 
 ## Scaling Roadmap
 
-- 0-50 users : Free tiers OK
-- 50-100 users : Pro tiers
-- 100-500 users : Pro + optimizations
-- 500-1000 users : Team/Enterprise tiers
-- 1000+ users : Dedicated infrastructure
+- 0-50 users: Free tiers OK
+- 50-100 users: Pro tiers
+- 100-500 users: Pro + optimizations
+- 500-1000 users: Team/Enterprise tiers
+- 1000+ users: Dedicated infrastructure
 ```
 
 ---
 
-## Checklists par Tier
+## Checklists per Tier
 
 ### Free Tier (0-50 users)
-- [ ] Connection pooling activé
-- [ ] Rate limiting strict
-- [ ] Image compression agressive
-- [ ] ISR sur pages publiques
-- [ ] Monitoring basique (Sentry free)
+- [ ] Connection pooling enabled
+- [ ] Strict rate limiting
+- [ ] Aggressive image compression
+- [ ] ISR on public pages
+- [ ] Basic monitoring (Sentry free)
 
 ### Pro Tier (50-200 users)
-- [ ] Supabase Pro ($25/mois)
-- [ ] Vercel Pro ($20/mois)
-- [ ] Read replicas si besoin
+- [ ] Supabase Pro ($25/month)
+- [ ] Vercel Pro ($20/month)
+- [ ] Read replicas if needed
 - [ ] APM monitoring (Sentry Pro)
 - [ ] Daily backups
 
 ### Enterprise (200+ users)
 - [ ] Dedicated Supabase instance
 - [ ] Vercel Enterprise
-- [ ] CDN premium (Cloudflare)
+- [ ] Premium CDN (Cloudflare)
 - [ ] 24/7 monitoring
 - [ ] SLA guarantees
 
 ---
 
-**Execution time** : 30 min (setup) + 15 min (test run) + 15 min (analysis)
-**Tools required** : k6 OU Artillery
-**Cost** : Free (k6/Artillery) OU $99-199/mois (Loader.io, BlazeMeter)
+**Execution time**: 30 min (setup) + 15 min (test run) + 15 min (analysis)
+**Tools required**: k6 OR Artillery
+**Cost**: Free (k6/Artillery) OR $99-199/month (Loader.io, BlazeMeter)

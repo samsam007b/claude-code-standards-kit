@@ -1,66 +1,66 @@
 ---
 name: typescript-review
-description: Audit TypeScript & qualité de code — strict mode, types explicites, no-any, patterns SOLID, nommage Clean Code. Sources : Martin Fowler, Google Engineering Practices, Microsoft TypeScript Handbook.
+description: TypeScript & code quality audit: strict mode, explicit types, no-any, SOLID patterns, Clean Code naming. Sources: Martin Fowler, Google Engineering Practices, Microsoft TypeScript Handbook.
 tags: [typescript, code-quality, solid, clean-code, types]
 model: sonnet
 ---
 
-# /typescript-review — Audit TypeScript & Code Quality
+# /typescript-review: TypeScript & Code Quality Audit
 
-## Quand utiliser
+## When to use
 
-- Review d'un fichier ou module TypeScript
-- Avant merge d'une PR backend ou frontend
-- Refactoring d'un fichier legacy (any partout, types manquants)
-- Validation d'un nouveau service ou helper
+- Review of a TypeScript file or module
+- Before merging a backend or frontend PR
+- Refactoring a legacy file (any everywhere, missing types)
+- Validation of a new service or helper
 
-## Règles (Robert C. Martin + TypeScript strict)
+## Rules (Robert C. Martin + TypeScript strict)
 
-### Types stricts
-- [ ] `strict: true` dans tsconfig (inclut noImplicitAny, strictNullChecks, etc.)
-- [ ] Zéro `any` — utiliser `unknown` puis narrowing ou `as Type` justifié
-- [ ] Zéro `// @ts-ignore` — résoudre le problème typé
-- [ ] Types explicites sur les paramètres de fonctions publiques
-- [ ] Return type explicite sur les fonctions complexes ou publiques
+### Strict types
+- [ ] `strict: true` in tsconfig (includes noImplicitAny, strictNullChecks, etc.)
+- [ ] Zero `any`: use `unknown` then narrowing or a justified `as Type`
+- [ ] Zero `// @ts-ignore`: solve the typing problem
+- [ ] Explicit types on public function parameters
+- [ ] Explicit return type on complex or public functions
 
-### Patterns de types avancés
-- **Discriminated unions** pour les états multiples (pas de `boolean` + `data` séparés)
-- **Branded types** pour les IDs (`UserId`, `PropertyId` — pas de `string` nu)
-- **`const` assertions** pour les littéraux (`as const`)
-- **Generics** pour la réutilisabilité (pas de copie-coller de types)
-- **`satisfies`** operator pour la validation sans widening
+### Advanced type patterns
+- **Discriminated unions** for multiple states (no separate `boolean` + `data`)
+- **Branded types** for IDs (`UserId`, `PropertyId`, not a bare `string`)
+- **`const` assertions** for literals (`as const`)
+- **Generics** for reusability (no copy-pasting types)
+- **`satisfies`** operator for validation without widening
 
 ### Clean Code (Martin)
-- Fonctions : max 20 lignes, 1 responsabilité, max 3 paramètres
-- Nommage : verbe + nom pour les fonctions (`getUserProfile`, `validateEmail`)
-- Variables : noms explicites — jamais `d`, `tmp`, `data`, `res`
-- Commentaires : uniquement sur le "pourquoi" (jamais le "quoi" si le code est clair)
-- Fichier : max 300 lignes — au-delà, découper en sous-modules
+- Functions: max 20 lines, 1 responsibility, max 3 parameters
+- Naming: verb + noun for functions (`getUserProfile`, `validateEmail`)
+- Variables: explicit names, never `d`, `tmp`, `data`, `res`
+- Comments: only on the "why" (never the "what" if the code is clear)
+- File: max 300 lines, beyond that split into sub-modules
 
 ### SOLID
-- **S** Single Responsibility : 1 classe/fichier = 1 raison de changer
-- **O** Open/Closed : extension via interfaces, pas de modification du core
-- **L** Liskov : sous-types remplaçables sans casser le comportement
-- **I** Interface Segregation : interfaces petites et spécifiques
-- **D** Dependency Inversion : dépendre d'abstractions, pas de concrets
+- **S** Single Responsibility: 1 class/file = 1 reason to change
+- **O** Open/Closed: extension via interfaces, no modification of the core
+- **L** Liskov: subtypes replaceable without breaking behavior
+- **I** Interface Segregation: small, specific interfaces
+- **D** Dependency Inversion: depend on abstractions, not concretions
 
-### Patterns interdits
-- `switch` sur un type union → utiliser des discriminated unions + map d'objets
-- `Object.keys()` sans cast → `(Object.keys(obj) as (keyof typeof obj)[])`
-- `JSON.parse()` sans validation Zod → valider toujours les inputs externes
-- Mutations d'objets partagés → toujours retourner un nouveau objet
+### Forbidden patterns
+- `switch` on a union type → use discriminated unions + object map
+- `Object.keys()` without a cast → `(Object.keys(obj) as (keyof typeof obj)[])`
+- `JSON.parse()` without Zod validation → always validate external inputs
+- Mutations of shared objects → always return a new object
 
-## Format de sortie
+## Output format
 
 ```
-## TypeScript Review — [fichier/module]
+## TypeScript Review: [file/module]
 
-### Score qualité : [0-100]
+### Quality score: [0-100]
 
-### 🔴 Violations critiques (any, ts-ignore, unsafe)
-### 🟡 Problèmes de design (SOLID, Clean Code)
-### 🟢 Suggestions (optimisations de types)
+### 🔴 Critical violations (any, ts-ignore, unsafe)
+### 🟡 Design issues (SOLID, Clean Code)
+### 🟢 Suggestions (type optimizations)
 
-### Refactoring proposé
-[code corrigé avec explication]
+### Proposed refactoring
+[corrected code with explanation]
 ```

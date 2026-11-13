@@ -1,31 +1,31 @@
 ---
 name: secret-scanner
-description: Scanner les fichiers staged pour détecter des credentials, API keys, tokens et secrets avant tout commit git.
+description: Scan staged files to detect credentials, API keys, tokens and secrets before any git commit.
 tags: [security, git, secrets, credentials]
 model: sonnet
 ---
 
-# Secret Scanner - Protection contre les fuites de credentials
+# Secret Scanner - Protection against credential leaks
 
 ## Description
 
-Ce skill fournit une protection automatique contre la fuite de secrets (mots de passe, API keys, tokens) dans les commits Git. Il analyse automatiquement chaque `git commit` et `git push` avant exécution.
+This skill provides automatic protection against leaking secrets (passwords, API keys, tokens) in Git commits. It automatically analyzes every `git commit` and `git push` before execution.
 
-## Fonctionnement
+## How it works
 
-Le hook `PreToolUse` intercepte les commandes Bash contenant :
+The `PreToolUse` hook intercepts Bash commands containing:
 - `git commit`
 - `git push`
 - `git commit --amend`
 
-Il exécute ensuite le script `scan-secrets.sh` qui :
-1. Récupère les changements staged (`git diff --cached`)
-2. Analyse le contenu avec 30+ patterns regex
-3. Bloque l'opération si des secrets sont détectés
+It then runs the `scan-secrets.sh` script, which:
+1. Retrieves the staged changes (`git diff --cached`)
+2. Analyzes the content with 30+ regex patterns
+3. Blocks the operation if secrets are detected
 
-## Patterns détectés
+## Detected patterns
 
-### Mots de passe
+### Passwords
 - `password = "..."`
 - `pwd = "..."`
 - `passwd = "..."`
@@ -39,14 +39,14 @@ Il exécute ensuite le script `scan-secrets.sh` qui :
 - SendGrid: `SG....`
 - Slack: `xox[baprs]-...`
 
-### Tokens génériques
+### Generic tokens
 - `api_key = "..."`
 - `secret_key = "..."`
 - `auth_token = "..."`
 - `access_token = "..."`
 - `bearer ...`
 
-### Clés privées
+### Private keys
 - `-----BEGIN PRIVATE KEY-----`
 - `-----BEGIN RSA PRIVATE KEY-----`
 - `-----BEGIN PGP PRIVATE KEY BLOCK-----`
@@ -57,51 +57,51 @@ Il exécute ensuite le script `scan-secrets.sh` qui :
 - MySQL: `mysql://user:pass@...`
 - Redis: `redis://user:pass@...`
 
-## Fichiers
+## Files
 
 - **Hook script**: `.claude/hooks/scan-secrets.sh`
 - **Configuration**: `.claude/settings.json` (PreToolUse hook)
 
-## Personnalisation
+## Customization
 
-Pour ajouter de nouveaux patterns, éditez le tableau `PATTERNS` dans `scan-secrets.sh` :
+To add new patterns, edit the `PATTERNS` array in `scan-secrets.sh`:
 
 ```bash
 PATTERNS=(
-    # Ajouter votre pattern ici
-    "mon_pattern_custom"
+    # Add your pattern here
+    "my_custom_pattern"
     ...
 )
 ```
 
 ## Limitations
 
-- Ne supprime PAS les secrets de l'historique Git
-- Ne scanne pas les fichiers binaires
-- Peut avoir des faux positifs sur certains patterns génériques
+- Does NOT remove secrets from Git history
+- Does not scan binary files
+- May produce false positives on some generic patterns
 
-## Que faire si un secret est détecté ?
+## What to do if a secret is detected?
 
-1. **Ne pas committer** - Le hook bloque automatiquement
-2. **Retirer le secret du code** - Utiliser des variables d'environnement
-3. **Si déjà committé** - Changer immédiatement le secret exposé
-4. **Optionnel** - Nettoyer l'historique avec `git filter-branch` ou BFG
+1. **Do not commit**: the hook blocks automatically
+2. **Remove the secret from the code**: use environment variables
+3. **If already committed**: rotate the exposed secret immediately
+4. **Optional**: clean the history with `git filter-branch` or BFG
 
-## Exemples de bonnes pratiques
+## Examples of good practice
 
 ```javascript
-// ❌ MAUVAIS - Secret hardcodé
+// ❌ BAD - Hardcoded secret
 const apiKey = "sk_live_abc123xyz";
 
-// ✅ BON - Variable d'environnement
+// ✅ GOOD - Environment variable
 const apiKey = process.env.STRIPE_SECRET_KEY;
 ```
 
 ```python
-# ❌ MAUVAIS
+# ❌ BAD
 password = "SuperSecret123"
 
-# ✅ BON
+# ✅ GOOD
 import os
 password = os.environ.get("DB_PASSWORD")
 ```
