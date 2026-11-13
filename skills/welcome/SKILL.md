@@ -8,7 +8,7 @@ argument-hint: "[--redo]"
 
 # /welcome
 
-Language: if `language` is `fr` in `~/.claude/kit/profile.json` (or the person writes in French), follow `SKILL.fr.md` in this folder instead.
+Language: if the person writes in French, or `language` is `fr` in `~/.claude/kit/profile.json`, follow `SKILL.fr.md` in this folder instead.
 
 Didactic path for someone setting up Claude Code alone (or after a short training). Skipped by `/pro-samuel`.
 
@@ -17,6 +17,8 @@ Didactic path for someone setting up Claude Code alone (or after a short trainin
 - Simple words. Define any technical term the first time, or point to `/explain <term>`.
 - Nothing is installed without a clear "yes". Before each tool: what it is, why it helps this person, what it changes on the machine, how to remove it.
 - One question at a time. Never more than 6 in total.
+- If the person asks a side question, answer it, then ask the pending question once, plainly. Never apologise for repeating it or promise it is the last time.
+- If a read needs permission, say "I ask your permission before reading", never "blocked". If the profile cannot be read, answer in the language of the person's message.
 - Never guess the level: ask, then confirm in one sentence ("So you are at level Practice, correct?").
 
 ## Step 1: Detect the setup (no questions yet)

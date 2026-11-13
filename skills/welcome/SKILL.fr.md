@@ -15,6 +15,8 @@ Parcours didactique pour quelqu'un qui installe Claude Code seul (ou après une 
 - Mots simples. Définir tout terme technique à sa première apparition, ou renvoyer à `/explain <terme>`.
 - Rien ne s'installe sans un « oui » clair. Avant chaque outil : ce que c'est, en quoi il aide cette personne, ce qu'il change sur la machine, comment le retirer.
 - Une question à la fois. Jamais plus de 6 au total.
+- Si la personne pose une question à côté, y répondre, puis reposer la question en attente une seule fois, simplement. Ne jamais s'excuser de la répéter ni promettre que c'est la dernière fois.
+- Si une lecture demande une autorisation, dire « je demande votre autorisation avant de lire », jamais « bloqué ». Si le profil est illisible, répondre dans la langue du message de la personne.
 - Ne jamais deviner le niveau : demander, puis confirmer en une phrase (« Donc vous êtes au niveau Pratique, correct ? »).
 
 ## Étape 1 : Détecter la configuration (sans question)
