@@ -193,8 +193,8 @@ Read [`METHODOLOGY.md`](METHODOLOGY.md) for the full method.
 | **Frameworks** | 13 | Situational tools (branding, estimation, incident, campaign…) |
 | **Audits** | 14 | Scoring /100 per domain — run before each delivery |
 | **Agents** | 14 | Automated audit agents + Haiku research subagents — place in `.claude/agents/` |
-| **Skills** | 13 | Slash-command workflows — `/new-feature`, `/brainstorm`, `/pre-deployment`, `/monthly-review`, `/audit-runner`, `/contract-lookup`, `/project-setup`, `/auto-fix`, `/compliance-check`, `/risk-score`, `/welcome`, `/explain`, `/pro-samuel` |
-| **Commands** | 4 | Slash commands — `/init-project`, `/full-audit`, `/verify-kit`, `/verify-project` |
+| **Skills** | 33 | Slash-command workflows — `/new-feature`, `/brainstorm`, `/pre-deployment`, `/monthly-review`, `/audit-runner`, `/contract-lookup`, `/project-setup`, `/auto-fix`, `/compliance-check`, `/risk-score`, `/welcome`, `/explain`, `/pro-samuel`, `/typescript-review`, `/nextjs-review`, `/supabase-review`, `/api-design`, `/accessibility-review`, `/seo-audit`, `/pre-code-security-check`, `/post-code-security-audit`, `/secret-scanner`, `/performance-deep-audit`, `/load-test-audit`, `/perfection-audit`, `/quick-audit`, `/token-economy`, `/idea-validator`, `/roadmap-builder`, `/ux-heuristic-audit`, `/ux-cognitive-load-check`, `/ux-progressive-disclosure`, `/continuous-testing-guardian` (advanced layer, written in French) |
+| **Commands** | 7 | Slash commands — `/init-project`, `/full-audit`, `/verify-kit`, `/verify-project`, `/clean-commit`, `/grill`, `/update-audit` |
 | **Hooks** | 22 | Claude Code compliance hooks — enforcement + session management + token economy monitoring (22 hook scripts) |
 | **Workflows** | 3 | Structured process templates (RESEARCH → CONTRACT → CODE → AUDIT) |
 | **Templates** | 7 | `CLAUDE.md`, `settings.json`, `.claudeignore`, `rtk-filters.toml`, `CHANGELOG.md`, `CONTRIBUTING.md`, `github-actions/verify-kit.yml` |
@@ -296,8 +296,8 @@ The kit ships with a Claude Code–native automation layer inspired by [GSD](htt
 |-----------|-------|-------------|
 | **Plugin manifest** | 1 | `.claude-plugin/plugin.json` (v5.0.0) — auto-discovers agents, skills, hooks, commands |
 | **Audit agents** | 11 | Run `agents/AGENT-SECURITY-AUDIT.md` — 4-level verification with enriched frontmatter (`model`, `effort`, `color`) |
-| **Skills** | 13 | `/brainstorm`, `/new-feature`, `/pre-deployment`, `/monthly-review`, `/audit-runner`, `/contract-lookup`, `/project-setup`, `/auto-fix`, `/compliance-check`, `/risk-score`, `/welcome`, `/explain`, `/pro-samuel` |
-| **Slash commands** | 4 | `/init-project`, `/full-audit`, `/verify-kit`, `/verify-project` |
+| **Skills** | 33 | `/brainstorm`, `/new-feature`, `/pre-deployment`, `/monthly-review`, `/audit-runner`, `/contract-lookup`, `/project-setup`, `/auto-fix`, `/compliance-check`, `/risk-score`, `/welcome`, `/explain`, `/pro-samuel`, `/typescript-review`, `/nextjs-review`, `/supabase-review`, `/api-design`, `/accessibility-review`, `/seo-audit`, `/pre-code-security-check`, `/post-code-security-audit`, `/secret-scanner`, `/performance-deep-audit`, `/load-test-audit`, `/perfection-audit`, `/quick-audit`, `/token-economy`, `/idea-validator`, `/roadmap-builder`, `/ux-heuristic-audit`, `/ux-cognitive-load-check`, `/ux-progressive-disclosure`, `/continuous-testing-guardian` (advanced layer, written in French) |
+| **Slash commands** | 7 | `/init-project`, `/full-audit`, `/verify-kit`, `/verify-project`, `/clean-commit`, `/grill`, `/update-audit` |
 | **Compliance hooks** | 22 | `hooks/hooks.json` — 22 hook scripts: secrets, build, XSS, contract compliance, session context, post-response, session-end, and more |
 | **Workflow templates** | 3 | `WORKFLOW-NEW-FEATURE.md` — 5 gates with Observable Truths |
 
@@ -417,8 +417,8 @@ project-kit/
 ├── frameworks/             → 13 situational tools
 ├── audits/                 → 14 audits scoring /100
 ├── agents/                 → 14 agents (audit agents + Haiku research subagents)
-├── skills/                 → 13 skills (/new-feature, /pre-deployment, /monthly-review, /compliance-check, /risk-score…)
-├── commands/               → 4 slash commands (/init-project, /full-audit…)
+├── skills/                 → 33 skills (/new-feature, /pre-deployment, /monthly-review, /compliance-check, /risk-score…)
+├── commands/               → 7 slash commands (/init-project, /full-audit, /clean-commit, /grill…)
 ├── hooks/                  → Plugin hooks
 │   ├── hooks.json          → Declarative hook config (SessionStart, PreCompact, etc.)
 │   └── scripts/            → 22 hook scripts (no-secrets, build-before-commit, session-context…)
