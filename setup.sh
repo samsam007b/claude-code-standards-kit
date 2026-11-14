@@ -48,7 +48,18 @@ tool_info() {
   esac
 }
 
+pw_note() {
+  say "  Your computer will ask for its password. Nothing shows while you type it: that is normal. It can take a few minutes." \
+      "  Votre ordinateur va demander son mot de passe. Rien ne s'affiche quand vous le tapez : c'est normal. Cela peut durer quelques minutes."
+}
+
 install_tool() {
+  if [ "$DRY" = 0 ]; then
+    case "$1" in
+      brew) pw_note;;
+      git|node|python) [ "$OS" = Linux ] && pw_note;;
+    esac
+  fi
   if [ "$OS" = Darwin ] && [ "$1" != brew ] && [ "$1" != claude ] && [ "$DRY" = 0 ] && ! have brew; then
     say "  Cannot install $1 without Homebrew. Rerun and accept Homebrew first." "  Impossible d'installer $1 sans Homebrew. Relancez et acceptez Homebrew d'abord."
     return 0
@@ -59,7 +70,11 @@ install_tool() {
     git)    if [ "$OS" = Darwin ]; then run brew install git; else run sudo apt-get install -y git; fi;;
     node)   if [ "$OS" = Darwin ]; then run brew install node; else run sudo apt-get install -y nodejs npm; fi;;
     python) if [ "$OS" = Darwin ]; then run brew install python; else run sudo apt-get install -y python3; fi;;
-    claude) run npm install -g @anthropic-ai/claude-code;;
+    claude)
+      if ! run npm install -g @anthropic-ai/claude-code; then
+        say "  The install was refused (permissions). Install Claude Code the official way instead: https://code.claude.com/docs/en/setup" \
+            "  L'installation a été refusée (droits). Installez Claude Code par la voie officielle : https://code.claude.com/docs/en/setup"
+      fi;;
   esac
 }
 
