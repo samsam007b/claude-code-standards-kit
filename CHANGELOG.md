@@ -11,6 +11,11 @@ This project adheres to [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 ### Added
 - `docs/EXFILTRATION-DEFENSE.md`: a layered checklist against data exfiltration (secrets, supply chain, egress, database RLS audit, backups), with the allowlist pitfalls found in practice: variables such as `${CLAUDE_SKILL_DIR:-...}` are not expanded by `plugin-allowlist-check.py`, wildcard `git fetch` rules allow `--upload-pack` injection, interpreters and package runners must never be allowlisted, Docker published ports bypass ufw.
 
+## [5.0.6] - 2026-11-14
+
+### Security
+- `guard-destructive` `rm-home-folder`: removed a nested quantifier that backtracked exponentially on long runs of `/` (about 38 s at 30 slashes, longer than the 5 s hook timeout, so the command would have passed). Matching is now linear. Test added.
+
 ## [5.0.5] - 2026-11-14
 
 ### Fixed
