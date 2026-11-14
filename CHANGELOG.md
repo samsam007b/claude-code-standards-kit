@@ -14,7 +14,7 @@ This project adheres to [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 ## [5.0.4] - 2026-11-14
 
 ### Fixed
-- `guard-destructive`: new rule `rm-home-folder` blocks recursive deletion of `~/Documents`, `~/Desktop`, `~/Downloads`, `~/Pictures`, `~/Music`, `~/Movies`, `~/Library` (also via `$HOME`, `/Users/x`, `/home/x`). Before, only `/`, `~` and `*` were caught. Subfolders such as `~/Documents/old/build` stay allowed. 4 tests added.
+- `guard-destructive`: new rule `rm-home-folder` blocks recursive deletion of `~/Documents`, `~/Desktop`, `~/Downloads`, `~/Pictures`, `~/Music`, `~/Movies`, `~/Library` (also via `$HOME`, `/Users/x`, `/home/x`). Before, only `/`, `~` and `*` were caught. Variants such as `~/Documents/*`, `~/Documents/.`, `-- ~/Documents`, `~//Desktop` and `~/./Downloads` are caught too. Subfolders such as `~/Documents/old/build` stay allowed. 9 tests added.
 
 ## [5.0.3] - 2026-11-14
 

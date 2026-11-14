@@ -10,7 +10,7 @@ export const RULES = [
   { id: 'rm-root-home', re: /\brm\s+(-[a-zA-Z]*[rf][a-zA-Z]*\s+)+(\/|~|\$HOME|\*)\/?\*?(?=[\s;&|)`]|$)/,
     en: 'Deleting the root, your home folder or everything in the current folder.',
     fr: "Suppression de la racine, de votre dossier personnel ou de tout le dossier courant." },
-  { id: 'rm-home-folder', re: /\brm\s+(-[a-zA-Z]*[rf][a-zA-Z]*\s+)+(~|\$HOME|\/Users\/[^\/\s]+|\/home\/[^\/\s]+)\/(Documents|Desktop|Downloads|Pictures|Music|Movies|Library)\/?(?=[\s;&|)`]|$)/i,
+  { id: 'rm-home-folder', re: /\brm\s+(-[a-zA-Z]*[rf][a-zA-Z]*\s+|--\s+)+(~|\$HOME|\/Users\/[^\/\s]+|\/home\/[^\/\s]+)\/+(\.\/+)*(Documents|Desktop|Downloads|Pictures|Music|Movies|Library)(\/+(\.|\*)?)*(?=[\s;&|)`]|$)/i,
     en: 'Deleting one of your personal folders (Documents, Desktop, Downloads...).',
     fr: "Suppression d'un de vos dossiers personnels (Documents, Bureau, Téléchargements...)." },
   { id: 'git-force-main', re: /\bgit\s+push\b[^\n]*(--force\b|-f\b)[^\n]*\b(main|master)\b|\bgit\s+push\b[^\n]*\b(main|master)\b[^\n]*(--force\b|\s-f\b)/,
