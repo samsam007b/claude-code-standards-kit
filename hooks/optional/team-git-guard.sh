@@ -37,7 +37,7 @@ except Exception:
 " 2>/dev/null)
 
 block() {
-  echo "TEAM GUARD: $1"
+  echo "TEAM GUARD: $1" >&2
   exit 2
 }
 
@@ -45,7 +45,7 @@ block() {
 echo "$CMD_FULL" | grep -qE 'git\s+add\s+(\.|--all|-A)\s*$' && \
   block "'git add .' is forbidden in a multi-agent project. Stage specific files: git add path/to/file. Check .claude/team-registry.md."
 
-echo "$CMD_FULL" | grep -qE 'git\s+push\s+.*--force' && \
+echo "$CMD_FULL" | grep -qE 'git\s+push\b.*(--force|\s-f\b|\s\+[^ ]+)' && \
   block "Forced push forbidden: it could destroy other agents' work."
 
 echo "$CMD_FULL" | grep -qE 'git\s+reset\s+--hard' && \
@@ -55,7 +55,8 @@ echo "$CMD_FULL" | grep -qE 'git\s+clean\s+-[fd]' && \
   block "git clean forbidden: it would delete other agents' untracked files."
 
 # --- Soft checks (warning, non-blocking) ---
-ACTIVE_AGENTS=$(grep -cE '^\| agent-[a-z0-9]+-[0-9]+' "$REGISTRY_FILE" 2>/dev/null || echo "0")
+ACTIVE_AGENTS=$(grep -cE '^\| agent-[a-z0-9]+-[0-9]+' "$REGISTRY_FILE" 2>/dev/null)
+ACTIVE_AGENTS=${ACTIVE_AGENTS:-0}
 
 if [[ "$ACTIVE_AGENTS" -gt "0" ]] && echo "$CMD_FULL" | grep -qE 'git\s+commit'; then
   echo "TEAM GUARD (info) : $ACTIVE_AGENTS active agent(s) in the registry. Check that only your claimed files are staged before committing." >&2

@@ -11,6 +11,11 @@ This project adheres to [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 ### Added
 - `docs/EXFILTRATION-DEFENSE.md`: a layered checklist against data exfiltration (secrets, supply chain, egress, database RLS audit, backups), with the allowlist pitfalls found in practice: variables such as `${CLAUDE_SKILL_DIR:-...}` are not expanded by `plugin-allowlist-check.py`, wildcard `git fetch` rules allow `--upload-pack` injection, interpreters and package runners must never be allowlisted, Docker published ports bypass ufw.
 
+## [5.0.8] - 2026-11-14
+
+### Fixed
+- `hooks/optional/team-git-guard.sh`: block messages now go to stderr (Claude only sees stderr on exit 2); force-push detection also covers `-f` and `+branch`; the active-agent counter no longer breaks on an empty registry.
+
 ## [5.0.7] - 2026-11-14
 
 ### Changed
