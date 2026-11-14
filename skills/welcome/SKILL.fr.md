@@ -61,7 +61,7 @@ Garde-fous : si oui, lancer `node ~/.claude/kit/hooks/register-hooks.mjs` (sauve
 
 ## Étape 6 : Conclure
 
-Un court résumé : ce qui est installé, à quoi sert chaque chose, comment demander de l'aide (`/explain <terme>`), comment changer de niveau (`/welcome --redo`). Proposer le palier avancé seulement au niveau Autonome.
+Un court résumé : ce qui est installé, à quoi sert chaque chose, comment demander de l'aide (`/explain <terme>`), comment changer de niveau (`/welcome --redo`). Proposer le palier avancé seulement au niveau Autonome, en disant comment : garder le dossier du kit téléchargé (le démarrage ne copie que 3 skills), puis lancer `bash global/install-global.sh --dry-run` pour prévisualiser, et sans `--dry-run` pour installer (sauvegarde, n'écrase jamais). Pour les autres : mentionner une fois que `/welcome --redo` le débloquera plus tard.
 
 ## Règles
 

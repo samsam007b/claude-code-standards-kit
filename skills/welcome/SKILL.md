@@ -63,7 +63,7 @@ Write `~/.claude/kit/profile.json` with `language`, `level`, `needs`, `tools_ins
 
 ## Step 6: Close
 
-One short summary: what is installed, what each does, how to ask for help (`/explain <term>`), how to change level (`/welcome --redo`). Offer the advanced tier only to Autonomous.
+One short summary: what is installed, what each does, how to ask for help (`/explain <term>`), how to change level (`/welcome --redo`). Offer the advanced tier only to Autonomous, and say how: keep the kit folder you downloaded (the starter copies only 3 skills), then run `bash global/install-global.sh --dry-run` to preview and without `--dry-run` to install (backs up, never overwrites). Everyone else: mention once that `/welcome --redo` later unlocks it.
 
 ## Rules
 
